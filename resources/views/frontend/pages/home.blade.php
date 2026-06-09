@@ -1,0 +1,404 @@
+@extends('frontend.layouts.app')
+
+@section('title', 'Scholarship Campaign - Home Page')
+
+@section('content')
+    <!-- 1. Campaign Overview Hero Section -->
+   <section id="campaign-overview" class="hero-section">
+    <div class="container hero-content-wrapper">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-7 text-lg-start text-center">
+                <div class="hero-subtitle">এসএসসি ২০২৬ ও সমমানের পরীক্ষার্থীদের</div>
+                <div class="hero-main-title">ভবিষ্যৎ সাফল্যের শুভকামনায়</div>
+                
+                <div class="hero-description">
+                    আগামীর চ্যালেঞ্জ মোকাবিলায় নিজেকে প্রস্তুত রাখতে অনলাইনে নিবন্ধন করলেই বাংলায় এআই শেখার ২টি কোর্স এবং নিজেকে এগিয়ে রাখতে ও স্বপ্নের কলেজে ভর্তির পরামর্শ পেতে দুরন্ত এইচএসসি-২৮ কোর্সসহ নানা উপহার পেতে পারো।
+                </div>
+                
+                <div class="hero-accent-text">
+                    Sara দেশে ২০২৬ সালের এসএসসি ও সমমানের পরীক্ষায় জিপিএ-৫ অর্জন করে তোমার শহরে সংবর্ধনায় যোগ দিতে পারবে।
+                </div>
+                
+                <button class="btn btn-hero-cta">নিবন্ধন করতে ক্লিক করো</button>
+            </div>
+            
+            <div class="col-lg-5">
+                <div class="hero-image-container">
+                    <div class="tech-badge badge-1"><i class="bi bi-code-slash"></i></div>
+                    <div class="tech-badge badge-2"><i class="bi bi-cpu"></i></div>
+                    <div class="tech-badge badge-3"><i class="bi bi-wifi"></i></div>
+                    <div class="tech-badge badge-4"><i class="bi bi-laptop"></i></div>
+                    <div class="tech-badge badge-5"><i class="bi bi-robot"></i></div>
+                    <div class="tech-badge badge-6"><i class="bi bi-cloud"></i></div>
+
+                     <img src="{{ asset('images/hero-image.png') }}" 
+                             alt="ভবিষ্যৎ সাফল্যের প্রতীক" 
+                             class="hero-image shadow-lg"
+                             style="width:100%; max-width:500px; height:auto; border-radius:15px; object-fit:cover;">
+                    <div class="image-caption-box">
+                        <div class="caption-top">SSC পরীক্ষা শেষ</div>
+                        <div class="caption-bottom">এখন সময় AI শেখার।</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- 2. Message from No.1 Brand -->
+    <section class="brand-message-section">
+        <div class="container">
+            <h2 class="message-title">স্বপ্ন দেখে এগিয়ে যাও</h2>
+            <p class="message-body">
+                শিক্ষা প্রতিটি মানুষের মৌলিক অধিকার। আমাদের দেশের মেধাবী শিক্ষার্থীদের পথচলাকে মসৃণ করতে আমাদের এই বিশেষ উদ্যোগ। সঠিক দিকনির্দেশনা ও প্রয়োজনীয় সহায়তার মাধ্যমে প্রতিটি শিক্ষার্থী যেন তাদের স্বপ্ন ছূঁতে পারে, সেটাই আমাদের মূল লক্ষ্য।
+            </p>
+        </div>
+    </section>
+
+    <!-- 3. Scholarship & Felicitation Details -->
+    <section class="courses-section">
+        <div class="container">
+            <h2 class="section-header-title">একই সাথে নিবন্ধন করে ফ্রিতে শিক্ষা শুরু করো!</h2>
+            <div class="row g-4">
+                <!-- Card 1 -->
+                <div class="col-md-4">
+                    <div class="course-card">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=500" alt="Think AI">
+                        <div class="course-card-body">
+                            <h4 class="fw-bold mb-3">Think AI Course</h4>
+                            <p class="small text-white-50 mb-4">কৃত্রিম বুদ্ধিমত্তার প্রাথমিক ধারণা ও ব্যবহারিক প্রয়োগ শিখুন এক্সপার্টদের গাইডলাইনে।</p>
+                            <a href="#" class="btn btn-card">ফ্রি এনরোল</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="col-md-4">
+                    <div class="course-card">
+                        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=500" alt="Master AI">
+                        <div class="course-card-body">
+                            <h4 class="fw-bold mb-3">Mastering Digital Tools</h4>
+                            <p class="small text-white-50 mb-4">আধুনিক কর্মক্ষেত্রের উপযোগী ডিজিটাল স্কিলস ডেভেলপমেন্টের কমপ্লিট মডিউল।</p>
+                            <a href="#" class="btn btn-card">ফ্রি এনরোল</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="col-md-4">
+                    <div class="course-card">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=500" alt="Career BootCamp">
+                        <div class="course-card-body">
+                            <h4 class="fw-bold mb-3">ক্যারিয়ার গাইডলাইন</h4>
+                            <p class="small text-white-50 mb-4">উচ্চশিক্ষা ও পরবর্তী ক্যারিয়ার প্ল্যানিং এর জন্য দেশের সেরা মেন্টরদের সেশন।</p>
+                            <a href="#" class="btn btn-card">ফ্রি এনরোল</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Horizontal Circular Thumbnails Row -->
+            <div class="feature-thumb-container mt-5">
+                <div class="row row-cols-2 row-cols-sm-3 row-cols-md-5 g-3 justify-content-center">
+                    <div class="col">
+                        <div class="feature-thumb-card">
+                            <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&q=80&w=150" alt="icon">
+                            <div class="fw-bold small">মেধা বৃত্তি</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="feature-thumb-card">
+                            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=150" alt="icon">
+                            <div class="fw-bold small">ফ্রি সার্টিফিকেট</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="feature-thumb-card">
+                            <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=150" alt="icon">
+                            <div class="fw-bold small">টপ মেন্টরশিপ</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="feature-thumb-card">
+                            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=150" alt="icon">
+                            <div class="fw-bold small">শিক্ষা উপকরণ</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="feature-thumb-card">
+                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=150" alt="icon">
+                            <div class="fw-bold small">কমিউনিটি এক্সেস</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Eligibility Criteria -->
+    <section id="eligibility" class="eligibility-section">
+        <div class="container">
+            <h2 class="section-header-title">আবেদনের যোগ্যতা ও নিয়মাবলী</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="eligibility-list-box">
+                        <div class="eligibility-item">
+                            <i class="bi bi-check-circle-fill eligibility-icon"></i>
+                            <div>২০২৬ সালের এসএসসি/সমমান পরীক্ষায় উত্তীর্ণ নিয়মিত শিক্ষার্থীরা আবেদন করতে পারবেন।</div>
+                        </div>
+                        <div class="eligibility-item">
+                            <i class="bi bi-check-circle-fill eligibility-icon"></i>
+                            <div>জেএসসি এবং এসএসসি উভয় স্তরের ফলাফলের ভিত্তিতে মেধা তালিকা তৈরি করা হবে।</div>
+                        </div>
+                        <div class="eligibility-item">
+                            <i class="bi bi-check-circle-fill eligibility-icon"></i>
+                            <div>অনলাইন আবেদন ফরমে সকল তথ্য সত্য ও নির্ভুলভাবে পূরণ করতে হবে। তথ্যের অমিল পাওয়া গেলে আবেদন বাতিল হবে।</div>
+                        </div>
+                        <div class="eligibility-item">
+                            <i class="bi bi-check-circle-fill eligibility-icon"></i>
+                            <div>কোটা সুবিধা প্রাপ্ত শিক্ষার্থীদের ক্ষেত্রে উপযুক্ত প্রমাণপত্র সাবমিট করতে হবে।</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Central Highlighted Banner -->
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="promo-banner">
+                        <h4 class="fw-bold text-dark mb-2">বিশেষ মেগা সেমিনার ও পুরস্কার বিতরণী অনুষ্ঠান ২০২৬</h4>
+                        <p class="text-muted mb-3">অনলাইন নিবন্ধনকারী প্রতিটি শিক্ষার্থী আমাদের সেন্ট্রাল ক্যারিয়ার ওরিয়েন্টেশন ইভেন্টে আমন্ত্রিত।</p>
+                        <button class="btn btn-danger px-4 py-2 fw-bold">আপনার আসন নিশ্চিত করুন</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Success Stories & Media Section -->
+    <section id="success-stories" style="padding: 60px 0;">
+        <div class="container">
+            <h2 class="section-header-title">আলোকিত মুখ ও ভবিষ্যৎ পথচিত্র</h2>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-5">
+                    <div class="video-card">
+                        <div class="video-thumb-wrapper">
+                            <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&q=80&w=500" class="w-100" style="height:250px; object-fit:cover;" alt="Video">
+                            <div class="play-overlay"><i class="bi bi-play-fill"></i></div>
+                        </div>
+                        <div class="p-3 text-center fw-bold">টিউটোরিয়াল ক্লাস এবং রোডম্যাপ গাইডলাইন</div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="video-card">
+                        <div class="video-thumb-wrapper">
+                            <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=500" class="w-100" style="height:250px; object-fit:cover;" alt="Video">
+                            <div class="play-overlay"><i class="bi bi-play-fill"></i></div>
+                        </div>
+                        <div class="p-3 text-center fw-bold">এসএসসি পরবর্তী সেরা কলেজ সিলেকশন স্ট্র্যাটেজি</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Dark Blue Gallery Section -->
+    <section class="blue-gallery-section">
+        <div class="container">
+            <h2 class="section-header-title">বিগত বছরের সংবর্ধনার ভিডিও চিত্র</h2>
+            <div class="row g-3 justify-content-center">
+                <div class="col-md-4">
+                    <div class="video-card bg-transparent border-0 text-white">
+                        <div class="video-thumb-wrapper">
+                            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=400" class="w-100 rounded" style="height:180px; object-fit:cover;" alt="Gallery">
+                            <div class="play-overlay"><i class="bi bi-play-fill"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="video-card bg-transparent border-0 text-white">
+                        <div class="video-thumb-wrapper">
+                            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=400" class="w-100 rounded" style="height:180px; object-fit:cover;" alt="Gallery">
+                            <div class="play-overlay"><i class="bi bi-play-fill"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="video-card bg-transparent border-0 text-white">
+                        <div class="video-thumb-wrapper">
+                            <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=400" class="w-100 rounded" style="height:180px; object-fit:cover;" alt="Gallery">
+                            <div class="play-overlay"><i class="bi bi-play-fill"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button class="btn btn-light text-primary fw-bold px-4">সবগুলো দেখুন</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Timeline / Photo Gallery Slider Style -->
+    <section id="timeline" style="padding: 60px 0;">
+        <div class="container">
+            <h2 class="section-header-title">সংবর্ধনার ছবি গ্যালারি</h2>
+            
+            <div class="text-center mb-4">
+                <button class="gallery-tab-btn active" data-gallery="all">সব ছবি</button>
+                <button class="gallery-tab-btn" data-gallery="dhaka">ঢাকা ভেন্যু</button>
+                <button class="gallery-tab-btn" data-gallery="chattogram">চট্টগ্রাম ভেন্যু</button>
+            </div>
+
+            <div class="position-relative rounded-4 overflow-hidden shadow-lg">
+                <img id="galleryMainImage" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1200" class="w-100" style="max-height: 480px; object-fit: cover;" alt="Crowd Celebration">
+                <button class="btn btn-dark position-absolute top-50 start-0 translate-middle-y ms-3 rounded-circle" style="width:42px; height:42px; padding:0;"><i class="bi bi-chevron-left"></i></button>
+                <button class="btn btn-dark position-absolute top-50 end-0 translate-middle-y me-3 rounded-circle" style="width:42px; height:42px; padding:0;"><i class="bi bi-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. News & Publications -->
+    <section class="news-section">
+        <div class="container">
+            <h2 class="section-header-title">সংবাদমাধ্যমের চোখে আমাদের উদ্যোগ</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="news-card">
+                        <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=400" alt="News">
+                        <div class="p-3">
+                            <h5 class="fw-bold text-dark">মেধাবী শিক্ষার্থীদের স্বপ্নপূরণে অনন্য এক মহতি উদ্যোগ</h5>
+                            <p class="small text-muted">চলতি বছরের সেরা ক্যাম্পেইন হিসেবে সাড়া ফেলেছে এই শিক্ষাবৃত্তি প্রোগ্রামটি...</p>
+                            <a href="#" class="small text-decoration-none fw-bold">বিস্তারিত পড়ুন</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="news-card">
+                        <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&q=80&w=400" alt="News">
+                        <div class="p-3">
+                            <h5 class="fw-bold text-dark">দেশজুড়ে শিক্ষার্থীদের মাঝে উন্মাদনা ও ব্যাপক সাড়া</h5>
+                            <p class="small text-muted">লক্ষাধিক শিক্ষার্থীর নিবন্ধনের মধ্য দিয়ে চলছে এই বছরের কার্যক্রম...</p>
+                            <a href="#" class="small text-decoration-none fw-bold">বিস্তারিত পড়ুন</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="news-card">
+                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=400" alt="News">
+                        <div class="p-3">
+                            <h5 class="fw-bold text-dark">আইটি ও লিডারশিপ ভিত্তিক বিশেষ সেশন সম্পন্ন</h5>
+                            <p class="small text-muted">শিক্ষার্থীদের উন্নত ক্যারিয়ার গঠনে আর্টিফিশিয়াল ইন্টেলিজেন্স ট্রেইনিং এর গুরুত্ব...</p>
+                            <a href="#" class="small text-decoration-none fw-bold">বিস্তারিত পড়ুন</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <button class="btn btn-primary px-4 btn-register">আরো খবর দেখুন</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. FAQs -->
+    <section id="faqs" class="faq-section">
+        <div class="container">
+            <h2 class="section-header-title">সাধারণ জিজ্ঞাসা (FAQs)</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#q1">
+                                    আবেদনের শেষ সময় কবে?
+                                </button>
+                            </h2>
+                            <div id="q1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    অনলাইন নিবন্ধনের শেষ সময় আগামী মাসের ১৫ তারিখ পর্যন্ত। কোনো প্রকার অতিরিক্ত সময় দেওয়া হবে না।
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q2">
+                                    ফ্রি আইটি কোর্সগুলো কিভাবে এক্সেস করবো?
+                                </button>
+                            </h2>
+                            <div id="q2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    সফলভাবে নিবন্ধন সম্পন্ন করার ২৪ ঘণ্টার মধ্যে আপনার রেজিস্টার্ড ইমেইল ও মোবাইল নম্বরে কোর্সের অ্যাক্টিভেশন লিংক পাঠিয়ে দেওয়া হবে।
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Contact Information -->
+    <section class="container">
+        <div class="bottom-cta-banner">
+            <div class="row align-items-center g-4">
+                <div class="col-md-8 text-md-start text-center">
+                    <h3 class="fw-bold text-dark mb-2">আপনার কি কোনো প্রশ্ন বা জিজ্ঞাসা আছে?</h3>
+                    <p class="text-muted mb-0">আমাদের সাপোর্ট টিম ২৪/৭ নিয়োজিত আছে আপনার যেকোনো সমস্যার তাৎক্ষণিক সমাধানে।</p>
+                    <div class="mt-3 text-dark d-flex flex-wrap gap-3 justify-content-center justify-content-md-start">
+                        <span><i class="bi bi-telephone-fill text-primary"></i> +৮৮০ ১২৩৪৫৬৭৮</span>
+                        <span><i class="bi bi-envelope-fill text-primary"></i> support@shikshocampaign.com</span>
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end text-center">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" alt="Support representative" class="rounded-circle shadow" style="width:95px; height:95px; object-fit:cover;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Video Modal -->
+<div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content bg-dark border-0">
+            <div class="modal-body p-0 position-relative" style="padding-top:56.25% !important;">
+                <iframe id="videoPlayer" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
+            </div>
+            <button type="button" class="btn-close position-absolute top-2 end-2 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+@endsection
+
+@push('scripts')
+<script>
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Gallery tab buttons functionality
+    const tabButtons = document.querySelectorAll('.gallery-tab-btn');
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            // Add functionality to change gallery images here
+        });
+    });
+
+    // Play overlay click handler
+    const playOverlays = document.querySelectorAll('.play-overlay');
+    playOverlays.forEach(overlay => {
+        overlay.addEventListener('click', () => {
+            // Add video popup functionality here
+            alert('Video player will open here');
+        });
+    });
+</script>
+@endpush
