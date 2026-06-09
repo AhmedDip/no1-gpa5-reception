@@ -49,7 +49,7 @@
     <!-- 2. Message from No.1 Brand -->
     <section class="brand-message-section">
         <div class="container">
-            <h2 class="message-title">স্বপ্ন দেখে এগিয়ে যাও</h2>
+            <h2 class="message-title" style="font-size: 2.5rem; font-style: italic;">স্বপ্ন দেখে এগিয়ে যাও</h2>
             <p class="message-body">
                 শিক্ষা প্রতিটি মানুষের মৌলিক অধিকার। আমাদের দেশের মেধাবী শিক্ষার্থীদের পথচলাকে মসৃণ করতে আমাদের এই বিশেষ
                 উদ্যোগ। সঠিক দিকনির্দেশনা ও প্রয়োজনীয় সহায়তার মাধ্যমে প্রতিটি শিক্ষার্থী যেন তাদের স্বপ্ন ছুঁতে পারে, সেটাই
@@ -66,7 +66,7 @@
                 <!-- Card 1 with YouTube Video -->
                 <div class="col-md-4">
                     <div class="course-card" data-video-id="jg-EvmKaqTQ">
-                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=500"
+                        <img src="{{ asset('images/course-1-thum.png') }}"
                             alt="Think AI">
                         <div class="course-card-body">
                             <h4 class="fw-bold mb-3">Think AI Course</h4>
@@ -80,7 +80,7 @@
                 <!-- Card 2 with YouTube Video -->
                 <div class="col-md-4">
                     <div class="course-card" data-video-id="dQw4w9WgXcQ">
-                        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=500"
+                        <img src="{{ asset('images/course-2-thum.png') }}"
                             alt="Master AI">
                         <div class="course-card-body">
                             <h4 class="fw-bold mb-3">Mastering Digital Tools</h4>
@@ -94,7 +94,7 @@
                 <!-- Card 3 with YouTube Video -->
                 <div class="col-md-4">
                     <div class="course-card" data-video-id="SxR6m7kqP9M">
-                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=500"
+                        <img src="{{ asset('images/course-3-thum.png') }}"
                             alt="Career BootCamp">
                         <div class="course-card-body">
                             <h4 class="fw-bold mb-3">ক্যারিয়ার গাইডলাইন</h4>
@@ -200,7 +200,7 @@
                 <div class="col-md-5">
                     <div class="video-card" data-video-id="jg-EvmKaqTQ">
                         <div class="video-thumb-wrapper">
-                            <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&q=80&w=500"
+                            <img src="https://cdn.10minuteschool.com/images/thumbnails/skills/ghore-boshe-Spoken-English-course-thumbnail-by-Munzereen-Shahid-16x9.jpg"
                                 class="w-100" style="height:250px; object-fit:cover;" alt="Video">
                             <div class="play-overlay" data-video-id="jg-EvmKaqTQ"><i class="bi bi-play-fill"></i></div>
                         </div>
@@ -209,10 +209,11 @@
                 </div>
                 <div class="col-md-5">
                     <div class="video-card" data-video-id="dQw4w9WgXcQ">
-                        <div class="video-thumb-wrapper">
-                            <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=500"
+                       <div class="video-thumb-wrapper">
+                            <img src="https://cdn.10minuteschool.com/images/catalog/media/ASE-Thumbnail-16%C3%A0%C2%A6%C2%8F%C3%A0%C2%A6%C2%95%C3%A0%C2%A7%C2%8D%C3%A0%C2%A6%C2%B89_1780465442289.png"
                                 class="w-100" style="height:250px; object-fit:cover;" alt="Video">
-                            <div class="play-overlay" data-video-id="dQw4w9WgXcQ"><i class="bi bi-play-fill"></i></div>
+
+                            <div class="play-overlay" data-video-id="jg-EvmKaqTQ"><i class="bi bi-play-fill"></i></div>
                         </div>
                         <div class="p-3 text-center fw-bold">এসএসসি পরবর্তী সেরা কলেজ সিলেকশন স্ট্র্যাটেজি</div>
                     </div>
@@ -228,28 +229,30 @@
             <div class="row g-3 justify-content-center">
                 <div class="col-md-4">
                     <div class="video-card bg-transparent border-0 text-white" data-video-id="SxR6m7kqP9M">
+                       <div class="video-card bg-transparent border-0 text-white" data-video-id="jg-EvmKaqTQ">
                         <div class="video-thumb-wrapper">
-                            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=400"
+                            <img src="https://ncdn.ntvbd.com/sites/default/files/styles/big_3/public/images/2024/06/05/mgi.jpg"
                                 class="w-100 rounded" style="height:180px; object-fit:cover;" alt="Gallery">
-                            <div class="play-overlay" data-video-id="SxR6m7kqP9M"><i class="bi bi-play-fill"></i></div>
+                            <div class="play-overlay" data-video-id="jg-EvmKaqTQ"><i class="bi bi-play-fill"></i></div>
                         </div>
+                    </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="video-card bg-transparent border-0 text-white" data-video-id="jg-EvmKaqTQ">
                         <div class="video-thumb-wrapper">
-                            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=400"
+                            <img src="https://admin.dainikamadershomoy.com/images/large/2025/08/31/news_1756661557436.webp"
                                 class="w-100 rounded" style="height:180px; object-fit:cover;" alt="Gallery">
                             <div class="play-overlay" data-video-id="jg-EvmKaqTQ"><i class="bi bi-play-fill"></i></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="video-card bg-transparent border-0 text-white" data-video-id="dQw4w9WgXcQ">
+                     <div class="video-card bg-transparent border-0 text-white" data-video-id="jg-EvmKaqTQ">
                         <div class="video-thumb-wrapper">
-                            <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=400"
+                            <img src="https://scontent.fdac198-2.fna.fbcdn.net/v/t39.30808-6/481478843_1013384197492318_1529058912000844589_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1933&ctp=s2048x1933&_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_ohc=BcLtyeIU5lwQ7kNvwFULSrx&_nc_oc=AdqQSWBhRs28PI4QvDv1yg1C7x1zso0ukT5DFpyOIQ58CVnwrJRjOCnrOJuC-_8m4Tc&_nc_zt=23&_nc_ht=scontent.fdac198-2.fna&_nc_gid=J8VcfTUoV9QpLcBGyj0l-A&_nc_ss=7b289&oh=00_Af9uA_GFs_zo4w0FvFjQT6_hpFva_xAG8a2znOtgs13lPQ&oe=6A2DA9B1"
                                 class="w-100 rounded" style="height:180px; object-fit:cover;" alt="Gallery">
-                            <div class="play-overlay" data-video-id="dQw4w9WgXcQ"><i class="bi bi-play-fill"></i></div>
+                            <div class="play-overlay" data-video-id="jg-EvmKaqTQ"><i class="bi bi-play-fill"></i></div>
                         </div>
                     </div>
                 </div>
@@ -273,7 +276,7 @@
 
             <div class="position-relative rounded-4 overflow-hidden shadow-lg mb-4">
                 <img id="galleryMainImage"
-                    src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1200"
+                    src="https://admin.dainikamadershomoy.com/images/large/2025/08/31/news_1756661557436.webp"
                     class="w-100" style="max-height: 480px; object-fit: cover;" alt="Gallery main">
                 <button id="prevGalleryBtn"
                     class="btn btn-dark position-absolute top-50 start-0 translate-middle-y ms-3 rounded-circle"
@@ -294,7 +297,7 @@
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="news-card">
-                        <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=400"
+                        <img src="https://ncdn.ntvbd.com/sites/default/files/styles/big_3/public/images/2024/06/05/mgi.jpg"
                             alt="News">
                         <div class="p-3">
                             <h5 class="fw-bold text-dark">মেধাবী শিক্ষার্থীদের স্বপ্নপূরণে অনন্য এক মহতি উদ্যোগ</h5>
@@ -306,7 +309,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="news-card">
-                        <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&q=80&w=400"
+                        <img src="https://admin.dainikamadershomoy.com/images/large/2025/08/31/news_1756661557436.webp"
                             alt="News">
                         <div class="p-3">
                             <h5 class="fw-bold text-dark">দেশজুড়ে শিক্ষার্থীদের মাঝে উন্মাদনা ও ব্যাপক সাড়া</h5>
@@ -318,7 +321,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="news-card">
-                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=400"
+                        <img src="https://scontent.fdac198-2.fna.fbcdn.net/v/t39.30808-6/481478843_1013384197492318_1529058912000844589_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1933&ctp=s2048x1933&_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_ohc=BcLtyeIU5lwQ7kNvwFULSrx&_nc_oc=AdqQSWBhRs28PI4QvDv1yg1C7x1zso0ukT5DFpyOIQ58CVnwrJRjOCnrOJuC-_8m4Tc&_nc_zt=23&_nc_ht=scontent.fdac198-2.fna&_nc_gid=J8VcfTUoV9QpLcBGyj0l-A&_nc_ss=7b289&oh=00_Af9uA_GFs_zo4w0FvFjQT6_hpFva_xAG8a2znOtgs13lPQ&oe=6A2DA9B1"
                             alt="News">
                         <div class="p-3">
                             <h5 class="fw-bold text-dark">আইটি ও লিডারশিপ ভিত্তিক বিশেষ সেশন সম্পন্ন</h5>
@@ -346,7 +349,7 @@
                             <h2 class="accordion-header">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#q1">
-                                    Aবেদনের শেষ সময় কবে?
+                                    অনলাইন নিবন্ধনের শেষ সময় কখন?
                                 </button>
                             </h2>
                             <div id="q1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
@@ -370,6 +373,21 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#q3">
+                                    মেধা তালিকায় কিভাবে স্থান পাবে?
+                                </button>
+                            </h2>
+                            <div id="q3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    মেধা তালিকা তৈরি করা হবে জেএসসি ও এসএসসি উভয় স্তরের ফলাফলের ভিত্তিতে। জেএসসি ও
+                                    এসএসসি উভয় পরীক্ষায় জিপিএ-৫ অর্জনকারী শিক্ষার্থীদের মধ্যে সর্বোচ্চ নম্বরের ভিত্তিতে
+                                    স্থান নির্ধারণ করা হবে।
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -386,13 +404,13 @@
                     </p>
                     <div class="mt-3 text-dark d-flex flex-wrap gap-3 justify-content-center justify-content-md-start">
                         <span><i class="bi bi-telephone-fill text-primary"></i> +৮৮০ ১২৩৪৫৬৭৮</span>
-                        <span><i class="bi bi-envelope-fill text-primary"></i> support@shikshocampaign.com</span>
+                        <span><i class="bi bi-envelope-fill text-primary"></i> support@no1babarkritisontan.com</span>
                     </div>
                 </div>
                 <div class="col-md-4 text-md-end text-center">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200"
+                    <img src="https://admin.dainikamadershomoy.com/images/large/2025/08/31/news_1756661557436.webp"
                         alt="Support representative" class="rounded-circle shadow"
-                        style="width:95px; height:95px; object-fit:cover;">
+                        style="width:125px; height:120px; object-fit:cover;">
                 </div>
             </div>
         </div>
@@ -419,15 +437,15 @@
         function openYouTubeVideo(videoId) {
             const videoFrameContainer = document.getElementById('videoFrameContainer');
             videoFrameContainer.innerHTML = `
-                <iframe
-                    src="https://www.youtube.com/embed/jg-EvmKaqTQ?si=nSUVEGft_sl38Fpp&autoplay=1"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen
-                    style="width:100%; height:100%; position:absolute; inset:0;">
-                </iframe>`;
+              <iframe
+                src="https://www.youtube.com/embed/${videoId}?si=nSUVEGft_sl38Fpp&autoplay=1"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+                style="width:100%; height:100%; position:absolute; inset:0;">
+              </iframe>`;
 
             new bootstrap.Modal(document.getElementById('videoModal')).show();
         }
@@ -462,19 +480,19 @@
             // Image sets for All, Dhaka, Chattogram
             const galleryData = {
                 all: [
-                    "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1200",
+                    "https://ncdn.ntvbd.com/sites/default/files/styles/big_3/public/images/2024/06/05/mgi.jpg",
                     "https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&q=80&w=1200",
                     "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1200",
                     "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1200",
                     "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1200"
                 ],
                 dhaka: [
-                    "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1200",
+                    "https://scontent.fdac198-2.fna.fbcdn.net/v/t39.30808-6/481478843_1013384197492318_1529058912000844589_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1933&ctp=s2048x1933&_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_ohc=BcLtyeIU5lwQ7kNvwFULSrx&_nc_oc=AdqQSWBhRs28PI4QvDv1yg1C7x1zso0ukT5DFpyOIQ58CVnwrJRjOCnrOJuC-_8m4Tc&_nc_zt=23&_nc_ht=scontent.fdac198-2.fna&_nc_gid=J8VcfTUoV9QpLcBGyj0l-A&_nc_ss=7b289&oh=00_Af9uA_GFs_zo4w0FvFjQT6_hpFva_xAG8a2znOtgs13lPQ&oe=6A2DA9B1",
                     "https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&q=80&w=1200",
                     "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1200",
                 ],
                 chattogram: [
-                    "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1200",
+                    "https://scontent.fdac198-2.fna.fbcdn.net/v/t39.30808-6/481478843_1013384197492318_1529058912000844589_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1933&ctp=s2048x1933&_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_ohc=BcLtyeIU5lwQ7kNvwFULSrx&_nc_oc=AdqQSWBhRs28PI4QvDv1yg1C7x1zso0ukT5DFpyOIQ58CVnwrJRjOCnrOJuC-_8m4Tc&_nc_zt=23&_nc_ht=scontent.fdac198-2.fna&_nc_gid=J8VcfTUoV9QpLcBGyj0l-A&_nc_ss=7b289&oh=00_Af9uA_GFs_zo4w0FvFjQT6_hpFva_xAG8a2znOtgs13lPQ&oe=6A2DA9B1",
                     "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1200"
                 ]
             };

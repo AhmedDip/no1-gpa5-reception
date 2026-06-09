@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Scholarship Campaign - Landing Page')</title>
+    <title>@yield('title', 'NO1 বাবার কৃতী সন্তান সংবর্ধনা')</title>
+
+    <link rel="icon" href="{{ asset('images/no1-logo.png') }}" type="image/png">
     
     <!-- Google Fonts: Hind Siliguri for Bangla typography, Inter for UI elements -->
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -95,14 +97,14 @@
             margin-bottom: 25px;
         }
         .hero-description {
-            font-size: 1.15rem;
+            font-size: 1.5rem;
             color: #2c3e50;
             line-height: 1.7;
             margin-bottom: 20px;
             max-width: 680px;
         }
         .hero-accent-text {
-            font-size: 1.1rem;
+            font-size: 1.45rem;
             color: #34495e;
             font-weight: 500;
             margin-bottom: 35px;
@@ -194,7 +196,7 @@
             margin-bottom: 20px;
         }
         .message-body {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             color: #444;
             max-width: 850px;
             margin: 0 auto;
@@ -227,7 +229,7 @@
         }
         .course-card img {
             width: 100%;
-            height: 210px;
+            height: 400px;
             object-fit: cover;
             transition: transform 0.3s;
         }
@@ -254,20 +256,19 @@
 
         /* --- Round Thumbnails Grid --- */
         .feature-thumb-container {
-            padding: 40px 0;
+            padding: 50px 0;
         }
         .feature-thumb-card {
-            background: #FFF9E6;
-            border-radius: 16px;
-            padding: 20px;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 30px;
             text-align: center;
-            border: 1px solid #FFEAA7;
-            height: 100%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             transition: all 0.3s ease;
-            cursor: pointer;
+            
         }
         .feature-thumb-card:hover {
-            background: #FFEAA7;
+            background: #fff3cb;
             transform: translateY(-5px);
         }
         .feature-thumb-card img {
