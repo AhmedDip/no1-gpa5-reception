@@ -18,7 +18,7 @@
         :root {
             --primary: #4F46E5;      /* indigo-600 */
             --primary-dark: #13a4c9;
-            --secondary: #c38ce7;    /* amber-500 */
+            --secondary: #852fa7;    /* amber-500 */
             --accent: #EF4444;       /* red-500 */
             --dark: #0F172A;
             --gray: #64748B;
@@ -87,10 +87,11 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #ffffff 0%, #f0e4fd 100%);
+            /* background: linear-gradient(135deg, #ffffff 0%, #eedffd 100%); */
+            background: linear-gradient(135deg, #effbff 0%, #f6f5ff 80%, #c0b2fc 100%);
             position: relative;
             overflow: hidden;
-            padding: 6rem 0 5rem;
+            padding: 8rem 0 7rem;
         }
         .hero-badge {
             background: rgba(79,70,229,0.1);
