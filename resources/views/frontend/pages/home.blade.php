@@ -240,7 +240,7 @@
 
             <div class="col-12 col-lg-5">
                 <div class="bg-gradient-special rounded-4 p-4 p-md-5 h-100 d-flex flex-column justify-content-between"
-                    style="background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);">
+                    style="background: linear-gradient(135deg, #FEF3C7 0%, #f5de84 100%);">
                     <div class="d-flex justify-content-between align-items-start mb-3 mb-md-4">
                         <span class="badge bg-dark text-white px-3 py-2 rounded-pill small">লিমিটেড আসন</span>
                         <i class="bi bi-megaphone fs-2 fs-md-1 text-dark opacity-50"></i>
@@ -248,7 +248,8 @@
                     <h3 class="fw-bold fs-2 fs-md-1 text-dark">বিশেষ মেগা সেমিনার ২০২৬</h3>
                     <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">অনলাইন নিবন্ধনকারী প্রতিটি শিক্ষার্থী <strong
                             class="text-primary">সেন্ট্রাল ক্যারিয়ার ওরিয়েন্টেশন ইভেন্টে</strong> আমন্ত্রিত। সেরা
-                        মেন্টরদের সাথে সরাসরি মতবিনিময়।</p>
+                        মেন্টরদের সাথে সরাসরি মতবিনিময়। ভবিষ্যতের ক্যারিয়ার গাইডেন্স ও অনুপ্রেরণা নেয়ার একমাত্র সুযোগ। 
+                    </p>
                     <div class="mt-3 mt-md-4">
                         <button class="btn btn-dark btn-md btn-lg rounded-pill px-4 px-md-5 shadow-sm w-100 w-md-auto">আসন
                             নিশ্চিত করুন <i class="bi bi-arrow-right ms-2"></i></button>
@@ -279,8 +280,11 @@
                     <div
                         class="timeline-card-modern text-center p-3 p-md-4 rounded-4 bg-white border-bottom border-4 border-warning shadow-sm h-100">
                         <div class="timeline-number mb-2 d-none d-md-block">01</div>
-                        <div class="timeline-icon mb-2 mb-md-3">
+                        {{-- <div class="timeline-icon mb-2 mb-md-3">
                             <i class="bi bi-calendar-plus fs-2 fs-md-1 text-warning"></i>
+                        </div> --}}
+                         <div class="fancy-icon-wrapper bg-gradient-warning mx-auto mb-2 mb-md-3">
+                            <i class="bi bi-calendar-plus fs-2 text-white"></i>
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-4">নিবন্ধন শুরু</h5>
                         <p class="fs-5 fs-md-4 fw-bold text-dark mb-0">১ জানু</p>
@@ -291,9 +295,9 @@
                     <div
                         class="timeline-card-modern text-center p-3 p-md-4 rounded-4 bg-white border-bottom border-4 border-primary shadow-sm h-100">
                         <div class="timeline-number mb-2 d-none d-md-block">02</div>
-                        <div class="timeline-icon mb-2 mb-md-3">
-                            <i class="bi bi-calendar-x fs-2 fs-md-1 text-primary"></i>
-                        </div>
+                        <div class="fancy-icon-wrapper bg-gradient-special mx-auto mb-2 mb-md-3">
+                            <i class="bi bi-calendar-x fs-2 text-white"></i>
+                        </div>                       
                         <h5 class="fw-bold fs-6 fs-md-4">নিবন্ধন শেষ</h5>
                         <p class="fs-5 fs-md-4 fw-bold text-dark mb-0">১৫ মার্চ</p>
                         <p class="text-secondary small mb-0">২০২৬</p>
@@ -303,9 +307,9 @@
                     <div
                         class="timeline-card-modern text-center p-3 p-md-4 rounded-4 bg-white border-bottom border-4 border-success shadow-sm h-100">
                         <div class="timeline-number mb-2 d-none d-md-block">03</div>
-                        <div class="timeline-icon mb-2 mb-md-3">
-                            <i class="bi bi-trophy fs-2 fs-md-1 text-success"></i>
-                        </div>
+                        <div class="fancy-icon-wrapper bg-gradient-success mx-auto mb-2 mb-md-3">
+                            <i class="bi bi-calendar-check fs-2 text-white"></i>
+                        </div>      
                         <h5 class="fw-bold fs-6 fs-md-4">মেধা তালিকা</h5>
                         <p class="fs-5 fs-md-4 fw-bold text-dark mb-0">এপ্রিল</p>
                         <p class="text-secondary small mb-0">২০২৬</p>
@@ -315,9 +319,9 @@
                     <div
                         class="timeline-card-modern text-center p-3 p-md-4 rounded-4 bg-white border-bottom border-4 border-danger shadow-sm h-100">
                         <div class="timeline-number mb-2 d-none d-md-block">04</div>
-                        <div class="timeline-icon mb-2 mb-md-3">
-                            <i class="bi bi-people fs-2 fs-md-1 text-danger"></i>
-                        </div>
+                        <div class="fancy-icon-wrapper bg-gradient-primary mx-auto mb-2 mb-md-3">
+                            <i class="bi bi-people fs-2 text-white"></i>
+                        </div>  
                         <h5 class="fw-bold fs-6 fs-md-4">সংবর্ধনা</h5>
                         <p class="fs-5 fs-md-4 fw-bold text-dark mb-0">মে</p>
                         <p class="text-secondary small mb-0">২০২৬</p>
@@ -489,13 +493,13 @@
     </section>
 
     <!-- Video Modal -->
-    <div class="modal fade" id="videoModal" tabindex="-1">
+    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content bg-black border-0 rounded-4">
-                <div class="modal-body p-0 position-relative" style="padding-top: 56.25%;">
-                    <div id="videoFrame" style="position:absolute; top:0; left:0; width:100%; height:100%;"></div>
-                    <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-2 m-md-3"
-                        data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-content rounded-4 overflow-hidden">
+                <div class="modal-body p-0">
+                    <div class="ratio ratio-16x9">
+                        <iframe id="videoFrame" src="" title="Video Player" allowfullscreen></iframe>
+                    </div>
                 </div>
             </div>
         </div>
@@ -554,18 +558,21 @@
         }
 
         .bg-gradient-info {
-            background: linear-gradient(135deg, #06B6D4, #06667e);
+            background: linear-gradient(135deg, #06B6D4, #057e9c);
+        }
+
+        .bg-gradient-special {
+            background: linear-gradient(135deg, #3cbcef 0%, #040763 100%);
         }
 
         /* Timeline Card */
         .timeline-card-modern {
-            position: relative;
             transition: all 0.3s ease;
         }
 
         .timeline-card-modern:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px -10px rgba(0, 0, 0, 0.12) !important;
         }
 
         .timeline-number {

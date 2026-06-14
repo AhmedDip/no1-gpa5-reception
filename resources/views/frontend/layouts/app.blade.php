@@ -120,47 +120,13 @@
             padding: 0.5rem 1.5rem;
         }
 
-        /* Cards modern */
-        .card-premium {
-            background: white;
-            border-radius: var(--card-radius);
-            border: none;
-            transition: var(--transition);
-            overflow: hidden;
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.05);
-        }
-        .card-premium:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 30px 45px -15px rgba(0,0,0,0.12);
-        }
-        .course-card {
-            background: linear-gradient(145deg, #1E293B, #0F172A);
-            border-radius: 1.5rem;
-            color: white;
-        }
         .video-thumb {
             position: relative;
             border-radius: 1rem;
             overflow: hidden;
             cursor: pointer;
         }
-        .play-btn-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 70px;
-            height: 70px;
-            background: rgba(239, 68, 68, 0.95);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            transition: var(--transition);
-            backdrop-filter: blur(4px);
-        }
-        .video-thumb:hover .play-btn-overlay { transform: translate(-50%, -50%) scale(1.1); background: var(--primary); }
+    
 
         /* gallery thumbnail */
         .gallery-thumb {
@@ -210,10 +176,7 @@
             display:flex; align-items:center; justify-content:center;
             box-shadow: 0 10px 25px rgba(79,70,229,0.08);
         }
-        .bg-gradient-primary { background: linear-gradient(135deg,#4F46E5,#7C3AED); }
-        .bg-gradient-success { background: linear-gradient(135deg,#10B981,#34D399); }
-        .bg-gradient-warning { background: linear-gradient(135deg,#F59E0B,#F97316); }
-        .bg-gradient-info { background: linear-gradient(135deg,#06B6D4,#06A6D6); }
+
         .hover-lift:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(2,6,23,0.08); }
         .video-play-btn { text-decoration: none; }
         .text-dark-emphasis { color: rgba(15,23,42,0.9); }
