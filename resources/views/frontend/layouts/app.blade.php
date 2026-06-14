@@ -88,7 +88,7 @@
         /* Hero Section */
         .hero {
             /* background: linear-gradient(135deg, #ffffff 0%, #eedffd 100%); */
-            background: linear-gradient(135deg, #effbff 0%, #f6f5ff 80%, #c0b2fc 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #e5e5ff 50%, #cbbfff 100%);
             position: relative;
             overflow: hidden;
             padding: 8rem 0 7rem;
