@@ -15,7 +15,8 @@
                     <p class="lead text-secondary mt-3 mt-lg-4">
                         আগামীর চ্যালেঞ্জ মোকাবিলায় নিজেকে প্রস্তুত রাখতে অনলাইনে নিবন্ধন করলেই বাংলায় এআই শেখার ২টি কোর্স
                         এবং নিজেকে এগিয়ে রাখতে ও স্বপ্নের কলেজে ভর্তির পরামর্শ পেতে অর্জন করতে পারো নানা উপহার।
-                        সারা দেশে ২০২৬ সালের এসএসসি ও সমমানের পরীক্ষায় জিপিএ-৫ অর্জন করে তোমার শহরে সংবর্ধনায় যোগ দিতে পারবে।
+                        সারা দেশে ২০২৬ সালের এসএসসি ও সমমানের পরীক্ষায় জিপিএ-৫ অর্জন করে তোমার শহরে সংবর্ধনায় যোগ দিতে
+                        পারবে।
                     </p>
                     <div class="d-flex flex-wrap gap-3 mt-4 justify-content-center justify-content-lg-start">
                         <a href="#" class="btn btn-primary btn-lg px-4 px-lg-5">এখনই নিবন্ধন <i
@@ -23,9 +24,20 @@
                         <a href="#faq" class="btn btn-outline-secondary btn-lg px-4 px-lg-5">বিস্তারিত দেখুন</a>
                     </div>
                     <div class="hero-stats d-inline-flex mt-5 gap-3 gap-lg-4">
-                        <div><strong>২০,০০০+</strong><br><small>নিবন্ধন</small></div>
-                        <div><strong>৫০০+</strong><br><small>সংবর্ধিত</small></div>
-                        <div><strong>৩২</strong><br><small>জেলা</small></div>
+                        <div class="d-flex flex-column align-items-center">
+                            <span class="fs-3 fw-bold">১০,০০০+</span>
+                            <span class="small text-secondary">নিবন্ধিত শিক্ষার্থী</span>
+                        </div>
+
+                        <div class="d-flex flex-column align-items-center">
+                            <span class="fs-3 fw-bold">৫০০+</span>
+                            <span class="small text-secondary">স্কলারশিপ প্রাপ্ত শিক্ষার্থী</span>
+                        </div>
+                        
+                        <div class="d-flex flex-column align-items-center">
+                            <span class="fs-3 fw-bold">৫০+</span>
+                            <span class="small text-secondary">সংবর্ধনা অনুষ্ঠান</span>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-5 text-center floating-element">
@@ -40,12 +52,19 @@
     <section class="container py-4 py-md-5 my-2 my-md-4 text-center">
         <div class="row justify-content-center">
             <div class="col-11 col-lg-8">
-                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill mb-3">ব্র্যান্ডের বাণী</span>
-                <h2 class="section-title mx-auto">নং ১ এর পক্ষ থেকে শুভেচ্ছা</h2>
-                <p class="lead mt-4 fs-5 fs-md-4 fw-medium text-dark-emphasis">“শিক্ষাই মূল চাবিকাঠি। প্রতিটি ঘরের মেধাবী
-                    সন্তান যেন তার স্বপ্নের পথে অগ্রসর হতে পারে—নং ১ সেই লক্ষ্যেই এগিয়ে যায়। আমরা গর্বিত তোমাদের সাফল্যে।”
+                <h2 class="section-title mx-auto">
+                    <img src="{{ asset('images/mgi-logo.png') }}" alt="brand" height="40" class="me-2">
+                    এর পক্ষ থেকে শুভেচ্ছা
+                </h2>
+
+                <p class="lead mt-4 fs-5 fs-md-4 fw-medium text-dark-emphasis">
+                    “শিক্ষাই মূল চাবিকাঠি। প্রতিটি ঘরের মেধাবী সন্তান যেন তার স্বপ্নের পথে অগ্রসর হতে পারে—
+                    <img src="{{ asset('images/no1-logo.png') }}" alt="brand" height="30" class="mx-2">
+                    এর এই উদ্যোগ সেই লক্ষ্যেই এগিয়ে যায়। আমরা গর্বিত তোমাদের সাফল্যে। এই উদ্যোগ তোমাদের জন্য নতুন দিগন্ত
+                    উন্মোচন করবে। 
+                    সবার জন্য শুভকামনা রইল!”
                 </p>
-                <img src="{{ asset('images/no1-logo.png') }}" alt="brand" height="45" class="mt-3">
+                {{-- <img src="{{ asset('images/no1-logo.png') }}" alt="brand" height="60" class="me-2"> --}}
             </div>
         </div>
     </section>
@@ -54,79 +73,123 @@
     <section class="bg-light py-5 py-md-6 mt-3 mt-md-5">
         <div class="container">
             <div class="text-center mb-4 mb-md-5">
-                <h2 class="section-title">স্কলারশিপ ও ফ্রি কোর্সের বিবরণ</h2>
-                <p class="text-secondary px-2">জিপিএ-৫ প্রাপ্ত প্রতিটি শিক্ষার্থী পাচ্ছে অত্যাধুনিক আইটি কোর্স ও সার্টিফিকেট
-                </p>
+                <h2 class="section-title">স্কলারশিপ ও সার্টিফিকেট বিবরণ</h2>
+                <p class="text-secondary px-2">জিপিএ-৫ প্রাপ্ত প্রতিটি শিক্ষার্থী পেলেই অনন্য সুযোগ — আর্থিক বৃত্তি, আন্তর্জাতিক মাপকাঠির সার্টিফিকেট ও এক্সক্লুসিভ মেন্টরশিপ।</p>
             </div>
-            <div class="row g-3 g-md-4">
-                <div class="col-12 col-md-4">
-                    <div class="card-premium h-100 p-3 p-md-4 text-center">
-                        <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex p-3 mx-auto mb-3"><i
-                                class="bi bi-cpu fs-1 text-primary"></i></div>
-                        <h4 class="fs-5 fs-md-4">থিংক এআই কোর্স</h4>
-                        <p class="text-secondary small">কৃত্রিম বুদ্ধিমত্তার মৌলিক ধারণা, ChatGPT, প্রম্পট ইঞ্জিনিয়ারিং</p>
-                        <a href="#" class="video-play-btn text-primary fw-bold" data-video-id="jg-EvmKaqTQ">📺 ফ্রি
-                            দেখুন →</a>
+
+            <div class="row g-4 align-items-stretch">
+                <div class="col-12 col-lg-7">
+                    <div class="card-premium h-100 p-4 p-md-5 position-relative overflow-hidden" style="background: linear-gradient(135deg, rgba(79,70,229,0.06), rgba(124,58,237,0.03));">
+                        {{-- <div class="ribbon">স্কলারশিপ</div> --}}
+                        <div class="d-flex gap-3 align-items-start">
+                            <div class="me-3 d-none d-md-block">
+                                <div class="fancy-icon-wrapper bg-gradient-primary text-white d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-award fs-1 text-white"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="fw-bold">জিপিএ-৫ প্রাপ্ত শিক্ষার্থীদের জন্য সম্পূর্ণ প্যাকেজ</h3>
+                                <p class="text-dark-emphasis">স্কলারশিপের মাধ্যমে শিক্ষার্থীদের পড়াশোনার ব্যয় হ্রাস করা হবে। এছাড়া ডিজিটাল স্কিল ও ক্যারিয়ার মেন্টরশিপ প্রদান করা হবে যাতে তারা ভবিষ্যতে স্বনির্ভর হয়ে উঠতে পারে।</p>
+                                <ul class="list-unstyled mt-3 mb-0">
+                                    <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i>আর্থিক মেধা বৃত্তি</li>
+                                    <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i>প্রিমিয়াম সার্টিফিকেট (ডিজিটাল + প্রিন্ট)</li>
+                                    <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i>টপ-মেন্টরদের থেকে গাইডেন্স ও ক্যারিয়ার সাপোর্ট</li>
+                                </ul>
+                                <div class="mt-4">
+                                    <a href="#eligibility" class="btn btn-primary me-2">যোগ্যতা দেখুন</a>
+                                    <a href="#" class="btn btn-outline-secondary">আরও জানুন</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="position-absolute" style="right: -60px; bottom: -30px; opacity:0.12; transform: rotate(-20deg);">
+                            <img src="{{ asset('images/no1-logo.png') }}" alt="logo" height="220">
+                        </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-4">
-                    <div class="card-premium h-100 p-3 p-md-4 text-center">
-                        <div class="bg-warning bg-opacity-10 rounded-circle d-inline-flex p-3 mx-auto mb-3"><i
-                                class="bi bi-graph-up fs-1 text-warning"></i></div>
-                        <h4 class="fs-5 fs-md-4">ডিজিটাল টুলস মাস্টারি</h4>
-                        <p class="text-secondary small">এক্সেল, কন্টেন্ট ক্রিয়েশন, ফ্রিল্যান্সিং বেসিক</p>
-                        <a href="#" class="video-play-btn text-primary fw-bold" data-video-id="dQw4w9WgXcQ">🎯 কোর্সটি
-                            দেখুন</a>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <div class="card-premium h-100 p-3 p-md-4 text-center">
-                        <div class="bg-danger bg-opacity-10 rounded-circle d-inline-flex p-3 mx-auto mb-3"><i
-                                class="bi bi-briefcase fs-1 text-danger"></i></div>
-                        <h4 class="fs-5 fs-md-4">ক্যারিয়ার বুটক্যাম্প</h4>
-                        <p class="text-secondary small">কলেজ সিলেকশন, ইউনিভার্সিটি ভর্তি ও ক্যারিয়ার কাউন্সেলিং</p>
-                        <a href="#" class="video-play-btn text-primary fw-bold" data-video-id="SxR6m7kqP9M">🎓
-                            মেন্টরশিপ সেশন</a>
+
+                <div class="col-12 col-lg-5">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="fancy-icon-wrapper bg-gradient-success text-white">
+                                        <i class="bi bi-patch-check fs-3 text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-1 fw-bold">সার্টিফিকেট</h5>
+                                        <p class="small text-secondary mb-0">আন্তর্জাতিক মানের ডিজিটাল ও প্রিন্ট সার্টিফিকেট</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="fancy-icon-wrapper bg-gradient-warning text-white">
+                                        <i class="bi bi-gear-wide-connected fs-3 text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-1 fw-bold">ডিজিটাল টুলস মাস্টারি</h5>
+                                        <p class="small text-secondary mb-0">এক্সেল, কন্টেন্ট ক্রিয়েশন ও ফ্রিল্যান্সিং বেসিক</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="fancy-icon-wrapper bg-gradient-info text-white">
+                                        <i class="bi bi-people fs-3 text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-1 fw-bold">ক্যারিয়ার বুটক্যাম্প</h5>
+                                        <p class="small text-secondary mb-0">বিশেষ সেমিনার ও সরাসরি মেন্টরশিপ সেশন</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Fancy Feature Badges Row - Mobile Responsive -->
+            <!-- Feature badges -->
             <div class="row mt-4 mt-md-5 g-3 g-md-4 justify-content-center">
                 <div class="col-6 col-md-3">
                     <div class="fancy-feature-card text-center p-3 p-md-4 rounded-4 bg-white shadow-sm hover-lift">
                         <div class="fancy-icon-wrapper bg-gradient-primary mx-auto mb-2 mb-md-3">
                             <i class="bi bi-award fs-1 text-white"></i>
                         </div>
-                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">মেধা বৃত্তি</h5>
-                        <p class="small text-secondary mb-0 d-none d-md-block">আর্থিক সহায়তা</p>
+                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">আর্থিক সহায়তা</h5>
+                        <p class="small text-secondary mb-0 d-none d-md-block">বৃত্তি ও ভাতা</p>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="fancy-feature-card text-center p-3 p-md-4 rounded-4 bg-white shadow-sm hover-lift">
                         <div class="fancy-icon-wrapper bg-gradient-success mx-auto mb-2 mb-md-3">
-                            <i class="bi bi-patch-check fs-2 fs-md-1 text-white"></i>
+                            <i class="bi bi-award fs-1 text-white"></i>
                         </div>
                         <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">সার্টিফিকেট</h5>
-                        <p class="small text-secondary mb-0 d-none d-md-block">আন্তর্জাতিক মানের</p>
+                        <p class="small text-secondary mb-0 d-none d-md-block">নাগরিক ও আন্তর্জাতিক</p>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="fancy-feature-card text-center p-3 p-md-4 rounded-4 bg-white shadow-sm hover-lift">
                         <div class="fancy-icon-wrapper bg-gradient-warning mx-auto mb-2 mb-md-3">
-                            <i class="bi bi-star fs-2 fs-md-1 text-white"></i>
+                            <i class="bi bi-star fs-1 text-white"></i>
                         </div>
-                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">টপ মেন্টরশিপ</h5>
-                        <p class="small text-secondary mb-0 d-none d-md-block">স্পেশালাইজড গাইড</p>
+                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">মেন্টরশিপ</h5>
+                        <p class="small text-secondary mb-0 d-none d-md-block">বিশেষ ওয়ার্কশপ</p>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="fancy-feature-card text-center p-3 p-md-4 rounded-4 bg-white shadow-sm hover-lift">
                         <div class="fancy-icon-wrapper bg-gradient-info mx-auto mb-2 mb-md-3">
-                            <i class="bi bi-book fs-2 fs-md-1 text-white"></i>
+                            <i class="bi bi-book fs-1 text-white"></i>
                         </div>
-                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">শিক্ষা উপকরণ</h5>
-                        <p class="small text-secondary mb-0 d-none d-md-block">প্রিমিয়াম রিসোর্স</p>
+                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">রিসোর্স</h5>
+                        <p class="small text-secondary mb-0 d-none d-md-block">প্রিমিয়াম কোর্স ম্যাটেরিয়াল</p>
                     </div>
                 </div>
             </div>
@@ -139,31 +202,35 @@
             <div class="col-12 col-lg-7">
                 <div class="bg-white rounded-4 shadow-sm p-4 p-md-5 h-100 border border-light">
                     <div class="d-flex align-items-center gap-3 mb-4">
-                        <div class="bg-primary bg-opacity-10 rounded-circle p-2 p-md-3"><i
-                                class="bi bi-check2-circle fs-3 fs-md-2 text-primary"></i></div>
+                        <div class="fancy-icon-wrapper bg-gradient-primary text-white d-flex align-items-center justify-content-center">
+                            <i class="bi bi-shield-check fs-2 text-white"></i>
+                        </div>
                         <h2 class="section-title mb-0 fs-3 fs-md-2">যোগ্যতা ও নিয়মাবলী</h2>
                     </div>
                     <div class="mt-3 mt-md-4">
                         <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
-                            <i class="bi bi-check-circle-fill text-primary fs-6 fs-md-5 mt-1"></i>
+                            {{-- <i class="bi bi-check-circle-fill text-primary fs-6 fs-md-5 mt-1"></i> --}}
+                            <i class="bi bi-check2-circle text-primary fs-6 fs-md-5 mt-1"></i>
                             <div><strong class="fs-6 fs-md-5">২০২৬ সালের এসএসসি/সমমান</strong><br><span
                                     class="text-secondary small">পরীক্ষায় উত্তীর্ণ নিয়মিত শিক্ষার্থীরা আবেদন করতে
                                     পারবেন।</span></div>
                         </div>
                         <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
-                            <i class="bi bi-check-circle-fill text-primary fs-6 fs-md-5 mt-1"></i>
+                            {{-- <i class="bi bi-check-circle-fill text-primary fs-6 fs-md-5 mt-1"></i> --}}
+                            <i class="bi bi-check2-circle text-primary fs-6 fs-md-5 mt-1"></i>
                             <div><strong class="fs-6 fs-md-5">জেএসসি ও এসএসসি উভয় স্তরের ফলাফল</strong><br><span
                                     class="text-secondary small">মেধা তালিকা তৈরি হবে মোট নম্বরের ভিত্তিতে। জিপিএ-৫
                                     বাধ্যতামূলক।</span></div>
                         </div>
                         <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
-                            <i class="bi bi-check-circle-fill text-primary fs-6 fs-md-5 mt-1"></i>
+                            {{-- <i class="bi bi-check-circle-fill text-primary fs-6 fs-md-5 mt-1"></i> --}}
+                            <i class="bi bi-check2-circle text-primary fs-6 fs-md-5 mt-1"></i>
                             <div><strong class="fs-6 fs-md-5">সঠিক তথ্য প্রদান আবশ্যক</strong><br><span
                                     class="text-secondary small">অনলাইন ফরমে তথ্যের অমিল পাওয়া গেলে আবেদন বাতিল
                                     হবে।</span></div>
                         </div>
                         <div class="d-flex gap-3">
-                            <i class="bi bi-check-circle-fill text-primary fs-6 fs-md-5 mt-1"></i>
+                            <i class="bi bi-check2-circle text-primary fs-6 fs-md-5 mt-1"></i>
                             <div><strong class="fs-6 fs-md-5">কোটা সুবিধা প্রাপ্তি</strong><br><span
                                     class="text-secondary small">উপযুক্ত প্রমাণপত্র সাবমিট করতে হবে।</span></div>
                         </div>
@@ -269,17 +336,18 @@
         <div class="row g-3 g-md-4">
             <div class="col-12 col-md-6">
                 <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="jg-EvmKaqTQ">
-                    <img src="{{ asset('images/success-story-1.jpg') }}" alt="success story 1"
-                        class="w-100" style="height: 200px; object-fit: cover;">
+                    <img src="{{ asset('images/success-story-1.jpg') }}" alt="success story 1" class="w-100"
+                        style="height: 200px; object-fit: cover;">
                     <div class="play-btn-overlay"><i class="bi bi-play-fill text-white"></i></div>
                 </div>
                 <p class="mt-2 mt-md-3 fw-bold text-center fs-6 fs-md-5 px-2">“এই উদ্যোগ আমাকে এআই শেখার সুযোগ করে দিয়েছে”
-                    <br class="d-none d-md-block">— রাইসা, চাঁপাইনবাবগঞ্জ</p>
+                    <br class="d-none d-md-block">— রাইসা, চাঁপাইনবাবগঞ্জ
+                </p>
             </div>
             <div class="col-12 col-md-6">
                 <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="dQw4w9WgXcQ">
-                    <img src="{{ asset('images/success-story-1.jpg') }}" alt="success story 2"
-                        class="w-100" style="height: 200px; object-fit: cover;">
+                    <img src="{{ asset('images/success-story-1.jpg') }}" alt="success story 2" class="w-100"
+                        style="height: 200px; object-fit: cover;">
                     <div class="play-btn-overlay"><i class="bi bi-play-fill"></i></div>
                 </div>
                 <p class="mt-2 mt-md-3 fw-bold text-center fs-6 fs-md-5 px-2">সেরা কলেজ পেতে কৌশল - সাফল্যের সাক্ষী রাফসান
@@ -401,15 +469,17 @@
                     <div
                         class="d-flex flex-wrap gap-3 gap-md-4 mt-2 mt-md-3 justify-content-center justify-content-md-start">
                         <div class="small"><i class="bi bi-telephone-fill text-primary me-2"></i>
-                            <strong>০১৯৮৮-৭৬৫৪৩২</strong></div>
+                            <strong>০১৯৮৮-৭৬৫৪৩২</strong>
+                        </div>
                         <div class="small"><i class="bi bi-envelope-fill text-primary me-2"></i>
-                            <strong>support@babarkritisontan.com</strong></div>
+                            <strong>support@babarkritisontan.com</strong>
+                        </div>
                         <div class="small"><i class="bi bi-whatsapp text-success me-2"></i> <strong>০১৭XX-XXXXXX</strong>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-4 text-center mt-3 mt-md-0">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                    <img src="{{ asset('images/no1-logo.png') }}" alt="customer care"
                         class="rounded-circle shadow-lg border border-white border-3" width="90" height="90"
                         style="object-fit: cover;">
                     <p class="mt-2 fw-semibold small">কাস্টমার কেয়ার</p>

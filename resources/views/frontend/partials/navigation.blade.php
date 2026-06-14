@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
         <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{{ url('/') }}">
-            <img src="{{ asset('images/no1-logo.png') }}" alt="Logo" height="42">
+            <img src="{{ asset('images/no1-logo.png') }}" alt="Logo" height="45">
             <span class="text-dark" style="font-weight: 800;">বাবার কৃতী সন্তান</span>
         </a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">

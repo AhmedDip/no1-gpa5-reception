@@ -88,7 +88,7 @@
         /* Hero Section */
         .hero {
             /* background: linear-gradient(135deg, #ffffff 0%, #eedffd 100%); */
-            background: linear-gradient(135deg, #ffffff 0%, #e5e5ff 50%, #cbbfff 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #eeeeff 50%, #dbd2ff 100%);
             position: relative;
             overflow: hidden;
             padding: 8rem 0 7rem;
@@ -201,6 +201,23 @@
             .hero { padding: 3rem 0; }
             .btn { padding: 0.6rem 1.2rem; }
         }
+        /* Fancy features & badges */
+        .fancy-feature-card {
+            transition: var(--transition);
+        }
+        .fancy-feature-card .fancy-icon-wrapper {
+            width: 64px; height: 64px; border-radius: 18px;
+            display:flex; align-items:center; justify-content:center;
+            box-shadow: 0 10px 25px rgba(79,70,229,0.08);
+        }
+        .bg-gradient-primary { background: linear-gradient(135deg,#4F46E5,#7C3AED); }
+        .bg-gradient-success { background: linear-gradient(135deg,#10B981,#34D399); }
+        .bg-gradient-warning { background: linear-gradient(135deg,#F59E0B,#F97316); }
+        .bg-gradient-info { background: linear-gradient(135deg,#06B6D4,#06A6D6); }
+        .hover-lift:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(2,6,23,0.08); }
+        .video-play-btn { text-decoration: none; }
+        .text-dark-emphasis { color: rgba(15,23,42,0.9); }
+        .bg-gradient-special { box-shadow: 0 20px 40px rgba(79,70,229,0.06); }
     </style>
 </head>
 <body>
