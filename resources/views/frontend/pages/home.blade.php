@@ -19,7 +19,7 @@
                         পারবে।
                     </p>
                     <div class="d-flex flex-wrap gap-3 mt-4 justify-content-center justify-content-lg-start">
-                        <a href="#" class="btn btn-primary btn-lg px-4 px-lg-5">এখনই নিবন্ধন <i
+                        <a href="{{ route('student.register') }}" class="btn btn-primary btn-lg px-4 px-lg-5"> নিবন্ধন করুন <i
                                 class="bi bi-chevron-right"></i></a>
                         <a href="#faq" class="btn btn-outline-secondary btn-lg px-4 px-lg-5">বিস্তারিত দেখুন</a>
                     </div>
@@ -378,7 +378,7 @@
                 </div>
                 <div class="col-12 col-md-4">
                     <div class="video-thumb rounded-4 overflow-hidden" data-video-id="jg-EvmKaqTQ">
-                        <img src="https://admin.dainikamadershomoy.com/images/large/2025/08/31/news_1756661557436.webp"
+                        <img src="https://ncdn.ntvbd.com/sites/default/files/styles/big_3/public/images/2024/06/05/mgi.jpg"
                             class="w-100" style="height: 180px; object-fit: cover;">
                         <div class="play-btn-overlay"><i class="bi bi-play-fill"></i></div>
                     </div>
@@ -488,6 +488,18 @@
                         style="object-fit: cover;">
                     <p class="mt-2 fw-semibold small">কাস্টমার কেয়ার</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 11. Section আয়োজন  পৃষ্ঠপোষকতায়  Logo of mgi and no1 ========== -->
+
+    <section class="py-5" style="background: linear-gradient(135deg, #F8FAFC, #FFFFFF);">
+        <div class="container text-center">
+            <h2 class="section-title mx-auto mb-md-5">আমাদের আয়োজনের পৃষ্ঠপোষক</h2>
+            <div class="d-flex justify-content-center align-items-center gap-4 flex-wrap">
+                <img src="{{ asset('images/mgi-logo.png') }}" alt="MGI Logo" height="60" style="object-fit: contain;">
+                <img src="{{ asset('images/no1-logo.png') }}" alt="No1 Logo" height="120" style="object-fit: contain;">
             </div>
         </div>
     </section>
