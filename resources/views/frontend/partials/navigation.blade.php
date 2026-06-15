@@ -10,12 +10,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarMain">
             <ul class="navbar-nav ms-auto align-items-center gap-lg-2">
-                <li class="nav-item"><a class="nav-link" href="#campaign">ভূমিকা</a></li>
-                <li class="nav-item"><a class="nav-link" href="#eligibility">যোগ্যতা</a></li>
-                <li class="nav-item"><a class="nav-link" href="#timeline">সময়সূচি</a></li>
-                <li class="nav-item"><a class="nav-link" href="#stories">সফলতার গল্প</a></li>
-                <li class="nav-item"><a class="nav-link" href="#gallery">গ্যালারি</a></li>
-                <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#introduction">ভূমিকা</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#eligibility">যোগ্যতা</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#timeline">সময়সূচি</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#stories">সফলতার গল্প</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#gallery">গ্যালারি</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#faq">FAQ</a></li>
                 
                 @auth
                     <!-- When user is logged in -->

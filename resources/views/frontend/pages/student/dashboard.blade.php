@@ -131,8 +131,8 @@
         <div class="row align-items-center">
             <div class="col-md-8">
                 <h2 class="fw-bold mb-2">
-                    <i class="fas fa-hand-peace me-2"></i>
-                    স্বাগতম, {{ $userDetail->name_en }}!
+                    <i class="fas fa-user-graduate fa-flip me-2"  style="--fa-animation-duration: 5s;"></i>
+                    স্বাগতম, {{ $userDetail->name_bn }}!
                 </h2>
                 <p class="mb-0 opacity-90">
                     <i class="fas fa-calendar-alt me-2"></i>

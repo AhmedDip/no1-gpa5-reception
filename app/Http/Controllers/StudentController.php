@@ -75,13 +75,13 @@ class StudentController extends Controller
         $user = Auth::user();
         $userDetail = $user->userDetail;
         
-        $Boards = Board::where('is_active', true)->get();
-        $studentGroups = StudentGroup::where('is_active', true)->get();
-        $divisions = Division::where('is_active', true)->get();
-        $districts = District::where('division_id', $userDetail->division_id)->get();
-        $upazilas = Upazila::where('district_id', $userDetail->district_id)->get();
+        $sscBoards = Board::query()->get();
+        $studentGroups = StudentGroup::query()->get();
+        $divisions = Division::query()->get();
+        $districts = District::query()->where('division_id', $userDetail->division_id)->get();
+        $upazilas = Upazila::query()->where('district_id', $userDetail->district_id)->get();
         
-        return view('frontend.pages.student.edit-application', compact('user', 'userDetail', 'Boards', 'studentGroups', 'divisions', 'districts', 'upazilas'));
+        return view('frontend.pages.student.edit-application', compact('user', 'userDetail', 'sscBoards', 'studentGroups', 'divisions', 'districts', 'upazilas'));
     }
 
     public function updateApplication(Request $request)
@@ -89,7 +89,7 @@ class StudentController extends Controller
         $request->validate([
             'name_en' => 'required|string|max:255',
             'name_bn' => 'required|string|max:255',
-            'ssc_board_id' => 'required|exists:ssc_boards,id',
+            'ssc_board_id' => 'required|exists:boards,id',
             'student_group_id' => 'required|exists:student_groups,id',
             'roll_number' => 'required|string',
             'registration_number' => 'required|string',
