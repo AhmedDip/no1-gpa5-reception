@@ -11,11 +11,11 @@
             </div>
             <div class="col-md-6 text-center text-md-end">
                 <div class="d-flex gap-3 justify-content-center justify-content-md-end">
-                    <a href="#" class="text-white-50"><i class="bi bi-facebook fs-5"></i></a>
-                    <a href="#" class="text-white-50"><i class="bi bi-instagram fs-5"></i></a>
-                    <a href="#" class="text-white-50"><i class="bi bi-linkedin fs-5"></i></a>
+                    <a href="#" class="text-dark"><i class="bi bi-facebook fs-5"></i></a>
+                    <a href="#" class="text-dark"><i class="bi bi-instagram fs-5"></i></a>
+                    <a href="#" class="text-dark"><i class="bi bi-linkedin fs-5"></i></a>
                 </div>
-                <p class="small mt-2 opacity-75">হেল্পলাইন: ১৬৩২০ | support@babarkritisontan.com</p>
+                <p class="small mt-2 opacity-75">Developed by MGI-IT Department</p>
             </div>
         </div>
     </div>

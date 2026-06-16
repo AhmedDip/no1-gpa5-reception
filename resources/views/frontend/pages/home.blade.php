@@ -19,8 +19,8 @@
                         পারবে।
                     </p>
                     <div class="d-flex flex-wrap gap-3 mt-4 justify-content-center justify-content-lg-start">
-                        <a href="#" class="btn btn-primary btn-lg px-4 px-lg-5">এখনই নিবন্ধন <i
-                                class="bi bi-chevron-right"></i></a>
+                        <a href="{{ route('student.register') }}" class="btn btn-primary btn-lg px-4 px-lg-5"> নিবন্ধন করুন
+                            <i class="bi bi-chevron-right"></i></a>
                         <a href="#faq" class="btn btn-outline-secondary btn-lg px-4 px-lg-5">বিস্তারিত দেখুন</a>
                     </div>
                     <div class="hero-stats d-inline-flex mt-5 gap-3 gap-lg-4">
@@ -33,7 +33,7 @@
                             <span class="fs-3 fw-bold">৫০০+</span>
                             <span class="small text-secondary">স্কলারশিপ প্রাপ্ত শিক্ষার্থী</span>
                         </div>
-                        
+
                         <div class="d-flex flex-column align-items-center">
                             <span class="fs-3 fw-bold">৫০+</span>
                             <span class="small text-secondary">সংবর্ধনা অনুষ্ঠান</span>
@@ -61,7 +61,7 @@
                     “শিক্ষাই মূল চাবিকাঠি। প্রতিটি ঘরের মেধাবী সন্তান যেন তার স্বপ্নের পথে অগ্রসর হতে পারে—
                     <img src="{{ asset('images/no1-logo.png') }}" alt="brand" height="30" class="mx-2">
                     এর এই উদ্যোগ সেই লক্ষ্যেই এগিয়ে যায়। আমরা গর্বিত তোমাদের সাফল্যে। এই উদ্যোগ তোমাদের জন্য নতুন দিগন্ত
-                    উন্মোচন করবে। 
+                    উন্মোচন করবে।
                     সবার জন্য শুভকামনা রইল!”
                 </p>
                 {{-- <img src="{{ asset('images/no1-logo.png') }}" alt="brand" height="60" class="me-2"> --}}
@@ -74,26 +74,34 @@
         <div class="container">
             <div class="text-center mb-4 mb-md-5">
                 <h2 class="section-title">স্কলারশিপ ও সার্টিফিকেট বিবরণ</h2>
-                <p class="text-secondary px-2">জিপিএ-৫ প্রাপ্ত প্রতিটি শিক্ষার্থী পেলেই অনন্য সুযোগ — আর্থিক বৃত্তি, আন্তর্জাতিক মাপকাঠির সার্টিফিকেট ও এক্সক্লুসিভ মেন্টরশিপ।</p>
+                <p class="text-secondary px-2">জিপিএ-৫ প্রাপ্ত প্রতিটি শিক্ষার্থী পেলেই অনন্য সুযোগ — আর্থিক বৃত্তি,
+                    আন্তর্জাতিক মাপকাঠির সার্টিফিকেট ও এক্সক্লুসিভ মেন্টরশিপ।</p>
             </div>
 
             <div class="row g-4 align-items-stretch">
                 <div class="col-12 col-lg-7">
-                    <div class="card-premium h-100 p-4 p-md-5 position-relative overflow-hidden" style="background: linear-gradient(135deg, rgba(79,70,229,0.06), rgba(124,58,237,0.03));">
+                    <div class="card-premium h-100 p-4 p-md-5 position-relative overflow-hidden"
+                        style="background: linear-gradient(135deg, rgba(79,70,229,0.06), rgba(124,58,237,0.03));">
                         {{-- <div class="ribbon">স্কলারশিপ</div> --}}
                         <div class="d-flex gap-3 align-items-start">
                             <div class="me-3 d-none d-md-block">
-                                <div class="fancy-icon-wrapper bg-gradient-primary text-white d-flex align-items-center justify-content-center">
+                                <div
+                                    class="fancy-icon-wrapper bg-gradient-primary text-white d-flex align-items-center justify-content-center">
                                     <i class="bi bi-award fs-1 text-white"></i>
                                 </div>
                             </div>
                             <div>
                                 <h3 class="fw-bold">জিপিএ-৫ প্রাপ্ত শিক্ষার্থীদের জন্য সম্পূর্ণ প্যাকেজ</h3>
-                                <p class="text-dark-emphasis">স্কলারশিপের মাধ্যমে শিক্ষার্থীদের পড়াশোনার ব্যয় হ্রাস করা হবে। এছাড়া ডিজিটাল স্কিল ও ক্যারিয়ার মেন্টরশিপ প্রদান করা হবে যাতে তারা ভবিষ্যতে স্বনির্ভর হয়ে উঠতে পারে।</p>
+                                <p class="text-dark-emphasis">স্কলারশিপের মাধ্যমে শিক্ষার্থীদের পড়াশোনার ব্যয় হ্রাস করা
+                                    হবে। এছাড়া ডিজিটাল স্কিল ও ক্যারিয়ার মেন্টরশিপ প্রদান করা হবে যাতে তারা ভবিষ্যতে
+                                    স্বনির্ভর হয়ে উঠতে পারে।</p>
                                 <ul class="list-unstyled mt-3 mb-0">
-                                    <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i>আর্থিক মেধা বৃত্তি</li>
-                                    <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i>প্রিমিয়াম সার্টিফিকেট (ডিজিটাল + প্রিন্ট)</li>
-                                    <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i>টপ-মেন্টরদের থেকে গাইডেন্স ও ক্যারিয়ার সাপোর্ট</li>
+                                    <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i>আর্থিক মেধা
+                                        বৃত্তি</li>
+                                    <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i>প্রিমিয়াম
+                                        সার্টিফিকেট (ডিজিটাল + প্রিন্ট)</li>
+                                    <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i>টপ-মেন্টরদের
+                                        থেকে গাইডেন্স ও ক্যারিয়ার সাপোর্ট</li>
                                 </ul>
                                 <div class="mt-4">
                                     <a href="#eligibility" class="btn btn-primary me-2">যোগ্যতা দেখুন</a>
@@ -101,7 +109,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="position-absolute" style="right: -60px; bottom: -30px; opacity:0.12; transform: rotate(-20deg);">
+                        <div class="position-absolute"
+                            style="right: -60px; bottom: -30px; opacity:0.12; transform: rotate(-20deg);">
                             <img src="{{ asset('images/no1-logo.png') }}" alt="logo" height="220">
                         </div>
                     </div>
@@ -117,7 +126,8 @@
                                     </div>
                                     <div>
                                         <h5 class="mb-1 fw-bold">সার্টিফিকেট</h5>
-                                        <p class="small text-secondary mb-0">আন্তর্জাতিক মানের ডিজিটাল ও প্রিন্ট সার্টিফিকেট</p>
+                                        <p class="small text-secondary mb-0">আন্তর্জাতিক মানের ডিজিটাল ও প্রিন্ট সার্টিফিকেট
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +141,8 @@
                                     </div>
                                     <div>
                                         <h5 class="mb-1 fw-bold">ডিজিটাল টুলস মাস্টারি</h5>
-                                        <p class="small text-secondary mb-0">এক্সেল, কন্টেন্ট ক্রিয়েশন ও ফ্রিল্যান্সিং বেসিক</p>
+                                        <p class="small text-secondary mb-0">এক্সেল, কন্টেন্ট ক্রিয়েশন ও ফ্রিল্যান্সিং
+                                            বেসিক</p>
                                     </div>
                                 </div>
                             </div>
@@ -202,7 +213,8 @@
             <div class="col-12 col-lg-7">
                 <div class="bg-white rounded-4 shadow-sm p-4 p-md-5 h-100 border border-light">
                     <div class="d-flex align-items-center gap-3 mb-4">
-                        <div class="fancy-icon-wrapper bg-gradient-primary text-white d-flex align-items-center justify-content-center">
+                        <div
+                            class="fancy-icon-wrapper bg-gradient-primary text-white d-flex align-items-center justify-content-center">
                             <i class="bi bi-shield-check fs-2 text-white"></i>
                         </div>
                         <h2 class="section-title mb-0 fs-3 fs-md-2">যোগ্যতা ও নিয়মাবলী</h2>
@@ -248,7 +260,7 @@
                     <h3 class="fw-bold fs-2 fs-md-1 text-dark">বিশেষ মেগা সেমিনার ২০২৬</h3>
                     <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">অনলাইন নিবন্ধনকারী প্রতিটি শিক্ষার্থী <strong
                             class="text-primary">সেন্ট্রাল ক্যারিয়ার ওরিয়েন্টেশন ইভেন্টে</strong> আমন্ত্রিত। সেরা
-                        মেন্টরদের সাথে সরাসরি মতবিনিময়। ভবিষ্যতের ক্যারিয়ার গাইডেন্স ও অনুপ্রেরণা নেয়ার একমাত্র সুযোগ। 
+                        মেন্টরদের সাথে সরাসরি মতবিনিময়। ভবিষ্যতের ক্যারিয়ার গাইডেন্স ও অনুপ্রেরণা নেয়ার একমাত্র সুযোগ।
                     </p>
                     <div class="mt-3 mt-md-4">
                         <button class="btn btn-dark btn-md btn-lg rounded-pill px-4 px-md-5 shadow-sm w-100 w-md-auto">আসন
@@ -283,7 +295,7 @@
                         {{-- <div class="timeline-icon mb-2 mb-md-3">
                             <i class="bi bi-calendar-plus fs-2 fs-md-1 text-warning"></i>
                         </div> --}}
-                         <div class="fancy-icon-wrapper bg-gradient-warning mx-auto mb-2 mb-md-3">
+                        <div class="fancy-icon-wrapper bg-gradient-warning mx-auto mb-2 mb-md-3">
                             <i class="bi bi-calendar-plus fs-2 text-white"></i>
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-4">নিবন্ধন শুরু</h5>
@@ -297,7 +309,7 @@
                         <div class="timeline-number mb-2 d-none d-md-block">02</div>
                         <div class="fancy-icon-wrapper bg-gradient-special mx-auto mb-2 mb-md-3">
                             <i class="bi bi-calendar-x fs-2 text-white"></i>
-                        </div>                       
+                        </div>
                         <h5 class="fw-bold fs-6 fs-md-4">নিবন্ধন শেষ</h5>
                         <p class="fs-5 fs-md-4 fw-bold text-dark mb-0">১৫ মার্চ</p>
                         <p class="text-secondary small mb-0">২০২৬</p>
@@ -309,7 +321,7 @@
                         <div class="timeline-number mb-2 d-none d-md-block">03</div>
                         <div class="fancy-icon-wrapper bg-gradient-success mx-auto mb-2 mb-md-3">
                             <i class="bi bi-calendar-check fs-2 text-white"></i>
-                        </div>      
+                        </div>
                         <h5 class="fw-bold fs-6 fs-md-4">মেধা তালিকা</h5>
                         <p class="fs-5 fs-md-4 fw-bold text-dark mb-0">এপ্রিল</p>
                         <p class="text-secondary small mb-0">২০২৬</p>
@@ -321,7 +333,7 @@
                         <div class="timeline-number mb-2 d-none d-md-block">04</div>
                         <div class="fancy-icon-wrapper bg-gradient-primary mx-auto mb-2 mb-md-3">
                             <i class="bi bi-people fs-2 text-white"></i>
-                        </div>  
+                        </div>
                         <h5 class="fw-bold fs-6 fs-md-4">সংবর্ধনা</h5>
                         <p class="fs-5 fs-md-4 fw-bold text-dark mb-0">মে</p>
                         <p class="text-secondary small mb-0">২০২৬</p>
@@ -339,20 +351,20 @@
         </div>
         <div class="row g-3 g-md-4">
             <div class="col-12 col-md-6">
-                <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="jg-EvmKaqTQ">
-                    <img src="{{ asset('images/success-story-1.jpg') }}" alt="success story 1" class="w-100"
+                <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
+                    <img src="{{ asset('images/success-story-1.jpg') }}" alt="success story" class="w-100"
                         style="height: 200px; object-fit: cover;">
                     <div class="play-btn-overlay"><i class="bi bi-play-fill text-white"></i></div>
                 </div>
-                <p class="mt-2 mt-md-3 fw-bold text-center fs-6 fs-md-5 px-2">“এই উদ্যোগ আমাকে এআই শেখার সুযোগ করে দিয়েছে”
+                <p class="mt-2 mt-md-3 fw-bold text-center fs-6 fs-md-5 px-2">“এই সংবর্ধনা আমার জীবনের মোড় ঘুরিয়ে দিয়েছে।”
                     <br class="d-none d-md-block">— রাইসা, চাঁপাইনবাবগঞ্জ
                 </p>
             </div>
             <div class="col-12 col-md-6">
-                <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="dQw4w9WgXcQ">
-                    <img src="{{ asset('images/success-story-1.jpg') }}" alt="success story 2" class="w-100"
+                <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
+                    <img src="{{ asset('images/success-story-4.jpg') }}" alt="success story" class="w-100"
                         style="height: 200px; object-fit: cover;">
-                    <div class="play-btn-overlay"><i class="bi bi-play-fill"></i></div>
+                    <div class="play-btn-overlay"><i class="bi bi-play-fill text-white"></i></div>
                 </div>
                 <p class="mt-2 mt-md-3 fw-bold text-center fs-6 fs-md-5 px-2">সেরা কলেজ পেতে কৌশল - সাফল্যের সাক্ষী রাফসান
                 </p>
@@ -369,26 +381,26 @@
             </div>
             <div class="row g-3 g-md-4">
                 <div class="col-12 col-md-4">
-                    <div class="video-thumb rounded-4 overflow-hidden" data-video-id="SxR6m7kqP9M">
-                        <img src="https://ncdn.ntvbd.com/sites/default/files/styles/big_3/public/images/2024/06/05/mgi.jpg"
-                            class="w-100" style="height: 180px; object-fit: cover;">
-                        <div class="play-btn-overlay"><i class="bi bi-play-fill"></i></div>
+                    <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
+                        <img src="{{ asset('images/success-story-1.jpg') }}" alt="success story" class="w-100"
+                            style="height: 200px; object-fit: cover;">
+                        <div class="play-btn-overlay"><i class="bi bi-play-fill text-white"></i></div>
                     </div>
                     <p class="text-center mt-2 small fw-semibold">ঢাকা বিভাগীয় সংবর্ধনা ২০২৫</p>
                 </div>
                 <div class="col-12 col-md-4">
-                    <div class="video-thumb rounded-4 overflow-hidden" data-video-id="jg-EvmKaqTQ">
-                        <img src="https://admin.dainikamadershomoy.com/images/large/2025/08/31/news_1756661557436.webp"
-                            class="w-100" style="height: 180px; object-fit: cover;">
-                        <div class="play-btn-overlay"><i class="bi bi-play-fill"></i></div>
+                    <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
+                        <img src="{{ asset('images/success-story-3.jpg') }}" alt="success story" class="w-100"
+                            style="height: 200px; object-fit: cover;">
+                        <div class="play-btn-overlay"><i class="bi bi-play-fill text-white"></i></div>
                     </div>
                     <p class="text-center mt-2 small fw-semibold">চট্টগ্রাম সিটি কর্পোরেশন অনুষ্ঠান</p>
                 </div>
                 <div class="col-12 col-md-4">
-                    <div class="video-thumb rounded-4 overflow-hidden" data-video-id="dQw4w9WgXcQ">
-                        <img src="{{ asset('images/success-story-1.jpg') }}" alt="khulna-rajshahi reception"
-                            class="w-100" style="height: 180px; object-fit: cover;">
-                        <div class="play-btn-overlay"><i class="bi bi-play-fill"></i></div>
+                    <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
+                        <img src="{{ asset('images/success-story-4.jpg') }}" alt="success story" class="w-100"
+                            style="height: 200px; object-fit: cover;">
+                        <div class="play-btn-overlay"><i class="bi bi-play-fill text-white"></i></div>
                     </div>
                     <p class="text-center mt-2 small fw-semibold">রাজশাহী ও খুলনা অঞ্চলের আয়োজন</p>
                 </div>
@@ -492,13 +504,30 @@
         </div>
     </section>
 
+    <!-- ========== 11. Section আয়োজন  পৃষ্ঠপোষকতায়  Logo of mgi and no1 ========== -->
+
+    <section class="py-5" style="background: linear-gradient(135deg, #F8FAFC, #FFFFFF);">
+        <div class="container text-center">
+            <h2 class="section-title mx-auto mb-md-5">আমাদের আয়োজনের পৃষ্ঠপোষক</h2>
+            <div class="d-flex justify-content-center align-items-center gap-4 flex-wrap">
+                <img src="{{ asset('images/mgi-logo.png') }}" alt="MGI Logo" height="60"
+                    style="object-fit: contain;">
+                <img src="{{ asset('images/no1-logo.png') }}" alt="No1 Logo" height="120"
+                    style="object-fit: contain;">
+            </div>
+        </div>
+    </section>
+
+
     <!-- Video Modal -->
     <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content rounded-4 overflow-hidden">
                 <div class="modal-body p-0">
                     <div class="ratio ratio-16x9">
-                        <iframe id="videoFrame" src="" title="Video Player" allowfullscreen></iframe>
+                        <iframe id="videoFrame" src="" title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -730,43 +759,88 @@
 
 @push('scripts')
     <script>
+        // Global variable to store the current active modal instance
+        let currentVideoModal = null;
+
         function playVideo(videoId) {
-            const container = document.getElementById('videoFrame');
-            container.innerHTML =
-                `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="width:100%;height:100%;position:absolute;top:0;left:0"></iframe>`;
-            new bootstrap.Modal(document.getElementById('videoModal')).show();
+            // Destroy existing modal instance if it exists
+            if (currentVideoModal) {
+                currentVideoModal.dispose();
+            }
+
+            const modalElement = document.getElementById('videoModal');
+            const iframe = document.getElementById('videoFrame');
+
+            // Set the YouTube iframe src with autoplay
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1`;
+
+            // Create new modal instance
+            currentVideoModal = new bootstrap.Modal(modalElement);
+            currentVideoModal.show();
         }
 
-        document.querySelectorAll('.video-thumb, .video-play-btn').forEach(el => {
+        // Handle video thumbnails click
+        document.querySelectorAll('.video-thumb').forEach(el => {
             el.addEventListener('click', (e) => {
                 e.preventDefault();
+                e.stopPropagation();
+
                 let videoId = el.getAttribute('data-video-id');
-                if (!videoId && el.closest('[data-video-id]')) videoId = el.closest('[data-video-id]')
-                    .getAttribute('data-video-id');
-                if (videoId) playVideo(videoId);
+
+                // If the clicked element doesn't have data-video-id, check parent
+                if (!videoId && el.closest('[data-video-id]')) {
+                    videoId = el.closest('[data-video-id]').getAttribute('data-video-id');
+                }
+
+                if (videoId) {
+                    playVideo(videoId);
+                } else {
+                    console.error('No video ID found for:', el);
+                }
             });
         });
 
-        document.getElementById('videoModal').addEventListener('hidden.bs.modal', function() {
-            document.getElementById('videoFrame').innerHTML = '';
+        // Also handle any elements with .video-play-btn class
+        document.querySelectorAll('.video-play-btn').forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                let videoId = el.getAttribute('data-video-id');
+                if (!videoId && el.closest('[data-video-id]')) {
+                    videoId = el.closest('[data-video-id]').getAttribute('data-video-id');
+                }
+
+                if (videoId) {
+                    playVideo(videoId);
+                }
+            });
         });
 
+        // Reset video when modal is closed
+        document.getElementById('videoModal').addEventListener('hidden.bs.modal', function() {
+            const iframe = document.getElementById('videoFrame');
+            if (iframe) {
+                iframe.src = '';
+            }
+        });
+
+        // Gallery functionality
         const galleryData = {
             all: [
-                "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=800",
-                "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800",
-                "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800",
-                "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800"
+                // "http://127.0.0.1:8000/images/success-story-1.jpg",
+                "{{ asset('images/success-story-1.jpg') }}",
+                "{{ asset('images/success-story-2.jpg') }}",
+                "{{ asset('images/success-story-3.jpg') }}",
+                "{{ asset('images/success-story-4.jpg') }}"
             ],
             dhaka: [
-                "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800",
-                "https://images.unsplash.com/photo-1541336032412-2048a678540d?w=800",
-                "https://ncdn.ntvbd.com/sites/default/files/styles/big_3/public/images/2024/06/05/mgi.jpg"
+                "{{ asset('images/success-story-1.jpg') }}",
+                "{{ asset('images/success-story-2.jpg') }}",
             ],
             chattogram: [
-                "https://admin.dainikamadershomoy.com/images/large/2025/08/31/news_1756661557436.webp",
-                "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800",
-                "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800"
+                "{{ asset('images/success-story-3.jpg') }}",
+                "{{ asset('images/success-story-4.jpg') }}",
             ]
         };
 
@@ -801,6 +875,7 @@
             }
         }
 
+        // Initialize gallery tab buttons
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -812,6 +887,7 @@
             });
         });
 
+        // Initialize gallery on page load
         renderGallery();
     </script>
 @endpush
