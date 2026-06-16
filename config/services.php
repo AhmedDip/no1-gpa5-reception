@@ -34,5 +34,26 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'textlocal' => [
+        'api_key' => env('TEXTLOCAL_API_KEY'),
+        'sender' => env('TEXTLOCAL_SENDER', 'NO1BKS'),
+    ],
+
+    'twilio' => [
+        'sid' => env('TWILIO_SID'),
+        'token' => env('TWILIO_TOKEN'),
+        'from' => env('TWILIO_FROM'),
+    ],
+
+    'smsapi' => [
+        'key' => env('SMSAPI_KEY'),
+        'sender' => env('SMSAPI_SENDER', 'NO1BKS'),
+    ],
+
+    'sms_provider' => [
+        'api_key' => env('SMS_PROVIDER_API_KEY'),
+        'sender_id' => env('SMS_PROVIDER_SENDER_ID', 'NO1BKS'),
+        'url' => env('SMS_PROVIDER_URL'),
+    ],
 
 ];
