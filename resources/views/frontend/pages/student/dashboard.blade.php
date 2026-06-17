@@ -543,19 +543,6 @@
     
     // Welcome animation and notification
     document.addEventListener('DOMContentLoaded', function() {
-        // Show welcome message
-        @if(!$showParentModal)
-        Swal.fire({
-            title: 'স্বাগতম!',
-            text: 'আপনার ড্যাশবোর্ডে আপনাকে স্বাগতম {{ $userDetail->name_en }}',
-            icon: 'success',
-            timer: 3000,
-            showConfirmButton: false,
-            background: '#fff',
-            iconColor: '#d32f2f'
-        });
-        @endif
-        
         // Download invitation button handler
         document.getElementById('downloadInvitation').addEventListener('click', function(e) {
             e.preventDefault();

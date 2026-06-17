@@ -1,12 +1,8 @@
 <?php
+// app/Models/User.php
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\UserDetail;
-use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,6 +17,8 @@ class User extends Authenticatable
         'email',
         'password',
         'user_type_id',
+        'is_mobile_verified',
+        'mobile_verified_at',
     ];
 
     protected $hidden = [
@@ -30,7 +28,25 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'mobile_verified_at' => 'datetime',
+        'is_mobile_verified' => 'boolean',
     ];
+
+    /**
+     * Get the OTP verifications for the user
+     */
+    public function otpVerifications()
+    {
+        return $this->hasMany(OtpVerification::class);
+    }
+
+    /**
+     * Get the latest OTP verification
+     */
+    public function latestOtp()
+    {
+        return $this->hasOne(OtpVerification::class)->latest();
+    }
 
     public function userDetail()
     {
@@ -50,5 +66,10 @@ class User extends Authenticatable
     public function hasParentInfo()
     {
         return $this->userDetail && $this->userDetail->is_parent_info_provided;
+    }
+
+    public function isMobileVerified()
+    {
+        return $this->is_mobile_verified;
     }
 }

@@ -73,6 +73,7 @@ class StudentAuthController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'user_type_id' => 1,
+                'is_mobile_verified' => false,
             ]);
 
             UserDetail::create([
@@ -94,6 +95,16 @@ class StudentAuthController extends Controller
 
             DB::commit();
             Auth::login($user);
+
+            // Generate and send OTP
+            $otpService = app('App\Services\OtpService');
+            $result = $otpService->generateAndSendOtp($user);
+
+            if ($result['success']) {
+                session()->flash('success', 'OTP পাঠানো হয়েছে আপনার মোবাইলে। অনুগ্রহ করে OTP দিয়ে আপনার মোবাইল নম্বর যাচাই করুন।');
+            } else {
+                session()->flash('error', 'OTP পাঠাতে ব্যর্থ হয়েছে। অনুগ্রহ করে পরে আবার চেষ্টা করুন।');
+            }
 
             return redirect()->route('student.dashboard')->with('success', 'নিবন্ধন সফল হয়েছে! অনুগ্রহ করে আপনার অভিভাবকের তথ্য প্রদান করুন।');
 
@@ -125,6 +136,8 @@ class StudentAuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
+            
             $user = Auth::user();
             
             if (!$user->hasParentInfo()) {
@@ -134,7 +147,8 @@ class StudentAuthController extends Controller
             return redirect()->route('student.dashboard')->with('success', 'স্বাগতম! আপনি সফলভাবে লগইন করেছেন।');
         }
 
-        return back()->with('error', 'মোবাইল নম্বর বা পাসওয়ার্ড ভুল')->onlyInput('mobile');
+        //show toastr error
+        return back()->with('error', 'মোবাইল নম্বর অথবা পাসওয়ারড ভুল হয়েছে। দয়া করে আবার চেষ্টা করুন।');
     }
 
     public function logout(Request $request)

@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
-    // public function home()
-    // {
-    //     return view('frontend.pages.home');
-    // }
+    public function home()
+    {
+        return view('frontend.pages.home');
+    }
 
     public function dashboard()
     {

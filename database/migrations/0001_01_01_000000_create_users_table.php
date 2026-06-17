@@ -20,17 +20,13 @@ return new class extends Migration
             $table->string('password');
             $table->unsignedBigInteger('user_type_id')->default(1);
             $table->rememberToken();
+            $table->boolean('is_mobile_verified')->default(false);
+            $table->timestamp('mobile_verified_at')->nullable();
             $table->timestamps();
             
             $table->index('mobile');
             $table->index('email');
             $table->index('user_type_id');
-        });
-
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
         });
 
         Schema::create('sessions', function (Blueprint $table) {
@@ -49,7 +45,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }
 };
