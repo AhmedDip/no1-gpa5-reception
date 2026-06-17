@@ -1,6 +1,6 @@
 <?php
-// routes/web.php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OtpVerificationController;
 use App\Http\Controllers\StudentAuthController;
 use App\Http\Controllers\StudentController;
@@ -77,3 +77,12 @@ Route::prefix('api')->name('api.')->group(function () {
     Route::get('/upazilas/{districtId}', [StudentController::class, 'getUpazilas'])->name('upazilas');
     
 });
+
+
+//add admin.php route file
+require __DIR__.'/admin.php';
+
+
+
+
+
