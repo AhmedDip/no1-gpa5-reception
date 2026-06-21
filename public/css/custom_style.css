@@ -1,0 +1,146 @@
+.breadcrumb-item i {
+    transition: transform 0.3s ease;
+}
+
+.breadcrumb-item:hover i {
+    transform: scale(1.3);
+}
+
+:root {
+    --base: #4bb131 !important;
+    --odd-color: #ffab00 !important;
+    --even-color: #ff3e1d !important;
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid red;
+    /* Adjust the triangle color here */
+    margin-right: 5px;
+}
+
+.percentage {
+    color: #2f4858;
+    /* Adjust this color as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bg-purple {
+    background-color: #6c15c2;
+}
+
+.bg-base {
+    background-color: var(--base);
+}
+
+.color-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.legend {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: #5a5a5a;
+    font-family: Arial, sans-serif;
+    justify-content: center;
+    margin-top: 0.5rem !important;
+}
+
+/* Individual legend items */
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+}
+
+.light-style .report-list .report-list-item {
+    background-color: rgba(34, 48, 62, 0.06);
+}
+
+.report-list .report-list-item {
+    padding: 0.75rem 1rem;
+}
+
+
+.info-card {
+    background-color: #F1F3F4;
+}
+
+.summary-item {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    color: #3a4b57;
+    font-weight: bold;
+}
+
+.summary-item .time {
+    font-size: 1.5em;
+    color: #354e64;
+}
+
+.summary-item .label {
+    margin-top: 5px;
+    font-size: 1.2em;
+    font-weight: normal;
+    color: #6c7984;
+}
+
+.icon-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.call-button {
+    background-color: #b2f2bb;
+    color: #34a853;
+}
+
+.map-button {
+    background-color: #cce5ff;
+    color: #1e90ff;
+}
+
+.icon-button i {
+    font-size: 24px;
+}
+
+.icon-button span {
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+.nav-pills .nav-link {
+    background-color: #dfe1fa7c;
+}
+
+
+
+
+
