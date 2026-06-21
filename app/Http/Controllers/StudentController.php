@@ -25,7 +25,7 @@ class StudentController extends Controller
         $user = Auth::user();
         $userDetail = $user->userDetail;
         $showParentModal = !$user->hasParentInfo();
-        
+
         return view('frontend.pages.student.dashboard', compact('user', 'userDetail', 'showParentModal'));
     }
 
@@ -74,13 +74,13 @@ class StudentController extends Controller
     {
         $user = Auth::user();
         $userDetail = $user->userDetail;
-        
+
         $sscBoards = Board::query()->get();
         $studentGroups = StudentGroup::query()->get();
         $divisions = Division::query()->get();
         $districts = District::query()->where('division_id', $userDetail->division_id)->get();
         $upazilas = Upazila::query()->where('district_id', $userDetail->district_id)->get();
-        
+
         return view('frontend.pages.student.edit-application', compact('user', 'userDetail', 'sscBoards', 'studentGroups', 'divisions', 'districts', 'upazilas'));
     }
 
@@ -135,17 +135,23 @@ class StudentController extends Controller
     {
         return back()->with('info', 'একনলজমেন্ট স্লিপ ডাউনলোডের সুবিধা শীঘ্রই যোগ করা হবে।');
     }
-    
+
     // API endpoint for dependent dropdowns
     public function getDistricts($divisionId)
     {
         $districts = District::where('division_id', $divisionId)->where('lfcl_id', 1)->get();
         return response()->json($districts);
     }
-    
+
     public function getUpazilas($districtId)
     {
         $upazilas = Upazila::where('district_id', $districtId)->where('lfcl_id', 1)->get();
         return response()->json($upazilas);
+    }
+
+
+    public function certificate()
+    {
+        return view('frontend.pages.certificate.index');
     }
 }

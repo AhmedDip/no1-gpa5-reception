@@ -161,20 +161,20 @@
                 <div class="card-body text-center p-4">
                     <div class="position-relative d-inline-block">
                         @if($userDetail->student_photo)
-                            <img src="{{ asset('storage/' . $userDetail->student_photo) }}" 
-                                 class="rounded-circle profile-image" 
+                            <img src="{{ asset('storage/' . $userDetail->student_photo) }}"
+                                 class="rounded-circle profile-image"
                                  alt="{{ $userDetail->name_en }}">
                         @else
-                            <div class="rounded-circle profile-image bg-gradient d-flex align-items-center justify-content-center mx-auto" 
+                            <div class="rounded-circle profile-image bg-gradient d-flex align-items-center justify-content-center mx-auto"
                                  style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
                                 <i class="fas fa-user-graduate fa-4x text-white"></i>
                             </div>
                         @endif
                     </div>
-                    
+
                     <h3 class="mt-3 mb-1 fw-bold">{{ $userDetail->name_en }}</h3>
                     <p class="text-muted mb-3">{{ $userDetail->name_bn }}</p>
-                    
+
                     @php
                         $statusColors = [
                             1 => ['bg' => 'warning', 'text' => 'pending'],
@@ -184,12 +184,12 @@
                         ];
                         $status = $statusColors[$userDetail->application_status_id] ?? ['bg' => 'secondary', 'text' => 'pending'];
                     @endphp
-                    
+
                     <span class="status-badge bg-{{ $status['bg'] }} text-white d-inline-block mb-3">
                         <i class="fas fa-circle me-1" style="font-size: 8px;"></i>
                         স্ট্যাটাস: {{ $userDetail->applicationStatus->name ?? 'Pending' }}
                     </span>
-                    
+
                     <div class="row mt-3">
                         <div class="col-6">
                             <div class="border-end">
@@ -206,7 +206,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Academic Information Card -->
             <div class="card info-card shadow-sm">
                 <div class="card-header bg-white border-0 pt-4 pb-0">
@@ -249,7 +249,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Right Column - Main Content -->
         <div class="col-lg-8 fade-in-up" style="animation-delay: 0.2s">
             <!-- Statistics Cards -->
@@ -294,7 +294,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Quick Actions -->
             <div class="card info-card shadow-sm mb-4">
                 <div class="card-header bg-white border-0 pt-4 pb-0">
@@ -315,16 +315,16 @@
                             </a>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <a href="{{ route('student.download.acknowledgement') }}" class="text-decoration-none">
+                            <a href="{{ route('student.download.certificate') }}" class="text-decoration-none">
                                 <div class="menu-btn bg-light">
                                     <i class="fas fa-download fa-2x text-success mb-2"></i>
-                                    <h6 class="mb-0 text-dark">একনলজমেন্ট স্লিপ</h6>
+                                    <h6 class="mb-0 text-dark">একনলজমেন্ট সার্টিফিকেট</h6>
                                     <small class="text-muted">ডাউনলোড করুন</small>
                                 </div>
                             </a>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <a href="#" class="text-decoration-none" id="downloadInvitation">
+                            <a href="{{ route('student.invitation.letter') }}" class="text-decoration-none" id="downloadInvitation">
                                 <div class="menu-btn bg-light">
                                     <i class="fas fa-envelope fa-2x text-danger mb-2"></i>
                                     <h6 class="mb-0 text-dark">আমন্ত্রণপত্র</h6>
@@ -335,7 +335,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Parent Information Card -->
             @if($userDetail->is_parent_info_provided)
             <div class="card info-card shadow-sm mb-4">
@@ -393,7 +393,7 @@
                 </div>
             </div>
             @endif
-            
+
             <!-- Event Information Card -->
             <div class="card info-card shadow-sm">
                 <div class="card-header bg-white border-0 pt-4 pb-0">
@@ -414,7 +414,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="event-card p-3 mb-3 bg-light">
                         <div class="d-flex align-items-start">
                             <div class="me-3">
@@ -426,7 +426,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="event-card p-3 bg-light">
                         <div class="d-flex align-items-start">
                             <div class="me-3">
@@ -455,7 +455,7 @@
                 <h5 class="modal-title">
                     <i class="fas fa-users me-2"></i>অভিভাবকের তথ্য প্রদান করুন
                 </h5>
-               
+
             </div>
             <form action="{{ route('student.update.parent') }}" method="POST" enctype="multipart/form-data" id="parentForm">
                 @csrf
@@ -464,7 +464,7 @@
                         <i class="fas fa-info-circle me-2"></i>
                         আপনার ড্যাশবোর্ড সম্পূর্ণভাবে দেখার জন্য অভিভাবকের তথ্য প্রদান করা আবশ্যক।
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label required">পিতার নাম</label>
@@ -475,7 +475,7 @@
                             <input type="text" class="form-control" name="mother_name" required>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label required">চায়ের দোকানের নাম</label>
@@ -486,7 +486,7 @@
                             <input type="text" class="form-control" name="tea_stall_location" required>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label required">অভিভাবকের মোবাইল নম্বর</label>
@@ -518,12 +518,12 @@
     document.addEventListener('DOMContentLoaded', function() {
         var modal = new bootstrap.Modal(document.getElementById('parentModal'));
         modal.show();
-        
+
         // Parent photo preview
         document.getElementById('parentPhoto').addEventListener('change', function(e) {
             const preview = document.getElementById('parentPhotoPreview');
             preview.innerHTML = '';
-            
+
             if (this.files && this.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
@@ -540,22 +540,17 @@
         });
     });
     @endif
-    
+
     // Welcome animation and notification
     document.addEventListener('DOMContentLoaded', function() {
         // Download invitation button handler
         document.getElementById('downloadInvitation').addEventListener('click', function(e) {
             e.preventDefault();
-            Swal.fire({
-                title: 'আমন্ত্রণপত্র',
-                text: 'ইভেন্টের আমন্ত্রণপত্র শীঘ্রই প্রকাশিত হবে।',
-                icon: 'info',
-                confirmButtonColor: '#d32f2f',
-                confirmButtonText: 'বুঝেছি'
-            });
+            const url = this.getAttribute('href');
+            window.open(url, '_blank');
         });
     });
-    
+
     // Real-time clock update
     function updateClock() {
         const now = new Date();
