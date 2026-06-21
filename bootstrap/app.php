@@ -34,15 +34,16 @@ return Application::configure(basePath: dirname(__DIR__))
             'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
             'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
             'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-            
+
             // Custom middleware
             'check.mobile.verified' => CheckMobileVerified::class,
             'check.parent.info' => CheckStudentParentInfo::class,
             'check.user.type' => CheckUserType::class,
             'check.deadline' => CheckApplicationDeadline::class,
             'prevent.back' => PreventBackHistory::class,
+            'menu.permission' => \App\Http\Middleware\MenuPermission::class,
         ]);
-        
+
         // Middleware groups
         $middleware->group('web', [
             \Illuminate\Cookie\Middleware\EncryptCookies::class,
