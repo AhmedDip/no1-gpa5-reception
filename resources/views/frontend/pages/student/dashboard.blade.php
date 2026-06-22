@@ -219,13 +219,13 @@
                     <div class="detail-row">
                         <div class="row">
                             <div class="col-6 text-muted">এসএসসি বোর্ড:</div>
-                            <div class="col-6 fw-semibold">{{ $userDetail->sscBoard->name_bn ?? 'N/A' }}</div>
+                            <div class="col-6 fw-semibold">{{ $userDetail->board->name_bn ?? 'N/A' }}</div>
                         </div>
                     </div>
                     <div class="detail-row">
                         <div class="row">
                             <div class="col-6 text-muted">গ্রুপ:</div>
-                            <div class="col-6 fw-semibold">{{ $userDetail->studentGroup->name_bn ?? 'N/A' }}</div>
+                            <div class="col-6 fw-semibold">{{ $userDetail->group->name_bn ?? 'N/A' }}</div>
                         </div>
                     </div>
                     <div class="detail-row">
