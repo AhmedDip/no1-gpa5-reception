@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->integer('wsmn_id');
             $table->integer('wmng_id');
-            $table->boolean('wsmu_vsbl')->default(false);
-            $table->boolean('wsmu_crat')->default(false);
-            $table->boolean('wsmu_read')->default(false);
-            $table->boolean('wsmu_updt')->default(false);
-            $table->boolean('wsmu_delt')->default(false);
+            $table->boolean('wsmu_vsbl')->default(1);
+            $table->boolean('wsmu_crat')->default(1);
+            $table->boolean('wsmu_read')->default(1);
+            $table->boolean('wsmu_updt')->default(1);
+            $table->boolean('wsmu_delt')->default(1);
             $table->integer('cont_id')->default(1);
             $table->integer('lfcl_id')->default(1);
             $table->integer('aemp_iusr')->default(1);

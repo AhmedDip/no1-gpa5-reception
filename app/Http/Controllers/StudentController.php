@@ -139,19 +139,20 @@ class StudentController extends Controller
     // API endpoint for dependent dropdowns
     public function getDistricts($divisionId)
     {
-        $districts = District::where('division_id', $divisionId)->where('lfcl_id', 1)->get();
+        $districts = District::where('division_id', $divisionId)->get();
         return response()->json($districts);
     }
 
     public function getUpazilas($districtId)
     {
-        $upazilas = Upazila::where('district_id', $districtId)->where('lfcl_id', 1)->get();
+        $upazilas = Upazila::where('district_id', $districtId)->get();
         return response()->json($upazilas);
     }
 
 
     public function certificate()
     {
-        return view('frontend.pages.certificate.index');
+        $name = Auth::user()->userDetail->name_bn ?? Auth::user()->name;
+        return view('frontend.pages.certificate.index', compact('name'));
     }
 }

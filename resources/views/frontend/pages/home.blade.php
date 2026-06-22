@@ -13,10 +13,9 @@
                     </div>
                     <h1 class="display-large fw-bold">নং ১ বাবার <span class="text-gradient">কৃতী সন্তান</span> সংবর্ধনা</h1>
                     <p class="lead text-secondary mt-3 mt-lg-4">
-                        আগামীর চ্যালেঞ্জ মোকাবিলায় নিজেকে প্রস্তুত রাখতে অনলাইনে নিবন্ধন করলেই বাংলায় এআই শেখার ২টি কোর্স
-                        এবং নিজেকে এগিয়ে রাখতে ও স্বপ্নের কলেজে ভর্তির পরামর্শ পেতে অর্জন করতে পারো নানা উপহার।
-                        সারা দেশে ২০২৬ সালের এসএসসি ও সমমানের পরীক্ষায় জিপিএ-৫ অর্জন করে তোমার শহরে সংবর্ধনায় যোগ দিতে
-                        পারবে।
+                        এসএসসি/সমমান পরীক্ষায় জিপিএ-৫ প্রাপ্ত শিক্ষার্থীদের জন্য বিশেষ স্কলারশিপ, আন্তর্জাতিক মানের
+                        সার্টিফিকেট এবং এক্সক্লুসিভ মেন্টরশিপের সুযোগ। প্রতিটি মেধাবী ছাত্র-ছাত্রী যেন তার স্বপ্ন পূরণের
+                        পথে এগিয়ে যেতে পারে—এই লক্ষ্যেই আমাদের এই উদ্যোগ।
                     </p>
                     <div class="d-flex flex-wrap gap-3 mt-4 justify-content-center justify-content-lg-start">
                         <a href="{{ route('student.register') }}" class="btn btn-primary btn-lg px-4 px-lg-5"> নিবন্ধন করুন
@@ -81,7 +80,7 @@
             <div class="row g-4 align-items-stretch">
                 <div class="col-12 col-lg-7">
                     <div class="card-premium h-100 p-4 p-md-5 position-relative overflow-hidden"
-                        style="background: linear-gradient(135deg, rgba(79,70,229,0.06), rgba(124,58,237,0.03));">
+                        style="background: linear-gradient(135deg, rgba(159, 126, 249, 0.105), rgba(240, 231, 255, 0.1));">
                         {{-- <div class="ribbon">স্কলারশিপ</div> --}}
                         <div class="d-flex gap-3 align-items-start">
                             <div class="me-3 d-none d-md-block">
@@ -252,7 +251,7 @@
 
             <div class="col-12 col-lg-5">
                 <div class="bg-gradient-special rounded-4 p-4 p-md-5 h-100 d-flex flex-column justify-content-between"
-                    style="background: linear-gradient(135deg, #FEF3C7 0%, #f5de84 100%);">
+                    style="background: linear-gradient(135deg, #f5f8fb 10%, #e3e7fc 90%);">
                     <div class="d-flex justify-content-between align-items-start mb-3 mb-md-4">
                         <span class="badge bg-dark text-white px-3 py-2 rounded-pill small">লিমিটেড আসন</span>
                         <i class="bi bi-megaphone fs-2 fs-md-1 text-dark opacity-50"></i>
@@ -263,8 +262,9 @@
                         মেন্টরদের সাথে সরাসরি মতবিনিময়। ভবিষ্যতের ক্যারিয়ার গাইডেন্স ও অনুপ্রেরণা নেয়ার একমাত্র সুযোগ।
                     </p>
                     <div class="mt-3 mt-md-4">
-                        <button class="btn btn-dark btn-md btn-lg rounded-pill px-4 px-md-5 shadow-sm w-100 w-md-auto">আসন
-                            নিশ্চিত করুন <i class="bi bi-arrow-right ms-2"></i></button>
+                        <a href="{{ route('student.register') }}"
+                            class="btn btn-dark btn-lg rounded-pill px-4 px-md-5 shadow-sm w-100 w-md-auto">আসন
+                            নিশ্চিত করুন <i class="bi bi-arrow-right ms-2"></i></a>
                     </div>
                     <div class="mt-3 mt-md-4 small text-dark-emphasis">
                         <i class="bi bi-calendar-check"></i> তারিখ: ১০ মে, ২০২৬ | স্থান: ঢাকা ও চট্টগ্রাম
@@ -356,7 +356,8 @@
                         style="height: 200px; object-fit: cover;">
                     <div class="play-btn-overlay"><i class="bi bi-play-fill text-white"></i></div>
                 </div>
-                <p class="mt-2 mt-md-3 fw-bold text-center fs-6 fs-md-5 px-2">“এই সংবর্ধনা আমার জীবনের মোড় ঘুরিয়ে দিয়েছে।”
+                <p class="mt-2 mt-md-3 fw-bold text-center fs-6 fs-md-5 px-2">“এই সংবর্ধনা আমার জীবনের মোড় ঘুরিয়ে
+                    দিয়েছে।”
                     <br class="d-none d-md-block">— রাইসা, চাঁপাইনবাবগঞ্জ
                 </p>
             </div>
@@ -386,7 +387,7 @@
                             style="height: 200px; object-fit: cover;">
                         <div class="play-btn-overlay"><i class="bi bi-play-fill text-white"></i></div>
                     </div>
-                    <p class="text-center mt-2 small fw-semibold">ঢাকা বিভাগীয় সংবর্ধনা ২০২৫</p>
+                    <p class="text-center mt-2 small fw-semibold">ঢাকা বিভাগীয় সংবর্ধনা ২০২৪</p>
                 </div>
                 <div class="col-12 col-md-4">
                     <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
@@ -394,7 +395,7 @@
                             style="height: 200px; object-fit: cover;">
                         <div class="play-btn-overlay"><i class="bi bi-play-fill text-white"></i></div>
                     </div>
-                    <p class="text-center mt-2 small fw-semibold">চট্টগ্রাম সিটি কর্পোরেশন অনুষ্ঠান</p>
+                    <p class="text-center mt-2 small fw-semibold">ঢাকা বিভাগীয় সংবর্ধনা ২০২৫</p>
                 </div>
                 <div class="col-12 col-md-4">
                     <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
@@ -402,7 +403,7 @@
                             style="height: 200px; object-fit: cover;">
                         <div class="play-btn-overlay"><i class="bi bi-play-fill text-white"></i></div>
                     </div>
-                    <p class="text-center mt-2 small fw-semibold">রাজশাহী ও খুলনা অঞ্চলের আয়োজন</p>
+                    <p class="text-center mt-2 small fw-semibold">ঢাকা বিভাগীয় সংবর্ধনা ২০২৬</p>
                 </div>
             </div>
         </div>
@@ -417,8 +418,8 @@
         <div class="d-flex justify-content-center mb-4">
             <div class="tab-filter d-flex flex-wrap justify-content-center gap-1">
                 <button class="tab-btn active" data-cat="all">সব ছবি</button>
-                <button class="tab-btn" data-cat="dhaka">ঢাকা ভেন্যু</button>
-                <button class="tab-btn" data-cat="chattogram">চট্টগ্রাম ভেন্যু</button>
+                <button class="tab-btn" data-cat="dhaka">২০২৬</button>
+                <button class="tab-btn" data-cat="chattogram">২০২৫</button>
             </div>
         </div>
         <div class="gallery-main-container">
