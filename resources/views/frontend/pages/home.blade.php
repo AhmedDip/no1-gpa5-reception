@@ -25,7 +25,7 @@
                     </div>
                     <div class="hero-stats d-inline-flex mt-5 gap-3 gap-lg-4">
                         <div class="d-flex flex-column align-items-center">
-                            <span class="fs-3 fw-bold">১০,০০০+</span>
+                            <span class="fs-3 fw-bold">১,০০০+</span>
                             <span class="small text-secondary">নিবন্ধিত শিক্ষার্থী</span>
                         </div>
 
@@ -35,8 +35,8 @@
                         </div>
 
                         <div class="d-flex flex-column align-items-center">
-                            <span class="fs-3 fw-bold">৫০+</span>
-                            <span class="small text-secondary">সংবর্ধনা অনুষ্ঠান</span>
+                            <span class="fs-3 fw-bold">৫০,০০০+ </span>
+                            <span class="small text-secondary">টাকার আর্থিক অনুদান </span>
                         </div>
                     </div>
                 </div>
