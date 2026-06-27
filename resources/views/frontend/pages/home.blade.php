@@ -11,7 +11,8 @@
                     <div class="hero-badge d-inline-flex">
                         <span>২০২৬ সালের বৃহৎ শিক্ষা উদ্যোগ</span>
                     </div>
-                    <h1 class="display-large fw-bold">নাম্বার ওয়ান বাবার <span class="text-gradient">কৃতী সন্তান</span>
+                    <h1 class="display-large fw-bold main-heading">নাম্বার ওয়ান বাবার <span class="text-gradient">কৃতী
+                            সন্তান</span>
                         সংবর্ধনা - ২০২৬</h1>
                     <p class="lead text-secondary mt-3 mt-lg-4">
                         এসএসসি/সমমান পরীক্ষায় জিপিএ-৫ প্রাপ্ত শিক্ষার্থীদের জন্য বিশেষ স্কলারশিপ, আন্তর্জাতিক মানের
@@ -252,10 +253,10 @@
             </div>
 
             <div class="col-12 col-lg-5">
-                <div class="rounded-4 p-4 p-md-5 h-100 d-flex flex-column justify-content-between"
-                    style="background: linear-gradient(135deg, #f5f8fb 10%, #e3e7fc 90%);">
+                <div class="rounded-4 p-4 p-md-5 h-100 d-flex flex-column justify-content-between mega-card"
+                    style="background: linear-gradient(135deg, #fbfdff 10%, #e3e7fc 90%);">
                     <div class="d-flex justify-content-between align-items-start mb-3 mb-md-4">
-                        <i class="fa-solid fa-bullhorn fs-2 fs-md-1 text-danger"></i>
+                        <i class="fa-solid fa-bullhorn fs-2 fs-md-1 text-danger opacity-75"></i>
                         <span class="badge bg-dark text-white px-3 py-2 rounded-pill small">লিমিটেড আসন</span>
                     </div>
                     <h3 class="fw-bold fs-2 fs-md-1 text-dark">বিশেষ মেগা সেমিনার ২০২৬</h3>
@@ -476,7 +477,7 @@
     <!-- ========== 10. CONTACT INFO ========== -->
     <section class="container my-4 my-md-5 py-3 py-md-4">
         <div class="bg-gradient-contact rounded-4 p-4 p-md-5 text-center text-md-start shadow-lg"
-            style="background: linear-gradient(120deg, #EFF6FF 0%, #FFFFFF 100%);">
+            style="background: linear-gradient(120deg, #eeeffce8 0%, #FFFFFF 100%);">
             <div class="row align-items-center g-3 g-md-4">
                 <div class="col-12 col-md-8">
                     <h3 class="fw-bold fs-3 fs-md-2">আপনার প্রশ্ন আছে?</h3>
@@ -564,8 +565,8 @@
         }
 
         /* .fancy-feature-card:hover .fancy-icon-wrapper {
-                transform: scale(1.1);
-            } */
+                                        transform: scale(1.1);
+                                    } */
 
         @media (min-width: 768px) {
             .fancy-icon-wrapper {
@@ -632,7 +633,6 @@
         .bg-gradient-danger:hover::before,
         .bg-gradient-info:hover::before,
         .bg-gradient-special:hover::before {
-
             left: 150%;
         }
 
@@ -650,7 +650,61 @@
         }
 
 
+        .mega-card {
+            position: relative;
+            overflow: hidden;
+            transition: transform .35s ease, box-shadow .35s ease;
+        }
 
+        .mega-card::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -120%;
+            width: 60%;
+            height: 200%;
+            background: linear-gradient(120deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.15) 30%,
+                    rgba(255, 255, 255, 0.75) 50%,
+                    rgba(255, 255, 255, 0.15) 70%,
+                    transparent 100%);
+            transform: rotate(20deg);
+            transition: left 1.5s ease;
+            pointer-events: none;
+        }
+
+        .mega-card:hover::before {
+            left: 160%;
+        }
+
+        .mega-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+        }
+
+
+        .text-gradient {
+            background: linear-gradient(90deg,
+                    #ff4d6d,
+                    #5f12e4,
+                    #25b6eb,
+                    #ff4d6d);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 5s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            from {
+                background-position: 0%;
+            }
+
+            to {
+                background-position: 300%;
+            }
+        }
 
         /* Timeline Card */
         .timeline-card-modern {

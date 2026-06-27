@@ -21,9 +21,9 @@
     @stack('styles')
     <style>
         :root {
-            --primary: #4F46E5;
+            --primary: #7e55dd;
             /* indigo-600 */
-            --primary-dark: #13a4c9;
+            --primary-dark: #520996;
             --secondary: #852fa7;
             /* amber-500 */
             --accent: #EF4444;
@@ -33,7 +33,9 @@
             --light-bg: #F8FAFC;
             --card-radius: 1.5rem;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --common: linear-gradient(135deg, #7c8dffb9 0%, #4037e9f3 100%);
+            /* --common: linear-gradient(135deg, #7c8dffb9 0%, #4037e9f3 100%); */
+               /* background: linear-gradient(135deg, #7e54de, #341284); */
+             --common: linear-gradient(135deg, #6041a9, #7e54de);
         }
 
         * {
@@ -80,6 +82,10 @@
             line-height: 1.2;
         }
 
+        .section-title-icon i {
+            color: var(--primary);
+        }
+
         .section-title {
             font-size: 2.5rem;
             font-weight: 800;
@@ -121,10 +127,24 @@
             box-shadow: 0 8px 20px -8px rgba(79, 70, 229, 0.4);
         }
 
+        .btn-outline-primary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+
+
         .btn-primary:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
             box-shadow: 0 15px 30px -12px rgba(79, 70, 229, 0.5);
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--primary);
+            color: white !important;
+            transform: translateY(-2px);
         }
 
         .btn-outline-light:hover {
@@ -256,7 +276,7 @@
         /* Footer */
         footer {
             background-color: "#e4edf4";
-            background: linear-gradient(135deg, #e4edf4 0%, #cbd5e1 100%);
+            background: linear-gradient(135deg, #efeff2 0%, #e3e7fc 100%);
             color: var(--dark);
         }
 

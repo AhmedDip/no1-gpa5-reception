@@ -287,7 +287,7 @@
             }
 
             .card-header-custom {
-                background: linear-gradient(135deg, #4F46E5, #7C3AED);
+                background: linear-gradient(135deg, #7e54de, #341284);
                 padding: 1.5rem 2rem;
                 color: white;
             }

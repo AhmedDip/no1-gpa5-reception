@@ -7,7 +7,8 @@
                     <img src="{{ asset('images/no1-logo.png') }}" alt="No1" height="45">
                     <img src="{{ asset('images/mgi-logo.png') }}" alt="MGI" height="35">
                 </div>
-                <p class="small mt-3 opacity-75">&copy; {{ date('Y') }} নং ১ বাবার কৃতী সন্তান সংবর্ধনা। সমস্ত অধিকার সংরক্ষিত।</p>
+                <p class="small mt-3 opacity-75">© ২০২৬ MGI. সর্বস্বত্ব সংরক্ষিত</p>
+
             </div>
             <div class="col-md-6 text-center text-md-end">
                 <div class="d-flex gap-3 justify-content-center justify-content-md-end">
@@ -15,7 +16,9 @@
                     <a href="#" class="text-dark"><i class="bi bi-instagram fs-5"></i></a>
                     <a href="#" class="text-dark"><i class="bi bi-linkedin fs-5"></i></a>
                 </div>
-                <p class="small mt-2 opacity-75">Developed by MGI-IT Department</p>
+                <p class="small mt-2 opacity-75">
+                    ডেভেলপ্ড বাই <a href="https://www.mgi.org/" target="_blank" class="text-decoration-none">MGI</a> IT Department
+                </p>
             </div>
         </div>
     </div>
