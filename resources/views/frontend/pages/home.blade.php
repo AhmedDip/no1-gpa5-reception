@@ -15,9 +15,12 @@
                             সন্তান</span>
                         সংবর্ধনা - ২০২৬</h1>
                     <p class="lead text-secondary mt-3 mt-lg-4">
-                        এসএসসি/সমমান পরীক্ষায় জিপিএ-৫ প্রাপ্ত শিক্ষার্থীদের জন্য বিশেষ স্কলারশিপ, আন্তর্জাতিক মানের
-                        সার্টিফিকেট এবং এক্সক্লুসিভ মেন্টরশিপের সুযোগ। প্রতিটি মেধাবী ছাত্র-ছাত্রী যেন তার স্বপ্ন পূরণের
-                        পথে এগিয়ে যেতে পারে—এই লক্ষ্যেই আমাদের এই উদ্যোগ।
+                        প্রতিটি সন্তানের সাফল্যের পেছনে থাকে একজন সংগ্রামী বাবা-মায়ের অক্লান্ত পরিশ্রম, ত্যাগ ও ভালোবাসা।
+                        বাংলাদেশের হাজারো চা-স্টল ব্যবসায়ী প্রতিদিন কঠোর পরিশ্রম করে তাদের সন্তানদের শিক্ষার স্বপ্ন পূরণ
+                        করে চলেছেন।
+                        সেই সংগ্রামী বাবা-মায়ের অবদানকে সম্মান জানাতে এবং তাদের মেধাবী সন্তানদের অর্জনকে উদযাপন করতে
+                        নাম্বার ওয়ান আয়োজন করেছে "নাম্বার ওয়ান বাবার কৃতি সন্তান সংবর্ধনা ২০২৬"।
+
                     </p>
                     <div class="d-flex flex-wrap gap-3 mt-4 justify-content-center justify-content-lg-start">
                         <a href="{{ route('student.register') }}" class="btn btn-primary btn-lg px-4 px-lg-5"> নিবন্ধন করুন
@@ -60,11 +63,12 @@
                 </h2>
 
                 <p class="lead mt-4 fs-5 fs-md-4 fw-medium text-dark-emphasis">
-                    “শিক্ষাই মূল চাবিকাঠি। প্রতিটি ঘরের মেধাবী সন্তান যেন তার স্বপ্নের পথে অগ্রসর হতে পারে—
-                    <img src="{{ asset('images/no1-logo.png') }}" alt="brand" height="30" class="mx-2">
-                    এর এই উদ্যোগ সেই লক্ষ্যেই এগিয়ে যায়। আমরা গর্বিত তোমাদের সাফল্যে। এই উদ্যোগ তোমাদের জন্য নতুন দিগন্ত
-                    উন্মোচন করবে।
-                    সবার জন্য শুভকামনা রইল!”
+                    "সন্তানের সাফল্য, বাবার গর্ব।"
+                    চা-স্টল ব্যবসায়ীদের অক্লান্ত পরিশ্রম ও তাদের সন্তানদের অসাধারণ অর্জনকে সম্মান জানাতে নাম্বার ওয়ান
+                    সবসময় পাশে আছে।
+                    নাম্বার ওয়ান বাবার কৃতি সন্তান সংবর্ধনা ২০২৬—সংগ্রামের গল্পকে সম্মানের মঞ্চে তুলে ধরার একটি আন্তরিক
+                    উদ্যোগ।
+
                 </p>
                 {{-- <img src="{{ asset('images/no1-logo.png') }}" alt="brand" height="60" class="me-2"> --}}
             </div>
@@ -93,10 +97,10 @@
                                 </div>
                             </div>
                             <div>
-                                <h3 class="fw-bold">জিপিএ-৫ প্রাপ্ত শিক্ষার্থীদের জন্য সম্পূর্ণ প্যাকেজ</h3>
+                                <h3 class="fw-bold">জিপিএ-৫ প্রাপ্ত শিক্ষার্থীদের</h3>
                                 <p class="text-dark-emphasis">স্কলারশিপের মাধ্যমে শিক্ষার্থীদের পড়াশোনার ব্যয় হ্রাস করা
                                     হবে। এছাড়া ডিজিটাল স্কিল ও ক্যারিয়ার মেন্টরশিপ প্রদান করা হবে যাতে তারা ভবিষ্যতে
-                                    স্বনির্ভর হয়ে উঠতে পারে।</p>
+                                    স্বনির্ভর হয়ে উঠতে পারে।</p>
                                 <ul class="list-unstyled mt-3 mb-0">
                                     <li class="mb-2"><i class="fas fa-award text-secondary me-2"></i>আর্থিক মেধা
                                         বৃত্তি</li>
@@ -128,7 +132,8 @@
                                     </div>
                                     <div>
                                         <h5 class="mb-1 fw-bold">সার্টিফিকেট</h5>
-                                        <p class="small text-secondary mb-0">আন্তর্জাতিক মানের ডিজিটাল ও প্রিন্ট সার্টিফিকেট
+                                        <p class="small text-secondary mb-0">
+                                            আন্তর্জাতিক মানের প্রিন্ট সার্টিফিকেট
                                         </p>
                                     </div>
                                 </div>
@@ -139,26 +144,37 @@
                             <div class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100">
                                 <div class="d-flex align-items-center gap-3">
                                     <div class="fancy-icon-wrapper bg-gradient-warning text-white">
-                                        <i class="fas fa-tools fs-3 text-white"></i>
+                                        <i class="fas fa-book fs-3 text-white"></i>
                                     </div>
                                     <div>
-                                        <h5 class="mb-1 fw-bold">ডিজিটাল টুলস মাস্টারি</h5>
-                                        <p class="small text-secondary mb-0">এক্সেল, কন্টেন্ট ক্রিয়েশন ও ফ্রিল্যান্সিং
-                                            বেসিক</p>
+                                        <h5 class="mb-1 fw-bold">শিক্ষা উপকরণ </h5>
+                                        <p class="small text-secondary mb-0">
+                                            শিক্ষার্থীদের জন্য প্রয়োজনীয় শিক্ষা উপকরণ প্রদান করা হবে।
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {{--
+                         <div class="col-6 col-md-3">
+                    <div class="fancy-feature-card text-center p-3 p-md-4 rounded-4 bg-white shadow-sm hover-lift">
+                        <div class="fancy-icon-wrapper bg-gradient-info mx-auto mb-2 mb-md-3">
+                            <i class="fas fa-medal fs-1 text-white"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">সংবর্ধনা মেডেল</h5>
+                        <p class="small text-secondary mb-0 d-none d-md-block">প্রতিযোগিতামূলক সংবর্ধনা মেডেল</p>
+                    </div>
+                </div> --}}
 
                         <div class="col-12">
                             <div class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100">
                                 <div class="d-flex align-items-center gap-3">
                                     <div class="fancy-icon-wrapper bg-gradient-success text-white">
-                                        <i class="fas fa-people-group fs-3 text-white"></i>
+                                        <i class="fas fa-medal fs-3 text-white"></i>
                                     </div>
                                     <div>
-                                        <h5 class="mb-1 fw-bold">ক্যারিয়ার বুটক্যাম্প</h5>
-                                        <p class="small text-secondary mb-0">বিশেষ সেমিনার ও সরাসরি মেন্টরশিপ সেশন</p>
+                                        <h5 class="mb-1 fw-bold">সংবর্ধনা মেডেল </h5>
+                                        <p class="small text-secondary mb-0">প্রতিযোগিতামূলক সংবর্ধনা মেডেল</p>
                                     </div>
                                 </div>
                             </div>
@@ -174,17 +190,17 @@
                         <div class="fancy-icon-wrapper bg-gradient-danger mx-auto mb-2 mb-md-3">
                             <i class="fas fa-award fs-1 text-white"></i>
                         </div>
-                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">আর্থিক সহায়তা</h5>
+                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">শিক্ষা সহায়তা</h5>
                         <p class="small text-secondary mb-0 d-none d-md-block">বৃত্তি ও ভাতা</p>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="fancy-feature-card text-center p-3 p-md-4 rounded-4 bg-white shadow-sm hover-lift">
                         <div class="fancy-icon-wrapper bg-gradient-success mx-auto mb-2 mb-md-3">
-                            <i class="fas fa-certificate fs-1 text-white"></i>
+                            <i class="fas fa-award fs-1 text-white"></i>
                         </div>
-                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">সার্টিফিকেট</h5>
-                        <p class="small text-secondary mb-0 d-none d-md-block">নাগরিক ও আন্তর্জাতিক</p>
+                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">ক্রেস্ট</h5>
+                        <p class="small text-secondary mb-0 d-none d-md-block">আন্তর্জাতিক মানের প্রিন্ট ক্রেস্ট</p>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
@@ -199,10 +215,12 @@
                 <div class="col-6 col-md-3">
                     <div class="fancy-feature-card text-center p-3 p-md-4 rounded-4 bg-white shadow-sm hover-lift">
                         <div class="fancy-icon-wrapper bg-gradient-info mx-auto mb-2 mb-md-3">
-                            <i class="fas fa-book fs-1 text-white"></i>
+                            <i class="fas fa-gift fs-1 text-white"></i>
                         </div>
-                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">রিসোর্স</h5>
-                        <p class="small text-secondary mb-0 d-none d-md-block">প্রিমিয়াম কোর্স ম্যাটেরিয়াল</p>
+                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">বিশেষ উপহার</h5>
+                        <p class="small text-secondary mb-0 d-none d-md-block">
+                            নাম্বার ওয়ান এর পক্ষ থেকে বিশেষ উপহার
+                        </p>
                     </div>
                 </div>
             </div>
@@ -225,28 +243,36 @@
                         <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
                             {{-- <i class="fas fa-solid fa-bullseye text-primary fs-6 fs-md-5 mt-1"></i> --}}
                             <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
-                            <div><strong class="fs-6 fs-md-5">২০২৬ সালের এসএসসি/সমমান</strong><br><span
-                                    class="text-secondary small">পরীক্ষায় উত্তীর্ণ নিয়মিত শিক্ষার্থীরা আবেদন করতে
-                                    পারবেন।</span></div>
-                        </div>
-                        <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
-                            {{-- <i class="fas fa-solid fa-bullseye text-primary fs-6 fs-md-5 mt-1"></i> --}}
-                            <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
-                            <div><strong class="fs-6 fs-md-5">জেএসসি ও এসএসসি উভয় স্তরের ফলাফল</strong><br><span
-                                    class="text-secondary small">মেধা তালিকা তৈরি হবে মোট নম্বরের ভিত্তিতে। জিপিএ-৫
-                                    বাধ্যতামূলক।</span></div>
-                        </div>
-                        <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
-                            {{-- <i class="fas fa-solid fa-bullseye text-primary fs-6 fs-md-5 mt-1"></i> --}}
-                            <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
-                            <div><strong class="fs-6 fs-md-5">সঠিক তথ্য প্রদান আবশ্যক</strong><br><span
-                                    class="text-secondary small">অনলাইন ফরমে তথ্যের অমিল পাওয়া গেলে আবেদন বাতিল
+                            <div><strong class="fs-6 fs-md-5">এসএসসি/সমমান ২০২৬ পরীক্ষায় </strong><br><span
+                                    class="text-secondary small">কৃতিত্বের সাথে জিপিএ-৫ অর্জন করে সফলভাবে উত্তীর্ণ হতে
                                     হবে।</span></div>
                         </div>
+                        <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
+                            {{-- <i class="fas fa-solid fa-bullseye text-primary fs-6 fs-md-5 mt-1"></i> --}}
+                            <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
+                            <div><strong class="fs-6 fs-md-5">আবেদনকারী শিক্ষার্থীর বাবা/অভিভাবক</strong><br><span
+                                    class="text-secondary small">একজন সক্রিয় চা-স্টল ব্যবসায়ী হতে হবে এবং তা প্রমাণযোগ্য
+                                    হতে হবে।</span></div>
+                        </div>
+                        <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
+                            {{-- <i class="fas fa-solid fa-bullseye text-primary fs-6 fs-md-5 mt-1"></i> --}}
+                            <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
+                            <div><strong class="fs-6 fs-md-5">নির্ধারিত সময়সীমার মধ্যে অনলাইনে</strong><br><span
+                                    class="text-secondary small">আবেদনপত্রের সকল তথ্য সঠিকভাবে ও নির্ভুলভাবে পূরণ করে
+                                    নির্ধারিত প্রক্রিয়ায় আবেদন সম্পন্ন করতে হবে।</span></div>
+                        </div>
+                        <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
+                            <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
+                            <div><strong class="fs-6 fs-md-5">আবেদনপত্রের সঙ্গে প্রয়োজনীয় সকল তথ্য, ছবি ও
+                                    ডকুমেন্ট</strong><br><span class="text-secondary small">নির্ধারিত নির্দেশনা অনুযায়ী
+                                    সঠিকভাবে, সম্পূরণভাবে এবং যথাসময়ে আপলোড করতে হবে।</span></div>
+                        </div>
+
                         <div class="d-flex gap-3">
                             <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
-                            <div><strong class="fs-6 fs-md-5">কোটা সুবিধা প্রাপ্তি</strong><br><span
-                                    class="text-secondary small">উপযুক্ত প্রমাণপত্র সাবমিট করতে হবে।</span></div>
+                            <div><strong class="fs-6 fs-md-5">আবেদনকারীকে নাম্বার ওয়ান কর্তৃপক্ষের
+                                    নির্ধারিত</strong><br><span class="text-secondary small">যাচাই-বাছাই, তথ্য যাচাইকরণ ও
+                                    চূড়ান্ত নির্বাচন প্রক্রিয়ায় সফলভাবে এবং সন্তোষজনকভাবে উত্তীর্ণ হতে হবে।</span></div>
                         </div>
                     </div>
                 </div>
@@ -259,11 +285,25 @@
                         <i class="fa-solid fa-bullhorn fs-2 fs-md-1 text-danger opacity-75"></i>
                         <span class="badge bg-dark text-white px-3 py-2 rounded-pill small">লিমিটেড আসন</span>
                     </div>
-                    <h3 class="fw-bold fs-2 fs-md-1 text-dark">বিশেষ মেগা সেমিনার ২০২৬</h3>
-                    <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">অনলাইন নিবন্ধনকারী প্রতিটি শিক্ষার্থী <strong
-                            class="text-primary">সেন্ট্রাল ক্যারিয়ার ওরিয়েন্টেশন ইভেন্টে</strong> আমন্ত্রিত। সেরা
-                        মেন্টরদের সাথে সরাসরি মতবিনিময়। ভবিষ্যতের ক্যারিয়ার গাইডেন্স ও অনুপ্রেরণা নেয়ার একমাত্র সুযোগ।
+                    <h3 class="fw-bold fs-2 fs-md-1 text-dark">আজই নিবন্ধন করুন</h3>
+                    <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">আপনি যদি <strong
+                            class="text-primary">এসএসসি/সমমান ২০২৬ পরীক্ষায় </strong> কৃতিত্বের সাথে জিপিএ-৫ অর্জন করে
+                        সফলভাবে উত্তীর্ণ হন এবং আপনার বাবা/অভিভাবক একজন চা-স্টল ব্যবসায়ী হন, তাহলে এখনই নিবন্ধন করুন।
                     </p>
+
+                    <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">নিবন্ধন প্রক্রিয়ার জন্য আপনার কাছে থাকা উচিত:
+                    <ul class="list-unstyled mt-2">
+                        <li><i class="fas fa-check text-success me-2"></i>আবেদনকারীর ব্যক্তিগত তথ্য ও যোগাযোগের বিস্তারিত
+                            বিবরণ। </li>
+                        <li><i class="fas fa-check text-success me-2"></i>এসএসসি ২০২৬ পরীক্ষার ফলাফল ও একাডেমিক তথ্য।</li>
+                        <li><i class="fas fa-check text-success me-2"></i>বাবা/অভিভাবকের পরিচয়, পেশা ও প্রয়োজনীয় তথ্য।
+                        </li>
+                        <li><i class="fas fa-check text-success me-2"></i>প্রয়োজনীয় ছবি, ডকুমেন্ট ও সহায়ক কাগজপত্র
+                            আপলোড।</li>
+                    </ul>
+                    </p>
+
+
                     <div class="mt-3 mt-md-4">
                         <a href="{{ route('student.register') }}"
                             class="btn btn-dark btn-lg rounded-pill px-4 px-md-5 shadow-sm w-100 w-md-auto">আসন
@@ -442,30 +482,77 @@
                         <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
                             <h2 class="accordion-header"><button
                                     class="accordion-button rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
-                                    data-bs-toggle="collapse" data-bs-target="#faq1">অনলাইন নিবন্ধনের শেষ সময়
-                                    কখন?</button></h2>
+                                    data-bs-toggle="collapse" data-bs-target="#faq1">কারা আবেদন করতে পারবে?</button></h2>
                             <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-secondary small">১৫ মার্চ ২০২৬ পর্যন্ত নিবন্ধন চলবে। এর পরে
-                                    কোনো সুযোগ থাকবে না।</div>
+                                <div class="accordion-body text-secondary small">এসএসসি ২০২৬ পরীক্ষায় কৃতিত্বের সাথে
+                                    উত্তীর্ণ চা-স্টল ব্যবসায়ীদের সন্তানেরা আবেদন করতে পারবে।</div>
                             </div>
                         </div>
                         <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
                             <h2 class="accordion-header"><button
                                     class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
-                                    data-bs-toggle="collapse" data-bs-target="#faq2">ফ্রি কোর্স কিভাবে পাব?</button></h2>
+                                    data-bs-toggle="collapse" data-bs-target="#faq2">আবেদন কীভাবে করবো?</button></h2>
                             <div id="faq2" class="accordion-collapse collapse">
-                                <div class="accordion-body text-secondary small">নিবন্ধনের ২৪ ঘণ্টার মধ্যে আপনার ইমেইল ও
-                                    মোবাইল নম্বরে কোর্স অ্যাক্সেস লিংক পাঠিয়ে দেওয়া হবে।</div>
+                                <div class="accordion-body text-secondary small">এই ওয়েবসাইটে নিবন্ধন করে অনলাইন আবেদন
+                                    সম্পন্ন করতে হবে। </div>
                             </div>
                         </div>
-                        <div class="accordion-item border-0 shadow-sm rounded-4 overflow-hidden">
+                        <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
                             <h2 class="accordion-header"><button
                                     class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
-                                    data-bs-toggle="collapse" data-bs-target="#faq3">মেধা তালিকায় স্থান পাওয়ার
-                                    নিয়ম?</button></h2>
+                                    data-bs-toggle="collapse" data-bs-target="#faq3">আবেদন করতে কোনো ফি লাগবে?</button>
+                            </h2>
                             <div id="faq3" class="accordion-collapse collapse">
-                                <div class="accordion-body text-secondary small">জেএসসি ও এসএসসি মোট নম্বরের ভিত্তিতে
-                                    মেধাক্রম নির্ধারণ করা হবে। জিপিএ-৫ থাকা আবশ্যক।</div>
+                                <div class="accordion-body text-secondary small">না। আবেদন সম্পূর্ণ বিনামূল্যে।</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
+                            <h2 class="accordion-header"><button
+                                    class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
+                                    data-bs-toggle="collapse" data-bs-target="#faq4">আবেদন করার শেষ তারিখ কত?</button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse">
+                                <div class="accordion-body text-secondary small">ওয়েবসাইটে প্রকাশিত নির্ধারিত সময়সীমার
+                                    মধ্যে আবেদন করতে হবে।</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
+                            <h2 class="accordion-header"><button
+                                    class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
+                                    data-bs-toggle="collapse" data-bs-target="#faq5">কী কী ডকুমেন্ট লাগবে?</button></h2>
+                            <div id="faq5" class="accordion-collapse collapse">
+                                <div class="accordion-body text-secondary small">এসএসসি ফলাফল, শিক্ষার্থীর ছবি, অভিভাবকের
+                                    তথ্য এবং প্রয়োজনীয় অন্যান্য ডকুমেন্ট।</div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
+                            <h2 class="accordion-header"><button
+                                    class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
+                                    data-bs-toggle="collapse" data-bs-target="#faq6">নির্বাচিতদের কীভাবে জানানো
+                                    হবে?</button></h2>
+                            <div id="faq6" class="accordion-collapse collapse">
+                                <div class="accordion-body text-secondary small">SMS এবং ওয়েবসাইটের মাধ্যমে নির্বাচিতদের
+                                    জানানো হবে।</div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
+                            <h2 class="accordion-header"><button
+                                    class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
+                                    data-bs-toggle="collapse" data-bs-target="#faq7">নির্বাচিত শিক্ষার্থীরা কী কী সুবিধা
+                                    পাবে?</button></h2>
+                            <div id="faq7" class="accordion-collapse collapse">
+                                <div class="accordion-body text-secondary small">
+                                    নির্বাচিত শিক্ষার্থীরা পাবেন—
+                                    • সংবর্ধনা মেডেল
+                                    • শিক্ষা সহায়তা (Scholarship)
+                                    • সার্টিফিকেট
+                                    • ক্রেস্ট
+                                    • শিক্ষা উপকরণ
+                                    • নাম্বার ওয়ান এর পক্ষ থেকে বিশেষ উপহার
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -565,8 +652,8 @@
         }
 
         /* .fancy-feature-card:hover .fancy-icon-wrapper {
-                                        transform: scale(1.1);
-                                    } */
+                                                        transform: scale(1.1);
+                                                    } */
 
         @media (min-width: 768px) {
             .fancy-icon-wrapper {
