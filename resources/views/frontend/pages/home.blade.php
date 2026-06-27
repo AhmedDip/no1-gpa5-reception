@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'নং ১ বাবার কৃতী সন্তান সংবর্ধনা ২০২৬')
+@section('title', 'নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা ২০২৬')
 
 @section('content')
     <!-- ========== 1. CAMPAIGN OVERVIEW / HERO ========== -->
@@ -11,7 +11,7 @@
                     <div class="hero-badge d-inline-flex">
                         <i class="bi bi-trophy-fill"></i> <span>২০২৬ সালের বৃহৎ শিক্ষা উদ্যোগ</span>
                     </div>
-                    <h1 class="display-large fw-bold">নং ১ বাবার <span class="text-gradient">কৃতী সন্তান</span> সংবর্ধনা</h1>
+                    <h1 class="display-large fw-bold">নাম্বার ওয়ান বাবার <span class="text-gradient">কৃতী সন্তান</span> সংবর্ধনা - ২০২৬</h1>
                     <p class="lead text-secondary mt-3 mt-lg-4">
                         এসএসসি/সমমান পরীক্ষায় জিপিএ-৫ প্রাপ্ত শিক্ষার্থীদের জন্য বিশেষ স্কলারশিপ, আন্তর্জাতিক মানের
                         সার্টিফিকেট এবং এক্সক্লুসিভ মেন্টরশিপের সুযোগ। প্রতিটি মেধাবী ছাত্র-ছাত্রী যেন তার স্বপ্ন পূরণের
