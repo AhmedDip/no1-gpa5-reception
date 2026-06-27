@@ -9,9 +9,10 @@
             <div class="row align-items-center g-4 g-lg-5">
                 <div class="col-lg-7 text-center text-lg-start" data-aos="fade-up">
                     <div class="hero-badge d-inline-flex">
-                        <i class="bi bi-trophy-fill"></i> <span>২০২৬ সালের বৃহৎ শিক্ষা উদ্যোগ</span>
+                        <span>২০২৬ সালের বৃহৎ শিক্ষা উদ্যোগ</span>
                     </div>
-                    <h1 class="display-large fw-bold">নাম্বার ওয়ান বাবার <span class="text-gradient">কৃতী সন্তান</span> সংবর্ধনা - ২০২৬</h1>
+                    <h1 class="display-large fw-bold">নাম্বার ওয়ান বাবার <span class="text-gradient">কৃতী সন্তান</span>
+                        সংবর্ধনা - ২০২৬</h1>
                     <p class="lead text-secondary mt-3 mt-lg-4">
                         এসএসসি/সমমান পরীক্ষায় জিপিএ-৫ প্রাপ্ত শিক্ষার্থীদের জন্য বিশেষ স্কলারশিপ, আন্তর্জাতিক মানের
                         সার্টিফিকেট এবং এক্সক্লুসিভ মেন্টরশিপের সুযোগ। প্রতিটি মেধাবী ছাত্র-ছাত্রী যেন তার স্বপ্ন পূরণের
@@ -19,8 +20,9 @@
                     </p>
                     <div class="d-flex flex-wrap gap-3 mt-4 justify-content-center justify-content-lg-start">
                         <a href="{{ route('student.register') }}" class="btn btn-primary btn-lg px-4 px-lg-5"> নিবন্ধন করুন
-                            <i class="bi bi-chevron-right"></i></a>
-                        <a href="#faq" class="btn btn-outline-secondary btn-lg px-4 px-lg-5">বিস্তারিত দেখুন</a>
+                            <i class="fas fa-chevron-right"></i></a>
+                        <a href="#faq" class="btn btn-outline-secondary btn-lg px-4 px-lg-5">বিস্তারিত দেখুন
+                        </a>
                     </div>
                     <div class="hero-stats d-inline-flex mt-5 gap-3 gap-lg-4">
                         <div class="d-flex flex-column align-items-center">
@@ -85,8 +87,8 @@
                         <div class="d-flex gap-3 align-items-start">
                             <div class="me-3 d-none d-md-block">
                                 <div
-                                    class="fancy-icon-wrapper bg-gradient-primary text-white d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-award fs-1 text-white"></i>
+                                    class="fancy-icon-wrapper bg-gradient-danger text-white d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-award fs-2 text-white"></i>
                                 </div>
                             </div>
                             <div>
@@ -95,11 +97,11 @@
                                     হবে। এছাড়া ডিজিটাল স্কিল ও ক্যারিয়ার মেন্টরশিপ প্রদান করা হবে যাতে তারা ভবিষ্যতে
                                     স্বনির্ভর হয়ে উঠতে পারে।</p>
                                 <ul class="list-unstyled mt-3 mb-0">
-                                    <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i>আর্থিক মেধা
+                                    <li class="mb-2"><i class="fas fa-award text-secondary me-2"></i>আর্থিক মেধা
                                         বৃত্তি</li>
-                                    <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i>প্রিমিয়াম
+                                    <li class="mb-2"><i class="fas fa-certificate text-secondary me-2"></i>প্রিমিয়াম
                                         সার্টিফিকেট (ডিজিটাল + প্রিন্ট)</li>
-                                    <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i>টপ-মেন্টরদের
+                                    <li class="mb-2"><i class="fas fa-user-friends text-secondary me-2"></i>টপ-মেন্টরদের
                                         থেকে গাইডেন্স ও ক্যারিয়ার সাপোর্ট</li>
                                 </ul>
                                 <div class="mt-4">
@@ -120,8 +122,8 @@
                         <div class="col-12">
                             <div class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100">
                                 <div class="d-flex align-items-center gap-3">
-                                    <div class="fancy-icon-wrapper bg-gradient-success text-white">
-                                        <i class="bi bi-patch-check fs-3 text-white"></i>
+                                    <div class="fancy-icon-wrapper bg-gradient-primary text-white">
+                                        <i class="fas fa-certificate fs-3 text-white"></i>
                                     </div>
                                     <div>
                                         <h5 class="mb-1 fw-bold">সার্টিফিকেট</h5>
@@ -136,7 +138,7 @@
                             <div class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100">
                                 <div class="d-flex align-items-center gap-3">
                                     <div class="fancy-icon-wrapper bg-gradient-warning text-white">
-                                        <i class="bi bi-gear-wide-connected fs-3 text-white"></i>
+                                        <i class="fas fa-tools fs-3 text-white"></i>
                                     </div>
                                     <div>
                                         <h5 class="mb-1 fw-bold">ডিজিটাল টুলস মাস্টারি</h5>
@@ -150,8 +152,8 @@
                         <div class="col-12">
                             <div class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100">
                                 <div class="d-flex align-items-center gap-3">
-                                    <div class="fancy-icon-wrapper bg-gradient-info text-white">
-                                        <i class="bi bi-people fs-3 text-white"></i>
+                                    <div class="fancy-icon-wrapper bg-gradient-success text-white">
+                                        <i class="fas fa-people-group fs-3 text-white"></i>
                                     </div>
                                     <div>
                                         <h5 class="mb-1 fw-bold">ক্যারিয়ার বুটক্যাম্প</h5>
@@ -168,8 +170,8 @@
             <div class="row mt-4 mt-md-5 g-3 g-md-4 justify-content-center">
                 <div class="col-6 col-md-3">
                     <div class="fancy-feature-card text-center p-3 p-md-4 rounded-4 bg-white shadow-sm hover-lift">
-                        <div class="fancy-icon-wrapper bg-gradient-primary mx-auto mb-2 mb-md-3">
-                            <i class="bi bi-award fs-1 text-white"></i>
+                        <div class="fancy-icon-wrapper bg-gradient-danger mx-auto mb-2 mb-md-3">
+                            <i class="fas fa-award fs-1 text-white"></i>
                         </div>
                         <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">আর্থিক সহায়তা</h5>
                         <p class="small text-secondary mb-0 d-none d-md-block">বৃত্তি ও ভাতা</p>
@@ -178,7 +180,7 @@
                 <div class="col-6 col-md-3">
                     <div class="fancy-feature-card text-center p-3 p-md-4 rounded-4 bg-white shadow-sm hover-lift">
                         <div class="fancy-icon-wrapper bg-gradient-success mx-auto mb-2 mb-md-3">
-                            <i class="bi bi-award fs-1 text-white"></i>
+                            <i class="fas fa-certificate fs-1 text-white"></i>
                         </div>
                         <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">সার্টিফিকেট</h5>
                         <p class="small text-secondary mb-0 d-none d-md-block">নাগরিক ও আন্তর্জাতিক</p>
@@ -187,7 +189,7 @@
                 <div class="col-6 col-md-3">
                     <div class="fancy-feature-card text-center p-3 p-md-4 rounded-4 bg-white shadow-sm hover-lift">
                         <div class="fancy-icon-wrapper bg-gradient-warning mx-auto mb-2 mb-md-3">
-                            <i class="bi bi-star fs-1 text-white"></i>
+                            <i class="fas fa-star fs-1 text-white"></i>
                         </div>
                         <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">মেন্টরশিপ</h5>
                         <p class="small text-secondary mb-0 d-none d-md-block">বিশেষ ওয়ার্কশপ</p>
@@ -196,7 +198,7 @@
                 <div class="col-6 col-md-3">
                     <div class="fancy-feature-card text-center p-3 p-md-4 rounded-4 bg-white shadow-sm hover-lift">
                         <div class="fancy-icon-wrapper bg-gradient-info mx-auto mb-2 mb-md-3">
-                            <i class="bi bi-book fs-1 text-white"></i>
+                            <i class="fas fa-book fs-1 text-white"></i>
                         </div>
                         <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">রিসোর্স</h5>
                         <p class="small text-secondary mb-0 d-none d-md-block">প্রিমিয়াম কোর্স ম্যাটেরিয়াল</p>
@@ -214,34 +216,34 @@
                     <div class="d-flex align-items-center gap-3 mb-4">
                         <div
                             class="fancy-icon-wrapper bg-gradient-primary text-white d-flex align-items-center justify-content-center">
-                            <i class="bi bi-shield-check fs-2 text-white"></i>
+                            <i class="fas fa-shield-alt fs-2 text-white"></i>
                         </div>
                         <h2 class="section-title mb-0 fs-3 fs-md-2">যোগ্যতা ও নিয়মাবলী</h2>
                     </div>
                     <div class="mt-3 mt-md-4">
                         <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
-                            {{-- <i class="bi bi-check-circle-fill text-primary fs-6 fs-md-5 mt-1"></i> --}}
-                            <i class="bi bi-check2-circle text-primary fs-6 fs-md-5 mt-1"></i>
+                            {{-- <i class="fas fa-solid fa-bullseye text-primary fs-6 fs-md-5 mt-1"></i> --}}
+                            <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
                             <div><strong class="fs-6 fs-md-5">২০২৬ সালের এসএসসি/সমমান</strong><br><span
                                     class="text-secondary small">পরীক্ষায় উত্তীর্ণ নিয়মিত শিক্ষার্থীরা আবেদন করতে
                                     পারবেন।</span></div>
                         </div>
                         <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
-                            {{-- <i class="bi bi-check-circle-fill text-primary fs-6 fs-md-5 mt-1"></i> --}}
-                            <i class="bi bi-check2-circle text-primary fs-6 fs-md-5 mt-1"></i>
+                            {{-- <i class="fas fa-solid fa-bullseye text-primary fs-6 fs-md-5 mt-1"></i> --}}
+                            <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
                             <div><strong class="fs-6 fs-md-5">জেএসসি ও এসএসসি উভয় স্তরের ফলাফল</strong><br><span
                                     class="text-secondary small">মেধা তালিকা তৈরি হবে মোট নম্বরের ভিত্তিতে। জিপিএ-৫
                                     বাধ্যতামূলক।</span></div>
                         </div>
                         <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
-                            {{-- <i class="bi bi-check-circle-fill text-primary fs-6 fs-md-5 mt-1"></i> --}}
-                            <i class="bi bi-check2-circle text-primary fs-6 fs-md-5 mt-1"></i>
+                            {{-- <i class="fas fa-solid fa-bullseye text-primary fs-6 fs-md-5 mt-1"></i> --}}
+                            <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
                             <div><strong class="fs-6 fs-md-5">সঠিক তথ্য প্রদান আবশ্যক</strong><br><span
                                     class="text-secondary small">অনলাইন ফরমে তথ্যের অমিল পাওয়া গেলে আবেদন বাতিল
                                     হবে।</span></div>
                         </div>
                         <div class="d-flex gap-3">
-                            <i class="bi bi-check2-circle text-primary fs-6 fs-md-5 mt-1"></i>
+                            <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
                             <div><strong class="fs-6 fs-md-5">কোটা সুবিধা প্রাপ্তি</strong><br><span
                                     class="text-secondary small">উপযুক্ত প্রমাণপত্র সাবমিট করতে হবে।</span></div>
                         </div>
@@ -250,11 +252,11 @@
             </div>
 
             <div class="col-12 col-lg-5">
-                <div class="bg-gradient-special rounded-4 p-4 p-md-5 h-100 d-flex flex-column justify-content-between"
+                <div class="rounded-4 p-4 p-md-5 h-100 d-flex flex-column justify-content-between"
                     style="background: linear-gradient(135deg, #f5f8fb 10%, #e3e7fc 90%);">
                     <div class="d-flex justify-content-between align-items-start mb-3 mb-md-4">
+                        <i class="fa-solid fa-bullhorn fs-2 fs-md-1 text-danger"></i>
                         <span class="badge bg-dark text-white px-3 py-2 rounded-pill small">লিমিটেড আসন</span>
-                        <i class="bi bi-megaphone fs-2 fs-md-1 text-dark opacity-50"></i>
                     </div>
                     <h3 class="fw-bold fs-2 fs-md-1 text-dark">বিশেষ মেগা সেমিনার ২০২৬</h3>
                     <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">অনলাইন নিবন্ধনকারী প্রতিটি শিক্ষার্থী <strong
@@ -264,10 +266,10 @@
                     <div class="mt-3 mt-md-4">
                         <a href="{{ route('student.register') }}"
                             class="btn btn-dark btn-lg rounded-pill px-4 px-md-5 shadow-sm w-100 w-md-auto">আসন
-                            নিশ্চিত করুন <i class="bi bi-arrow-right ms-2"></i></a>
+                            নিশ্চিত করুন <i class="fas fa-arrow-right ms-2"></i></a>
                     </div>
                     <div class="mt-3 mt-md-4 small text-dark-emphasis">
-                        <i class="bi bi-calendar-check"></i> তারিখ: ১০ মে, ২০২৬ | স্থান: ঢাকা ও চট্টগ্রাম
+                        <i class="fas fa-calendar-check"></i> তারিখ: ১০ মে, ২০২৬ | স্থান: ঢাকা ও চট্টগ্রাম
                     </div>
                 </div>
             </div>
@@ -281,22 +283,19 @@
             <div class="text-center mb-4 mb-md-5">
                 <div
                     class="d-inline-flex align-items-center gap-2 bg-white px-3 px-md-4 py-2 rounded-pill shadow-sm mb-3 mb-md-4">
-                    <i class="bi bi-calendar-event text-primary"></i>
-                    <span class="fw-semibold small">গুরুত্বপূর্ণ তারিখসমূহ</span>
+                    <i class="fas fa-calendar-event text-primary"></i>
+                    <span class="fw-semibold small">গুরুত্বপূরণ তারিখসমূহ</span>
                 </div>
                 <h2 class="display-6 display-md-5 fw-bold text-dark">প্রধান সময়সূচি</h2>
-                <p class="text-secondary fs-6 fs-md-5 px-2">২০২৬ সালের গুরুত্বপূর্ণ মাইলফলক</p>
+                <p class="text-secondary fs-6 fs-md-5 px-2">২০২৬ সালের গুরুত্বপূরণ মাইলফলক</p>
             </div>
             <div class="row g-3 g-md-5 justify-content-center">
                 <div class="col-6 col-md-3">
                     <div
-                        class="timeline-card-modern text-center p-3 p-md-4 rounded-4 bg-white border-bottom border-4 border-warning shadow-sm h-100">
+                        class="timeline-card-modern text-center p-3 p-md-4 rounded-4 bg-white border-bottom border-4 border-secondary shadow-sm h-100">
                         <div class="timeline-number mb-2 d-none d-md-block">01</div>
-                        {{-- <div class="timeline-icon mb-2 mb-md-3">
-                            <i class="bi bi-calendar-plus fs-2 fs-md-1 text-warning"></i>
-                        </div> --}}
-                        <div class="fancy-icon-wrapper bg-gradient-warning mx-auto mb-2 mb-md-3">
-                            <i class="bi bi-calendar-plus fs-2 text-white"></i>
+                        <div class="fancy-icon-wrapper bg-gradient-primary mx-auto mb-2 mb-md-3">
+                            <i class="fas fa-calendar-plus fs-2 text-white"></i>
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-4">নিবন্ধন শুরু</h5>
                         <p class="fs-5 fs-md-4 fw-bold text-dark mb-0">১ জানু</p>
@@ -305,10 +304,10 @@
                 </div>
                 <div class="col-6 col-md-3">
                     <div
-                        class="timeline-card-modern text-center p-3 p-md-4 rounded-4 bg-white border-bottom border-4 border-primary shadow-sm h-100">
+                        class="timeline-card-modern text-center p-3 p-md-4 rounded-4 bg-white border-bottom border-4 border-secondary shadow-sm h-100">
                         <div class="timeline-number mb-2 d-none d-md-block">02</div>
-                        <div class="fancy-icon-wrapper bg-gradient-special mx-auto mb-2 mb-md-3">
-                            <i class="bi bi-calendar-x fs-2 text-white"></i>
+                        <div class="fancy-icon-wrapper bg-gradient-danger mx-auto mb-2 mb-md-3">
+                            <i class="fas fa-calendar-times fs-2 text-white"></i>
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-4">নিবন্ধন শেষ</h5>
                         <p class="fs-5 fs-md-4 fw-bold text-dark mb-0">১৫ মার্চ</p>
@@ -317,10 +316,10 @@
                 </div>
                 <div class="col-6 col-md-3">
                     <div
-                        class="timeline-card-modern text-center p-3 p-md-4 rounded-4 bg-white border-bottom border-4 border-success shadow-sm h-100">
+                        class="timeline-card-modern text-center p-3 p-md-4 rounded-4 bg-white border-bottom border-4 border-secondary shadow-sm h-100">
                         <div class="timeline-number mb-2 d-none d-md-block">03</div>
                         <div class="fancy-icon-wrapper bg-gradient-success mx-auto mb-2 mb-md-3">
-                            <i class="bi bi-calendar-check fs-2 text-white"></i>
+                            <i class="fas fa-calendar-check fs-2 text-white"></i>
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-4">মেধা তালিকা</h5>
                         <p class="fs-5 fs-md-4 fw-bold text-dark mb-0">এপ্রিল</p>
@@ -329,10 +328,10 @@
                 </div>
                 <div class="col-6 col-md-3">
                     <div
-                        class="timeline-card-modern text-center p-3 p-md-4 rounded-4 bg-white border-bottom border-4 border-danger shadow-sm h-100">
+                        class="timeline-card-modern text-center p-3 p-md-4 rounded-4 bg-white border-bottom border-4 border-secondary shadow-sm h-100">
                         <div class="timeline-number mb-2 d-none d-md-block">04</div>
-                        <div class="fancy-icon-wrapper bg-gradient-primary mx-auto mb-2 mb-md-3">
-                            <i class="bi bi-people fs-2 text-white"></i>
+                        <div class="fancy-icon-wrapper bg-gradient-special mx-auto mb-2 mb-md-3">
+                            <i class="fas fa-people-group fs-2 text-white"></i>
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-4">সংবর্ধনা</h5>
                         <p class="fs-5 fs-md-4 fw-bold text-dark mb-0">মে</p>
@@ -354,7 +353,7 @@
                 <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
                     <img src="{{ asset('images/success-story-1.jpg') }}" alt="success story" class="w-100"
                         style="height: 200px; object-fit: cover;">
-                    <div class="play-btn-overlay"><i class="bi bi-play-fill text-white"></i></div>
+                    <div class="play-btn-overlay"><i class="fas fa-play text-white"></i></div>
                 </div>
                 <p class="mt-2 mt-md-3 fw-bold text-center fs-6 fs-md-5 px-2">“এই সংবর্ধনা আমার জীবনের মোড় ঘুরিয়ে
                     দিয়েছে।”
@@ -365,7 +364,7 @@
                 <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
                     <img src="{{ asset('images/success-story-4.jpg') }}" alt="success story" class="w-100"
                         style="height: 200px; object-fit: cover;">
-                    <div class="play-btn-overlay"><i class="bi bi-play-fill text-white"></i></div>
+                    <div class="play-btn-overlay"><i class="fas fa-play text-white"></i></div>
                 </div>
                 <p class="mt-2 mt-md-3 fw-bold text-center fs-6 fs-md-5 px-2">সেরা কলেজ পেতে কৌশল - সাফল্যের সাক্ষী রাফসান
                 </p>
@@ -385,7 +384,7 @@
                     <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
                         <img src="{{ asset('images/success-story-1.jpg') }}" alt="success story" class="w-100"
                             style="height: 200px; object-fit: cover;">
-                        <div class="play-btn-overlay"><i class="bi bi-play-fill text-white"></i></div>
+                        <div class="play-btn-overlay"><i class="fas fa-play text-white"></i></div>
                     </div>
                     <p class="text-center mt-2 small fw-semibold">ঢাকা বিভাগীয় সংবর্ধনা ২০২৪</p>
                 </div>
@@ -393,7 +392,7 @@
                     <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
                         <img src="{{ asset('images/success-story-3.jpg') }}" alt="success story" class="w-100"
                             style="height: 200px; object-fit: cover;">
-                        <div class="play-btn-overlay"><i class="bi bi-play-fill text-white"></i></div>
+                        <div class="play-btn-overlay"><i class="fas fa-play text-white"></i></div>
                     </div>
                     <p class="text-center mt-2 small fw-semibold">ঢাকা বিভাগীয় সংবর্ধনা ২০২৫</p>
                 </div>
@@ -401,7 +400,7 @@
                     <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
                         <img src="{{ asset('images/success-story-4.jpg') }}" alt="success story" class="w-100"
                             style="height: 200px; object-fit: cover;">
-                        <div class="play-btn-overlay"><i class="bi bi-play-fill text-white"></i></div>
+                        <div class="play-btn-overlay"><i class="fas fa-play text-white"></i></div>
                     </div>
                     <p class="text-center mt-2 small fw-semibold">ঢাকা বিভাগীয় সংবর্ধনা ২০২৬</p>
                 </div>
@@ -485,13 +484,13 @@
                         সমস্যার সমাধানে।</p>
                     <div
                         class="d-flex flex-wrap gap-3 gap-md-4 mt-2 mt-md-3 justify-content-center justify-content-md-start">
-                        <div class="small"><i class="bi bi-telephone-fill text-primary me-2"></i>
+                        <div class="small"><i class="fas fa-phone text-dark me-2"></i>
                             <strong>০১৯৮৮-৭৬৫৪৩২</strong>
                         </div>
-                        <div class="small"><i class="bi bi-envelope-fill text-primary me-2"></i>
+                        <div class="small"><i class="fas fa-envelope text-dark me-2"></i>
                             <strong>support@babarkritisontan.com</strong>
                         </div>
-                        <div class="small"><i class="bi bi-whatsapp text-success me-2"></i> <strong>০১৭XX-XXXXXX</strong>
+                        <div class="small"><i class="fas fa-phone text-dark me-2"></i> <strong>০১৭XX-XXXXXX</strong>
                         </div>
                     </div>
                 </div>
@@ -564,9 +563,9 @@
             transition: transform 0.3s ease;
         }
 
-        .fancy-feature-card:hover .fancy-icon-wrapper {
-            transform: scale(1.08);
-        }
+        /* .fancy-feature-card:hover .fancy-icon-wrapper {
+                transform: scale(1.1);
+            } */
 
         @media (min-width: 768px) {
             .fancy-icon-wrapper {
@@ -575,25 +574,83 @@
             }
         }
 
-        .bg-gradient-primary {
-            background: linear-gradient(135deg, #5f1727, #f02367);
+        .bg-gradient-danger {
+            background: linear-gradient(135deg, #f50b0bbe, #372020);
         }
 
-        .bg-gradient-success {
-            background: linear-gradient(135deg, #10B981, #037c56);
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #089ffdc8, #273142);
         }
 
         .bg-gradient-warning {
-            background: linear-gradient(135deg, #F59E0B, #b46307);
+            background: linear-gradient(135deg, #fff309c6, #3d3c24);
         }
 
         .bg-gradient-info {
-            background: linear-gradient(135deg, #06B6D4, #057e9c);
+            background: linear-gradient(135deg, #54b4fdd2, #153337);
         }
 
         .bg-gradient-special {
-            background: linear-gradient(135deg, #3cbcef 0%, #040763 100%);
+            background: linear-gradient(135deg, #8f27ffcc 0%, #2a115a 100%);
         }
+
+        .bg-gradient-success {
+            background: linear-gradient(135deg, #14ffadd4, #203620);
+        }
+
+
+        /* Premium Shine Effect */
+
+        .bg-gradient-primary::before,
+        .bg-gradient-success::before,
+        .bg-gradient-warning::before,
+        .bg-gradient-danger::before,
+        .bg-gradient-info::before,
+        .bg-gradient-special::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: -100%;
+
+            width: 50%;
+            height: 100%;
+
+            background: linear-gradient(120deg,
+                    transparent,
+                    rgba(255, 255, 255, .18),
+                    transparent);
+
+            transition: .7s;
+        }
+
+        .bg-gradient-primary:hover::before,
+        .bg-gradient-success:hover::before,
+        .bg-gradient-warning:hover::before,
+        .bg-gradient-danger:hover::before,
+        .bg-gradient-info:hover::before,
+        .bg-gradient-special:hover::before {
+
+            left: 150%;
+        }
+
+        .bg-gradient-primary:hover,
+        .bg-gradient-success:hover,
+        .bg-gradient-warning:hover,
+        .bg-gradient-danger:hover,
+        .bg-gradient-info:hover,
+        .bg-gradient-special:hover,
+        .bg-gradient-dark:hover {
+
+            transform: translateY(-4px);
+
+            box-shadow: 0 14px 32px rgba(0, 0, 0, .22);
+        }
+
+
+
 
         /* Timeline Card */
         .timeline-card-modern {

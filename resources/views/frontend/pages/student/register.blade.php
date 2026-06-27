@@ -21,7 +21,7 @@
                             {{-- Personal Information Section --}}
                             <div class="form-section">
                                 <div class="section-title-icon">
-                                    <i class="bi bi-person-circle"></i>
+                                    <i class="fas fa-user"></i>
                                     <h5>ব্যক্তিগত তথ্য</h5>
                                 </div>
 
@@ -29,8 +29,8 @@
                                     <div class="col-md-6">
                                         <label class="form-label required">ইংরেজিতে নাম</label>
                                         <input type="text" class="form-control @error('name_en') is-invalid @enderror"
-                                            name="name_en" value="{{ old('name_en') }}" placeholder="যেমন: Ahmed Rasidun Bari Dip"
-                                            required>
+                                            name="name_en" value="{{ old('name_en') }}"
+                                            placeholder="যেমন: Ahmed Rasidun Bari Dip" required>
                                         <div class="invalid-feedback">ইংরেজিতে নাম দিন</div>
                                         @error('name_en')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -39,8 +39,8 @@
                                     <div class="col-md-6">
                                         <label class="form-label required">বাংলায় নাম</label>
                                         <input type="text" class="form-control @error('name_bn') is-invalid @enderror"
-                                            name="name_bn" value="{{ old('name_bn') }}" placeholder="যেমন: আহমেদ রাশিদুন বারী দ্বীপ"
-                                            required>
+                                            name="name_bn" value="{{ old('name_bn') }}"
+                                            placeholder="যেমন: আহমেদ রাশিদুন বারী দ্বীপ" required>
                                         <div class="invalid-feedback">বাংলায় নাম দিন</div>
                                         @error('name_bn')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -51,7 +51,8 @@
                                         <input type="tel" class="form-control @error('mobile') is-invalid @enderror"
                                             name="mobile" value="{{ old('mobile') }}" placeholder="01XXXXXXXXX"
                                             minlength="11" maxlength="11" required>
-                                        <small class="text-muted"><i class="bi bi-info-circle"></i> ১১ ডিজিটের মোবাইল নম্বর দিন (যেমন: 01712345678)</small>
+                                        <small class="text-muted"><i class="bi bi-info-circle"></i> ১১ ডিজিটের মোবাইল নম্বর
+                                            দিন (যেমন: 01712345678)</small>
                                         <div class="invalid-feedback">সঠিক ১১ ডিজিটের মোবাইল নম্বর দিন</div>
                                         @error('mobile')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -80,7 +81,7 @@
                                         <label class="form-label required">পাসওয়ার্ড নিশ্চিত</label>
                                         <input type="password" class="form-control" name="password_confirmation"
                                             id="password_confirmation" minlength="6" required>
-                                        <div class="invalid-feedback">পাসওয়ার্ড মিলছে না</div>
+                                        {{-- <div class="invalid-feedback">পাসওয়ার্ড মিলছে না</div> --}}
                                         <small class="text-muted" id="passwordMatch"></small>
                                     </div>
                                 </div>
@@ -89,7 +90,7 @@
                             {{-- Educational Information Section --}}
                             <div class="form-section">
                                 <div class="section-title-icon">
-                                    <i class="bi bi-mortarboard"></i>
+                                    <i class="fas fa-graduation-cap"></i>
                                     <h5>শিক্ষাগত তথ্য</h5>
                                 </div>
 
@@ -131,9 +132,8 @@
                                     <div class="col-md-6">
                                         <label class="form-label required">রোল নম্বর</label>
                                         <input type="text"
-                                            class="form-control @error('roll_number') is-invalid @enderror"
-                                            minlength="1" maxlength="8"
-                                            name="roll_number" value="{{ old('roll_number') }}"
+                                            class="form-control @error('roll_number') is-invalid @enderror" minlength="1"
+                                            maxlength="8" name="roll_number" value="{{ old('roll_number') }}"
                                             placeholder="যেমন: 12345678" required>
                                         <div class="invalid-feedback">সঠিক রোল নম্বর দিন (সর্বোচ্চ ৮ ডিজিট)</div>
                                         @error('roll_number')
@@ -144,10 +144,9 @@
                                         <label class="form-label required">রেজিস্ট্রেশন নম্বর</label>
                                         <input type="text"
                                             class="form-control @error('registration_number') is-invalid @enderror"
-                                            minlength="1" maxlength="12"
-                                            name="registration_number"
-                                            value="{{ old('registration_number') }}"
-                                            placeholder="যেমন: 123456789012" required>
+                                            minlength="1" maxlength="12" name="registration_number"
+                                            value="{{ old('registration_number') }}" placeholder="যেমন: 123456789012"
+                                            required>
                                         <div class="invalid-feedback">সঠিক রেজিস্ট্রেশন নম্বর দিন (সর্বোচ্চ ১২ ডিজিট)</div>
                                         @error('registration_number')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -157,8 +156,8 @@
                                         <label class="form-label required">জিপিএ/ফলাফল</label>
                                         <input type="text"
                                             class="form-control @error('gpa_result') is-invalid @enderror"
-                                            name="gpa_result" value="{{ old('gpa_result') }}"
-                                            placeholder="যেমন: 5.00" required>
+                                            name="gpa_result" value="{{ old('gpa_result') }}" placeholder="যেমন: 5.00"
+                                            required>
                                         <div class="invalid-feedback">সঠিক জিপিএ দিন (যেমন: GPA-5.00 অথবা 5.00)</div>
                                         @error('gpa_result')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -170,7 +169,7 @@
                             {{-- Address Information Section --}}
                             <div class="form-section">
                                 <div class="section-title-icon">
-                                    <i class="bi bi-geo-alt"></i>
+                                    <i class="fas fa-map-marker-alt"></i>
                                     <h5>ঠিকানা তথ্য</h5>
                                 </div>
 
@@ -220,14 +219,14 @@
                             {{-- Photo Upload Section --}}
                             <div class="form-section">
                                 <div class="section-title-icon">
-                                    <i class="bi bi-camera"></i>
+                                    <i class="fas fa-camera"></i>
                                     <h5>শিক্ষার্থীর ছবি</h5>
                                 </div>
 
                                 <div class="photo-upload-container">
                                     <div class="photo-preview-area" id="photoPreviewArea">
                                         <div class="photo-placeholder" id="photoPlaceholder">
-                                            <i class="bi bi-person-circle" style="font-size: 4rem; color: #C7D2FE;"></i>
+                                            <i class="fas fa-image" style="font-size: 4rem; color: #C7D2FE;"></i>
                                             <p class="text-muted mt-2 mb-0">ছবি নির্বাচন করুন</p>
                                             <small class="text-muted">JPG, PNG (2MB)</small>
                                         </div>
@@ -235,7 +234,7 @@
                                             <img id="previewImg" src="" alt="প্রিভিউ">
                                             <button type="button" class="remove-photo-btn" id="removePhotoBtn"
                                                 title="ছবি সরান">
-                                                <i class="bi bi-x-circle-fill"></i>
+                                                <i class="fas fa-times-circle"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -244,10 +243,11 @@
                                         <input type="file" name="student_photo" id="studentPhoto"
                                             accept="image/jpeg,image/jpg,image/png" style="display: none;">
                                         <button type="button" class="btn btn-outline-primary" id="selectPhotoBtn">
-                                            <i class="bi bi-folder2-open"></i> ছবি নির্বাচন করুন
+                                            <i class="fas fa-folder-open"></i> ছবি নির্বাচন করুন
                                         </button>
                                         <small class="text-muted d-block mt-2">
-                                            <i class="bi bi-info-circle"></i> ছবি না দিলেও রেজিস্ট্রেশন করা যাবে (পরবর্তীতে
+                                            <i class="fas fa-info-circle"></i> ছবি না দিলেও রেজিস্ট্রেশন করা যাবে
+                                            (পরবর্তীতে
                                             দেওয়া যাবে)
                                         </small>
                                     </div>
@@ -265,7 +265,7 @@
                                 </button>
                                 <div class="text-center">
                                     <a href="{{ route('student.login') }}" class="text-decoration-none">
-                                        <i class="bi bi-box-arrow-in-right"></i> ইতিমধ্যে রেজিস্ট্রেশন করেছেন? লগইন করুন
+                                        <i class="fas fa-sign-in-alt"></i> ইতিমধ্যে রেজিস্ট্রেশন করেছেন? লগইন করুন
                                     </a>
                                 </div>
                             </div>
@@ -400,8 +400,8 @@
                 color: #EF4444;
             }
 
-            .form-control.is-invalid ~ .invalid-feedback,
-            .form-select.is-invalid ~ .invalid-feedback {
+            .form-control.is-invalid~.invalid-feedback,
+            .form-select.is-invalid~.invalid-feedback {
                 display: block;
             }
 
@@ -652,12 +652,14 @@
                     const matchMessage = document.getElementById('passwordMatch');
 
                     if (password.value === confirmPassword.value && password.value !== '') {
-                        matchMessage.innerHTML = '<i class="bi bi-check-circle-fill" style="color: #10B981;"></i> পাসওয়ার্ড মিলছে';
+                        matchMessage.innerHTML =
+                            '<i class="bi bi-check-circle-fill" style="color: #10B981;"></i> পাসওয়ার্ড মিলছে';
                         confirmPassword.classList.remove('is-invalid');
                         confirmPassword.classList.add('is-valid');
                         return true;
                     } else if (confirmPassword.value !== '') {
-                        matchMessage.innerHTML = '<i class="bi bi-x-circle-fill" style="color: #EF4444;"></i> পাসওয়ার্ড মিলছে না';
+                        matchMessage.innerHTML =
+                            '<i class="bi bi-x-circle-fill" style="color: #EF4444;"></i> পাসওয়ার্ড মিলছে না';
                         confirmPassword.classList.add('is-invalid');
                         confirmPassword.classList.remove('is-valid');
                         return false;
@@ -825,7 +827,10 @@
                         // Scroll to first error
                         const firstInvalid = form.querySelector('.is-invalid');
                         if (firstInvalid) {
-                            firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            firstInvalid.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
                             firstInvalid.focus();
                         }
 
@@ -855,15 +860,14 @@
                         text: "আপনার তথ্য সঠিক কিনা নিশ্চিত করুন",
                         icon: 'question',
                         showCancelButton: true,
-                        confirmButtonColor: '#4F46E5',
-                        cancelButtonColor: '#EF4444',
                         confirmButtonText: 'হ্যাঁ, জমা দিন',
                         cancelButtonText: 'বাতিল করুন',
                         reverseButtons: true
                     }).then((result) => {
                         if (result.isConfirmed) {
                             submitBtn.disabled = true;
-                            submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> জমা দেওয়া হচ্ছে...';
+                            submitBtn.innerHTML =
+                                '<i class="bi bi-hourglass-split"></i> জমা দেওয়া হচ্ছে...';
                             form.submit();
                         }
                     });

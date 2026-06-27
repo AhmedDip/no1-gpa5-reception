@@ -9,14 +9,14 @@
     <title>@yield('title', 'নং ১ বাবার কৃতী সন্তান সংবর্ধনা ২০২৬')</title>
     <link rel="icon" href="{{ asset('images/no1-logo.png') }}" type="image/png">
 
-    <!-- Fonts & Critical CSS -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Hind+Siliguri:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <!-- Necessary CSS -->
+    <link rel="stylesheet" href="{{ asset('template/assets/vendor/fonts/bengali-font.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('template/assets/vendor/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('template/assets/vendor/fonts/fontawesome.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('template/assets/vendor/libs/toastr/toastr.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('template/assets/vendor/libs/sweetalert2/sweetalert2.css') }}" rel="stylesheet" />
+
+
 
     @stack('styles')
     <style>
@@ -340,22 +340,24 @@
     </main>
     @include('frontend.partials.footer')
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    {{-- Toastr JS --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    {{-- Necessary JS Scripts --}}
+    <script src="{{ asset('template/assets/vendor/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('template/assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
+    <script src="{{ asset('template/assets/vendor/libs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('template/assets/vendor/libs/toastr/toastr.js') }}"></script>
+
     @stack('scripts')
     <script>
-        @if(session('success'))
+        @if (session('success'))
             toastr.success("{{ session('success') }}");
         @endif
 
-        @if(session('error'))
+        @if (session('error'))
             toastr.error("{{ session('error') }}");
         @endif
 
-        @if(session('warning'))
+        @if (session('warning'))
             toastr.warning("{{ session('warning') }}");
         @endif
     </script>
