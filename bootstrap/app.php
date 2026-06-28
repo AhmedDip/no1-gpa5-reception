@@ -42,6 +42,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'check.deadline' => CheckApplicationDeadline::class,
             'prevent.back' => PreventBackHistory::class,
             'menu.permission' => \App\Http\Middleware\MenuPermission::class,
+             'admin.auth' => \App\Http\Middleware\AdminAuthenticate::class,
         ]);
 
         // Middleware groups

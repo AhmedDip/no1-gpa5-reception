@@ -1,462 +1,433 @@
+{{-- resources/views/backend/modules/admin/dashboard/index.blade.php --}}
+
 @extends('backend.layouts.admin-template.main')
 
 @section('title', $page_content['page_title'] ?? 'Dashboard')
 
+@push('css')
+    <style>
+        .stat-card {
+            border: none;
+            border-radius: 16px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12) !important;
+        }
+
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+        }
+
+        .stat-gradient-blue {
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+        }
+
+        .stat-gradient-green {
+            background: linear-gradient(135deg, #1cc88a 0%, #13855c 100%);
+        }
+
+        .stat-gradient-orange {
+            background: linear-gradient(135deg, #f6c23e 0%, #dda20a 100%);
+        }
+
+        .stat-gradient-red {
+            background: linear-gradient(135deg, #e74a3b 0%, #be2617 100%);
+        }
+
+        .stat-num {
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .badge-status {
+            border-radius: 30px;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: rgba(78, 115, 223, 0.05);
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #444;
+            letter-spacing: 0.3px;
+        }
+
+        .permission-badge {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+    </style>
+@endpush
+
 @section('main-content')
-    <div class="row">
-        <div class="col-md-12 mb-5">
 
-            <div class="row">
-                {{-- MTD 1 --}}
-                <div class="col-md-6">
-                    <div class="card mb-6 ">
-                        <h5 class="card-header"> User Summary </h5>
+    {{-- ── Welcome Bar ─────────────────────────────────────────────── --}}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm"
+                style="background: linear-gradient(135deg, #6041a9 0%, #7e54de 100%); border-radius: 16px;">
+                <div class="card-body p-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
+                    <div class="text-white">
+                        <h4 class="fw-bold mb-1">স্বাগতম, {{ Auth::user()->name }}! 👋</h4>
+                        <p class="mb-0 opacity-75 small">
+                            <i class="bx bx-calendar me-1"></i>{{ now()->format('l, d F Y') }}
+                            &nbsp;|&nbsp;
+                            <i class="bx bx-badge-check me-1"></i>{{ Auth::user()->webMenuGroup->wmng_name ?? 'Admin' }}
+                        </p>
+                    </div>
+                    <div>
+                        <a href="{{ route('home') }}" target="_blank" class="btn btn-sm btn-light text-purple fw-semibold">
+                            <i class="bx bx-globe me-1"></i> পাবলিক সাইট দেখুন
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                        <div class="card-body">
-                            <div class="demo-vertical-spacing demo-only-element">
+    {{-- ── Stat Cards ──────────────────────────────────────────────── --}}
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-lg-3">
+            <div class="card stat-card shadow-sm h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="stat-icon stat-gradient-blue text-white">
+                            <i class="bx bx-file"></i>
+                        </div>
+                        <span class="badge bg-label-primary permission-badge">মোট</span>
+                    </div>
+                    <div class="stat-num text-dark">{{ number_format($totalApplications) }}</div>
+                    <div class="small text-muted mt-1">মোট আবেদন</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="card stat-card shadow-sm h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="stat-icon stat-gradient-orange text-white">
+                            <i class="bx bx-time"></i>
+                        </div>
+                        <span class="badge bg-label-warning permission-badge">অপেক্ষমাণ</span>
+                    </div>
+                    <div class="stat-num text-dark">{{ number_format($pendingApplications) }}</div>
+                    <div class="small text-muted mt-1">পেন্ডিং আবেদন</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="card stat-card shadow-sm h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="stat-icon stat-gradient-green text-white">
+                            <i class="bx bx-check-circle"></i>
+                        </div>
+                        <span class="badge bg-label-success permission-badge">অনুমোদিত</span>
+                    </div>
+                    <div class="stat-num text-dark">{{ number_format($approvedApplications) }}</div>
+                    <div class="small text-muted mt-1">অনুমোদিত আবেদন</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="card stat-card shadow-sm h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="stat-icon stat-gradient-red text-white">
+                            <i class="bx bx-x-circle"></i>
+                        </div>
+                        <span class="badge bg-label-danger permission-badge">প্রত্যাখ্যাত</span>
+                    </div>
+                    <div class="stat-num text-dark">{{ number_format($rejectedApplications) }}</div>
+                    <div class="small text-muted mt-1">প্রত্যাখ্যাত আবেদন</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                                <div class="row align-items-center">
-                                    <div class="col-md-12">
-                                        <p class="mb-0">Total SR</p>
-                                    </div>
-                                    <div class=" col-md-10">
-                                        <div class="progress">
-                                            <div class="progress-bar bg-base" role="progressbar" style="width: 85%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                    <div class=" col-md-2">
-                                        <div>85</div>
-                                    </div>
-                                </div>
-
-                                <div class="row align-items-center">
-                                    <div class="col-md-12">
-                                        <p class="mb-0">Present</p>
-                                    </div>
-                                    <div class=" col-md-10">
-                                        <div class="progress">
-                                            <div class="progress-bar bg-base" role="progressbar" style="width: 75%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                    <div class=" col-md-2">
-                                        <div>75</div>
-                                    </div>
-                                </div>
-
-                                <div class="row align-items-center">
-                                    <div class="col-md-12">
-                                        <p class="mb-0">Absent</p>
-                                    </div>
-                                    <div class=" col-md-10">
-                                        <div class="progress">
-                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 25%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                    <div class=" col-md-2">
-                                        <div>25</div>
-                                    </div>
-                                </div>
-
-                                <div class="row align-items-center">
-                                    <div class="col-md-12">
-                                        <p class="mb-0">Active</p>
-                                    </div>
-                                    <div class=" col-md-10">
-                                        <div class="progress">
-                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                    <div class=" col-md-2">
-                                        <div>60</div>
-                                    </div>
-                                </div>
-
-                                <div class="row align-items-center">
-                                    <div class="col-md-12">
-                                        <p class="mb-0">Inactive</p>
-                                    </div>
-                                    <div class=" col-md-10">
-                                        <div class="progress">
-                                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                    <div class=" col-md-2">
-                                        <div>50</div>
-                                    </div>
-                                </div>
-
-                                <div class="row align-items-center">
-                                    <div class="col-md-12">
-                                        <p class="mb-0">Leave</p>
-                                    </div>
-                                    <div class=" col-md-10">
-                                        <div class="progress">
-                                            <div class="progress-bar bg-dark" role="progressbar" style="width: 15%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                    <div class=" col-md-2">
-                                        <div>15</div>
-                                    </div>
-                                </div>
-
+    {{-- ── Progress Summary ─────────────────────────────────────────── --}}
+    @if ($totalApplications > 0)
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="section-title mb-0"><i class="bx bx-bar-chart-alt-2 me-2 text-primary"></i>আবেদন
+                                অগ্রগতি</h6>
+                            <span class="small text-muted">মোট {{ number_format($totalApplications) }}টি আবেদন</span>
+                        </div>
+                        <div class="progress mb-2" style="height: 24px; border-radius: 12px;">
+                            @php
+                                $approvedPct =
+                                    $totalApplications > 0
+                                        ? round(($approvedApplications / $totalApplications) * 100)
+                                        : 0;
+                                $pendingPct =
+                                    $totalApplications > 0
+                                        ? round(($pendingApplications / $totalApplications) * 100)
+                                        : 0;
+                                $rejectedPct =
+                                    $totalApplications > 0
+                                        ? round(($rejectedApplications / $totalApplications) * 100)
+                                        : 0;
+                            @endphp
+                            <div class="progress-bar bg-success" style="width: {{ $approvedPct }}%">
+                                @if ($approvedPct > 8)
+                                    {{ $approvedPct }}%
+                                @endif
                             </div>
+                            <div class="progress-bar bg-warning text-dark" style="width: {{ $pendingPct }}%">
+                                @if ($pendingPct > 8)
+                                    {{ $pendingPct }}%
+                                @endif
+                            </div>
+                            <div class="progress-bar bg-danger" style="width: {{ $rejectedPct }}%">
+                                @if ($rejectedPct > 8)
+                                    {{ $rejectedPct }}%
+                                @endif
+                            </div>
+                        </div>
+                        <div class="d-flex gap-4 mt-2 flex-wrap">
+                            <span class="small"><span class="badge bg-success me-1">■</span>অনুমোদিত
+                                {{ $approvedPct }}%</span>
+                            <span class="small"><span class="badge bg-warning text-dark me-1">■</span>অপেক্ষমাণ
+                                {{ $pendingPct }}%</span>
+                            <span class="small"><span class="badge bg-danger me-1">■</span>প্রত্যাখ্যাত
+                                {{ $rejectedPct }}%</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    @endif
 
+    {{-- ── Charts Row ───────────────────────────────────────────────── --}}
+    <div class="row g-3 mb-4">
+        {{-- Board Chart --}}
+        <div class="col-12 col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white border-0 pt-4 pb-0">
+                    <h6 class="section-title"><i class="bx bx-pie-chart-alt-2 me-2 text-info"></i>বোর্ড অনুযায়ী আবেদন</h6>
+                </div>
+                <div class="card-body">
+                    <div id="boardChart" style="min-height: 260px;"></div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Division Chart --}}
+        <div class="col-12 col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white border-0 pt-4 pb-0">
+                    <h6 class="section-title"><i class="bx bx-map me-2 text-success"></i>বিভাগ অনুযায়ী আবেদন</h6>
+                </div>
+                <div class="card-body">
+                    <div id="divisionChart" style="min-height: 260px;"></div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    {{-- ── Recent Applications Table ───────────────────────────────── --}}
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div
+                    class="card-header bg-white border-0 pt-4 pb-0 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <h6 class="section-title mb-0"><i class="bx bx-list-ul me-2 text-primary"></i>সাম্প্রতিক আবেদনসমূহ</h6>
+                    @can('viewAny', \App\Models\UserDetail::class)
+                        <a href="{{ route('admin.applications.index') }}" class="btn btn-sm btn-outline-primary">
+                            সব দেখুন <i class="bx bx-right-arrow-alt"></i>
+                        </a>
+                    @endcan
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-4">#</th>
+                                    <th>শিক্ষার্থীর নাম</th>
+                                    <th>বোর্ড</th>
+                                    <th>রোল নম্বর</th>
+                                    <th>জিপিএ</th>
+                                    <th>বিভাগ</th>
+                                    <th>স্ট্যাটাস</th>
+                                    <th>তারিখ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($recentApplications as $i => $app)
+                                    <tr>
+                                        <td class="ps-4 text-muted small">{{ $i + 1 }}</td>
+                                        <td>
+                                            <div class="fw-semibold">{{ $app->name_en }}</div>
+                                            <div class="small text-muted">{{ $app->name_bn }}</div>
+                                        </td>
+                                        <td class="small">{{ $app->board->name_bn ?? '—' }}</td>
+                                        <td class="small font-monospace">{{ $app->roll_number }}</td>
+                                        <td>
+                                            <span class="badge bg-label-success fw-bold">{{ $app->gpa_result }}</span>
+                                        </td>
+                                        <td class="small">{{ $app->division->name_bn ?? '—' }}</td>
+                                        <td>
+                                            @php
+                                                $statusClass = match ($app->application_status_id) {
+                                                    1 => 'bg-label-warning',
+                                                    2 => 'bg-label-success',
+                                                    3 => 'bg-label-danger',
+                                                    default => 'bg-label-secondary',
+                                                };
+                                            @endphp
+                                            <span class="badge {{ $statusClass }} badge-status">
+                                                {{ $app->applicationStatus->name ?? 'Pending' }}
+                                            </span>
+                                        </td>
+                                        <td class="small text-muted">{{ $app->created_at->format('d M Y') }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="8" class="text-center py-5 text-muted">
+                                            <i class="bx bx-inbox fs-1 d-block mb-2"></i>
+                                            কোনো আবেদন পাওয়া যায়নি
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
 @endsection
-
 
 @push('script')
     <script>
-        // Options for the "Visited" chart
-        var visitedOptions = {
-            series: [74],
-            chart: {
-                height: 200,
-                type: "radialBar",
-            },
-            plotOptions: {
-                radialBar: {
-                    hollow: {
-                        size: "70%",
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // ── Board Chart ─────────────────────────────────
+            const boardData = @json($applicationsByBoard);
+            const boardNames = Object.keys(boardData);
+            const boardVals = Object.values(boardData);
+
+            if (boardNames.length > 0) {
+                new ApexCharts(document.querySelector('#boardChart'), {
+                    chart: {
+                        type: 'donut',
+                        height: 260,
+                        fontFamily: 'Hind Siliguri, sans-serif'
                     },
-                    dataLabels: {
-                        name: {
-                            show: true,
-                            fontSize: "16px",
-                            color: "#666",
-                            offsetY: -10,
-                        },
-                        value: {
-                            fontSize: "22px",
-                            color: "#333",
-                            offsetY: 5,
-                            formatter: function(val) {
-                                return val + "%";
-                            },
-                        },
+                    series: boardVals,
+                    labels: boardNames,
+                    colors: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b', '#858796', '#5a5c69',
+                        '#2e59d9', '#17a673'
+                    ],
+                    legend: {
+                        position: 'bottom',
+                        fontSize: '12px'
                     },
-                },
-            },
-            labels: ["Visited"],
-            colors: ["#28a745"], // Green color
-        };
-
-        // Options for the "Strike Rate" chart
-        var strikeRateOptions = {
-            series: [22],
-            chart: {
-                height: 200,
-                type: "radialBar",
-            },
-            plotOptions: {
-                radialBar: {
-                    hollow: {
-                        size: "70%",
-                    },
-                    dataLabels: {
-                        name: {
-                            show: true,
-                            fontSize: "16px",
-                            color: "#666",
-                            offsetY: -10,
-                        },
-                        value: {
-                            fontSize: "22px",
-                            color: "#333",
-                            offsetY: 5,
-                            formatter: function(val) {
-                                return val + "%";
-                            },
-                        },
-                    },
-                },
-            },
-            labels: ["Strike Rate"],
-            colors: ["#007bff"], // Blue color
-        };
-
-        // Options for the "Strike Rate" chart
-        // var visitedOptions2 = {
-        //     series: [22],
-        //     chart: {
-        //         height: 200,
-        //         type: "radialBar",
-        //     },
-        //     plotOptions: {
-        //         radialBar: {
-        //             hollow: {
-        //                 size: "70%",
-        //             },
-        //             dataLabels: {
-        //                 name: {
-        //                     show: true,
-        //                     fontSize: "16px",
-        //                     color: "#666",
-        //                     offsetY: -10,
-        //                 },
-        //                 value: {
-        //                     fontSize: "22px",
-        //                     color: "#333",
-        //                     offsetY: 5,
-        //                     formatter: function(val) {
-        //                         return val + "%";
-        //                     },
-        //                 },
-        //             },
-        //         },
-        //     },
-        //     labels: ["Strike Rate"],
-        //     colors: ["#007bff"], // Blue color
-        // };
-        // Options for the "Strike Rate" chart
-        // var memoOptions = {
-        //     series: [22],
-        //     chart: {
-        //         height: 200,
-        //         type: "radialBar",
-        //     },
-        //     plotOptions: {
-        //         radialBar: {
-        //             hollow: {
-        //                 size: "70%",
-        //             },
-        //             dataLabels: {
-        //                 name: {
-        //                     show: true,
-        //                     fontSize: "16px",
-        //                     color: "#666",
-        //                     offsetY: -10,
-        //                 },
-        //                 value: {
-        //                     fontSize: "22px",
-        //                     color: "#333",
-        //                     offsetY: 5,
-        //                     formatter: function(val) {
-        //                         return val + "%";
-        //                     },
-        //                 },
-        //             },
-        //         },
-        //     },
-        //     labels: ["Strike Rate"],
-        //     colors: ["#007bff"], // Blue color
-        // };
-
-        // Render the charts
-        var visitedChart = new ApexCharts(document.querySelector("#visitedChart"), visitedOptions);
-        var strikeRateChart = new ApexCharts(document.querySelector("#strikeRateChart"), strikeRateOptions);
-
-        visitedChart.render();
-        strikeRateChart.render();
-
-        // var visitedChart2 = new ApexCharts(document.querySelector("#visitedChart2"), visitedOptions2);
-        // var memoChart = new ApexCharts(document.querySelector("#memoChart"), memoOptions);
-
-        visitedChart2.render();
-        memoChart.render();
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var options = {
-                series: [28, 19, 21, 34],
-                chart: {
-                    type: 'donut',
-                    width: '100%'
-                },
-                labels: ["Category 1", "Category 2", "Category 3", "Category 4"],
-                colors: ['#28a745', '#6f42c1', '#dc3545', '#007bff'],
-                dataLabels: {
-                    enabled: false
-                },
-                legend: {
-                    show: false
-                },
-                plotOptions: {
-                    pie: {
-                        donut: {
-                            size: '65%',
-                            labels: {
-                                show: true,
-                                total: {
+                    plotOptions: {
+                        pie: {
+                            donut: {
+                                size: '60%',
+                                labels: {
                                     show: true,
-                                    label: 'Total',
-                                    fontSize: '16px',
-                                    fontWeight: 600,
-                                    color: '#333',
-                                    formatter: function(w) {
-                                        return "৳7,845";
+                                    total: {
+                                        show: true,
+                                        label: 'মোট',
+                                        formatter: (w) => w.globals.seriesTotals.reduce((a, b) => a + b, 0)
                                     }
                                 }
                             }
                         }
-                    }
-                }
-            };
-
-            var chart = new ApexCharts(document.querySelector("#donutChart1"), options);
-            var chart2 = new ApexCharts(document.querySelector("#donutChart2"), options);
-            chart.render();
-            chart2.render();
-        });
-    </script>
-
-    <script>
-        var options = {
-            series: [{
-                data: [400, 540, 690, 1100]
-            }],
-            chart: {
-                type: 'bar',
-                height: 350
-            },
-            plotOptions: {
-                bar: {
-                    borderRadius: 4,
-                    borderRadiusApplication: 'end',
-                    horizontal: true,
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            xaxis: {
-                categories: ['Sadar Bazar', 'Badda', 'Rup Nagar', 'Jatrabari'],
-            }
-        };
-
-        var chart = new ApexCharts(document.querySelector("#demand_sales_chart"), options);
-        chart.render();
-    </script>
-
-    <script>
-        var options = {
-            series: [{
-                name: 'New',
-                data: [4]
-            }, {
-                name: 'Active',
-                data: [60]
-            }, {
-                name: 'To Be Dormant',
-                data: [36]
-            }, {
-                name: 'No Order',
-                data: [5]
-            }, {
-                name: 'Not Visited',
-                data: [1]
-            }],
-            chart: {
-                type: 'bar',
-                height: 130,
-                stacked: true,
-                stackType: '100%'
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: true,
-                },
-            },
-            stroke: {
-                width: 0,
-                colors: ['#fff']
-            },
-            // title: {
-            //     text: '100% Stacked Bar'
-            // },
-            xaxis: {
-                categories: ['Outlets'],
-            },
-            tooltip: {
-                y: {
-                    formatter: function(val) {
-                        return val + "K"
-                    }
-                }
-            },
-            fill: {
-                opacity: 1
-
-            },
-            legend: {
-                position: 'top',
-                horizontalAlign: 'left',
-                offsetX: 40
-            },
-            responsive: [{
-                breakpoint: 480, // For screens smaller than 480px
-                options: {
-                    chart: {
-                        height: 175 // Increase height for better visibility
                     },
-                    legend: {
-                        position: 'bottom', // Adjust legend position
-                    }
-                }
-            }]
-        };
-
-        var chart = new ApexCharts(document.querySelector("#stack_bar_chart"), options);
-        chart.render();
-    </script>
-
-
-
-
-
-
-    <script>
-        var options1 = {
-            series: [84, 16],
-            labels: ['Visited', 'Shop'],
-            dataLabels: {
-                style: {
-                    colors: ['#384551', '#384551'] // Set colors for labels
-                },
-                dropShadow: {
-                    enabled: false // Disable shadow
-                }
-            },
-            colors: ['#008FFB', '#D3D3D3'],
-            chart: {
-                type: 'donut'
-            },
-            legend: {
-                show: false
+                    dataLabels: {
+                        enabled: false
+                    },
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                height: 200
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }]
+                }).render();
+            } else {
+                document.querySelector('#boardChart').innerHTML =
+                    '<div class="text-center text-muted py-5">কোনো ডেটা নেই</div>';
             }
-        };
 
-        var options2 = {
-            series: [55, 45],
-            labels: ['Memo', 'Shop'],
-            dataLabels: {
-                style: {
-                    colors: ['#384551', '#384551'] // Set colors for labels
-                },
-                dropShadow: {
-                    enabled: false // Disable shadow
-                }
-            },
-            colors: ['#13C471', '#D3D3D3'],
-            chart: {
-                type: 'donut'
-            },
-            legend: {
-                show: false
+            // ── Division Chart ───────────────────────────────
+            const divData = @json($applicationsByDivision);
+            const divNames = Object.keys(divData);
+            const divVals = Object.values(divData);
+
+            if (divNames.length > 0) {
+                new ApexCharts(document.querySelector('#divisionChart'), {
+                    chart: {
+                        type: 'bar',
+                        height: 260,
+                        fontFamily: 'Hind Siliguri, sans-serif',
+                        toolbar: {
+                            show: false
+                        }
+                    },
+                    series: [{
+                        name: 'আবেদন',
+                        data: divVals
+                    }],
+                    xaxis: {
+                        categories: divNames
+                    },
+                    colors: ['#6041a9'],
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 6,
+                            horizontal: false,
+                            columnWidth: '55%'
+                        }
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        formatter: (val) => val
+                    },
+                    grid: {
+                        borderColor: '#f0f0f0'
+                    },
+                    yaxis: {
+                        labels: {
+                            formatter: (val) => Math.floor(val)
+                        }
+                    },
+                }).render();
+            } else {
+                document.querySelector('#divisionChart').innerHTML =
+                    '<div class="text-center text-muted py-5">কোনো ডেটা নেই</div>';
             }
-        };
 
-        var chart1 = new ApexCharts(document.querySelector("#visitedChart2"), options1);
-        var chart2 = new ApexCharts(document.querySelector("#memoChart"), options2);
-
-        chart1.render();
-        chart2.render();
+        });
     </script>
 @endpush
