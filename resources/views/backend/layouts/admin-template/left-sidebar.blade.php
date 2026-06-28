@@ -109,21 +109,5 @@
             </li>
         @endforelse
 
-        {{-- Divider + Logout --}}
-        <li class="menu-header small text-uppercase" style="margin-top:auto;">
-            <span class="menu-header-text" style="opacity:.4;">Account</span>
-        </li>
-
-        <li class="menu-item">
-            <form method="POST" action="{{ route('admin.logout') }}" id="adminLogoutForm">
-                @csrf
-                <button type="submit" class="menu-link w-100 text-start border-0 bg-transparent"
-                    style="cursor:pointer;" onclick="return confirm('লগআউট করতে চান?')">
-                    <i class="menu-icon tf-icons bx bx-power-off text-danger"></i>
-                    <div class="text-truncate text-danger">Logout</div>
-                </button>
-            </form>
-        </li>
-
     </ul>
 </aside>

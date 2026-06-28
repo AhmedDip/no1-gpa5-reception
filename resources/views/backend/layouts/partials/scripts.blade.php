@@ -14,8 +14,8 @@
 {{-- <script async defer src="https://buttons.github.io/buttons.js') }}"></script> --}}
 
 <!-- Vendors JS -->
-{{-- <script src="{{ asset('template/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script> --}}
-{{-- <script src="{{ asset('template/assets/js/charts-apex.js') }}"></script> --}}
+<script src="{{ asset('template/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+<script src="{{ asset('template/assets/js/charts-apex.js') }}"></script>
 <script src="{{ asset('template/assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
 
 <!-- Datatables JS -->
