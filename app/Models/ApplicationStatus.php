@@ -16,8 +16,8 @@ class ApplicationStatus extends Model
         'order'
     ];
 
-    public function userDetails(): HasMany
+    public function studentDetails(): HasMany
     {
-        return $this->hasMany(UserDetail::class, 'application_status_id');
+        return $this->hasMany(StudentDetail::class, 'application_status_id');
     }
 }

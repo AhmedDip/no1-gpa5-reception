@@ -5,7 +5,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\UserDetail;
+use App\Models\StudentDetail;
 use App\Models\ApplicationStatus;
 use App\Models\Division;
 use App\Services\MenuService;
@@ -29,27 +29,33 @@ class DashboardController extends Controller
         ];
 
         // Summary counts
-        $totalApplications   = UserDetail::count();
-        $pendingApplications = UserDetail::where('application_status_id', 1)->count();
-        $approvedApplications = UserDetail::where('application_status_id', 2)->count();
-        $rejectedApplications = UserDetail::where('application_status_id', 3)->count();
+        $totalApplications   = StudentDetail::count();
+        $pendingApplications = StudentDetail::where('application_status_id', 1)->count();
+        $approvedApplications = StudentDetail::where('application_status_id', 2)->count();
+        $rejectedApplications = StudentDetail::where('application_status_id', 3)->count();
 
         // Applications by board (for chart)
-        $applicationsByBoard = UserDetail::select('boards.name_bn as name', DB::raw('count(*) as total'))
-            ->join('boards', 'user_details.ssc_board_id', '=', 'boards.id')
+        $applicationsByBoard = StudentDetail::select('boards.name_bn as name', DB::raw('count(*) as total'))
+            ->join('boards', 'student_details.ssc_board_id', '=', 'boards.id')
             ->groupBy('boards.name_bn')
             ->pluck('total', 'name')
             ->toArray();
 
-        // Applications by division
-        $applicationsByDivision = UserDetail::select('divisions.name_bn as name', DB::raw('count(*) as total'))
-            ->join('divisions', 'user_details.division_id', '=', 'divisions.id')
+        $applicationsByDivision = Division::select('divisions.name_bn as name', DB::raw('count(student_details.id) as total'))
+            ->leftJoin('student_details', 'divisions.id', '=', 'student_details.division_id')
             ->groupBy('divisions.name_bn')
             ->pluck('total', 'name')
             ->toArray();
 
+        // Applications by Student Group
+        $applicationsByStudentGroup = StudentDetail::select('student_groups.name_bn as name', DB::raw('count(*) as total'))
+            ->join('student_groups', 'student_details.student_group_id', '=', 'student_groups.id')
+            ->groupBy('student_groups.name_bn')
+            ->pluck('total', 'name')
+            ->toArray();
+
         // Recent 10 applications
-        $recentApplications = UserDetail::with(['user', 'applicationStatus', 'board', 'division'])
+        $recentApplications = StudentDetail::with(['user', 'applicationStatus', 'board', 'division'])
             ->latest()
             ->limit(10)
             ->get();
@@ -65,6 +71,7 @@ class DashboardController extends Controller
             'rejectedApplications',
             'applicationsByBoard',
             'applicationsByDivision',
+            'applicationsByStudentGroup',
             'recentApplications',
             'statuses'
         ));
@@ -83,7 +90,7 @@ class DashboardController extends Controller
         ];
 
         // Applications per day (last 30 days)
-        $dailyApplications = UserDetail::select(
+        $dailyApplications = StudentDetail::select(
             DB::raw('DATE(created_at) as date'),
             DB::raw('count(*) as total')
         )
@@ -93,15 +100,15 @@ class DashboardController extends Controller
             ->get();
 
         // GPA distribution
-        $gpaDistribution = UserDetail::select('gpa_result', DB::raw('count(*) as total'))
+        $gpaDistribution = StudentDetail::select('gpa_result', DB::raw('count(*) as total'))
             ->groupBy('gpa_result')
             ->orderByDesc('total')
             ->limit(10)
             ->get();
 
         // Top districts
-        $topDistricts = UserDetail::select('districts.name_bn as name', DB::raw('count(*) as total'))
-            ->join('districts', 'user_details.district_id', '=', 'districts.id')
+        $topDistricts = StudentDetail::select('districts.name_bn as name', DB::raw('count(*) as total'))
+            ->join('districts', 'student_details.district_id', '=', 'districts.id')
             ->groupBy('districts.name_bn')
             ->orderByDesc('total')
             ->limit(10)

@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
             UpazilaSeeder::class,
             StudentGroupSeeder::class,
             UserTypeSeeder::class,
-            
+            SSCBoardSeeder::class,
+            AdminSeeder::class,
+
         ]);
     }
 }

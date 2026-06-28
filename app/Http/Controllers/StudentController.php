@@ -3,7 +3,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserDetail;
 use App\Models\Board;
 use App\Models\StudentGroup;
 use App\Models\Division;
@@ -23,10 +22,10 @@ class StudentController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
-        $userDetail = $user->userDetail;
+        $studentDetail = $user->studentDetail;
         $showParentModal = !$user->hasParentInfo();
 
-        return view('frontend.pages.student.dashboard', compact('user', 'userDetail', 'showParentModal'));
+        return view('frontend.pages.student.dashboard', compact('user', 'studentDetail', 'showParentModal'));
     }
 
     public function updateParentInfo(Request $request)
@@ -47,9 +46,9 @@ class StudentController extends Controller
         ]);
 
         $user = Auth::user();
-        $userDetail = $user->userDetail;
+        $studentDetail = $user->studentDetail;
 
-        $parentPhotoPath = $userDetail->parent_photo;
+        $parentPhotoPath = $studentDetail->parent_photo;
         if ($request->hasFile('parent_photo')) {
             if ($parentPhotoPath && Storage::disk('public')->exists($parentPhotoPath)) {
                 Storage::disk('public')->delete($parentPhotoPath);
@@ -57,7 +56,7 @@ class StudentController extends Controller
             $parentPhotoPath = $request->file('parent_photo')->store('students/parents', 'public');
         }
 
-        $userDetail->update([
+        $studentDetail->update([
             'father_name' => $request->father_name,
             'mother_name' => $request->mother_name,
             'tea_stall_name' => $request->tea_stall_name,
@@ -73,15 +72,15 @@ class StudentController extends Controller
     public function editApplication()
     {
         $user = Auth::user();
-        $userDetail = $user->userDetail;
+        $studentDetail = $user->studentDetail;
 
         $sscBoards = Board::query()->get();
         $studentGroups = StudentGroup::query()->get();
         $divisions = Division::query()->get();
-        $districts = District::query()->where('division_id', $userDetail->division_id)->get();
-        $upazilas = Upazila::query()->where('district_id', $userDetail->district_id)->get();
+        $districts = District::query()->where('division_id', $studentDetail->division_id)->get();
+        $upazilas = Upazila::query()->where('district_id', $studentDetail->district_id)->get();
 
-        return view('frontend.pages.student.edit-application', compact('user', 'userDetail', 'sscBoards', 'studentGroups', 'divisions', 'districts', 'upazilas'));
+        return view('frontend.pages.student.edit-application', compact('user', 'studentDetail', 'sscBoards', 'studentGroups', 'divisions', 'districts', 'upazilas'));
     }
 
     public function updateApplication(Request $request)
@@ -101,17 +100,17 @@ class StudentController extends Controller
         ]);
 
         $user = Auth::user();
-        $userDetail = $user->userDetail;
+        $studentDetail = $user->studentDetail;
 
         if ($request->hasFile('student_photo')) {
-            if ($userDetail->student_photo && Storage::disk('public')->exists($userDetail->student_photo)) {
-                Storage::disk('public')->delete($userDetail->student_photo);
+            if ($studentDetail->student_photo && Storage::disk('public')->exists($studentDetail->student_photo)) {
+                Storage::disk('public')->delete($studentDetail->student_photo);
             }
             $studentPhotoPath = $request->file('student_photo')->store('students/photos', 'public');
-            $userDetail->student_photo = $studentPhotoPath;
+            $studentDetail->student_photo = $studentPhotoPath;
         }
 
-        $userDetail->update([
+        $studentDetail->update([
             'name_en' => $request->name_en,
             'name_bn' => $request->name_bn,
             'ssc_board_id' => $request->ssc_board_id,
@@ -152,7 +151,7 @@ class StudentController extends Controller
 
     public function certificate()
     {
-        $name = Auth::user()->userDetail->name_bn ?? Auth::user()->name;
+        $name = Auth::user()->studentDetail->name_bn ?? Auth::user()->name;
         return view('frontend.pages.certificate.index', compact('name'));
     }
 }

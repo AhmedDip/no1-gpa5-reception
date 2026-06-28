@@ -61,7 +61,7 @@ class User extends Authenticatable
 
     public function hasParentInfo()
     {
-        return $this->userDetail && $this->userDetail->is_parent_info_provided;
+        return $this->studentDetail && $this->studentDetail->is_parent_info_provided;
     }
 
     public function isMobileVerified()
@@ -81,9 +81,9 @@ class User extends Authenticatable
         return $this->belongsTo(WebMenuGroup::class, 'wmng_id');
     }
 
-    public function userDetail(): HasOne
+    public function studentDetail(): HasOne
     {
-        return $this->hasOne(UserDetail::class);
+        return $this->hasOne(StudentDetail::class);
     }
 
     // Check if user has permission for a specific menu

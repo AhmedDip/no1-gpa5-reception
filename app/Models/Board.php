@@ -17,8 +17,8 @@ class Board extends Model
     ];
 
 
-    public function userDetails()
+    public function studentDetails()
     {
-        return $this->hasMany(UserDetail::class);
+        return $this->hasMany(StudentDetail::class);
     }
 }

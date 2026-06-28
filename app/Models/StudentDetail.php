@@ -1,14 +1,14 @@
 <?php
-// app/Models/UserDetail.php
+// app/Models/StudentDetail.php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class UserDetail extends Model
+class StudentDetail extends Model
 {
-    protected $table = 'user_details';
+    protected $table = 'student_details';
 
     protected $fillable = [
         'user_id', 'name_en', 'name_bn', 'ssc_board_id', 'student_group_id',

@@ -11,11 +11,11 @@
 
 <!-- Page JS -->
 <!-- Place this tag before closing body tag for github widget button. -->
-<script async defer src="https://buttons.github.io/buttons.js') }}"></script>
+{{-- <script async defer src="https://buttons.github.io/buttons.js') }}"></script> --}}
 
 <!-- Vendors JS -->
-<script src="{{ asset('template/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-<script src="{{ asset('template/assets/js/charts-apex.js') }}"></script>
+{{-- <script src="{{ asset('template/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script> --}}
+{{-- <script src="{{ asset('template/assets/js/charts-apex.js') }}"></script> --}}
 <script src="{{ asset('template/assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
 
 <!-- Datatables JS -->
@@ -34,20 +34,20 @@
 <script>
     function updateClock() {
         const now = new Date();
-        let hours = now.getHours(); 
+        let hours = now.getHours();
         const minutes = now.getMinutes().toString().padStart(2, '0');
         const seconds = now.getSeconds().toString().padStart(2, '0');
         const timeFormat = hours >= 12 ? 'PM' : 'AM';
 
         hours = hours % 12;
-        hours = hours ? hours : 12; 
+        hours = hours ? hours : 12;
 
         hours = hours.toString().padStart(2, '0');
 
         document.getElementById('clock').innerHTML = `
       ${hours}:${minutes}:${seconds}&nbsp;${timeFormat}`;
     }
-    
+
     setInterval(updateClock, 1000);
     updateClock();
 </script>

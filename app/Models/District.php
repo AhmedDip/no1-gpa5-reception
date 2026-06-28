@@ -33,8 +33,8 @@ class District extends Model
         return $this->hasMany(Upazila::class);
     }
 
-    public function userDetails()
+    public function studentDetails()
     {
-        return $this->hasMany(UserDetail::class, 'district_id');
+        return $this->hasMany(StudentDetail::class, 'district_id');
     }
 }

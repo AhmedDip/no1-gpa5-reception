@@ -63,11 +63,11 @@
                 </h2>
 
                 <p class="lead mt-4 fs-5 fs-md-4 fw-medium text-dark-emphasis">
-                    "সন্তানের সাফল্য, বাবার গর্ব।"
+                    "সন্তানের সাফল্য, বাবার গর্ব।
                     চা-স্টল ব্যবসায়ীদের অক্লান্ত পরিশ্রম ও তাদের সন্তানদের অসাধারণ অর্জনকে সম্মান জানাতে নাম্বার ওয়ান
                     সবসময় পাশে আছে।
                     নাম্বার ওয়ান বাবার কৃতি সন্তান সংবর্ধনা ২০২৬—সংগ্রামের গল্পকে সম্মানের মঞ্চে তুলে ধরার একটি আন্তরিক
-                    উদ্যোগ।
+                    উদ্যোগ।"
 
                 </p>
                 {{-- <img src="{{ asset('images/no1-logo.png') }}" alt="brand" height="60" class="me-2"> --}}
@@ -652,8 +652,8 @@
         }
 
         /* .fancy-feature-card:hover .fancy-icon-wrapper {
-                                                        transform: scale(1.1);
-                                                    } */
+                                                            transform: scale(1.1);
+                                                        } */
 
         @media (min-width: 768px) {
             .fancy-icon-wrapper {

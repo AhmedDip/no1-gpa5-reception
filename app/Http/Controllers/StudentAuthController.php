@@ -4,7 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\UserDetail;
+use App\Models\StudentDetail;
 use App\Models\Board;
 use App\Models\StudentGroup;
 use App\Models\Division;
@@ -22,7 +22,7 @@ class StudentAuthController extends Controller
         $sscBoards = Board::query()->get();
         $studentGroups = StudentGroup::query()->get();
         $divisions = Division::query()->get();
-        
+
         return view('frontend.pages.student.register', compact('sscBoards', 'studentGroups', 'divisions'));
     }
 
@@ -60,7 +60,7 @@ class StudentAuthController extends Controller
         ]);
 
         DB::beginTransaction();
-        
+
         try {
             $studentPhotoPath = null;
             if ($request->hasFile('student_photo')) {
@@ -76,7 +76,7 @@ class StudentAuthController extends Controller
                 'is_mobile_verified' => false,
             ]);
 
-            UserDetail::create([
+            StudentDetail::create([
                 'user_id' => $user->id,
                 'name_en' => $request->name_en,
                 'name_bn' => $request->name_bn,
@@ -137,13 +137,13 @@ class StudentAuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            
+
             $user = Auth::user();
-            
+
             if (!$user->hasParentInfo()) {
                 return redirect()->route('student.dashboard')->with('warning', 'অনুগ্রহ করে আপনার অভিভাবকের তথ্য প্রদান করুন।');
             }
-            
+
             return redirect()->route('student.dashboard')->with('success', 'স্বাগতম! আপনি সফলভাবে লগইন করেছেন।');
         }
 
@@ -156,7 +156,7 @@ class StudentAuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        
+
         return redirect()->route('student.login')->with('success', 'আপনি সফলভাবে লগআউট করেছেন।');
     }
 }

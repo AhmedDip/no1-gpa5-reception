@@ -7,8 +7,9 @@
     </div>
 
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-        <div class="navbar-nav-left d-flex align-items-center mt-4">
-            <p id="clock" class="fw-bold text-secondary"></p>
+        <div class="navbar-nav-left d-flex align-items-center mt-1">
+            {{-- <p id="clock" class="fw-bold text-secondary"></p> --}}
+            নাম্বার ওয়ান বাবার কৃতি সন্তান সংবর্ধনা ২০২৬
         </div>
 
         <ul class="navbar-nav flex-row align-items-center ms-auto">

@@ -26,8 +26,8 @@ class Division extends Model
         return $this->hasMany(District::class);
     }
 
-    public function userDetails()
+    public function studentDetails()
     {
-        return $this->hasMany(UserDetail::class, 'division_id');
+        return $this->hasMany(StudentDetail::class, 'division_id');
     }
 }

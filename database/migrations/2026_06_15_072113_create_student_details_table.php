@@ -8,10 +8,10 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('user_details', function (Blueprint $table) {
+        Schema::create('student_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            
+
             // Student Basic Information
             $table->string('name_en')->nullable();
             $table->string('name_bn')->nullable();
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('division_id')->nullable();
             $table->unsignedBigInteger('district_id')->nullable();
             $table->unsignedBigInteger('upazila_id')->nullable();
-            
+
             // Parent Information
             $table->string('father_name')->nullable();
             $table->string('mother_name')->nullable();
@@ -32,14 +32,14 @@ return new class extends Migration
             $table->string('tea_stall_location')->nullable();
             $table->string('parent_mobile')->nullable();
             $table->string('parent_photo')->nullable();
-            
+
             // Status Flags
             $table->boolean('is_parent_info_provided')->default(false);
             $table->unsignedBigInteger('application_status_id')->default(1);
-            
+
             $table->timestamps();
-            
-            
+
+
             $table->index('user_id');
             $table->index('ssc_board_id');
             $table->index('student_group_id');
@@ -53,6 +53,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('user_details');
+        Schema::dropIfExists('student_details');
     }
 };

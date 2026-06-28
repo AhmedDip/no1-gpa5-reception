@@ -27,8 +27,8 @@ class Upazila extends Model
         return $this->belongsTo(District::class);
     }
 
-    public function userDetails()
+    public function studentDetails()
     {
-        return $this->hasMany(UserDetail::class, 'upazila_id');
+        return $this->hasMany(StudentDetail::class, 'upazila_id');
     }
 }
