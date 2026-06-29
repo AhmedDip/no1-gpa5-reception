@@ -3,11 +3,6 @@
 @section('title', 'আমন্ত্রণ পত্র | No.1 Babar Kriti Santan Songbordhona’26')
 
 @section('content')
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
         /* Base page reset */
         .invitation-body-wrapper {

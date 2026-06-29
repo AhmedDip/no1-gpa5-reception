@@ -3,9 +3,6 @@
 @section('title', 'সার্টিফিকেট | No.1 Babar Kriti Santan Songbordhona’26')
 
 @section('content')
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Great+Vibes&family=Noto+Serif+Bengali:wght@500;700&family=Montserrat:wght@400;500;600&display=swap"
-        rel="stylesheet">
 
     <style>
         .cert-wrapper {

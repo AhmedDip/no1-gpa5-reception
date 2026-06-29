@@ -1,6 +1,4 @@
 <?php
-// app/Http/Middleware/RedirectIfAuthenticated.php
-
 namespace App\Http\Middleware;
 
 use Closure;
@@ -17,11 +15,11 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 $user = Auth::user();
-                
+
                 if ($user->isStudent()) {
                     return redirect()->route('student.dashboard');
                 }
-                
+
                 return redirect('/');
             }
         }

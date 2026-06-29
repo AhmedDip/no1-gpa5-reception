@@ -7,7 +7,7 @@
                     document.write(new Date().getFullYear());
                 </script>
                 <a href="https://www.mgi.org/">
-                    <img src="https://www.mgi.org/assets/images/logo-dark3.png" alt="MGI Logo" class="footer-logo" height="25" width="55">
+                    <img src="{{ asset('images/mgi-logo.png') }}" alt="MGI Logo" class="footer-logo" height="25" width="55">
                 </a>. All Rights Reserved
 
             </div>

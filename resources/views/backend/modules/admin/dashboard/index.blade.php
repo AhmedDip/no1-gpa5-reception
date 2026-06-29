@@ -4,9 +4,6 @@
 
 @push('css')
     <style>
-        /* ── refined : simpler, more elegant ── */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
-
         :root {
             --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --bg-soft: #f6f4fe;
@@ -120,7 +117,6 @@
             color: var(--color-primary);
         }
 
-        /* ── stat cards (clean) ── */
         .stat-icon {
             width: 48px;
             height: 48px;
@@ -420,10 +416,6 @@
 @endpush
 
 @section('main-content')
-
-    {{-- ═══════════════════════════════════════
-         WELCOME HERO
-    ═══════════════════════════════════════ --}}
     <div class="row mb-4">
         <div class="col-12">
             <div class="hero-card p-4 p-lg-5 d-flex align-items-center justify-content-between flex-wrap gap-3">
@@ -444,11 +436,8 @@
         </div>
     </div>
 
-    {{-- ═══════════════════════════════════════
-     STAT CARDS (with centered large icon)
-══════════════════════════════════════ --}}
-    <div class="row g-3 mb-4">
 
+    <div class="row g-3 mb-4">
         {{-- Total --}}
         <div class="col-6 col-lg-3">
             <div class="gc"
@@ -555,11 +544,6 @@
         </div>
 
     </div>
-    {{-- ═══════════════════════════════════════
-         PROGRESS SECTION - CHOOSE ONE OPTION
-         (Uncomment the one you want to use)
-    ═══════════════════════════════════════ --}}
-
 
     @if ($totalApplications > 0)
         @php
@@ -647,12 +631,6 @@
         </div>
     @endif
 
-
-
-
-    {{-- ═══════════════════════════════════════
-         CHARTS (elegant)
-    ═══════════════════════════════════════ --}}
     <div class="row g-3 mb-4">
         <div class="col-12 col-lg-6">
             <div class="gc p-4 h-100">
@@ -674,9 +652,6 @@
         </div>
     </div>
 
-    {{-- ═══════════════════════════════════════
-         RECENT APPLICATIONS TABLE
-    ═══════════════════════════════════════ --}}
     <div class="row">
         <div class="col-12">
             <div class="gc p-0 overflow-hidden">
@@ -754,10 +729,9 @@
 @endsection
 
 @push('script')
-    {{-- <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
 
-            /* ── BOARD Donut ── */
             const boardData = @json($applicationsByBoard);
             const boardNames = Object.keys(boardData);
             const boardVals = Object.values(boardData);
@@ -951,5 +925,5 @@
             }
 
         });
-    </script> --}}
+    </script>
 @endpush

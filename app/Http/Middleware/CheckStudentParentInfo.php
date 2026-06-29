@@ -13,7 +13,7 @@ class CheckStudentParentInfo
     public function handle(Request $request, Closure $next): Response
     {
         $user = Auth::user();
-        
+
         if ($user && $user->isStudent()) {
             if (!$user->hasParentInfo()) {
                 session(['url.intended' => $request->url()]);
@@ -22,7 +22,7 @@ class CheckStudentParentInfo
                     ->with('showParentModal', true);
             }
         }
-        
+
         return $next($request);
     }
 }
