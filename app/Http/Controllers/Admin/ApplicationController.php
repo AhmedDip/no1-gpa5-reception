@@ -1,239 +1,368 @@
 <?php
 // app/Http/Controllers/Admin/ApplicationController.php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ApplicationAuditLog;
 use App\Models\ApplicationStatus;
+use App\Models\Board;
+use App\Models\District;
+use App\Models\Division;
 use App\Models\StudentDetail;
+use App\Services\ApplicationExportService;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ApplicationController extends Controller
 {
-    /**
-     * List all applications with filters
-     */
+    public function __construct(
+        private NotificationService    $notificationService,
+        private ApplicationExportService $exportService,
+    ) {}
+
+    // ─── List ─────────────────────────────────────────────────────────────────
+
     public function index(Request $request)
     {
-        $query = StudentDetail::with(['user', 'board', 'group', 'division', 'district', 'upazila', 'applicationStatus']);
+        $filters = $request->only(['status', 'board', 'division', 'district', 'search', 'per_page']);
 
-        // Apply filters
-        if ($request->filled('status')) {
-            $query->where('application_status_id', $request->status);
-        }
+        $query = $this->exportService->buildQuery($filters);
 
-        if ($request->filled('board')) {
-            $query->where('ssc_board_id', $request->board);
-        }
+        $perPage      = in_array((int) ($filters['per_page'] ?? 20), [10, 20, 50, 100]) ? (int) $filters['per_page'] : 20;
+        $applications = $query->paginate($perPage)->withQueryString();
 
-        if ($request->filled('division')) {
-            $query->where('division_id', $request->division);
-        }
+        // Summary counts for header pills
+        $counts = [
+            'total'    => StudentDetail::count(),
+            'pending'  => StudentDetail::where('application_status_id', 1)->count(),
+            'approved' => StudentDetail::where('application_status_id', 2)->count(),
+            'rejected' => StudentDetail::where('application_status_id', 3)->count(),
+        ];
 
-        if ($request->filled('district')) {
-            $query->where('district_id', $request->district);
-        }
+        $page_content = [
+            'page_title'      => 'Applications',
+            'module_name'     => 'Applications',
+            'module_route'    => route('admin.applications.index'),
+            'sub_module_name' => 'All Applications',
+        ];
 
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function($q) use ($search) {
-                $q->where('name_en', 'LIKE', "%{$search}%")
-                  ->orWhere('name_bn', 'LIKE', "%{$search}%")
-                  ->orWhere('roll_number', 'LIKE', "%{$search}%")
-                  ->orWhere('registration_number', 'LIKE', "%{$search}%")
-                  ->orWhere('father_name', 'LIKE', "%{$search}%")
-                  ->orWhere('tea_stall_name', 'LIKE', "%{$search}%");
-            });
-        }
+        $boards    = Board::orderBy('name')->get();
+        $divisions = Division::orderBy('name')->get();
+        $districts = District::orderBy('name')->get();
+        $statuses  = ApplicationStatus::orderBy('order')->get();
 
-        $applications = $query->orderBy('created_at', 'desc')->paginate(20);
-
-        // Get filter data
-        $boards = \App\Models\Board::all();
-        $divisions = \App\Models\Division::all();
-        $districts = \App\Models\District::all();
-        $statuses = ApplicationStatus::all();
-
-        return view('backend.modules.admin.dashboard.index', compact(
-            'applications',
-            'boards',
-            'divisions',
-            'districts',
-            'statuses'
+        return view('backend.modules.admin.applications.index', compact(
+            'applications', 'counts', 'boards', 'divisions', 'districts',
+            'statuses', 'filters', 'page_content'
         ));
     }
 
-    /**
-     * Show single application details
-     */
-    public function show($id)
+    // ─── Show ─────────────────────────────────────────────────────────────────
+
+    public function show(int $id)
     {
         $application = StudentDetail::with([
-            'user',
-            'board',
-            'group',
-            'division',
-            'district',
-            'upazila',
-            'applicationStatus'
+            'user', 'board', 'group', 'division', 'district', 'upazila',
+            'applicationStatus', 'auditLogs.performedBy', 'auditLogs.previousStatus', 'auditLogs.newStatus',
         ])->findOrFail($id);
 
-        return view('admin.applications.show', compact('application'));
+        $statuses = ApplicationStatus::orderBy('order')->get();
+
+        $page_content = [
+            'page_title'      => 'Application Detail',
+            'module_name'     => 'Applications',
+            'module_route'    => route('admin.applications.index'),
+            'sub_module_name' => 'Detail',
+        ];
+
+        return view('backend.modules.admin.applications.show',
+            compact('application', 'statuses', 'page_content'));
     }
 
-    /**
-     * Approve application
-     */
-    public function approve(Request $request, $id)
+    // ─── Approve (single) ─────────────────────────────────────────────────────
+
+    public function approve(Request $request, int $id)
     {
+        $request->validate(['remarks' => 'nullable|string|max:1000']);
+
         try {
             DB::beginTransaction();
 
-            $application = StudentDetail::findOrFail($id);
-            $application->application_status_id = ApplicationStatus::where('slug', 'approved')->first()->id;
-            $application->save();
+            $app            = StudentDetail::with('user')->findOrFail($id);
+            $previousStatus = $app->application_status_id;
+            $approvedStatus = ApplicationStatus::where('slug', 'approved')->value('id') ?? 2;
 
-            // Log the action
-            $this->logAction($application->user_id, 'approve', $request->remarks ?? '');
+            if ($app->application_status_id === $approvedStatus) {
+                return $this->jsonOrRedirect($request, false, 'আবেদনটি ইতিমধ্যে অনুমোদিত।');
+            }
 
-            // Send notification (optional)
-            $this->sendNotification($application->user_id, 'approved');
+            $app->update(['application_status_id' => $approvedStatus]);
+
+            $this->logAction($app->id, 'approve', $request->remarks ?? '', $previousStatus, $approvedStatus, $request->ip());
 
             DB::commit();
 
-            return redirect()->back()->with('success', 'Application approved successfully.');
+            // Send SMS after commit
+            if ($request->boolean('send_sms', true)) {
+                $this->notificationService->notifyApproved($app->fresh());
+            }
+
+            return $this->jsonOrRedirect($request, true, 'আবেদন সফলভাবে অনুমোদিত হয়েছে।');
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error('Application approval failed: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Failed to approve application.');
+            Log::error('Approve failed: ' . $e->getMessage());
+            return $this->jsonOrRedirect($request, false, 'অনুমোদন ব্যর্থ হয়েছে।');
         }
     }
 
-    /**
-     * Reject application
-     */
-    public function reject(Request $request, $id)
-    {
-        try {
-            $request->validate([
-                'remarks' => 'required|string|min:10'
-            ]);
+    // ─── Reject (single) ──────────────────────────────────────────────────────
 
+    public function reject(Request $request, int $id)
+    {
+        $request->validate([
+            'remarks' => 'required|string|min:5|max:1000',
+        ], [
+            'remarks.required' => 'প্রত্যাখ্যানের কারণ লিখুন।',
+            'remarks.min'      => 'কারণ কমপক্ষে ৫ অক্ষরের হতে হবে।',
+        ]);
+
+        try {
             DB::beginTransaction();
 
-            $application = StudentDetail::findOrFail($id);
-            $application->application_status_id = ApplicationStatus::where('slug', 'rejected')->first()->id;
-            $application->save();
+            $app            = StudentDetail::with('user')->findOrFail($id);
+            $previousStatus = $app->application_status_id;
+            $rejectedStatus = ApplicationStatus::where('slug', 'rejected')->value('id') ?? 3;
 
-            // Log the action with remarks
-            $this->logAction($application->user_id, 'reject', $request->remarks);
+            if ($app->application_status_id === $rejectedStatus) {
+                return $this->jsonOrRedirect($request, false, 'আবেদনটি ইতিমধ্যে প্রত্যাখ্যাত।');
+            }
 
-            // Send notification (optional)
-            $this->sendNotification($application->user_id, 'rejected', $request->remarks);
+            $app->update(['application_status_id' => $rejectedStatus]);
+
+            $this->logAction($app->id, 'reject', $request->remarks, $previousStatus, $rejectedStatus, $request->ip());
 
             DB::commit();
 
-            return redirect()->back()->with('success', 'Application rejected with remarks.');
+            if ($request->boolean('send_sms', true)) {
+                $this->notificationService->notifyRejected($app->fresh(), $request->remarks);
+            }
+
+            return $this->jsonOrRedirect($request, true, 'আবেদন প্রত্যাখ্যাত হয়েছে।');
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error('Application rejection failed: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Failed to reject application.');
+            Log::error('Reject failed: ' . $e->getMessage());
+            return $this->jsonOrRedirect($request, false, 'প্রত্যাখ্যান ব্যর্থ হয়েছে।');
         }
     }
 
-    /**
-     * Bulk approve applications
-     */
+    // ─── Bulk Approve ─────────────────────────────────────────────────────────
+
     public function bulkApprove(Request $request)
     {
-        try {
-            $request->validate([
-                'application_ids' => 'required|array|min:1',
-                'application_ids.*' => 'exists:student_details,id'
-            ]);
+        $request->validate([
+            'application_ids'   => 'required|array|min:1|max:200',
+            'application_ids.*' => 'integer|exists:student_details,id',
+            'send_sms'          => 'nullable|boolean',
+        ], [
+            'application_ids.required' => 'কমপক্ষে একটি আবেদন নির্বাচন করুন।',
+        ]);
 
+        try {
             DB::beginTransaction();
 
-            $approvedStatus = ApplicationStatus::where('slug', 'approved')->first()->id;
+            $approvedStatus = ApplicationStatus::where('slug', 'approved')->value('id') ?? 2;
+            $ids            = $request->application_ids;
 
-            StudentDetail::whereIn('id', $request->application_ids)
-                ->update(['application_status_id' => $approvedStatus]);
+            $apps = StudentDetail::with('user')
+                ->whereIn('id', $ids)
+                ->where('application_status_id', '!=', $approvedStatus)
+                ->get();
 
-            // Log bulk action
-            Log::info('Bulk approve', [
-                'user_ids' => $request->application_ids,
-                'approved_by' => auth()->id()
-            ]);
+            foreach ($apps as $app) {
+                $previousStatus = $app->application_status_id;
+                $app->update(['application_status_id' => $approvedStatus]);
+                $this->logAction($app->id, 'bulk_approve', 'বাল্ক অনুমোদন', $previousStatus, $approvedStatus, $request->ip());
+            }
 
             DB::commit();
 
-            return redirect()->back()->with('success', count($request->application_ids) . ' applications approved successfully.');
+            $smsSent   = 0;
+            $smsFailed = 0;
+
+            if ($request->boolean('send_sms', true) && $apps->isNotEmpty()) {
+                $result    = $this->notificationService->sendBulk($apps->fresh()->all());
+                $smsSent   = $result['sent'];
+                $smsFailed = $result['failed'];
+            }
+
+            $total   = $apps->count();
+            $message = "{$total}টি আবেদন অনুমোদিত হয়েছে।";
+            if ($smsSent > 0) {
+                $message .= " {$smsSent}টি SMS পাঠানো হয়েছে।";
+            }
+
+            return response()->json([
+                'success'    => true,
+                'message'    => $message,
+                'approved'   => $total,
+                'sms_sent'   => $smsSent,
+                'sms_failed' => $smsFailed,
+            ]);
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Bulk approve failed: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Failed to approve applications.');
+            return response()->json(['success' => false, 'message' => 'বাল্ক অনুমোদন ব্যর্থ হয়েছে।'], 500);
         }
     }
 
-    /**
-     * Export applications to Excel/CSV
-     */
+    // ─── Bulk Reject ──────────────────────────────────────────────────────────
+
+    public function bulkReject(Request $request)
+    {
+        $request->validate([
+            'application_ids'   => 'required|array|min:1|max:200',
+            'application_ids.*' => 'integer|exists:student_details,id',
+            'remarks'           => 'required|string|min:5|max:1000',
+            'send_sms'          => 'nullable|boolean',
+        ], [
+            'application_ids.required' => 'কমপক্ষে একটি আবেদন নির্বাচন করুন।',
+            'remarks.required'         => 'প্রত্যাখ্যানের কারণ লিখুন।',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            $rejectedStatus = ApplicationStatus::where('slug', 'rejected')->value('id') ?? 3;
+            $ids            = $request->application_ids;
+
+            $apps = StudentDetail::with('user')
+                ->whereIn('id', $ids)
+                ->where('application_status_id', '!=', $rejectedStatus)
+                ->get();
+
+            foreach ($apps as $app) {
+                $previousStatus = $app->application_status_id;
+                $app->update(['application_status_id' => $rejectedStatus]);
+                $this->logAction($app->id, 'bulk_reject', $request->remarks, $previousStatus, $rejectedStatus, $request->ip());
+            }
+
+            DB::commit();
+
+            if ($request->boolean('send_sms', false) && $apps->isNotEmpty()) {
+                $remarks = $request->remarks;
+                foreach ($apps->fresh() as $app) {
+                    $this->notificationService->notifyRejected($app, $remarks);
+                    usleep(200000);
+                }
+            }
+
+            return response()->json([
+                'success'  => true,
+                'message'  => $apps->count() . 'টি আবেদন প্রত্যাখ্যাত হয়েছে।',
+                'rejected' => $apps->count(),
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Bulk reject failed: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'বাল্ক প্রত্যাখ্যান ব্যর্থ হয়েছে।'], 500);
+        }
+    }
+
+    // ─── Send Notification (single) ───────────────────────────────────────────
+
+    public function sendNotification(Request $request, int $id)
+    {
+        $request->validate([
+            'message_type' => 'required|in:approved,rejected,custom',
+            'custom_msg'   => 'required_if:message_type,custom|nullable|string|max:300',
+            'remarks'      => 'nullable|string|max:500',
+        ]);
+
+        $app = StudentDetail::with('user')->findOrFail($id);
+
+        $sent = match ($request->message_type) {
+            'approved' => $this->notificationService->notifyApproved($app),
+            'rejected' => $this->notificationService->notifyRejected($app, $request->remarks ?? ''),
+            'custom'   => $this->notificationService->sendBulk([$app], $request->custom_msg)['sent'] > 0,
+            default    => false,
+        };
+
+        if ($sent) {
+            $this->logAction($app->id, 'notify', 'SMS পাঠানো হয়েছে', null, null, $request->ip());
+        }
+
+        return response()->json([
+            'success' => $sent,
+            'message' => $sent ? 'SMS সফলভাবে পাঠানো হয়েছে।' : 'SMS পাঠাতে ব্যর্থ হয়েছে।',
+        ]);
+    }
+
+    // ─── Bulk Send Notification ───────────────────────────────────────────────
+
+    public function bulkNotify(Request $request)
+    {
+        $request->validate([
+            'application_ids'   => 'required|array|min:1|max:200',
+            'application_ids.*' => 'integer|exists:student_details,id',
+            'message_type'      => 'required|in:approved,custom',
+            'custom_msg'        => 'required_if:message_type,custom|nullable|string|max:300',
+        ]);
+
+        $apps = StudentDetail::with('user')
+            ->whereIn('id', $request->application_ids)
+            ->get()
+            ->all();
+
+        $customMsg = $request->message_type === 'custom' ? $request->custom_msg : '';
+        $result    = $this->notificationService->sendBulk($apps, $customMsg);
+
+        return response()->json([
+            'success' => true,
+            'message' => "{$result['sent']}টি SMS পাঠানো হয়েছে, {$result['failed']}টি ব্যর্থ।",
+            'sent'    => $result['sent'],
+            'failed'  => $result['failed'],
+        ]);
+    }
+
+    // ─── Export ───────────────────────────────────────────────────────────────
+
     public function export(Request $request)
     {
-        // Implement export logic using Laravel Excel or similar package
-        // For now, return a simple CSV download
-        $applications = StudentDetail::with(['user', 'board', 'applicationStatus'])
-            ->when($request->status, function($query, $status) {
-                return $query->where('application_status_id', $status);
-            })
-            ->get();
+        $filters = $request->only(['status', 'board', 'division', 'district', 'search']);
+        return $this->exportService->downloadCsv($filters);
+    }
 
-        $csvData = [];
-        $csvData[] = ['Name', 'Board', 'Roll', 'GPA', 'Status', 'Tea Stall', 'Submitted At'];
+    // ─── Helpers ──────────────────────────────────────────────────────────────
 
-        foreach ($applications as $app) {
-            $csvData[] = [
-                $app->name_en,
-                $app->board->name ?? '',
-                $app->roll_number,
-                $app->gpa_result,
-                $app->applicationStatus->name ?? '',
-                $app->tea_stall_name,
-                $app->created_at->format('Y-m-d H:i')
-            ];
+    private function logAction(
+        int $studentDetailId,
+        string $action,
+        string $remarks,
+        ?int $previousStatus,
+        ?int $newStatus,
+        ?string $ip
+    ): void {
+        ApplicationAuditLog::create([
+            'student_detail_id'  => $studentDetailId,
+            'performed_by'       => auth()->id(),
+            'action'             => $action,
+            'remarks'            => $remarks,
+            'previous_status_id' => $previousStatus,
+            'new_status_id'      => $newStatus,
+            'ip_address'         => $ip,
+        ]);
+    }
+
+    private function jsonOrRedirect(Request $request, bool $success, string $message): mixed
+    {
+        if ($request->expectsJson() || $request->ajax()) {
+            return response()->json(['success' => $success, 'message' => $message], $success ? 200 : 422);
         }
 
-       return response()->json($csvData);
-    }
-
-    /**
-     * Log application review actions
-     */
-    private function logAction($userId, $action, $remarks = '')
-    {
-        // Create application audit log
-        // You can create an application_audits table for tracking
-        Log::info('Application ' . $action, [
-            'user_id' => $userId,
-            'action' => $action,
-            'remarks' => $remarks,
-            'performed_by' => auth()->id()
-        ]);
-    }
-
-    /**
-     * Send notification to applicant
-     */
-    private function sendNotification($userId, $status, $remarks = '')
-    {
-        // Implement notification logic
-        // You can use Laravel Notifications or custom SMS/Email service
-        // This is a placeholder
-        Log::info('Notification sent', [
-            'user_id' => $userId,
-            'status' => $status,
-            'remarks' => $remarks
-        ]);
+        $type = $success ? 'success' : 'error';
+        return redirect()->back()->with($type, $message);
     }
 }
