@@ -1,5 +1,4 @@
-{{-- frontend/partials/footer.blade.php --}}
-<footer class="pt-5 pb-4 mt-5">
+<footer class="pt-4 pb-3 mt-2">
     <div class="container">
         <div class="row gy-4 align-items-center">
             <div class="col-md-6 text-center text-md-start">

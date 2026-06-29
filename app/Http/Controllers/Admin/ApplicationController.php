@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Models\UserDetail;
 use App\Models\ApplicationStatus;
+use App\Models\StudentDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -17,7 +16,7 @@ class ApplicationController extends Controller
      */
     public function index(Request $request)
     {
-        $query = UserDetail::with(['user', 'board', 'group', 'division', 'district', 'upazila', 'applicationStatus']);
+        $query = StudentDetail::with(['user', 'board', 'group', 'division', 'district', 'upazila', 'applicationStatus']);
 
         // Apply filters
         if ($request->filled('status')) {
@@ -70,7 +69,7 @@ class ApplicationController extends Controller
      */
     public function show($id)
     {
-        $application = UserDetail::with([
+        $application = StudentDetail::with([
             'user',
             'board',
             'group',
@@ -91,7 +90,7 @@ class ApplicationController extends Controller
         try {
             DB::beginTransaction();
 
-            $application = UserDetail::findOrFail($id);
+            $application = StudentDetail::findOrFail($id);
             $application->application_status_id = ApplicationStatus::where('slug', 'approved')->first()->id;
             $application->save();
 
@@ -123,7 +122,7 @@ class ApplicationController extends Controller
 
             DB::beginTransaction();
 
-            $application = UserDetail::findOrFail($id);
+            $application = StudentDetail::findOrFail($id);
             $application->application_status_id = ApplicationStatus::where('slug', 'rejected')->first()->id;
             $application->save();
 
@@ -151,14 +150,14 @@ class ApplicationController extends Controller
         try {
             $request->validate([
                 'application_ids' => 'required|array|min:1',
-                'application_ids.*' => 'exists:user_details,id'
+                'application_ids.*' => 'exists:student_details,id'
             ]);
 
             DB::beginTransaction();
 
             $approvedStatus = ApplicationStatus::where('slug', 'approved')->first()->id;
 
-            UserDetail::whereIn('id', $request->application_ids)
+            StudentDetail::whereIn('id', $request->application_ids)
                 ->update(['application_status_id' => $approvedStatus]);
 
             // Log bulk action
@@ -184,7 +183,7 @@ class ApplicationController extends Controller
     {
         // Implement export logic using Laravel Excel or similar package
         // For now, return a simple CSV download
-        $applications = UserDetail::with(['user', 'board', 'applicationStatus'])
+        $applications = StudentDetail::with(['user', 'board', 'applicationStatus'])
             ->when($request->status, function($query, $status) {
                 return $query->where('application_status_id', $status);
             })
@@ -205,8 +204,7 @@ class ApplicationController extends Controller
             ];
         }
 
-        // Generate CSV download
-        // ... implement CSV generation
+       return response()->json($csvData);
     }
 
     /**

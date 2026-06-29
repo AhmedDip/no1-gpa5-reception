@@ -594,7 +594,7 @@
 
     <!-- ========== 11. Section আয়োজন  পৃষ্ঠপোষকতায়  Logo of mgi and no1 ========== -->
 
-    <section class="py-5" style="background: linear-gradient(135deg, #F8FAFC, #FFFFFF);">
+    <section class="py-4" style="background: linear-gradient(135deg, #F8FAFC, #FFFFFF);">
         <div class="container text-center">
             <h2 class="section-title mx-auto mb-md-5">আমাদের আয়োজনের পৃষ্ঠপোষক</h2>
             <div class="d-flex justify-content-center align-items-center gap-4 flex-wrap">
