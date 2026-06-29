@@ -4,7 +4,7 @@
         <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{{ url('/') }}">
             <img src="{{ asset('images/no1-logo.png') }}" alt="Logo" height="45">
             <span class="text-dark" style="font-weight: 800;">বাবার কৃতী সন্তান</span>
-        </a> 
+        </a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
             <i class="fas fa-bars fs-1"></i>
         </button>
@@ -16,22 +16,22 @@
                 <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#stories">সফলতার গল্প</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#gallery">গ্যালারি</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#faq">FAQ</a></li>
-                
+
                 @auth
                     <!-- When user is logged in -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             @php
-                                $userDetail = Auth::user()->userDetail;
+                                $studentDetail = Auth::user()->studentDetail;
                             @endphp
-                            @if($userDetail && $userDetail->student_photo)
-                                <img src="{{ asset('storage/' . $userDetail->student_photo) }}" 
-                                     class="rounded-circle" 
-                                     width="32" 
-                                     height="32" 
+                            @if($studentDetail && $studentDetail->student_photo)
+                                <img src="{{ asset('storage/' . $studentDetail->student_photo) }}"
+                                     class="rounded-circle"
+                                     width="32"
+                                     height="32"
                                      style="object-fit: cover;">
                             @else
-                                <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white" 
+                                <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white"
                                      style="width: 32px; height: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;">
                                     <i class="fas fa-user fa-sm"></i>
                                 </div>
@@ -88,18 +88,18 @@
         padding: 12px 0;
         transition: all 0.3s ease;
     }
-    
+
     .navbar.scrolled {
         padding: 8px 0;
         background: rgba(255, 255, 255, 0.98);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
-    
+
     .navbar-brand span {
         font-size: 1.2rem;
         letter-spacing: 0.5px;
     }
-    
+
     .nav-link {
         font-weight: 500;
         color: #333 !important;
@@ -107,12 +107,12 @@
         position: relative;
         padding: 8px 12px !important;
     }
-    
+
     .nav-link:hover {
         color: #d32f2f !important;
         transform: translateY(-2px);
     }
-    
+
     .nav-link::after {
         content: '';
         position: absolute;
@@ -124,11 +124,11 @@
         transition: all 0.3s ease;
         transform: translateX(-50%);
     }
-    
+
     .nav-link:hover::after {
         width: 80%;
     }
-    
+
     .btn-outline-primary {
         border: 2px solid #d32f2f;
         color: #d32f2f;
@@ -137,7 +137,7 @@
         font-weight: 600;
         transition: all 0.3s ease;
     }
-    
+
     .btn-outline-primary:hover {
         background: #d32f2f;
         border-color: #d32f2f;
@@ -145,7 +145,7 @@
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
     }
-    
+
     .btn-primary {
         background: #d32f2f;
         border: 2px solid #d32f2f;
@@ -154,35 +154,35 @@
         font-weight: 600;
         transition: all 0.3s ease;
     }
-    
+
     .btn-primary:hover {
         background: #b71c1c;
         border-color: #b71c1c;
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
     }
-    
+
     .dropdown-menu {
         border-radius: 12px;
         margin-top: 10px;
         animation: fadeInDown 0.3s ease;
     }
-    
+
     .dropdown-item {
         padding: 10px 20px;
         transition: all 0.3s ease;
         font-weight: 500;
     }
-    
+
     .dropdown-item:hover {
         background: #f8f9fa;
         transform: translateX(5px);
     }
-    
+
     .dropdown-item i {
         width: 20px;
     }
-    
+
     @keyframes fadeInDown {
         from {
             opacity: 0;
@@ -193,7 +193,7 @@
             transform: translateY(0);
         }
     }
-    
+
     /* Mobile Navigation */
     @media (max-width: 991.98px) {
         .navbar-collapse {
@@ -203,33 +203,33 @@
             margin-top: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
-        
+
         .navbar-nav {
             gap: 10px !important;
         }
-        
+
         .nav-item {
             width: 100%;
         }
-        
+
         .nav-link {
             padding: 10px 0 !important;
             text-align: center;
         }
-        
+
         .btn-outline-primary,
         .btn-primary {
             width: 100%;
             text-align: center;
             margin: 5px 0;
         }
-        
+
         .dropdown-menu {
             border: none;
             box-shadow: none;
             padding-left: 20px;
         }
-        
+
         .dropdown-toggle::after {
             position: absolute;
             right: 0;
@@ -237,17 +237,17 @@
             transform: translateY(-50%);
         }
     }
-    
+
     /* Smooth scroll behavior */
     html {
         scroll-behavior: smooth;
     }
-    
+
     /* Active link styling */
     .nav-link.active {
         color: #d32f2f !important;
     }
-    
+
     .nav-link.active::after {
         width: 80%;
     }
@@ -265,25 +265,25 @@
             navbar.classList.remove('scrolled');
         }
     });
-    
+
     // Active link highlighting based on scroll position
     const sections = document.querySelectorAll('section, div[id]');
     const navLinks = document.querySelectorAll('.nav-link');
-    
+
     window.addEventListener('scroll', () => {
         let current = '';
         const scrollPosition = window.scrollY + 100;
-        
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
             const sectionId = section.getAttribute('id');
-            
+
             if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
                 current = sectionId;
             }
         });
-        
+
         navLinks.forEach(link => {
             link.classList.remove('active');
             const href = link.getAttribute('href');
@@ -292,7 +292,7 @@
             }
         });
     });
-    
+
     // Handle logout with SweetAlert
     @auth
     const logoutBtn = document.getElementById('logoutBtn');
@@ -318,7 +318,7 @@
         });
     }
     @endauth
-    
+
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {

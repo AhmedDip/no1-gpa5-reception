@@ -7,7 +7,7 @@
         :root {
             --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --bg-soft: #f6f4fe;
-            --glass: rgba(255, 255, 255, 0.65);
+            --glass: rgba(255, 255, 255, 0.842);
             --glass-border: rgba(255, 255, 255, 0.5);
             --shadow-soft: 0 12px 40px -12px rgba(40, 20, 80, 0.12);
             --radius-card: 24px;
@@ -601,6 +601,8 @@
                             <tr>
                                 <th class="ps-3">#</th>
                                 <th>শিক্ষার্থীর নাম</th>
+                                <th>শিক্ষার্থীর মোবাইল</th>
+                                <th>শিক্ষার্থীর ফটো</th>
                                 <th>বোর্ড</th>
                                 <th>রোল নম্বর</th>
                                 <th>জিপিএ</th>
@@ -629,6 +631,20 @@
                                         <div class="td-name-en">{{ $app->name_en }}</div>
                                         <div class="td-name-bn">{{ $app->name_bn }}</div>
                                     </td>
+                                    <td style="font-family:monospace;font-size:0.75rem;color:var(--color-muted);">
+                                        {{ $app?->user?->mobile ?? '—' }}
+                                    </td>
+                                    <td>
+                                        <span class="avatar-initial rounded-circle bg-label-primary">
+                                            @if ($app->student_photo)
+                                                <img src="{{ asset('storage/' . $app->student_photo) }}"
+                                                    alt="Student Photo" class="rounded-circle" width="40"
+                                                    height="40">
+                                            @else
+                                                {{ strtoupper(substr($app->name_en ?? 'N/A', 0, 1)) }}
+                                            @endif
+                                        </span>
+                                    </td>
                                     <td style="font-weight:500;color:var(--color-text);">{{ $app->board->name_bn ?? '—' }}
                                     </td>
                                     <td style="font-family:monospace;font-size:0.75rem;color:var(--color-muted);">
@@ -641,7 +657,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8" class="text-center py-5" style="color:var(--color-muted);">
+                                    <td colspan="9" class="text-center py-5" style="color:var(--color-muted);">
                                         <i class="bx bx-inbox" style="font-size:2rem;display:block;margin-bottom:0.4rem;opacity:0.4;"></i>
                                         কোনো আবেদন পাওয়া যায়নি
                                     </td>

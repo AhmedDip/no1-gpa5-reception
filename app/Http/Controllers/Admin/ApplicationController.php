@@ -31,7 +31,7 @@ class ApplicationController extends Controller
 
         $query = $this->exportService->buildQuery($filters);
 
-        $perPage      = in_array((int) ($filters['per_page'] ?? 20), [10, 20, 50, 100]) ? (int) $filters['per_page'] : 20;
+        $perPage      =  20;
         $applications = $query->paginate($perPage)->withQueryString();
 
         // Summary counts for header pills
@@ -54,9 +54,17 @@ class ApplicationController extends Controller
         $districts = District::orderBy('name')->get();
         $statuses  = ApplicationStatus::orderBy('order')->get();
 
-        return view('backend.modules.admin.applications.index', compact(
-            'applications', 'counts', 'boards', 'divisions', 'districts',
-            'statuses', 'filters', 'page_content'
+        // dd($applications);
+
+        return view('backend.modules.student.applications.index', compact(
+            'applications',
+            'counts',
+            'boards',
+            'divisions',
+            'districts',
+            'statuses',
+            'filters',
+            'page_content'
         ));
     }
 
@@ -65,8 +73,16 @@ class ApplicationController extends Controller
     public function show(int $id)
     {
         $application = StudentDetail::with([
-            'user', 'board', 'group', 'division', 'district', 'upazila',
-            'applicationStatus', 'auditLogs.performedBy', 'auditLogs.previousStatus', 'auditLogs.newStatus',
+            'user',
+            'board',
+            'group',
+            'division',
+            'district',
+            'upazila',
+            'applicationStatus',
+            'auditLogs.performedBy',
+            'auditLogs.previousStatus',
+            'auditLogs.newStatus',
         ])->findOrFail($id);
 
         $statuses = ApplicationStatus::orderBy('order')->get();
@@ -78,8 +94,10 @@ class ApplicationController extends Controller
             'sub_module_name' => 'Detail',
         ];
 
-        return view('backend.modules.admin.applications.show',
-            compact('application', 'statuses', 'page_content'));
+        return view(
+            'backend.modules.admin.applications.show',
+            compact('application', 'statuses', 'page_content')
+        );
     }
 
     // ─── Approve (single) ─────────────────────────────────────────────────────

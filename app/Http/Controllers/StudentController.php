@@ -25,6 +25,8 @@ class StudentController extends Controller
         $studentDetail = $user->studentDetail;
         $showParentModal = !$user->hasParentInfo();
 
+        // dd($showParentModal, $studentDetail);
+
         return view('frontend.pages.student.dashboard', compact('user', 'studentDetail', 'showParentModal'));
     }
 

@@ -14,12 +14,11 @@
                     <h1 class="display-large fw-bold main-heading">নাম্বার ওয়ান বাবার <span class="text-gradient">কৃতী
                             সন্তান</span>
                         সংবর্ধনা - ২০২৬</h1>
-                    <p class="lead text-secondary mt-3 mt-lg-4">
+                    <p class="lead text-secondary mt-3 mt-lg-4" style="text-align: justify;">
                         প্রতিটি সন্তানের সাফল্যের পেছনে থাকে একজন সংগ্রামী বাবা-মায়ের অক্লান্ত পরিশ্রম, ত্যাগ ও ভালোবাসা।
                         বাংলাদেশের হাজারো চা-স্টল ব্যবসায়ী প্রতিদিন কঠোর পরিশ্রম করে তাদের সন্তানদের শিক্ষার স্বপ্ন পূরণ
-                        করে চলেছেন।
-                        সেই সংগ্রামী বাবা-মায়ের অবদানকে সম্মান জানাতে এবং তাদের মেধাবী সন্তানদের অর্জনকে উদযাপন করতে
-                        নাম্বার ওয়ান আয়োজন করেছে "নাম্বার ওয়ান বাবার কৃতি সন্তান সংবর্ধনা ২০২৬"।
+                        করে চলেছেন। সেই সংগ্রামী বাবা-মায়ের অবদানকে সম্মান জানাতে এবং তাদের মেধাবী সন্তানদের অর্জনকে উদযাপন
+                        করতে নাম্বার ওয়ান আয়োজন করেছে "নাম্বার ওয়ান বাবার কৃতি সন্তান সংবর্ধনা ২০২৬"।
 
                     </p>
                     <div class="d-flex flex-wrap gap-3 mt-4 justify-content-center justify-content-lg-start">
@@ -652,8 +651,8 @@
         }
 
         /* .fancy-feature-card:hover .fancy-icon-wrapper {
-                                                            transform: scale(1.1);
-                                                        } */
+                                                                transform: scale(1.1);
+                                                            } */
 
         @media (min-width: 768px) {
             .fancy-icon-wrapper {

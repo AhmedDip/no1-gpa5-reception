@@ -154,7 +154,7 @@
                 <div class="col-md-8">
                     <h2 class="fw-bold mb-2">
                         <i class="fas fa-user-graduate fa-flip me-2" style="--fa-animation-duration: 5s;"></i>
-                        স্বাগতম, {{ $userDetail->name_bn }}!
+                        স্বাগতম, {{ $studentDetail->name_bn ?? '' }}!
                     </h2>
                     <p class="mb-0 opacity-90">
                         <i class="fas fa-calendar-alt me-2"></i>
@@ -182,9 +182,9 @@
                 <div class="card info-card shadow-sm mb-4">
                     <div class="card-body text-center p-4">
                         <div class="position-relative d-inline-block">
-                            @if ($userDetail->student_photo)
-                                <img src="{{ asset('storage/' . $userDetail->student_photo) }}"
-                                    class="rounded-circle profile-image" alt="{{ $userDetail->name_en }}">
+                            @if ($studentDetail->student_photo)
+                                <img src="{{ asset('storage/' . $studentDetail->student_photo) }}"
+                                    class="rounded-circle profile-image" alt="{{ $studentDetail->name_en }}">
                             @else
                                 <div class="rounded-circle profile-image bg-gradient d-flex align-items-center justify-content-center mx-auto"
                                     style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
@@ -193,8 +193,8 @@
                             @endif
                         </div>
 
-                        <h3 class="mt-3 mb-1 fw-bold">{{ $userDetail->name_en }}</h3>
-                        <p class="text-muted mb-3">{{ $userDetail->name_bn }}</p>
+                        <h3 class="mt-3 mb-1 fw-bold">{{ $studentDetail->name_en }}</h3>
+                        <p class="text-muted mb-3">{{ $studentDetail->name_bn }}</p>
 
                         @php
                             $statusColors = [
@@ -203,7 +203,7 @@
                                 3 => ['bg' => 'danger', 'text' => 'rejected'],
                                 4 => ['bg' => 'info', 'text' => 'under-review'],
                             ];
-                            $status = $statusColors[$userDetail->application_status_id] ?? [
+                            $status = $statusColors[$studentDetail->application_status_id] ?? [
                                 'bg' => 'secondary',
                                 'text' => 'pending',
                             ];
@@ -211,7 +211,7 @@
 
                         <span class="status-badge bg-{{ $status['bg'] }} text-white d-inline-block mb-3">
                             <i class="fas fa-circle me-1" style="font-size: 8px;"></i>
-                            স্ট্যাটাস: {{ $userDetail->applicationStatus->name ?? 'Pending' }}
+                            স্ট্যাটাস: {{ $studentDetail->applicationStatus->name ?? 'Pending' }}
                         </span>
 
                         <div class="row mt-3">
@@ -243,31 +243,31 @@
                         <div class="detail-row">
                             <div class="row">
                                 <div class="col-6 text-muted">এসএসসি বোর্ড:</div>
-                                <div class="col-6 fw-semibold">{{ $userDetail->board->name_bn ?? 'N/A' }}</div>
+                                <div class="col-6 fw-semibold">{{ $studentDetail->board->name_bn ?? 'N/A' }}</div>
                             </div>
                         </div>
                         <div class="detail-row">
                             <div class="row">
                                 <div class="col-6 text-muted">গ্রুপ:</div>
-                                <div class="col-6 fw-semibold">{{ $userDetail->group->name_bn ?? 'N/A' }}</div>
+                                <div class="col-6 fw-semibold">{{ $studentDetail->group->name_bn ?? 'N/A' }}</div>
                             </div>
                         </div>
                         <div class="detail-row">
                             <div class="row">
                                 <div class="col-6 text-muted">রোল নম্বর:</div>
-                                <div class="col-6 fw-semibold">{{ $userDetail->roll_number }}</div>
+                                <div class="col-6 fw-semibold">{{ $studentDetail->roll_number }}</div>
                             </div>
                         </div>
                         <div class="detail-row">
                             <div class="row">
                                 <div class="col-6 text-muted">রেজিস্ট্রেশন নম্বর:</div>
-                                <div class="col-6 fw-semibold">{{ $userDetail->registration_number }}</div>
+                                <div class="col-6 fw-semibold">{{ $studentDetail->registration_number }}</div>
                             </div>
                         </div>
                         <div class="detail-row">
                             <div class="row">
                                 <div class="col-6 text-muted">জিপিএ/ফলাফল:</div>
-                                <div class="col-6 fw-bold text-success">{{ $userDetail->gpa_result }}</div>
+                                <div class="col-6 fw-bold text-success">{{ $studentDetail->gpa_result }}</div>
                             </div>
                         </div>
                     </div>
@@ -284,7 +284,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <h6 class="text-white-50 mb-1">আবেদন স্ট্যাটাস</h6>
-                                        <h3 class="text-white mb-0">{{ $userDetail->applicationStatus->name ?? 'Pending' }}
+                                        <h3 class="text-white mb-0">{{ $studentDetail->applicationStatus->name ?? 'Pending' }}
                                         </h3>
                                     </div>
                                     <i class="fas fa-clipboard-list fa-3x text-white-50"></i>
@@ -298,7 +298,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <h6 class="text-white-50 mb-1">এসএসসি ফলাফল</h6>
-                                        <h3 class="text-white mb-0">{{ $userDetail->gpa_result }}</h3>
+                                        <h3 class="text-white mb-0">{{ $studentDetail->gpa_result }}</h3>
                                     </div>
                                     <i class="fas fa-chart-line fa-3x text-white-50"></i>
                                 </div>
@@ -311,7 +311,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <h6 class="text-white-50 mb-1">নিবন্ধন নম্বর</h6>
-                                        <h6 class="text-white mb-0">{{ $userDetail->registration_number }}</h6>
+                                        <h6 class="text-white mb-0">{{ $studentDetail->registration_number }}</h6>
                                     </div>
                                     <i class="fas fa-id-card fa-3x text-white-50"></i>
                                 </div>
@@ -364,7 +364,7 @@
                 </div>
 
                 <!-- Parent Information Card -->
-                @if ($userDetail->is_parent_info_provided)
+                @if ($studentDetail->is_parent_info_provided)
                     <div class="card info-card shadow-sm mb-4">
                         <div class="card-header bg-white border-0 pt-4 pb-0">
                             <h5 class="fw-bold mb-0">
@@ -378,19 +378,19 @@
                                     <div class="detail-row">
                                         <div class="row">
                                             <div class="col-5 text-muted">পিতার নাম:</div>
-                                            <div class="col-7 fw-semibold">{{ $userDetail->father_name }}</div>
+                                            <div class="col-7 fw-semibold">{{ $studentDetail->father_name }}</div>
                                         </div>
                                     </div>
                                     <div class="detail-row">
                                         <div class="row">
                                             <div class="col-5 text-muted">মাতার নাম:</div>
-                                            <div class="col-7 fw-semibold">{{ $userDetail->mother_name }}</div>
+                                            <div class="col-7 fw-semibold">{{ $studentDetail->mother_name }}</div>
                                         </div>
                                     </div>
                                     <div class="detail-row">
                                         <div class="row">
                                             <div class="col-5 text-muted">অভিভাবকের মোবাইল:</div>
-                                            <div class="col-7 fw-semibold">{{ $userDetail->parent_mobile }}</div>
+                                            <div class="col-7 fw-semibold">{{ $studentDetail->parent_mobile }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -398,19 +398,19 @@
                                     <div class="detail-row">
                                         <div class="row">
                                             <div class="col-5 text-muted">চায়ের দোকানের নাম:</div>
-                                            <div class="col-7 fw-semibold">{{ $userDetail->tea_stall_name }}</div>
+                                            <div class="col-7 fw-semibold">{{ $studentDetail->tea_stall_name }}</div>
                                         </div>
                                     </div>
                                     <div class="detail-row">
                                         <div class="row">
                                             <div class="col-5 text-muted">দোকানের অবস্থান:</div>
-                                            <div class="col-7 fw-semibold">{{ $userDetail->tea_stall_location }}</div>
+                                            <div class="col-7 fw-semibold">{{ $studentDetail->tea_stall_location }}</div>
                                         </div>
                                     </div>
-                                    @if ($userDetail->parent_photo)
+                                    @if ($studentDetail->parent_photo)
                                         <div class="mt-2">
                                             <small class="text-muted">অভিভাবকের ছবি:</small>
-                                            <a href="{{ asset('storage/' . $userDetail->parent_photo) }}" target="_blank"
+                                            <a href="{{ asset('storage/' . $studentDetail->parent_photo) }}" target="_blank"
                                                 class="d-block">
                                                 <i class="fas fa-image me-1"></i>
                                                 ছবি দেখুন
