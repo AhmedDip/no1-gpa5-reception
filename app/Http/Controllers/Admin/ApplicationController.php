@@ -55,7 +55,7 @@ class ApplicationController extends Controller
         $districts = \App\Models\District::all();
         $statuses = ApplicationStatus::all();
 
-        return view('admin.applications.index', compact(
+        return view('backend.modules.admin.dashboard.index', compact(
             'applications',
             'boards',
             'divisions',

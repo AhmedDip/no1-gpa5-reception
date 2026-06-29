@@ -26,7 +26,6 @@
             line-height: 1.5;
         }
 
-        /* ── glassmorphism (gentle) ── */
         .gc {
             background: var(--glass);
             backdrop-filter: blur(10px);
@@ -42,7 +41,6 @@
             border-color: rgba(255, 255, 255, 0.7);
         }
 
-        /* ── hero (clean, minimal) ── */
         .hero-card {
             background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(245, 240, 255, 0.6));
             backdrop-filter: blur(10px);
@@ -186,7 +184,6 @@
             font-weight: 600;
         }
 
-        /* ── badges ── */
         .bdg {
             font-size: 0.6rem;
             font-weight: 600;
@@ -216,55 +213,6 @@
             border-color: rgba(220, 90, 70, 0.10);
         }
 
-        /* ── progress (clean) ── */
-        .prog-track {
-            height: 8px;
-            border-radius: 20px;
-            background: rgba(79, 59, 140, 0.06);
-            overflow: hidden;
-            display: flex;
-        }
-
-        .prog-seg {
-            height: 100%;
-            transition: width 0.6s ease;
-        }
-
-        .ps-g {
-            background: #44c9a0;
-        }
-
-        .ps-o {
-            background: #eab55a;
-        }
-
-        .ps-r {
-            background: #e6776a;
-        }
-
-        .leg {
-            display: flex;
-            gap: 1.2rem;
-            flex-wrap: wrap;
-            margin-top: 0.6rem;
-        }
-
-        .leg-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.72rem;
-            font-weight: 500;
-            color: var(--color-muted);
-        }
-
-        .leg-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-        }
-
-        /* ── section titles ── */
         .sec-title {
             font-size: 0.85rem;
             font-weight: 700;
@@ -280,7 +228,6 @@
             color: var(--color-primary-light);
         }
 
-        /* ── table (refined) ── */
         .tbl-wrap {
             border-collapse: separate;
             border-spacing: 0 6px;
@@ -390,13 +337,11 @@
             color: var(--color-primary);
         }
 
-        /* ── charts placeholder ── */
         .chart-box {
             min-height: 220px;
             width: 100%;
         }
 
-        /* ── responsive ── */
         @media (max-width: 576px) {
             .hero-greeting {
                 font-size: 1.2rem;
@@ -436,15 +381,11 @@
         </div>
     </div>
 
-
     <div class="row g-3 mb-4">
         {{-- Total --}}
         <div class="col-6 col-lg-3">
-            <div class="gc"
-                style="position:relative;overflow:hidden;background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(226, 210, 255, 0.584));padding:16px 20px;min-height:120px;display:flex;flex-direction:column;justify-content:center;">
-                <!-- Centered Background Icon - Large -->
-                <div
-                    style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:10rem; opacity:0.06; pointer-events:none; color:#5a4298; line-height:1;">
+            <div class="gc" style="position:relative;overflow:hidden;padding:16px 20px;min-height:120px;display:flex;flex-direction:column;justify-content:center;">
+                <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:10rem; opacity:0.06; pointer-events:none; color:#5a4298; line-height:1;">
                     <i class="bx bx-file"></i>
                 </div>
                 <div style="position:relative;z-index:1;">
@@ -465,11 +406,8 @@
 
         {{-- Pending --}}
         <div class="col-6 col-lg-3">
-            <div class="gc"
-                style="position:relative;overflow:hidden;background: linear-gradient(145deg, rgba(255,255,255,0.8), rgba(255,248,240,0.5));padding:16px 20px;min-height:120px;display:flex;flex-direction:column;justify-content:center;">
-                <!-- Centered Background Icon - Large -->
-                <div
-                    style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:10rem; opacity:0.06; pointer-events:none; color:#ca9430; line-height:1;">
+            <div class="gc" style="position:relative;overflow:hidden;padding:16px 20px;min-height:120px;display:flex;flex-direction:column;justify-content:center;">
+                <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:10rem; opacity:0.06; pointer-events:none; color:#ca9430; line-height:1;">
                     <i class="bx bx-time-five"></i>
                 </div>
                 <div style="position:relative;z-index:1;">
@@ -490,11 +428,8 @@
 
         {{-- Approved --}}
         <div class="col-6 col-lg-3">
-            <div class="gc"
-                style="position:relative;overflow:hidden;background: linear-gradient(145deg, rgba(255,255,255,0.8), rgba(240,255,248,0.5));padding:16px 20px;min-height:120px;display:flex;flex-direction:column;justify-content:center;">
-                <!-- Centered Background Icon - Large -->
-                <div
-                    style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:10rem; opacity:0.06; pointer-events:none; color:#1e9e7a; line-height:1;">
+            <div class="gc" style="position:relative;overflow:hidden;padding:16px 20px;min-height:120px;display:flex;flex-direction:column;justify-content:center;">
+                <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:10rem; opacity:0.06; pointer-events:none; color:#1e9e7a; line-height:1;">
                     <i class="bx bx-check-circle"></i>
                 </div>
                 <div style="position:relative;z-index:1;">
@@ -515,11 +450,8 @@
 
         {{-- Rejected --}}
         <div class="col-6 col-lg-3">
-            <div class="gc"
-                style="position:relative;overflow:hidden;background: linear-gradient(145deg, rgba(255,255,255,0.8), rgba(255,245,243,0.5));padding:16px 20px;min-height:120px;display:flex;flex-direction:column;justify-content:center;">
-                <!-- Centered Background Icon - Large -->
-                <div
-                    style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:10rem; opacity:0.06; pointer-events:none; color:#c34a3c; line-height:1;">
+            <div class="gc" style="position:relative;overflow:hidden;padding:16px 20px;min-height:120px;display:flex;flex-direction:column;justify-content:center;">
+                <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:10rem; opacity:0.06; pointer-events:none; color:#c34a3c; line-height:1;">
                     <i class="bx bx-x-circle"></i>
                 </div>
                 <div style="position:relative;z-index:1;">
@@ -542,7 +474,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     @if ($totalApplications > 0)
@@ -655,7 +586,6 @@
     <div class="row">
         <div class="col-12">
             <div class="gc p-0 overflow-hidden">
-
                 <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 p-4 pb-2">
                     <h6 class="sec-title"><i class="bx bx-list-ul"></i> সাম্প্রতিক আবেদনসমূহ</h6>
                     @can('viewAny', \App\Models\StudentDetail::class)
@@ -712,8 +642,7 @@
                             @empty
                                 <tr>
                                     <td colspan="8" class="text-center py-5" style="color:var(--color-muted);">
-                                        <i class="bx bx-inbox"
-                                            style="font-size:2rem;display:block;margin-bottom:0.4rem;opacity:0.4;"></i>
+                                        <i class="bx bx-inbox" style="font-size:2rem;display:block;margin-bottom:0.4rem;opacity:0.4;"></i>
                                         কোনো আবেদন পাওয়া যায়নি
                                     </td>
                                 </tr>
@@ -721,17 +650,14 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('script')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-
             const boardData = @json($applicationsByBoard);
             const boardNames = Object.keys(boardData);
             const boardVals = Object.values(boardData);
@@ -825,7 +751,6 @@
                     '<div style="text-align:center;color:#9a8abc;padding:2rem 0;">কোনো ডেটা নেই</div>';
             }
 
-            /* ── DIVISION Bar ── */
             const divData = @json($applicationsByDivision);
             const divNames = Object.keys(divData);
             const divVals = Object.values(divData);
@@ -923,7 +848,6 @@
                 document.querySelector('#divisionChart').innerHTML =
                     '<div style="text-align:center;color:#9a8abc;padding:2rem 0;">কোনো ডেটা নেই</div>';
             }
-
         });
     </script>
 @endpush
