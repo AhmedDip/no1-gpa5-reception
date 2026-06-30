@@ -342,18 +342,12 @@
             </div>
 
             <div class="row g-4 g-md-5 justify-content-center position-relative">
-                <!-- Elegant connecting line (desktop) -->
-                <div class="d-none d-md-block position-absolute"
-                    style="top: 50%; left: 12%; right: 12%; height: 2px; background: linear-gradient(90deg, #E0E7FF, #A5B4FC, #818CF8, #A5B4FC, #E0E7FF); transform: translateY(-50%); z-index: 0;">
-                </div>
 
                 <div class="col-6 col-md-3 position-relative" style="z-index: 2;">
                     <div class="timeline-card-elegant text-center p-3 p-md-4 rounded-4 bg-white shadow-sm border-0 h-100 d-flex flex-column align-items-center transition-all duration-300 position-relative"
                         style="border-bottom: 4px solid #4F46E5;">
                         <!-- decorative dot on line -->
-                        <div class="d-none d-md-block position-absolute"
-                            style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #4F46E5; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);">
-                        </div>
+                       <div class="d-none d-md-block position-absolute timeline-dot" style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #4F46E5; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(70, 75, 229, 0.15);"></div>
                         <div class="timeline-icon-wrapper mb-2 mb-md-3"
                             style="width: 64px; height: 64px; background: linear-gradient(135deg, #EEF2FF, #E0E7FF); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
                             <i class="fas fa-calendar-plus fs-4 text-primary" style="color: #4F46E5;"></i>
@@ -369,8 +363,8 @@
                 <div class="col-6 col-md-3 position-relative" style="z-index: 2;">
                     <div class="timeline-card-elegant text-center p-3 p-md-4 rounded-4 bg-white shadow-sm border-0 h-100 d-flex flex-column align-items-center transition-all duration-300 position-relative"
                         style="border-bottom: 4px solid #EF4444;">
-                        <div class="d-none d-md-block position-absolute"
-                            style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #EF4444; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);">
+                        <div class="d-none d-md-block position-absolute timeline-dot"
+                            style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #EF4444; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(235, 43, 43, 0.15);">
                         </div>
                         <div class="timeline-icon-wrapper mb-2 mb-md-3"
                             style="width: 64px; height: 64px; background: linear-gradient(135deg, #FEF2F2, #FEE2E2); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
@@ -387,7 +381,7 @@
                 <div class="col-6 col-md-3 position-relative" style="z-index: 2;">
                     <div class="timeline-card-elegant text-center p-3 p-md-4 rounded-4 bg-white shadow-sm border-0 h-100 d-flex flex-column align-items-center transition-all duration-300 position-relative"
                         style="border-bottom: 4px solid #22C55E;">
-                        <div class="d-none d-md-block position-absolute"
+                        <div class="d-none d-md-block position-absolute timeline-dot"
                             style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #22C55E; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15);">
                         </div>
                         <div class="timeline-icon-wrapper mb-2 mb-md-3"
@@ -406,6 +400,9 @@
                     <div class="timeline-card-elegant text-center p-3 p-md-4 rounded-4 bg-white shadow-sm border-0 h-100 d-flex flex-column align-items-center transition-all duration-300 position-relative"
                         style="border-bottom: 4px solid #8B5CF6;">
                         <!-- no dot for last -->
+                        <div class="d-none d-md-block position-absolute timeline-dot"
+                            style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #8B5CF6; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);">
+                        </div>
                         <div class="timeline-icon-wrapper mb-2 mb-md-3"
                             style="width: 64px; height: 64px; background: linear-gradient(135deg, #F5F3FF, #EDE9FE); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
                             <i class="fas fa-people-group fs-4" style="color: #8B5CF6;"></i>
@@ -699,8 +696,8 @@
         }
 
         /* .fancy-feature-card:hover .fancy-icon-wrapper {
-                                                                                    transform: scale(1.1);
-                                                                                } */
+                                                                                            transform: scale(1.1);
+                                                                                        } */
 
         @media (min-width: 768px) {
             .fancy-icon-wrapper {
@@ -866,6 +863,40 @@
                 top: 10px;
                 right: 20px;
             }
+        }
+
+        /* Add this to your style section or CSS file */
+        @keyframes dotPulse {
+            0% {
+                transform: translateY(-50%) scale(1);
+                box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+            }
+
+            50% {
+                transform: translateY(-50%) scale(1.3);
+                box-shadow: 0 0 0 8px rgba(79, 70, 229, 0.25);
+            }
+
+            100% {
+                transform: translateY(-50%) scale(1);
+                box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+            }
+        }
+
+        .timeline-dot {
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+
+        .timeline-dot:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .timeline-dot:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        .timeline-dot:nth-child(4) {
+            animation-delay: 1.5s;
         }
 
         /* Gallery Thumbnails */

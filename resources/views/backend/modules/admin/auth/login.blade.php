@@ -4,10 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Login | {{ config('app.name') }}</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('template/assets/img/favicon/favicon.ico') }}" />
-
-    {{-- Font Awesome --}}
+    <title>Executive Portal | No.1 Scholarship</title>
     <link rel="stylesheet" href="{{ asset('template/assets/vendor/fonts/fontawesome.css') }}" />
 
     <style>
@@ -20,364 +17,403 @@
         }
 
         :root {
-            --bg: #0d1117;
-            --surface: #161b22;
-            --border: #30363d;
-            --accent: #7e54de;
-            --accent-dim: rgba(126, 84, 222, .15);
-            --text: #e6edf3;
-            --muted: #8b949e;
-            --danger: #f85149;
-            --success: #3fb950;
-            --input-bg: #21262d;
-            --radius: 10px;
+            --bg-deep: rgb(34, 33, 34);
+            --bg-surface: #0b0f19;
+            --border-subtle: rgba(255, 255, 255, 0.05);
+            --accent: #8b5cf6;
+            --accent-gold: #d4af37;
+            --accent-gradient: linear-gradient(135deg, #a78bfa 0%, #35038b 100%);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-dark: #64748b;
+            --color-danger: #ef4444;
+            --color-success: #10b981;
+            --radius-premium: 16px;
         }
 
         html,
         body {
             height: 100%;
-            font-family: 'Inter', 'Hind Siliguri', sans-serif;
-            background: var(--bg);
-            color: var(--text);
+            font-family: 'Inter', 'Hind Siliguri', system-ui, sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* ── Layout ── */
-        .login-shell {
+        /* ── Core Layout Container ── */
+        .premium-container {
+            width: 100%;
             min-height: 100vh;
             display: grid;
-            grid-template-columns: 1fr 480px;
-        }
-
-        /* Left panel — decorative */
-        .login-left {
+            grid-template-columns: 1fr 1.1fr;
+            background-color: var(--bg-deep);
             position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, #0d1117 0%, #161b22 40%, #1a1040 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 4rem;
         }
 
-        .login-left::before {
+        /* Ambient Glow Highlights in Background */
+        .premium-container::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 600px 400px at 20% 60%, rgba(126, 84, 222, .18) 0%, transparent 70%),
-                radial-gradient(ellipse 400px 600px at 80% 20%, rgba(37, 182, 235, .1) 0%, transparent 70%);
+            top: -10%;
+            left: -10%;
+            width: 50%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 70%);
             pointer-events: none;
         }
 
-        .left-brand {
+        /* ── Left Side: Brand Showcase Wall ── */
+        .brand-wall {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 4rem;
+            background: linear-gradient(180deg, rgba(11, 15, 25, 0.6) 0%, rgba(5, 7, 12, 0.9) 100%);
+            border-right: 1px solid var(--border-subtle);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Interactive Canvas Element background */
+        #constellationCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: auto;
+        }
+
+        .showcase-header {
+            position: relative;
+            z-index: 5;
+        }
+
+        .showcase-header .status-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #a78bfa;
+            background: rgba(139, 92, 246, 0.1);
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        /* Balanced Logo Showcase Row */
+        .logo-gallery-row {
             display: flex;
             align-items: center;
-            gap: 14px;
-            margin-bottom: 3.5rem;
+            gap: 2rem;
+            margin: 4rem 0;
+            z-index: 5;
+        }
+
+        .brand-logo-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            padding: 1.5rem 2rem;
+            border-radius: var(--radius-premium);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .brand-logo-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(139, 92, 246, 0.25);
+        }
+
+        .brand-logo-card img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-separator-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--text-dark);
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        .showcase-footer {
             position: relative;
-            z-index: 1;
+            z-index: 5;
         }
 
-        .left-brand img {
-            height: 48px;
-        }
-
-        .left-brand-text {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .left-brand-text small {
-            display: block;
-            font-size: .75rem;
-            font-weight: 400;
-            color: var(--muted);
-        }
-
-        .left-headline {
-            position: relative;
-            z-index: 1;
-        }
-
-        .left-headline h1 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 700;
-            line-height: 1.15;
-            color: #fff;
+        .showcase-footer h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.25;
             margin-bottom: 1rem;
-        }
-
-        .left-headline h1 span {
-            background: linear-gradient(90deg, #7e54de, #25b6eb);
+            background: linear-gradient(to right, #ffffff, #94a3b8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .left-headline p {
-            color: var(--muted);
-            line-height: 1.7;
+        .showcase-footer p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 460px;
+        }
+
+        /* ── Right Side: Elegant Form Area ── */
+        .form-wall {
+            background-color: var(--bg-surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            position: relative;
+        }
+
+        .form-wrapper {
+            width: 100%;
             max-width: 420px;
         }
 
-        .left-stats {
+        .form-intro {
+            margin-bottom: 2.5rem;
+        }
+
+        .form-intro h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #ffffff;
+        }
+
+        .form-intro p {
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            margin-top: 0.4rem;
+        }
+
+        /* Minimal Luxury Form Inputs */
+        .field-box {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .field-box label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-container {
+            position: relative;
             display: flex;
-            gap: 2rem;
-            margin-top: 3rem;
+            align-items: center;
+            width: 100%;
+        }
+
+        .input-container i.input-icon {
+            position: absolute;
+            left: 1.2rem;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+            z-index: 2;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="text"] {
+            width: 100%;
+            background-color: rgba(5, 7, 12, 0.5);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            padding: 1rem 3.5rem 1rem 3rem;
+            /* Safe padding-right prevents shifts */
+            outline: none;
+            transition: all 0.25s ease;
             position: relative;
             z-index: 1;
         }
 
-        .stat-item {}
-
-        .stat-item .num {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .stat-item .lbl {
-            font-size: .78rem;
-            color: var(--muted);
-            margin-top: 2px;
-        }
-
-        .divider {
-            width: 1px;
-            background: var(--border);
-        }
-
-        /* Floating grid decoration */
-        .grid-bg {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(126, 84, 222, .06) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(126, 84, 222, .06) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: 0;
-        }
-
-        /* Right panel — form */
-        .login-right {
-            background: var(--surface);
-            border-left: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 3rem 2.5rem;
-        }
-
-        .form-header {
-            margin-bottom: 2.5rem;
-        }
-
-        .form-header h2 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        .form-header p {
-            color: var(--muted);
-            margin-top: 6px;
-            font-size: .9rem;
-        }
-
-        /* Alert */
-        .alert {
-            border-radius: var(--radius);
-            padding: .85rem 1rem;
-            font-size: .875rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .alert-danger {
-            background: rgba(248, 81, 73, .12);
-            border: 1px solid rgba(248, 81, 73, .3);
-            color: #ffa198;
-        }
-
-        .alert-success {
-            background: rgba(63, 185, 80, .12);
-            border: 1px solid rgba(63, 185, 80, .3);
-            color: #7ee787;
-        }
-
-        /* Form */
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
-
-        label {
-            display: block;
-            font-size: .82rem;
-            font-weight: 600;
-            color: var(--muted);
-            margin-bottom: 7px;
-            text-transform: uppercase;
-            letter-spacing: .5px;
-        }
-
-        .input-wrap {
-            position: relative;
-        }
-
-        .input-wrap .icon {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--muted);
-            font-size: .95rem;
-            pointer-events: none;
-        }
-
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            background: var(--input-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            color: var(--text);
-            font-size: .95rem;
-            padding: .75rem 2.8rem .75rem 2.6rem;
-            outline: none;
-            transition: border-color .2s, box-shadow .2s;
-            font-family: inherit;
-        }
-
         input:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(126, 84, 222, .2);
+            background-color: rgba(5, 7, 12, 0.8);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+        }
+
+        input:focus~i.input-icon {
+            color: var(--accent);
         }
 
         input.is-invalid {
-            border-color: var(--danger);
+            border-color: var(--color-danger);
         }
 
-        .toggle-pw {
+        /* Fixed absolute positioned buttons to stop layouts breaking */
+        .password-reveal-btn {
             position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 52px;
+            background: transparent;
             border: none;
-            color: var(--muted);
+            color: var(--text-dark);
             cursor: pointer;
-            padding: 4px;
-            line-height: 1;
-            transition: color .2s;
+            transition: color 0.2s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .toggle-pw:hover {
-            color: var(--text);
+        .password-reveal-btn:hover {
+            color: var(--text-primary);
         }
 
-        /* Remember / footer row */
-        .form-row-check {
+        .form-options-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1.5rem;
+            margin: 1.8rem 0 2.2rem;
         }
 
-        .check-label {
+        .remember-toggle {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: .875rem;
-            color: var(--muted);
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
             cursor: pointer;
         }
 
-        .check-label input[type="checkbox"] {
+        .remember-toggle input {
             width: 16px;
             height: 16px;
             accent-color: var(--accent);
             cursor: pointer;
         }
 
-        /* Submit button */
-        .btn-login {
+        /* Solid High-End Button Design */
+        .submit-action-btn {
             width: 100%;
-            background: var(--accent);
-            color: #fff;
+            background: var(--accent-gradient);
+            color: #ffffff;
             border: none;
-            border-radius: var(--radius);
+            border-radius: 10px;
             font-size: 1rem;
             font-weight: 600;
-            padding: .85rem;
+            padding: 1rem;
             cursor: pointer;
-            transition: opacity .2s, transform .15s, box-shadow .2s;
-            font-family: inherit;
-            box-shadow: 0 4px 18px rgba(126, 84, 222, .35);
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.25);
         }
 
-        .btn-login:hover {
-            opacity: .9;
+        .submit-action-btn:hover {
+            opacity: 0.95;
             transform: translateY(-1px);
-            box-shadow: 0 6px 24px rgba(126, 84, 222, .45);
+            box-shadow: 0 6px 24px rgba(124, 58, 237, 0.4);
         }
 
-        .btn-login:active {
-            transform: translateY(0);
+        .submit-action-btn:active {
+            transform: translateY(1px);
         }
 
-        .btn-login:disabled {
-            opacity: .6;
+        .submit-action-btn:disabled {
+            opacity: 0.5;
             cursor: not-allowed;
             transform: none;
         }
 
-        /* Footer note */
-        .form-footer {
-            margin-top: 1.75rem;
+        /* Modern Notification Elements */
+        .toast-alert {
+            border-radius: 10px;
+            padding: 1rem 1.2rem;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(5, 7, 12, 0.4);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .toast-alert-danger {
+            border-left: 4px solid var(--color-danger);
+            color: #fca5a5;
+        }
+
+        .toast-alert-success {
+            border-left: 4px solid var(--color-success);
+            color: #6ee7b7;
+        }
+
+        /* Footer Metadata */
+        .gate-footer {
+            margin-top: 4rem;
             padding-top: 1.5rem;
-            border-top: 1px solid var(--border);
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-dark);
         }
 
-        .form-footer p {
-            color: var(--muted);
-            font-size: .8rem;
-            text-align: center;
-        }
-
-        .badge-secure {
-            display: inline-flex;
+        .gate-footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            display: flex;
             align-items: center;
             gap: 6px;
-            background: var(--accent-dim);
-            border: 1px solid rgba(126, 84, 222, .3);
-            color: #b196f5;
-            font-size: .75rem;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-weight: 500;
         }
 
-        .right-top {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 2rem;
+        .gate-footer a:hover {
+            color: var(--accent);
         }
 
-        /* Responsive */
-        @media (max-width: 900px) {
-            .login-shell {
+        /* ── Responsive Adaptability Matrix ── */
+        @media (max-width: 1050px) {
+            .premium-container {
                 grid-template-columns: 1fr;
             }
 
-            .login-left {
-                display: none;
+            .brand-wall {
+                padding: 3rem 2rem;
+                border-right: none;
+                border-bottom: 1px solid var(--border-subtle);
+                min-height: 380px;
             }
 
-            .login-right {
-                min-height: 100vh;
-                padding: 2rem 1.5rem;
+            .logo-gallery-row {
+                margin: 2.5rem 0;
+            }
+
+            .form-wall {
+                padding: 4rem 2rem;
             }
         }
     </style>
@@ -385,140 +421,250 @@
 
 <body>
 
-    <div class="login-shell">
+    <div class="premium-container">
 
-        {{-- ── Left decorative panel ── --}}
-        <div class="login-left">
-            <div class="grid-bg"></div>
+        <!-- Left Column: Structural Brand Layout + Canvas Constellation Background -->
+        <div class="brand-wall" id="canvasContainer">
+            <canvas id="constellationCanvas"></canvas>
 
-            <div class="left-brand">
-                <img src="{{ asset('images/no1-logo.png') }}" alt="No1" style="height:58px;width:auto;">
-                <div class="left-brand-text">
-                    Scholarship Management System
+            <div class="showcase-header">
+                <div class="status-tag">
+                    <i class="fas fa-circle" style="font-size: 7px; vertical-align: middle;"></i> Secure Access Point
                 </div>
-                <img src="{{ asset('images/mgi-logo.png') }}" alt="Bangladesh" style="height:38px;width:auto;">
             </div>
 
-            <div class="left-headline">
-                <h1>Admin <span>Control Panel</span></h1>
-                <p>
-                    নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা ২০২৬ — প্রশাসনিক প্যানেলে আপনাকে স্বাগতম।
-                    এখানে আবেদন পর্যালোচনা, শিক্ষার্থী ব্যবস্থাপনা ও রিপোর্ট পরিচালনা করুন।
-                </p>
-
-                <div class="left-stats">
-
+            <!-- Two Corporate Brand Logos presented cleanly -->
+            <div class="logo-gallery-row">
+                <div class="brand-logo-card">
+                    <img src="{{ asset('images/mgi-logo.png') }}" alt="MGI Corporate Brand" />
                 </div>
+                <div class="logo-separator-dot"></div>
+                <div class="brand-logo-card">
+                    <img src="{{ asset('images/no1-logo.png') }}" alt="No.1 Brand Portfolio"/>
+                </div>
+            </div>
+
+            <div class="showcase-footer">
+                <h2>
+                   নাম্বার ওয়ান স্কলারশিপ ম্যানেজমেন্ট পোর্টাল
+                </h2>
+                <br/>
+                <p>
+                  নাম্বার ওয়ান স্কলারশিপ ম্যানেজমেন্ট-এর সুরক্ষিত অ্যাডমিন পোর্টালে স্বাগতম। ড্যাশবোর্ডে প্রবেশ করতে আপনার লগইন তথ্য দিয়ে পরিচয় যাচাই করুন।
+                </p>
             </div>
         </div>
 
-        {{-- ── Right form panel ── --}}
-        <div class="login-right">
+        <!-- Right Column: Clean Form Layout -->
+        <div class="form-wall">
+            <div class="form-wrapper">
 
-            <div class="right-top">
-                <span class="badge-secure">
-                    <i class="fas fa-lock"></i> Secure Login
-                </span>
-            </div>
-
-            <div class="form-header">
-                <h2>Sign in to Admin Panel</h2>
-                <p>আপনার ইমেইল ও পাসওয়ার্ড দিয়ে লগইন করুন</p>
-            </div>
-
-            {{-- Alerts --}}
-            @if (session('error'))
-                <div class="alert alert-danger">
-                    <i class="fas fa-exclamation-circle"></i>
-                    <span>{{ session('error') }}</span>
+                <div class="form-intro">
+                    <h2>Sign In</h2>
+                    <p>Enter your assigned system keys to enter</p>
                 </div>
-            @endif
 
-            @if (session('success'))
-                <div class="alert alert-success">
-                    <i class="fas fa-check-circle"></i>
-                    <span>{{ session('success') }}</span>
-                </div>
-            @endif
-
-            <form method="POST" action="{{ route('admin.login.submit') }}" id="loginForm" novalidate>
-                @csrf
-
-                {{-- Email --}}
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <div class="input-wrap">
-                        <i class="fas fa-envelope icon"></i>
-                        <input type="email" id="email" name="email" value="{{ old('email') }}"
-                            placeholder="admin@example.com" autocomplete="email"
-                            class="{{ $errors->has('email') ? 'is-invalid' : '' }}" required autofocus>
+                @if (session('error'))
+                    <div class="toast-alert toast-alert-danger">
+                        <i class="fas fa-exclamation-circle" style="color:var(--color-danger);"></i>
+                        <span>{{ session('error') }}</span>
                     </div>
-                    @error('email')
-                        <p style="color:var(--danger);font-size:.8rem;margin-top:5px;">{{ $message }}</p>
-                    @enderror
-                </div>
+                @endif
 
-                {{-- Password --}}
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <div class="input-wrap">
-                        <i class="fas fa-lock icon"></i>
-                        <input type="password" id="password" name="password" placeholder="••••••••"
-                            autocomplete="current-password" class="{{ $errors->has('password') ? 'is-invalid' : '' }}"
-                            required>
-                        <button type="button" class="toggle-pw" id="togglePw" title="Show/Hide password">
-                            <i class="fas fa-eye" id="pwIcon"></i>
-                        </button>
+                @if (session('success'))
+                    <div class="toast-alert toast-alert-success">
+                        <i class="fas fa-check-circle" style="color:var(--color-success);"></i>
+                        <span>{{ session('success') }}</span>
                     </div>
-                    @error('password')
-                        <p style="color:var(--danger);font-size:.8rem;margin-top:5px;">{{ $message }}</p>
-                    @enderror
-                </div>
+                @endif
 
-                {{-- Remember me --}}
-                <div class="form-row-check">
-                    <label class="check-label">
-                        <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                        Remember me
-                    </label>
-                </div>
+                <form method="POST" action="{{ route('admin.login.submit') }}" id="executiveLoginForm" novalidate>
+                    @csrf
 
-                <button type="submit" class="btn-login" id="submitBtn">
-                    <i class="fas fa-sign-in-alt me-1"></i> Sign In
-                </button>
-            </form>
+                    <div class="field-box">
+                        <label for="email">Identity Space</label>
+                        <div class="input-container">
+                            <i class="far fa-envelope input-icon"></i>
+                            <input type="email" id="email" name="email" value="{{ old('email') }}"
+                                placeholder="name@domain.com" autocomplete="email"
+                                class="{{ $errors->has('email') ? 'is-invalid' : '' }}" required autofocus>
+                        </div>
+                        @error('email')
+                            <p style="color:var(--color-danger);font-size:0.75rem;margin-top:0.5rem;">{{ $message }}
+                            </p>
+                        @enderror
+                    </div>
 
-            <div class="form-footer">
-                <p>© {{ date('Y') }} No.1 Brand. All rights reserved.</p>
-                <p style="margin-top:8px;">
-                    <a href="{{ route('home') }}" style="color:var(--accent);text-decoration:none;font-size:.8rem;">
-                        ← Public Website
+                    <div class="field-box">
+                        <label for="password">Password Token</label>
+                        <div class="input-container">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="password" name="password" placeholder="••••••••"
+                                autocomplete="current-password"
+                                class="{{ $errors->has('password') ? 'is-invalid' : '' }}" required>
+                            <button type="button" class="password-reveal-btn" id="triggerReveal"
+                                title="Toggle Plaintext">
+                                <i class="far fa-eye" id="eyeGlyph"></i>
+                            </button>
+                        </div>
+                        @error('password')
+                            <p style="color:var(--color-danger);font-size:0.75rem;margin-top:0.5rem;">{{ $message }}
+                            </p>
+                        @enderror
+                    </div>
+
+                    <div class="form-options-row">
+                        <label class="remember-toggle">
+                            <input type="checkbox" name="remember" id="remember"
+                                {{ old('remember') ? 'checked' : '' }}>
+                            <span>Keep session mapped</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-action-btn" id="formSubmitAction">
+                        Authenticate Access <i class="fas fa-shield-alt"></i>
+                    </button>
+                </form>
+
+                <div class="gate-footer">
+                    <p>© {{ date('Y') }} MGI &amp; No.1 Brand Group.</p>
+                    <a href="{{ route('home') }}">
+                        Main Gateway <i class="fas fa-external-link-alt"></i>
                     </a>
-                </p>
-            </div>
+                </div>
 
+            </div>
         </div>
     </div>
 
     <script>
-        // Toggle password
-        document.getElementById('togglePw').addEventListener('click', function() {
-            const pw = document.getElementById('password');
-            const icon = document.getElementById('pwIcon');
-            if (pw.type === 'password') {
-                pw.type = 'text';
-                icon.classList.replace('fa-eye', 'fa-eye-slash');
+        // ── Password Plaintext Reveal (Fixed: No Layout Breakage) ──
+        document.getElementById('triggerReveal').addEventListener('click', function() {
+            const field = document.getElementById('password');
+            const glyph = document.getElementById('eyeGlyph');
+            if (field.type === 'password') {
+                field.type = 'text';
+                glyph.classList.replace('fa-eye', 'fa-eye-slash');
             } else {
-                pw.type = 'password';
-                icon.classList.replace('fa-eye-slash', 'fa-eye');
+                field.type = 'password';
+                glyph.classList.replace('fa-eye-slash', 'fa-eye');
             }
         });
 
-        // Loading state
-        document.getElementById('loginForm').addEventListener('submit', function() {
-            const btn = document.getElementById('submitBtn');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+        // ── Standard UI Loader Sequence ──
+        document.getElementById('executiveLoginForm').addEventListener('submit', function() {
+            const primaryBtn = document.getElementById('formSubmitAction');
+            primaryBtn.disabled = true;
+            primaryBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authorizing Connection...';
+        });
+
+        // ── Elegant Canvas Constellation Micro-Engine ──
+        const canvas = document.getElementById('constellationCanvas');
+        const ctx = canvas.getContext('2d');
+        const container = document.getElementById('canvasContainer');
+
+        let particlesArray = [];
+        const maxParticlesCount = 75;
+
+        let userMouse = {
+            x: null,
+            y: null,
+            radius: 120
+        };
+
+
+
+        function adjustCanvasLayoutSize() {
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+        }
+        adjustCanvasLayoutSize();
+
+        class NetworkNode {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.5 + 1;
+                this.speedX = (Math.random() * 0.3) - 0.15;
+                this.speedY = (Math.random() * 0.3) - 0.15;
+                this.forceMultiplier = (Math.random() * 15) + 15;
+            }
+
+            draw() {
+                ctx.fillStyle = 'rgba(167, 139, 246, 0.4)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width) this.speedX = -this.speedX;
+                if (this.y < 0 || this.y > canvas.height) this.speedY = -this.speedY;
+
+                if (userMouse.x != null && userMouse.y != null) {
+                    let dx = userMouse.x - this.x;
+                    let dy = userMouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < userMouse.radius) {
+                        let forceX = dx / distance;
+                        let forceY = dy / distance;
+                        let normalizedForce = (userMouse.radius - distance) / userMouse.radius;
+
+                        this.x += forceX * normalizedForce * this.forceMultiplier * 0.2;
+                        this.y += forceY * normalizedForce * this.forceMultiplier * 0.2;
+                    }
+                }
+            }
+        }
+
+        function initConstellation() {
+            particlesArray = [];
+            for (let i = 0; i < maxParticlesCount; i++) {
+                particlesArray.push(new NetworkNode());
+            }
+        }
+        initConstellation();
+
+        function assignConnections() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let dx = particlesArray[a].x - particlesArray[b].x;
+                    let dy = particlesArray[a].y - particlesArray[b].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 110) {
+                        let lineAlpha = 1 - (distance / 110);
+                        ctx.strokeStyle = `rgba(139, 92, 246, ${lineAlpha * 0.12})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function runEngineLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            assignConnections();
+            requestAnimationFrame(runEngineLoop);
+        }
+        runEngineLoop();
+
+        window.addEventListener('resize', function() {
+            adjustCanvasLayoutSize();
+            initConstellation();
         });
     </script>
 </body>

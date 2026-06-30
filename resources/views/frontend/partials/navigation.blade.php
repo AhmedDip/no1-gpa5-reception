@@ -39,11 +39,19 @@
                             <span>{{ Auth::user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="userDropdown">
-                            <li>
-                                <a class="dropdown-item" href="{{ route('student.dashboard') }}">
-                                    <i class="fas fa-tachometer-alt me-2 text-dark"></i> ড্যাশবোর্ড
-                                </a>
-                            </li>
+                            @if(Auth::user()->user_type_id == 1)
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('student.dashboard') }}">
+                                        <i class="fas fa-tachometer-alt me-2 text-dark"></i> ড্যাশবোর্ড
+                                    </a>
+                                </li>
+                            @else
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
+                                        <i class="fas fa-tachometer-alt me-2 text-dark"></i> ড্যাশবোর্ড
+                                    </a>
+                                </li>
+                            @endif
                             <li>
                                 <a class="dropdown-item" href="{{ route('student.edit.application') }}">
                                     <i class="fas fa-edit me-2 text-dark"></i> তথ্য সম্পাদনা
