@@ -15,11 +15,9 @@
                             সন্তান</span>
                         সংবর্ধনা - ২০২৬</h1>
                     <p class="lead text-secondary mt-3 mt-lg-4" style="text-align: justify;">
-                        প্রতিটি সন্তানের সাফল্যের পেছনে থাকে একজন সংগ্রামী বাবা-মায়ের অক্লান্ত পরিশ্রম, ত্যাগ ও ভালোবাসা।
-                        বাংলাদেশের হাজারো চা-স্টল ব্যবসায়ী প্রতিদিন কঠোর পরিশ্রম করে তাদের সন্তানদের শিক্ষার স্বপ্ন পূরণ
-                        করে চলেছেন। সেই সংগ্রামী বাবা-মায়ের অবদানকে সম্মান জানাতে এবং তাদের মেধাবী সন্তানদের অর্জনকে উদযাপন
-                        করতে নাম্বার ওয়ান আয়োজন করেছে "নাম্বার ওয়ান বাবার কৃতি সন্তান সংবর্ধনা ২০২৬"।
-
+                        প্রতিটি সাফল্যের পিছনে থাকে বাবা-মার ত্যাগ ও ভালোবাসা। বাংলাদেশের হাজারো চা-স্টল ব্যবসায়ী কঠোর
+                        পরিশ্রম করে সন্তানদের স্বপ্ন পূরণ করেন। তাদের অবদানকে সম্মান জানাতে এবং মেধাবী সন্তানদের অর্জনকে
+                        উদযাপন করতে নাম্বার ওয়ান আয়োজন করেছে "নাম্বার ওয়ান বাবার কৃতি সন্তান সংবর্ধনা ২০২৬"
                     </p>
                     <div class="d-flex flex-wrap gap-3 mt-4 justify-content-center justify-content-lg-start">
                         <a href="{{ route('student.register') }}" class="btn btn-primary btn-lg px-4 px-lg-5"> নিবন্ধন করুন
@@ -79,8 +77,10 @@
         <div class="container">
             <div class="text-center mb-4 mb-md-5">
                 <h2 class="section-title">স্কলারশিপ ও সার্টিফিকেট বিবরণ</h2>
-                <p class="text-secondary px-2">জিপিএ-৫ প্রাপ্ত প্রতিটি শিক্ষার্থী পেলেই অনন্য সুযোগ — আর্থিক বৃত্তি,
-                    আন্তর্জাতিক মাপকাঠির সার্টিফিকেট ও এক্সক্লুসিভ মেন্টরশিপ।</p>
+                <p class="text-secondary px-2">
+                    নাম্বার ওয়ান বাবার কৃতি সন্তান সংবর্ধনা ২০২৬-এ নির্বাচিত শিক্ষার্থীদের জন্য স্কলারশিপ, সার্টিফিকেট,
+                    ক্রেস্ট এবং সংবর্ধনা মেডেল প্রদান করা হবে।
+                </p>
             </div>
 
             <div class="row g-4 align-items-stretch">
@@ -97,16 +97,25 @@
                             </div>
                             <div>
                                 <h3 class="fw-bold">জিপিএ-৫ প্রাপ্ত শিক্ষার্থীদের</h3>
-                                <p class="text-dark-emphasis">স্কলারশিপের মাধ্যমে শিক্ষার্থীদের পড়াশোনার ব্যয় হ্রাস করা
-                                    হবে। এছাড়া ডিজিটাল স্কিল ও ক্যারিয়ার মেন্টরশিপ প্রদান করা হবে যাতে তারা ভবিষ্যতে
-                                    স্বনির্ভর হয়ে উঠতে পারে।</p>
+                                <p class="text-dark-emphasis">
+                                    🎖️ নাম্বার ওয়ান বাবার কৃতি সন্তান সংবর্ধনা ২০২৬-এ নির্বাচিত শিক্ষার্থীদের জন্য
+                                    স্কলারশিপ, সার্টিফিকেট, ক্রেস্ট এবং সংবর্ধনা মেডেল প্রদান করা হবে।
+                                    এটি শুধু একটি সংবর্ধনা নয়, বরং তাদের মেধা, অধ্যবসায় ও সংগ্রামী বাবা-মায়ের আত্মত্যাগের
+                                    প্রতি শ্রদ্ধার নিদর্শন।
+                                </p>
                                 <ul class="list-unstyled mt-3 mb-0">
-                                    <li class="mb-2"><i class="fas fa-award text-secondary me-2"></i>আর্থিক মেধা
-                                        বৃত্তি</li>
-                                    <li class="mb-2"><i class="fas fa-certificate text-secondary me-2"></i>প্রিমিয়াম
-                                        সার্টিফিকেট (ডিজিটাল + প্রিন্ট)</li>
-                                    <li class="mb-2"><i class="fas fa-user-friends text-secondary me-2"></i>টপ-মেন্টরদের
-                                        থেকে গাইডেন্স ও ক্যারিয়ার সাপোর্ট</li>
+                                    <li class="d-flex align-items-start mb-2">
+                                        <i class="fas fa-check text-success me-2 mt-1"></i>
+                                        <span>আর্থিক বৃত্তি ও ভাতা প্রদান করা হবে।</span>
+                                    </li>
+                                    <li class="d-flex align-items-start mb-2">
+                                        <i class="fas fa-check text-success me-2 mt-1"></i>
+                                        <span>আন্তর্জাতিক মানের সার্টিফিকেট প্রদান করা হবে।</span>
+                                    </li>
+                                    <li class="d-flex align-items-start mb-2">
+                                        <i class="fas fa-check text-success me-2 mt-1"></i>
+                                        <span>সংবর্ধনা মেডেল প্রদান করা হবে।</span>
+                                    </li>
                                 </ul>
                                 <div class="mt-4">
                                     <a href="#eligibility" class="btn btn-primary me-2">যোগ্যতা দেখুন</a>
@@ -132,7 +141,7 @@
                                     <div>
                                         <h5 class="mb-1 fw-bold">সার্টিফিকেট</h5>
                                         <p class="small text-secondary mb-0">
-                                            আন্তর্জাতিক মানের প্রিন্ট সার্টিফিকেট
+                                            নির্বাচিত প্রতিটি কৃতী সন্তানকে সার্টিফিকেট প্রদান করা হবে
                                         </p>
                                     </div>
                                 </div>
@@ -143,27 +152,18 @@
                             <div class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100">
                                 <div class="d-flex align-items-center gap-3">
                                     <div class="fancy-icon-wrapper bg-gradient-warning text-white">
-                                        <i class="fas fa-book fs-3 text-white"></i>
+                                        <i class="fas fa-award fs-3 text-white"></i>
                                     </div>
                                     <div>
-                                        <h5 class="mb-1 fw-bold">শিক্ষা উপকরণ </h5>
+                                        <h5 class="mb-1 fw-bold">ক্রেস্ট </h5>
                                         <p class="small text-secondary mb-0">
-                                            শিক্ষার্থীদের জন্য প্রয়োজনীয় শিক্ষা উপকরণ প্রদান করা হবে।
+                                            নির্বাচিত প্রতিটি কৃতী সন্তানকে প্রদান করা হবে ক্রেস্ট
                                         </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        {{--
-                         <div class="col-6 col-md-3">
-                    <div class="fancy-feature-card text-center p-3 p-md-4 rounded-4 bg-white shadow-sm hover-lift">
-                        <div class="fancy-icon-wrapper bg-gradient-info mx-auto mb-2 mb-md-3">
-                            <i class="fas fa-medal fs-1 text-white"></i>
-                        </div>
-                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">সংবর্ধনা মেডেল</h5>
-                        <p class="small text-secondary mb-0 d-none d-md-block">প্রতিযোগিতামূলক সংবর্ধনা মেডেল</p>
-                    </div>
-                </div> --}}
+
 
                         <div class="col-12">
                             <div class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100">
@@ -173,7 +173,9 @@
                                     </div>
                                     <div>
                                         <h5 class="mb-1 fw-bold">সংবর্ধনা মেডেল </h5>
-                                        <p class="small text-secondary mb-0">প্রতিযোগিতামূলক সংবর্ধনা মেডেল</p>
+                                        <p class="small text-secondary mb-0">
+                                            নির্বাচিত প্রতিটি কৃতী সন্তানের অভিভাবককে প্রদান করা হবে সংবর্ধনা মেডেল
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -196,10 +198,10 @@
                 <div class="col-6 col-md-3">
                     <div class="fancy-feature-card text-center p-3 p-md-4 rounded-4 bg-white shadow-sm hover-lift">
                         <div class="fancy-icon-wrapper bg-gradient-success mx-auto mb-2 mb-md-3">
-                            <i class="fas fa-award fs-1 text-white"></i>
+                            <i class="fas fa-book fs-1 text-white"></i>
                         </div>
-                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">ক্রেস্ট</h5>
-                        <p class="small text-secondary mb-0 d-none d-md-block">আন্তর্জাতিক মানের প্রিন্ট ক্রেস্ট</p>
+                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">শিক্ষা উপকরণ</h5>
+                        <p class="small text-secondary mb-0 d-none d-md-block">প্রয়োজনীয় শিক্ষা উপকরণ</p>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
@@ -309,75 +311,121 @@
                             নিশ্চিত করুন <i class="fas fa-arrow-right ms-2"></i></a>
                     </div>
                     <div class="mt-3 mt-md-4 small text-dark-emphasis">
-                        <i class="fas fa-calendar-check"></i> তারিখ: ১০ মে, ২০২৬ | স্থান: ঢাকা ও চট্টগ্রাম
+                        <i class="fas fa-calendar-check"></i> তারিখ: ১০ মে, ২০২৬ | স্থান: নির্ধারিত ভেন্যু
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ========== 5. TIMELINE (clean & modern) ========== -->
-    <section id="timeline" class="py-5 py-md-6 mt-3 mt-md-5"
-        style="background: linear-gradient(to bottom, #F8FAFC, #FFFFFF);">
-        <div class="container">
-            <div class="text-center mb-4 mb-md-5">
+
+    <!-- ========== 5. TIMELINE  ========== -->
+    <section id="timeline" class="py-4 py-md-6 mt-3 mt-md-5 position-relative overflow-hidden"
+        style="background: linear-gradient(145deg, #F9FAFB 0%, #FFFFFF 100%);">
+        <div class="container position-relative">
+            <!-- subtle decorative elements -->
+            <div class="position-absolute top-0 start-0 w-100 h-100 d-none d-lg-block"
+                style="pointer-events: none; opacity: 0.03; background: radial-gradient(circle at 10% 20%, #4F46E5, transparent 70%);">
+            </div>
+            <div class="position-absolute bottom-0 end-0 w-50 h-50 d-none d-lg-block"
+                style="pointer-events: none; opacity: 0.02; background: radial-gradient(circle at 90% 80%, #7C3AED, transparent 70%);">
+            </div>
+
+            <div class="text-center mb-4 mb-md-5 position-relative">
                 <div
-                    class="d-inline-flex align-items-center gap-2 bg-white px-3 px-md-4 py-2 rounded-pill shadow-sm mb-3 mb-md-4">
-                    <i class="fas fa-calendar-event text-primary"></i>
-                    <span class="fw-semibold small">গুরুত্বপূরণ তারিখসমূহ</span>
+                    class="d-inline-flex align-items-center gap-2 bg-white px-4 py-2 rounded-pill shadow-sm mb-3 mb-md-4 border border-light">
+                    <i class="fas fa-calendar-alt text-primary" style="font-size: 0.9rem;"></i>
+                    <span class="fw-semibold small text-uppercase tracking-wide">গুরুত্বপূর্ণ সময়সূচি</span>
                 </div>
                 <h2 class="display-6 display-md-5 fw-bold text-dark">প্রধান সময়সূচি</h2>
-                <p class="text-secondary fs-6 fs-md-5 px-2">২০২৬ সালের গুরুত্বপূরণ মাইলফলক</p>
+                <p class="text-secondary fs-6 fs-md-5 px-2 mt-2">২০২৬ সালের গুরুত্বপূর্ণ মাইলফলক</p>
             </div>
-            <div class="row g-3 g-md-5 justify-content-center">
-                <div class="col-6 col-md-3">
-                    <div
-                        class="timeline-card-modern text-center p-3 p-md-4 rounded-4 bg-white border-bottom border-4 border-secondary shadow-sm h-100">
-                        <div class="timeline-number mb-2 d-none d-md-block">01</div>
-                        <div class="fancy-icon-wrapper bg-gradient-primary mx-auto mb-2 mb-md-3">
-                            <i class="fas fa-calendar-plus fs-2 text-white"></i>
+
+            <div class="row g-4 g-md-5 justify-content-center position-relative">
+                <!-- Elegant connecting line (desktop) -->
+                <div class="d-none d-md-block position-absolute"
+                    style="top: 50%; left: 12%; right: 12%; height: 2px; background: linear-gradient(90deg, #E0E7FF, #A5B4FC, #818CF8, #A5B4FC, #E0E7FF); transform: translateY(-50%); z-index: 0;">
+                </div>
+
+                <div class="col-6 col-md-3 position-relative" style="z-index: 2;">
+                    <div class="timeline-card-elegant text-center p-3 p-md-4 rounded-4 bg-white shadow-sm border-0 h-100 d-flex flex-column align-items-center transition-all duration-300 position-relative"
+                        style="border-bottom: 4px solid #4F46E5;">
+                        <!-- decorative dot on line -->
+                        <div class="d-none d-md-block position-absolute"
+                            style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #4F46E5; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);">
                         </div>
-                        <h5 class="fw-bold fs-6 fs-md-4">নিবন্ধন শুরু</h5>
-                        <p class="fs-5 fs-md-4 fw-bold text-dark mb-0">১ জানু</p>
+                        <div class="timeline-icon-wrapper mb-2 mb-md-3"
+                            style="width: 64px; height: 64px; background: linear-gradient(135deg, #EEF2FF, #E0E7FF); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                            <i class="fas fa-calendar-plus fs-4 text-primary" style="color: #4F46E5;"></i>
+                        </div>
+                        <h5 class="fw-bold fs-6 fs-md-5 mb-1">নিবন্ধন শুরু</h5>
+                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">১ সেপ্টেম্বর</p>
                         <p class="text-secondary small mb-0">২০২৬</p>
+                        <span class="badge bg-primary-soft text-primary mt-2 px-3 py-1 rounded-pill small fw-normal"
+                            style="background: rgba(79, 70, 229, 0.08);">শুরু</span>
                     </div>
                 </div>
-                <div class="col-6 col-md-3">
-                    <div
-                        class="timeline-card-modern text-center p-3 p-md-4 rounded-4 bg-white border-bottom border-4 border-secondary shadow-sm h-100">
-                        <div class="timeline-number mb-2 d-none d-md-block">02</div>
-                        <div class="fancy-icon-wrapper bg-gradient-danger mx-auto mb-2 mb-md-3">
-                            <i class="fas fa-calendar-times fs-2 text-white"></i>
+
+                <div class="col-6 col-md-3 position-relative" style="z-index: 2;">
+                    <div class="timeline-card-elegant text-center p-3 p-md-4 rounded-4 bg-white shadow-sm border-0 h-100 d-flex flex-column align-items-center transition-all duration-300 position-relative"
+                        style="border-bottom: 4px solid #EF4444;">
+                        <div class="d-none d-md-block position-absolute"
+                            style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #EF4444; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);">
                         </div>
-                        <h5 class="fw-bold fs-6 fs-md-4">নিবন্ধন শেষ</h5>
-                        <p class="fs-5 fs-md-4 fw-bold text-dark mb-0">১৫ মার্চ</p>
+                        <div class="timeline-icon-wrapper mb-2 mb-md-3"
+                            style="width: 64px; height: 64px; background: linear-gradient(135deg, #FEF2F2, #FEE2E2); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                            <i class="fas fa-calendar-times fs-4" style="color: #EF4444;"></i>
+                        </div>
+                        <h5 class="fw-bold fs-6 fs-md-5 mb-1">নিবন্ধন শেষ</h5>
+                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">১৫ সেপ্টেম্বর </p>
                         <p class="text-secondary small mb-0">২০২৬</p>
+                        <span class="badge bg-danger-soft text-danger mt-2 px-3 py-1 rounded-pill small fw-normal"
+                            style="background: rgba(239, 68, 68, 0.08);">শেষ</span>
                     </div>
                 </div>
-                <div class="col-6 col-md-3">
-                    <div
-                        class="timeline-card-modern text-center p-3 p-md-4 rounded-4 bg-white border-bottom border-4 border-secondary shadow-sm h-100">
-                        <div class="timeline-number mb-2 d-none d-md-block">03</div>
-                        <div class="fancy-icon-wrapper bg-gradient-success mx-auto mb-2 mb-md-3">
-                            <i class="fas fa-calendar-check fs-2 text-white"></i>
+
+                <div class="col-6 col-md-3 position-relative" style="z-index: 2;">
+                    <div class="timeline-card-elegant text-center p-3 p-md-4 rounded-4 bg-white shadow-sm border-0 h-100 d-flex flex-column align-items-center transition-all duration-300 position-relative"
+                        style="border-bottom: 4px solid #22C55E;">
+                        <div class="d-none d-md-block position-absolute"
+                            style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #22C55E; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15);">
                         </div>
-                        <h5 class="fw-bold fs-6 fs-md-4">মেধা তালিকা</h5>
-                        <p class="fs-5 fs-md-4 fw-bold text-dark mb-0">এপ্রিল</p>
+                        <div class="timeline-icon-wrapper mb-2 mb-md-3"
+                            style="width: 64px; height: 64px; background: linear-gradient(135deg, #F0FDF4, #DCFCE7); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                            <i class="fas fa-list-check fs-4" style="color: #22C55E;"></i>
+                        </div>
+                        <h5 class="fw-bold fs-6 fs-md-5 mb-1">মেধা তালিকা</h5>
+                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">২০ সেপ্টেম্বর </p>
                         <p class="text-secondary small mb-0">২০২৬</p>
+                        <span class="badge bg-success-soft text-success mt-2 px-3 py-1 rounded-pill small fw-normal"
+                            style="background: rgba(34, 197, 94, 0.08);">প্রকাশ</span>
                     </div>
                 </div>
-                <div class="col-6 col-md-3">
-                    <div
-                        class="timeline-card-modern text-center p-3 p-md-4 rounded-4 bg-white border-bottom border-4 border-secondary shadow-sm h-100">
-                        <div class="timeline-number mb-2 d-none d-md-block">04</div>
-                        <div class="fancy-icon-wrapper bg-gradient-special mx-auto mb-2 mb-md-3">
-                            <i class="fas fa-people-group fs-2 text-white"></i>
+
+                <div class="col-6 col-md-3 position-relative" style="z-index: 2;">
+                    <div class="timeline-card-elegant text-center p-3 p-md-4 rounded-4 bg-white shadow-sm border-0 h-100 d-flex flex-column align-items-center transition-all duration-300 position-relative"
+                        style="border-bottom: 4px solid #8B5CF6;">
+                        <!-- no dot for last -->
+                        <div class="timeline-icon-wrapper mb-2 mb-md-3"
+                            style="width: 64px; height: 64px; background: linear-gradient(135deg, #F5F3FF, #EDE9FE); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                            <i class="fas fa-people-group fs-4" style="color: #8B5CF6;"></i>
                         </div>
-                        <h5 class="fw-bold fs-6 fs-md-4">সংবর্ধনা</h5>
-                        <p class="fs-5 fs-md-4 fw-bold text-dark mb-0">মে</p>
+                        <h5 class="fw-bold fs-6 fs-md-5 mb-1">সংবর্ধনা</h5>
+                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">২৫ সেপ্টেম্বর </p>
                         <p class="text-secondary small mb-0">২০২৬</p>
+                        <span class="badge bg-primary-soft text-primary mt-2 px-3 py-1 rounded-pill small fw-normal"
+                            style="background: rgba(139, 92, 246, 0.08);">আয়োজন</span>
                     </div>
                 </div>
+            </div>
+
+            <!-- subtle bottom decoration -->
+            <div class="text-center mt-4 mt-md-5 position-relative">
+                <p class="text-muted small d-flex align-items-center justify-content-center gap-2">
+                    <i class="fas fa-circle text-primary" style="font-size: 0.35rem; opacity: 0.5;"></i>
+                    <span>সকল সময়সূচি পরিবর্তন সাপেক্ষ</span>
+                    <i class="fas fa-circle text-primary" style="font-size: 0.35rem; opacity: 0.5;"></i>
+                </p>
             </div>
         </div>
     </section>
@@ -651,8 +699,8 @@
         }
 
         /* .fancy-feature-card:hover .fancy-icon-wrapper {
-                                                                transform: scale(1.1);
-                                                            } */
+                                                                                    transform: scale(1.1);
+                                                                                } */
 
         @media (min-width: 768px) {
             .fancy-icon-wrapper {

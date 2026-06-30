@@ -13,7 +13,7 @@
                                 <span>Total Applications</span>
                                 <div class="d-flex align-items-end mt-2">
                                     <h4 class="mb-0 me-2">{{ $counts['total'] ?? 0 }}</h4>
-                                    <small class="text-success">({{ $counts['total'] ?? 0 }})</small>
+                                    <small class="text-success">(Total Applications)</small>
                                 </div>
                                 <small>All applications</small>
                             </div>
