@@ -4,6 +4,7 @@ use App\Http\Controllers\InvitationLetterController;
 use App\Http\Controllers\OtpVerificationController;
 use App\Http\Controllers\StudentAuthController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentNotificationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,10 +16,7 @@ use Illuminate\Support\Facades\Route;
 // Home page
 Route::get('/', [StudentController::class, 'home'])->name('home');
 
-
 Route::prefix('student')->name('student.')->group(function () {
-
-
     Route::middleware('guest')->group(function () {
         // Registration
         Route::get('/register', [StudentAuthController::class, 'showRegister'])->name('register');
@@ -27,11 +25,11 @@ Route::prefix('student')->name('student.')->group(function () {
         // Login
         Route::get('/login', [StudentAuthController::class, 'showLogin'])->name('login');
         Route::post('/login', [StudentAuthController::class, 'login'])->name('login.submit');
+
     });
 
 
     Route::middleware(['auth', 'prevent.back'])->group(function () {
-
 
         Route::get('/verify-otp', [OtpVerificationController::class, 'showVerifyForm'])->name('otp.verify');
         Route::post('/verify-otp', [OtpVerificationController::class, 'verifyOtp'])->name('otp.verify.submit');
@@ -40,7 +38,7 @@ Route::prefix('student')->name('student.')->group(function () {
 
         Route::post('/update-parent-info', [StudentController::class, 'updateParentInfo'])->name('update.parent');
 
-        //Invitation Letter
+         //Invitation Letter
         Route::get('/invitation-letter', [InvitationLetterController::class, 'index'])->name('invitation.letter');
 
         //Professional Certificate
@@ -56,13 +54,20 @@ Route::prefix('student')->name('student.')->group(function () {
             Route::post('/update-application', [StudentController::class, 'updateApplication'])->name('update.application');
             Route::get('/download-acknowledgement', [StudentController::class, 'downloadAcknowledgement'])->name('download.acknowledgement');
 
-            // Additional Features (Future)
+            // Download Invitation Letter and Certificate
             Route::get('/invitation', [StudentController::class, 'downloadInvitation'])->name('download.invitation');
             Route::get('/certificate', [StudentController::class, 'certificate'])->name('download.certificate');
 
             // Profile Settings
             Route::get('/profile', [StudentController::class, 'profile'])->name('profile');
             Route::post('/profile/update', [StudentController::class, 'updateProfile'])->name('profile.update');
+
+            // Notifications
+            Route::get('/notifications', [StudentNotificationController::class, 'index'])->name('notifications.index');
+            Route::post('/notifications/{id}/read', [StudentNotificationController::class, 'markRead'])->name('notifications.read');
+            Route::post('/notifications/mark-all-read', [StudentNotificationController::class, 'markAllRead'])->name('notifications.read-all');
+
+
         });
 
 
@@ -75,7 +80,8 @@ Route::prefix('student')->name('student.')->group(function () {
 Route::prefix('api')->name('api.')->group(function () {
     Route::get('/districts/{divisionId}', [StudentController::class, 'getDistricts'])->name('districts');
     Route::get('/upazilas/{districtId}', [StudentController::class, 'getUpazilas'])->name('upazilas');
+
 });
 
 
-require __DIR__ . '/admin.php';
+require __DIR__.'/admin.php';

@@ -5,6 +5,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -36,20 +37,27 @@ class User extends Authenticatable
         'is_mobile_verified' => 'boolean',
     ];
 
-    /**
-     * Get the OTP verifications for the user
-     */
+
     public function otpVerifications()
     {
         return $this->hasMany(OtpVerification::class);
     }
 
-    /**
-     * Get the latest OTP verification
-     */
+
     public function latestOtp()
     {
         return $this->hasOne(OtpVerification::class)->latest();
+    }
+
+
+    public function studentNotifications(): HasMany
+    {
+        return $this->hasMany(StudentNotification::class)->latest();
+    }
+
+    public function unreadNotificationsCount(): int
+    {
+        return $this->studentNotifications()->where('is_read', false)->count();
     }
 
 

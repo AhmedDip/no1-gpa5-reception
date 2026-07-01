@@ -331,7 +331,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-3 mb-3">
                                 <a href="{{ route('student.edit.application') }}" class="text-decoration-none">
                                     <div class="menu-btn bg-light">
                                         <i class="fas fa-edit fa-2x text-primary mb-2"></i>
@@ -340,7 +340,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-3 mb-3">
                                 <a href="{{ route('student.download.certificate') }}" target="_blank"
                                     class="text-decoration-none">
                                     <div class="menu-btn bg-light">
@@ -350,13 +350,26 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-3 mb-3">
                                 <a href="{{ route('student.invitation.letter') }}" target="_blank"
                                     class="text-decoration-none">
                                     <div class="menu-btn bg-light">
                                         <i class="fas fa-envelope fa-2x text-danger mb-2"></i>
                                         <h6 class="mb-0 text-dark">আমন্ত্রণপত্র</h6>
                                         <small class="text-muted">ইভেন্টের আমন্ত্রণপত্র</small>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <a href="{{ route('student.notifications.index') }}" class="text-decoration-none">
+                                    <div class="menu-btn bg-light position-relative">
+                                        @if (($unreadNotifCount ?? 0) > 0)
+                                            <span class="position-absolute badge bg-danger rounded-pill"
+                                                style="top: 8px; right: 8px; font-size: 0.65rem;">{{ $unreadNotifCount }}</span>
+                                        @endif
+                                        <i class="fas fa-bell fa-2x text-warning mb-2"></i>
+                                        <h6 class="mb-0 text-dark">নোটিফিকেশন</h6>
+                                        <small class="text-muted">প্রেরিত বার্তা দেখুন</small>
                                     </div>
                                 </a>
                             </div>

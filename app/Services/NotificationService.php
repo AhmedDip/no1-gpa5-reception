@@ -3,18 +3,17 @@
 
 namespace App\Services;
 
-use App\Models\SmsLog;
 use App\Models\StudentDetail;
+use App\Models\StudentNotification;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
 class NotificationService
 {
-
     public function approvedTemplate(StudentDetail $app): string
     {
-        $name      = $app->name_bn ?: $app->name_en;
-        $roll      = $app->roll_number;
+        $name     = $app->name_bn ?: $app->name_en;
+        $roll     = $app->roll_number;
         $stallName = $app->tea_stall_name ?? 'আপনার চায়ের দোকান';
 
         return "প্রিয় {$name},\n\n"
@@ -25,6 +24,9 @@ class NotificationService
             . "— নাম্বার ওয়ান ব্র্যান্ড";
     }
 
+    /**
+     * Rejected SMS template (Bangla)
+     */
     public function rejectedTemplate(StudentDetail $app, string $remarks = ''): string
     {
         $name = $app->name_bn ?: $app->name_en;
@@ -42,6 +44,9 @@ class NotificationService
         return $msg;
     }
 
+    /**
+     * Custom notification template
+     */
     public function customTemplate(StudentDetail $app, string $message): string
     {
         $name = $app->name_bn ?: $app->name_en;
@@ -49,117 +54,24 @@ class NotificationService
         return "প্রিয় {$name},\n\n{$message}\n\n— নাম্বার ওয়ান ব্র্যান্ড";
     }
 
- 
-    public function sendSms(string $mobile, string $message, ?int $studentDetailId = null, string $type = 'custom'): bool
+
+    private function storeNotification(StudentDetail $app, string $title, string $message, string $type): void
     {
-        $driver = config('services.sms.driver', 'log');
-        $result = $this->dispatch($driver, $mobile, $message);
-
-        SmsLog::create([
-            'student_detail_id' => $studentDetailId,
-            'sent_by'           => auth()->id(),
-            'mobile'            => $mobile,
-            'type'              => $type,
-            'message'           => $message,
-            'status'            => $result['success'] ? 'sent' : 'failed',
-            'driver'            => $driver,
-            'response'          => $result['response'] ?? null,
-        ]);
-
-        return $result['success'];
-    }
-
-    public function notifyApproved(StudentDetail $app): bool
-    {
-        $mobile = $app->user->mobile ?? $app->parent_mobile;
-        if (!$mobile) {
-            return false;
+        try {
+            StudentNotification::create([
+                'user_id'           => $app->user_id,
+                'student_detail_id' => $app->id,
+                'title'             => $title,
+                'message'           => $message,
+                'type'              => $type,
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to store student notification: ' . $e->getMessage());
         }
-
-        $message = $this->approvedTemplate($app);
-        $sent    = $this->sendSms($mobile, $message, $app->id, 'approved');
-
-        if ($sent) {
-            $app->update(['sms_sent_at' => now(), 'notification_sent' => true]);
-        }
-
-        return $sent;
-    }
-
-    public function notifyRejected(StudentDetail $app, string $remarks = ''): bool
-    {
-        $mobile = $app->user->mobile ?? $app->parent_mobile;
-        if (!$mobile) {
-            return false;
-        }
-
-        $message = $this->rejectedTemplate($app, $remarks);
-        $sent    = $this->sendSms($mobile, $message, $app->id, 'rejected');
-
-        if ($sent) {
-            $app->update(['sms_sent_at' => now(), 'notification_sent' => true]);
-        }
-
-        return $sent;
     }
 
 
-    public function sendBulk(array $applications, string $customMessage = ''): array
-    {
-        $sent   = 0;
-        $failed = 0;
-
-        foreach ($applications as $app) {
-            /** @var StudentDetail $app */
-            $mobile = $app->user->mobile ?? $app->parent_mobile;
-            if (!$mobile) {
-                $failed++;
-                continue;
-            }
-
-            $body = $customMessage
-                ? $this->customTemplate($app, $customMessage)
-                : $this->approvedTemplate($app);
-
-            $ok = $this->sendSms($mobile, $body, $app->id, $customMessage ? 'custom' : 'approved');
-
-            if ($ok) {
-                $app->update(['sms_sent_at' => now(), 'notification_sent' => true]);
-                $sent++;
-            } else {
-                $failed++;
-            }
-
-            usleep(200000); 
-        }
-
-        return compact('sent', 'failed');
-    }
-
-
-    private function dispatch(string $driver, string $mobile, string $message): array
-    {
-        return match ($driver) {
-            'twilio' => $this->sendViaTwilio($mobile, $message),
-            default  => $this->sendViaLog($mobile, $message),
-        };
-    }
-
- 
-    private function sendViaLog(string $mobile, string $message): array
-    {
-        Log::info(' [SMS TEST MODE — not actually delivered]', [
-            'to'      => $this->maskMobile($mobile),
-            'message' => $message,
-        ]);
-
-        return [
-            'success'  => true,
-            'response' => 'Logged only (driver=log) — no real SMS sent.',
-        ];
-    }
-
-    private function sendViaTwilio(string $mobile, string $message): array
+    public function sendSms(string $mobile, string $message): bool
     {
         try {
             $sid   = config('services.twilio.sid');
@@ -167,8 +79,8 @@ class NotificationService
             $from  = config('services.twilio.from');
 
             if (empty($sid) || empty($token) || empty($from)) {
-                Log::warning('Twilio credentials missing; SMS skipped.', ['mobile' => $this->maskMobile($mobile)]);
-                return ['success' => false, 'response' => 'Twilio credentials missing'];
+                Log::warning('Twilio credentials not configured; SMS skipped.', ['mobile' => $this->maskMobile($mobile)]);
+                return false;
             }
 
             $formattedMobile = $this->formatMobile($mobile);
@@ -179,16 +91,87 @@ class NotificationService
                 'body' => $message,
             ]);
 
-            Log::info('SMS sent via Twilio', ['sid' => $sms->sid, 'mobile' => $this->maskMobile($formattedMobile)]);
-            return ['success' => true, 'response' => $sms->sid];
+            Log::info('SMS sent', ['sid' => $sms->sid, 'mobile' => $this->maskMobile($formattedMobile)]);
+            return true;
         } catch (\Twilio\Exceptions\RestException $e) {
             Log::error('Twilio SMS error: ' . $e->getMessage(), ['code' => $e->getCode()]);
-            return ['success' => false, 'response' => $e->getMessage()];
+            return false;
         } catch (\Exception $e) {
             Log::error('SMS error: ' . $e->getMessage());
-            return ['success' => false, 'response' => $e->getMessage()];
+            return false;
         }
     }
+
+
+    public function notifyApproved(StudentDetail $app): bool
+    {
+        $message = $this->approvedTemplate($app);
+        $this->storeNotification($app, 'আবেদন অনুমোদিত হয়েছে', $message, 'approved');
+
+        $mobile = $app->user->mobile ?? $app->parent_mobile;
+        if (!$mobile) {
+            return false;
+        }
+
+        $sent = $this->sendSms($mobile, $message);
+
+        if ($sent) {
+            $app->update(['sms_sent_at' => now(), 'notification_sent' => true]);
+        }
+
+        return $sent;
+    }
+
+    public function notifyRejected(StudentDetail $app, string $remarks = ''): bool
+    {
+        $message = $this->rejectedTemplate($app, $remarks);
+        $this->storeNotification($app, 'আবেদন প্রত্যাখ্যাত হয়েছে', $message, 'rejected');
+
+        $mobile = $app->user->mobile ?? $app->parent_mobile;
+        if (!$mobile) {
+            return false;
+        }
+
+        return $this->sendSms($mobile, $message);
+    }
+
+    public function sendBulk(array $applications, string $customMessage = ''): array
+    {
+        $sent   = 0;
+        $failed = 0;
+
+        foreach ($applications as $app) {
+            /** @var StudentDetail $app */
+            $body = $customMessage
+                ? $this->customTemplate($app, $customMessage)
+                : $this->approvedTemplate($app);
+
+            $type  = $customMessage ? 'custom' : 'approved';
+            $title = $customMessage ? 'নতুন বার্তা' : 'আবেদন অনুমোদিত হয়েছে';
+            $this->storeNotification($app, $title, $body, $type);
+
+            $mobile = $app->user->mobile ?? $app->parent_mobile;
+            if (!$mobile) {
+                $failed++;
+                continue;
+            }
+
+            $ok = $this->sendSms($mobile, $body);
+
+            if ($ok) {
+                $app->update(['sms_sent_at' => now(), 'notification_sent' => true]);
+                $sent++;
+            } else {
+                $failed++;
+            }
+
+            // Brief pause to respect Twilio rate limits
+            usleep(200000); // 200ms
+        }
+
+        return compact('sent', 'failed');
+    }
+
 
 
     private function formatMobile(string $mobile): string

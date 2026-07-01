@@ -43,7 +43,7 @@
             justify-content: center;
         }
 
-=
+
         .premium-container {
             width: 100%;
             min-height: 100vh;
@@ -52,7 +52,8 @@
             background-color: var(--bg-deep);
             position: relative;
         }
-=
+
+
         .premium-container::before {
             content: '';
             position: absolute;
@@ -64,7 +65,6 @@
             pointer-events: none;
         }
 
-=
         .brand-wall {
             display: flex;
             flex-direction: column;
@@ -76,7 +76,6 @@
             overflow: hidden;
         }
 
-        /* Interactive Canvas Element background */
         #constellationCanvas {
             position: absolute;
             top: 0;
@@ -107,7 +106,7 @@
             border: 1px solid rgba(139, 92, 246, 0.2);
         }
 
-        /* Balanced Logo Showcase Row */
+
         .logo-gallery-row {
             display: flex;
             align-items: center;
@@ -171,7 +170,7 @@
             max-width: 460px;
         }
 
-        /* ── Right Side: Elegant Form Area ── */
+
         .form-wall {
             background-color: var(--bg-surface);
             display: flex;
@@ -203,7 +202,7 @@
             margin-top: 0.4rem;
         }
 
-        /* Minimal Luxury Form Inputs */
+
         .field-box {
             margin-bottom: 1.5rem;
             position: relative;
@@ -266,7 +265,7 @@
             border-color: var(--color-danger);
         }
 
-        /* Fixed absolute positioned buttons to stop layouts breaking */
+
         .password-reveal-btn {
             position: absolute;
             right: 0;
@@ -311,7 +310,7 @@
             cursor: pointer;
         }
 
-        /* Solid High-End Button Design */
+
         .submit-action-btn {
             width: 100%;
             background: var(--accent-gradient);
@@ -346,7 +345,7 @@
             transform: none;
         }
 
-        /* Modern Notification Elements */
+
         .toast-alert {
             border-radius: 10px;
             padding: 1rem 1.2rem;
@@ -369,7 +368,7 @@
             color: #6ee7b7;
         }
 
-        /* Footer Metadata */
+
         .gate-footer {
             margin-top: 4rem;
             padding-top: 1.5rem;
@@ -394,7 +393,7 @@
             color: var(--accent);
         }
 
-        /* ── Responsive Adaptability Matrix ── */
+
         @media (max-width: 1050px) {
             .premium-container {
                 grid-template-columns: 1fr;
@@ -422,7 +421,7 @@
 
     <div class="premium-container">
 
-=
+
         <div class="brand-wall" id="canvasContainer">
             <canvas id="constellationCanvas"></canvas>
 
@@ -431,29 +430,31 @@
                     <i class="fas fa-circle" style="font-size: 7px; vertical-align: middle;"></i> Secure Access Point
                 </div>
             </div>
-=
+
+    
             <div class="logo-gallery-row">
                 <div class="brand-logo-card">
                     <img src="{{ asset('images/mgi-logo.png') }}" alt="MGI Corporate Brand" />
                 </div>
                 <div class="logo-separator-dot"></div>
                 <div class="brand-logo-card">
-                    <img src="{{ asset('images/no1-logo.png') }}" alt="No.1 Brand Portfolio"/>
+                    <img src="{{ asset('images/no1-logo.png') }}" alt="No.1 Brand Portfolio" />
                 </div>
             </div>
 
             <div class="showcase-footer">
                 <h2>
-                   নাম্বার ওয়ান স্কলারশিপ ম্যানেজমেন্ট পোর্টাল
+                    নাম্বার ওয়ান স্কলারশিপ ম্যানেজমেন্ট পোর্টাল
                 </h2>
-                <br/>
+                <br />
                 <p>
-                  নাম্বার ওয়ান স্কলারশিপ ম্যানেজমেন্ট-এর সুরক্ষিত অ্যাডমিন পোর্টালে স্বাগতম। ড্যাশবোর্ডে প্রবেশ করতে আপনার লগইন তথ্য দিয়ে পরিচয় যাচাই করুন।
+                    নাম্বার ওয়ান স্কলারশিপ ম্যানেজমেন্ট-এর সুরক্ষিত অ্যাডমিন পোর্টালে স্বাগতম। ড্যাশবোর্ডে প্রবেশ করতে
+                    আপনার লগইন তথ্য দিয়ে পরিচয় যাচাই করুন।
                 </p>
             </div>
         </div>
 
-=
+
         <div class="form-wall">
             <div class="form-wrapper">
 
@@ -562,12 +563,12 @@
         const container = document.getElementById('canvasContainer');
 
         let particlesArray = [];
-        const maxParticlesCount = 100;
+        const maxParticlesCount = 75;
 
         let userMouse = {
             x: null,
             y: null,
-            radius: 180
+            radius: 120
         };
 
 
