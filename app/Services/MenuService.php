@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Cache;
 
 class MenuService
 {
-
     public function getMenuForUser(int $userGroupId): array
     {
         $cacheKey = "user_menu_{$userGroupId}";
@@ -22,6 +21,9 @@ class MenuService
                         $q->where('wmng_id', $userGroupId)
                             ->where('wsmu_vsbl', true);
                     })
+                        ->with(['userGroupMenus' => function ($q) use ($userGroupId) {
+                            $q->where('wmng_id', $userGroupId);
+                        }])
                         ->orderBy('wsmn_oseq');
                 },
             ])
@@ -35,9 +37,7 @@ class MenuService
                 $subMenuItems = [];
 
                 foreach ($menu->subMenus as $subMenu) {
-                    $perm = UserGroupMenu::where('wsmn_id', $menu->id === $subMenu->wmnu_id ? $subMenu->id : $subMenu->id)
-                        ->where('wmng_id', $userGroupId)
-                        ->first();
+                    $perm = $subMenu->userGroupMenus->first();
 
                     $subMenuItems[] = [
                         'id'     => $subMenu->id,
@@ -67,6 +67,22 @@ class MenuService
         });
     }
 
+
+    public function getPermissionForSubMenu(int $userGroupId, string $subMenuKey): ?array
+    {
+        $menus = $this->getMenuForUser($userGroupId);
+
+        foreach ($menus as $menu) {
+            foreach ($menu['sub_menus'] as $sub) {
+                if ($sub['ukey'] === $subMenuKey) {
+                    return $sub['can'];
+                }
+            }
+        }
+
+        return null;
+    }
+
     /**
      * Get permission flags for a specific sub-menu key for the current user.
      */
@@ -77,26 +93,13 @@ class MenuService
             return $this->noPermission();
         }
 
-        $subMenu = \App\Models\SubMenu::where('wsmn_ukey', $subMenuKey)->first();
-        if (!$subMenu) {
+        $can = $this->getPermissionForSubMenu($user->wmng_id, $subMenuKey);
+
+        if (!$can) {
             return $this->noPermission();
         }
 
-        $perm = UserGroupMenu::where('wsmn_id', $subMenu->id)
-            ->where('wmng_id', $user->wmng_id)
-            ->first();
-
-        if (!$perm || !$perm->wsmu_vsbl) {
-            return $this->noPermission();
-        }
-
-        return [
-            'visible' => true,
-            'create'  => $perm->wsmu_crat,
-            'read'    => $perm->wsmu_read,
-            'update'  => $perm->wsmu_updt,
-            'delete'  => $perm->wsmu_delt,
-        ];
+        return array_merge(['visible' => true], $can);
     }
 
     /**

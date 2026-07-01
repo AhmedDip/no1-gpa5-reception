@@ -11,8 +11,7 @@
 <script src="{{ asset('template/assets/vendor/libs/typeahead-js/typeahead.js') }}"></script>
 
 <!-- Page JS -->
-<!-- Place this tag before closing body tag for github widget button. -->
-<script async defer src="https://buttons.github.io/buttons.js') }}"></script>
+
 
 <!-- Vendors JS -->
 <script src="{{ asset('template/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
@@ -22,14 +21,16 @@
 <!-- Datatables JS -->
 <script src="{{ asset('template/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
 <script src="{{ asset('template/assets/js/tables-datatables-advanced.js') }}"></script>
-<script src="{{ asset('template/assets/js/tables-datatables-basic.js') }}"></script>
+{{-- <script src="{{ asset('template/assets/js/tables-datatables-basic.js') }}"></script> --}}
 
-<script src="{{ asset('template/assets/vendor/libs/jquery-repeater/jquery-repeater.js') }}"></script> 
+<script src="{{ asset('template/assets/vendor/libs/jquery-repeater/jquery-repeater.js') }}"></script>
 <script src="{{ asset('template/assets/js/forms-extras.js') }}"></script>
 
 <!-- Select2 JS -->
 <script src="{{ asset('template/assets/vendor/libs/bootstrap-select/bootstrap-select.js') }}"></script>
 <script src="{{ asset('template/assets/vendor/libs/select2/select2.js') }}"></script>
 <script src="{{ asset('template/assets/js/forms-selects.js') }}"></script>
+
+
 
 @stack('script')
