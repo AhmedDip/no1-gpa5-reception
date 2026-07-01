@@ -79,6 +79,61 @@
                             </ul>
                         </li>
                     @endif
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="userDropdown"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            @php
+                                $studentDetail = Auth::user()->studentDetail;
+                            @endphp
+                            @if ($studentDetail && $studentDetail->student_photo)
+                                <img src="{{ asset('storage/' . $studentDetail->student_photo) }}" class="rounded-circle"
+                                    width="32" height="32" style="object-fit: cover;">
+                            @else
+                                <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white"
+                                    style="width: 32px; height: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;">
+                                    <i class="fas fa-user fa-sm"></i>
+                                </div>
+                            @endif
+                            <span>{{ Auth::user()->name }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="userDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('student.dashboard') }}">
+                                    <i class="fas fa-tachometer-alt me-2 text-dark"></i> ড্যাশবোর্ড
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('student.edit.application') }}">
+                                    <i class="fas fa-edit me-2 text-dark"></i> তথ্য সম্পাদনা
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <form method="POST" action="{{ route('student.logout') }}" id="logout-form">
+                                    @csrf
+                                    <button type="button" class="dropdown-item text-danger" id="logoutBtn">
+                                        <i class="fas fa-sign-out-alt me-2"></i> লগআউট
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                @else
+                    <!-- When user is not logged in -->
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-outline-primary px-4" href="{{ route('student.login') }}">
+                            <i class="fas fa-sign-in-alt me-1"></i> লগইন
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary text-white px-4" href="{{ route('student.register') }}">
+                            <i class="fas fa-user-plus me-1"></i> নিবন্ধন <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </li>
+
                 @endauth
             </ul>
         </div>

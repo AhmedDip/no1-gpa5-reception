@@ -21,11 +21,11 @@
 
 <!-- Datatables JS -->
 <script src="{{ asset('template/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
-{{-- <script src="{{ asset('template/assets/js/tables-datatables-advanced.js') }}"></script> --}}
+<script src="{{ asset('template/assets/js/tables-datatables-advanced.js') }}"></script>
 <script src="{{ asset('template/assets/js/tables-datatables-basic.js') }}"></script>
 
-{{-- <script src="{{ asset('template/assets/vendor/libs/jquery-repeater/jquery-repeater.js') }}"></script> --}}
-{{-- <script src="{{ asset('template/assets/js/forms-extras.js') }}"></script> --}}
+<script src="{{ asset('template/assets/vendor/libs/jquery-repeater/jquery-repeater.js') }}"></script> 
+<script src="{{ asset('template/assets/js/forms-extras.js') }}"></script>
 
 <!-- Select2 JS -->
 <script src="{{ asset('template/assets/vendor/libs/bootstrap-select/bootstrap-select.js') }}"></script>

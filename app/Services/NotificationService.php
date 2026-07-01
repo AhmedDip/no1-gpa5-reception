@@ -6,10 +6,12 @@ namespace App\Services;
 use App\Models\StudentDetail;
 use App\Models\StudentNotification;
 use App\Models\User;
+use App\Models\SmsLog;
 use Illuminate\Support\Facades\Log;
 
 class NotificationService
 {
+
     public function approvedTemplate(StudentDetail $app): string
     {
         $name     = $app->name_bn ?: $app->name_en;
@@ -24,9 +26,7 @@ class NotificationService
             . "— নাম্বার ওয়ান ব্র্যান্ড";
     }
 
-    /**
-     * Rejected SMS template (Bangla)
-     */
+  
     public function rejectedTemplate(StudentDetail $app, string $remarks = ''): string
     {
         $name = $app->name_bn ?: $app->name_en;
@@ -44,9 +44,7 @@ class NotificationService
         return $msg;
     }
 
-    /**
-     * Custom notification template
-     */
+
     public function customTemplate(StudentDetail $app, string $message): string
     {
         $name = $app->name_bn ?: $app->name_en;
@@ -71,7 +69,43 @@ class NotificationService
     }
 
 
-    public function sendSms(string $mobile, string $message): bool
+    public function sendSms(string $mobile, string $message, ?int $studentDetailId = null, string $type = 'custom'): bool
+    {
+        $driver = config('services.sms.driver', 'log');
+        $result = $this->dispatch($driver, $mobile, $message);
+
+        try {
+            SmsLog::create([
+                'student_detail_id' => $studentDetailId,
+                'sent_by'           => auth()->id(),
+                'mobile'            => $mobile,
+                'type'              => $type,
+                'message'           => $message,
+                'status'            => $result['success'] ? 'sent' : 'failed',
+                'driver'            => $driver,
+                'response'          => $result['response'] ?? null,
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to store SMS log: ' . $e->getMessage());
+        }
+
+        return $result['success'];
+    }
+
+
+    private function dispatch(string $driver, string $mobile, string $message): array
+    {
+        switch ($driver) {
+            case 'twilio':
+                return $this->sendViaTwilio($mobile, $message);
+            case 'log':
+            default:
+                return $this->sendViaLog($mobile, $message);
+        }
+    }
+
+   
+    private function sendViaTwilio(string $mobile, string $message): array
     {
         try {
             $sid   = config('services.twilio.sid');
@@ -80,26 +114,53 @@ class NotificationService
 
             if (empty($sid) || empty($token) || empty($from)) {
                 Log::warning('Twilio credentials not configured; SMS skipped.', ['mobile' => $this->maskMobile($mobile)]);
-                return false;
+                return [
+                    'success' => false,
+                    'response' => 'Twilio credentials not configured'
+                ];
             }
 
             $formattedMobile = $this->formatMobile($mobile);
 
             $client = new \Twilio\Rest\Client($sid, $token);
-            $sms    = $client->messages->create($formattedMobile, [
+            $sms = $client->messages->create($formattedMobile, [
                 'from' => $from,
                 'body' => $message,
             ]);
 
-            Log::info('SMS sent', ['sid' => $sms->sid, 'mobile' => $this->maskMobile($formattedMobile)]);
-            return true;
+            Log::info('SMS sent via Twilio', ['sid' => $sms->sid, 'mobile' => $this->maskMobile($formattedMobile)]);
+
+            return [
+                'success' => true,
+                'response' => $sms->sid
+            ];
         } catch (\Twilio\Exceptions\RestException $e) {
             Log::error('Twilio SMS error: ' . $e->getMessage(), ['code' => $e->getCode()]);
-            return false;
+            return [
+                'success' => false,
+                'response' => $e->getMessage()
+            ];
         } catch (\Exception $e) {
             Log::error('SMS error: ' . $e->getMessage());
-            return false;
+            return [
+                'success' => false,
+                'response' => $e->getMessage()
+            ];
         }
+    }
+
+    
+    private function sendViaLog(string $mobile, string $message): array
+    {
+        Log::info('SMS logged (driver: log)', [
+            'mobile' => $this->maskMobile($mobile),
+            'message' => $message
+        ]);
+
+        return [
+            'success' => true,
+            'response' => 'Logged successfully'
+        ];
     }
 
 
@@ -113,7 +174,7 @@ class NotificationService
             return false;
         }
 
-        $sent = $this->sendSms($mobile, $message);
+        $sent = $this->sendSms($mobile, $message, $app->id, 'approved');
 
         if ($sent) {
             $app->update(['sms_sent_at' => now(), 'notification_sent' => true]);
@@ -121,6 +182,7 @@ class NotificationService
 
         return $sent;
     }
+
 
     public function notifyRejected(StudentDetail $app, string $remarks = ''): bool
     {
@@ -132,9 +194,10 @@ class NotificationService
             return false;
         }
 
-        return $this->sendSms($mobile, $message);
+        return $this->sendSms($mobile, $message, $app->id, 'rejected');
     }
 
+ 
     public function sendBulk(array $applications, string $customMessage = ''): array
     {
         $sent   = 0;
@@ -156,7 +219,7 @@ class NotificationService
                 continue;
             }
 
-            $ok = $this->sendSms($mobile, $body);
+            $ok = $this->sendSms($mobile, $body, $app->id, $type);
 
             if ($ok) {
                 $app->update(['sms_sent_at' => now(), 'notification_sent' => true]);
@@ -171,7 +234,6 @@ class NotificationService
 
         return compact('sent', 'failed');
     }
-
 
 
     private function formatMobile(string $mobile): string
