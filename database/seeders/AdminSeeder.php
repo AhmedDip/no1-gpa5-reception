@@ -15,9 +15,7 @@ class AdminSeeder extends Seeder
 {
     public function run(): void
     {
-        // ============================================================
-        // 1. Ensure user types exist
-        // ============================================================
+
         $adminType = UserType::firstOrCreate(['slug' => 'admin'], [
             'name' => 'Admin',
             'slug' => 'admin',
@@ -28,9 +26,7 @@ class AdminSeeder extends Seeder
             'slug' => 'brand-team',
         ]);
 
-        // ============================================================
-        // 2. Create Menu Groups (roles)
-        // ============================================================
+
         $adminGroup = WebMenuGroup::firstOrCreate(['wmng_code' => 'ADMIN'], [
             'wmng_name' => 'Admin',
             'wmng_code' => 'ADMIN',
@@ -41,9 +37,7 @@ class AdminSeeder extends Seeder
             'wmng_code' => 'BRAND',
         ]);
 
-        // ============================================================
-        // 3. Create Admin Users
-        // ============================================================
+
         $superAdmin = User::firstOrCreate(['email' => 'admin@no1.com'], [
             'name'              => 'Super Admin',
             'mobile'            => '01700000000',
@@ -66,9 +60,7 @@ class AdminSeeder extends Seeder
             'mobile_verified_at'=> now(),
         ]);
 
-        // ============================================================
-        // 4. Create Web Menus (parent navigation items)
-        // ============================================================
+
         $dashboardMenu = WebMenu::firstOrCreate(['wmnu_name' => 'Dashboard'], [
             'wmnu_name' => 'Dashboard',
             'wmnu_icon' => 'bx bx-home-smile',
@@ -99,9 +91,7 @@ class AdminSeeder extends Seeder
             'wmnu_oseq' => 5,
         ]);
 
-        // ============================================================
-        // 5. Create Sub Menus
-        // ============================================================
+
         $subMenus = [
             // Dashboard
             [
@@ -218,9 +208,7 @@ class AdminSeeder extends Seeder
             $createdSubMenus[$sm['wsmn_ukey']] = $record;
         }
 
-        // ============================================================
-        // 6. Assign permissions to Admin Group (full access)
-        // ============================================================
+
         foreach ($createdSubMenus as $ukey => $subMenu) {
             UserGroupMenu::firstOrCreate(
                 ['wsmn_id' => $subMenu->id, 'wmng_id' => $adminGroup->id],
@@ -236,11 +224,7 @@ class AdminSeeder extends Seeder
             );
         }
 
-        // ============================================================
-        // 7. Assign LIMITED permissions to Brand Group
-        //    Brand team: can see dashboard, applications (read only), students (read only)
-        //    No reports export, no settings
-        // ============================================================
+
         $brandPermissions = [
             'dashboard.overview'     => [true,  false, true,  false, false],
             'dashboard.statistics'   => [true,  false, true,  false, false],
@@ -276,7 +260,7 @@ class AdminSeeder extends Seeder
             );
         }
 
-        $this->command->info('✅ Admin seeder completed!');
+        $this->command->info('Admin seeder completed!');
         $this->command->table(
             ['Role', 'Email', 'Password'],
             [

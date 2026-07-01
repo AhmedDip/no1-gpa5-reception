@@ -41,7 +41,7 @@ class StudentDetail extends Model
         'sms_sent_at'             => 'datetime',
     ];
 
-    // ─── Relationships ────────────────────────────────────────────────────────
+
 
     public function user(): BelongsTo
     {
@@ -83,7 +83,6 @@ class StudentDetail extends Model
         return $this->hasMany(ApplicationAuditLog::class)->latest();
     }
 
-    // ─── Helpers ─────────────────────────────────────────────────────────────
 
     public function isApproved(): bool
     {
@@ -98,6 +97,11 @@ class StudentDetail extends Model
     public function isPending(): bool
     {
         return $this->application_status_id === 1;
+    }
+
+    public function smsLogs(): HasMany
+    {
+        return $this->hasMany(SmsLog::class);
     }
 
     public function getStatusColorAttribute(): string

@@ -9,10 +9,7 @@ use Illuminate\Support\Facades\Cache;
 
 class MenuService
 {
-    /**
-     * Get the full menu tree for a given menu-group ID.
-     * Only includes sub-menus where wsmu_vsbl = 1.
-     */
+
     public function getMenuForUser(int $userGroupId): array
     {
         $cacheKey = "user_menu_{$userGroupId}";
@@ -38,7 +35,6 @@ class MenuService
                 $subMenuItems = [];
 
                 foreach ($menu->subMenus as $subMenu) {
-                    // Retrieve the permission row for this sub-menu + group
                     $perm = UserGroupMenu::where('wsmn_id', $menu->id === $subMenu->wmnu_id ? $subMenu->id : $subMenu->id)
                         ->where('wmng_id', $userGroupId)
                         ->first();

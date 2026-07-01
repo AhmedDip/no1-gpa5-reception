@@ -27,7 +27,6 @@ Route::prefix('student')->name('student.')->group(function () {
         // Login
         Route::get('/login', [StudentAuthController::class, 'showLogin'])->name('login');
         Route::post('/login', [StudentAuthController::class, 'login'])->name('login.submit');
-
     });
 
 
@@ -38,13 +37,10 @@ Route::prefix('student')->name('student.')->group(function () {
         Route::post('/verify-otp', [OtpVerificationController::class, 'verifyOtp'])->name('otp.verify.submit');
         Route::post('/resend-otp', [OtpVerificationController::class, 'resendOtp'])->name('otp.resend');
 
-        // Skip verification (Development only)
-        Route::get('/skip-verification', [OtpVerificationController::class, 'skipVerification'])->name('otp.skip');
-
 
         Route::post('/update-parent-info', [StudentController::class, 'updateParentInfo'])->name('update.parent');
 
-         //Invitation Letter
+        //Invitation Letter
         Route::get('/invitation-letter', [InvitationLetterController::class, 'index'])->name('invitation.letter');
 
         //Professional Certificate
@@ -67,8 +63,6 @@ Route::prefix('student')->name('student.')->group(function () {
             // Profile Settings
             Route::get('/profile', [StudentController::class, 'profile'])->name('profile');
             Route::post('/profile/update', [StudentController::class, 'updateProfile'])->name('profile.update');
-
-
         });
 
 
@@ -79,16 +73,9 @@ Route::prefix('student')->name('student.')->group(function () {
 
 
 Route::prefix('api')->name('api.')->group(function () {
-    // Location APIs (Used in registration forms)
     Route::get('/districts/{divisionId}', [StudentController::class, 'getDistricts'])->name('districts');
     Route::get('/upazilas/{districtId}', [StudentController::class, 'getUpazilas'])->name('upazilas');
-
 });
 
 
-require __DIR__.'/admin.php';
-
-
-
-
-
+require __DIR__ . '/admin.php';

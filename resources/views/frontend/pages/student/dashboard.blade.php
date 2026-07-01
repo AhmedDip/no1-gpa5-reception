@@ -284,7 +284,8 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <h6 class="text-white-50 mb-1">আবেদন স্ট্যাটাস</h6>
-                                        <h3 class="text-white mb-0">{{ $studentDetail->applicationStatus->name ?? 'Pending' }}
+                                        <h3 class="text-white mb-0">
+                                            {{ $studentDetail->applicationStatus->name ?? 'Pending' }}
                                         </h3>
                                     </div>
                                     <i class="fas fa-clipboard-list fa-3x text-white-50"></i>
@@ -410,8 +411,8 @@
                                     @if ($studentDetail->parent_photo)
                                         <div class="mt-2">
                                             <small class="text-muted">অভিভাবকের ছবি:</small>
-                                            <a href="{{ asset('storage/' . $studentDetail->parent_photo) }}" target="_blank"
-                                                class="d-block">
+                                            <a href="{{ asset('storage/' . $studentDetail->parent_photo) }}"
+                                                target="_blank" class="d-block">
                                                 <i class="fas fa-image me-1"></i>
                                                 ছবি দেখুন
                                             </a>

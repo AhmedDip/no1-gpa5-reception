@@ -297,6 +297,19 @@
                                                 data-id="{{ $application->id }}" title="Send Notification">
                                                 <i class="fas fa-sms"></i>
                                             </button>
+
+                                            <a href="{{ route('admin.sms-logs.index', ['student_detail_id' => $application->id]) }}"
+                                                class="btn btn-icon btn-outline-secondary btn-sm position-relative"
+                                                title="SMS History">
+                                                <i class="fas fa-history"></i>
+                                                @if (($application->sms_logs_count ?? 0) > 0)
+                                                    <span
+                                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                        style="font-size:0.55rem;">
+                                                        {{ $application->sms_logs_count }}
+                                                    </span>
+                                                @endif
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
@@ -734,12 +747,17 @@
             $('#bulkRejectForm').submit(function(e) {
                 e.preventDefault();
                 var ids = getSelectedIds();
-                var formData = $(this).serialize();
+
+                var data = {};
+                $.each($(this).serializeArray(), function(_, field) {
+                    data[field.name] = field.value;
+                });
+                data.application_ids = ids;
 
                 $.ajax({
                     url: '{{ route('admin.applications.bulk-reject') }}',
                     type: 'POST',
-                    data: formData + '&application_ids=' + JSON.stringify(ids),
+                    data: data,
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
@@ -747,7 +765,7 @@
                         $('#bulkRejectForm button[type="submit"]').prop('disabled', true)
                             .html(
                                 '<span class="spinner-border spinner-border-sm me-1"></span> Processing...'
-                            );
+                                );
                     },
                     success: function(response) {
                         if (response.success) {
@@ -770,7 +788,6 @@
                     }
                 });
             });
-
             // =====================================================
             // NOTIFICATION
             // =====================================================

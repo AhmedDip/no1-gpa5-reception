@@ -3,9 +3,10 @@
 <script src="{{ asset('template/assets/vendor/js/bootstrap.js') }}"></script>
 <script src="{{ asset('template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 <script src="{{ asset('template/assets/vendor/libs/hammer/hammer.js') }}"></script>
- <script src="{{ asset('template/assets/vendor/libs/i18n/i18n.js') }}"></script>
+<script src="{{ asset('template/assets/vendor/libs/i18n/i18n.js') }}"></script>
 <script src="{{ asset('template/assets/vendor/js/menu.js') }}"></script>
 <script src="{{ asset('template/assets/js/main.js') }}"></script>
+<script src="{{ asset('template/assets/vendor/libs/toastr/toastr.js') }}"></script>
 
 <script src="{{ asset('template/assets/vendor/libs/typeahead-js/typeahead.js') }}"></script>
 

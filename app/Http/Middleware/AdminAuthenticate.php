@@ -21,7 +21,6 @@ class AdminAuthenticate
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Not logged in → redirect to admin login
         if (!Auth::check()) {
             return redirect()->route('admin.login')
                 ->with('error', 'দয়া করে লগইন করুন।');
@@ -29,7 +28,6 @@ class AdminAuthenticate
 
         $user = Auth::user();
 
-        // Students cannot access admin panel
         if ($user->isStudent()) {
             Auth::logout();
             $request->session()->invalidate();

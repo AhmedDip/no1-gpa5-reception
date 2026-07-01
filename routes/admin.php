@@ -1,20 +1,19 @@
 <?php
 // routes/admin.php
 
+use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\ApplicationController;
+use App\Http\Controllers\Admin\SmsLogController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
-    // ─── Public (Guest) ──────────────────────────────────────────────────────
     Route::middleware('guest')->group(function () {
         Route::get('/login',  [AuthController::class, 'showLogin'])->name('login');
         Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
     });
 
-    // ─── Authenticated Admin ──────────────────────────────────────────────────
     Route::middleware(['auth', 'admin.auth', 'prevent.back'])->group(function () {
 
         Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -69,6 +68,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 ->middleware('menu.permission:applications.list,update')
                 ->name('bulk-notify');
         });
+
+
+        Route::get('/sms-logs', [SmsLogController::class, 'index'])
+            // ->middleware('menu.permission:applications.list,read')
+            ->name('sms-logs.index');
 
         Route::get('/no-permission', [DashboardController::class, 'NoPermission'])->name('no-permission');
     });

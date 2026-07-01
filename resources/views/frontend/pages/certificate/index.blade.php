@@ -9,9 +9,7 @@
             position: relative;
             width: 100%;
             max-width: 1000px;
-            /* Maintains beautiful desktop aspect ratio */
             aspect-ratio: 4 / 3;
-            /* Referencing certificate background image asset */
             background-image: url('{{ asset('images/certificate_background.png') }}');
             background-size: cover;
             background-position: center;
@@ -30,7 +28,7 @@
             width: 100%;
             height: 100%;
             padding: 8% 12% 5% 12%;
-            /* Leaves breathing room for the background patterns */
+
             display: flex;
             flex-direction: column;
             justify-content: space-between;

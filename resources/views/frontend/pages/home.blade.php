@@ -644,7 +644,7 @@
             <div class="d-flex justify-content-center align-items-center gap-4 flex-wrap">
                 <img src="{{ asset('images/mgi-logo.png') }}" alt="MGI Logo" height="60"
                     style="object-fit: contain;">
-                <img src="{{ asset('images/no1-logo.png') }}" alt="No1 Logo" height="120"
+                <img src="{{ asset('images/no1-logo.png') }}" alt="No1 Logo" height="80"
                     style="object-fit: contain;">
             </div>
         </div>

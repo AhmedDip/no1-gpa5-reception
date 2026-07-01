@@ -14,14 +14,11 @@
             padding: 3rem 1rem;
         }
 
-        /* Invitation container using the ivory blank graphic with the graduation hat asset */
         .invitation-card {
             max-width: 950px;
             width: 100%;
             aspect-ratio: 4 / 3;
-            /* Fixed professional aspect ratio layout mimicking physical print */
             background-image: url('{{ asset('images/invitation-bg.png') }}');
-            /* Save the generated background graphic here */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -32,7 +29,7 @@
             overflow: hidden;
         }
 
-        /* Pure structural overlay matching layout constraints safely */
+
         .invitation-overlay {
             position: absolute;
             top: 0;
@@ -40,7 +37,6 @@
             width: 100%;
             height: 100%;
             padding: 9% 12% 5% 12%;
-            /* Leaves safe breathing margins from the dark top arches */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -71,7 +67,6 @@
             border-radius: 50%;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
             border: 2px solid #2c4a5e;
-            /* Matching deep signature navy color accent */
         }
 
         .brand-text {
@@ -122,7 +117,6 @@
             font-weight: 400;
             text-align: left;
             max-width: 720px;
-            /* Constrained execution path ensuring words stay clear of the graduation hat graphic */
         }
 
         .invitation-text strong {
@@ -132,11 +126,9 @@
 
         .invitation-text .highlight {
             color: #b45309;
-            /* Warm luxury gold-bronze highlight shift */
             font-weight: 700;
         }
 
-        /* Functional Informational Grid Layout Box */
         .event-details {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -148,7 +140,6 @@
             margin: 1rem 0;
             border: 1px solid rgba(203, 213, 225, 0.6);
             max-width: 660px;
-            /* Kept safely narrow to sit strictly left of the graduation cap graphic */
         }
 
         .detail-item {
@@ -176,14 +167,12 @@
             color: #475569;
         }
 
-        /* Signature area safely configured along the lower-left block grid spaces */
         .bottom-action-row {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             margin-top: 0.5rem;
             max-width: 660px;
-            /* Left-balanced alignment boundary layout */
         }
 
         .footer-note {
@@ -222,7 +211,6 @@
             font-size: 0.85rem;
         }
 
-        /* Responsive Breakpoints fallback scaling for smaller dynamic viewport resolutions */
         @media (max-width: 992px) {
             .invitation-card {
                 aspect-ratio: auto;

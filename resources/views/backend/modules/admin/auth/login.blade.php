@@ -43,7 +43,7 @@
             justify-content: center;
         }
 
-        /* ── Core Layout Container ── */
+=
         .premium-container {
             width: 100%;
             min-height: 100vh;
@@ -52,8 +52,7 @@
             background-color: var(--bg-deep);
             position: relative;
         }
-
-        /* Ambient Glow Highlights in Background */
+=
         .premium-container::before {
             content: '';
             position: absolute;
@@ -65,7 +64,7 @@
             pointer-events: none;
         }
 
-        /* ── Left Side: Brand Showcase Wall ── */
+=
         .brand-wall {
             display: flex;
             flex-direction: column;
@@ -423,7 +422,7 @@
 
     <div class="premium-container">
 
-        <!-- Left Column: Structural Brand Layout + Canvas Constellation Background -->
+=
         <div class="brand-wall" id="canvasContainer">
             <canvas id="constellationCanvas"></canvas>
 
@@ -432,8 +431,7 @@
                     <i class="fas fa-circle" style="font-size: 7px; vertical-align: middle;"></i> Secure Access Point
                 </div>
             </div>
-
-            <!-- Two Corporate Brand Logos presented cleanly -->
+=
             <div class="logo-gallery-row">
                 <div class="brand-logo-card">
                     <img src="{{ asset('images/mgi-logo.png') }}" alt="MGI Corporate Brand" />
@@ -455,7 +453,7 @@
             </div>
         </div>
 
-        <!-- Right Column: Clean Form Layout -->
+=
         <div class="form-wall">
             <div class="form-wrapper">
 
@@ -538,7 +536,7 @@
     </div>
 
     <script>
-        // ── Password Plaintext Reveal (Fixed: No Layout Breakage) ──
+
         document.getElementById('triggerReveal').addEventListener('click', function() {
             const field = document.getElementById('password');
             const glyph = document.getElementById('eyeGlyph');
@@ -551,25 +549,25 @@
             }
         });
 
-        // ── Standard UI Loader Sequence ──
+
         document.getElementById('executiveLoginForm').addEventListener('submit', function() {
             const primaryBtn = document.getElementById('formSubmitAction');
             primaryBtn.disabled = true;
             primaryBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authorizing Connection...';
         });
 
-        // ── Elegant Canvas Constellation Micro-Engine ──
+
         const canvas = document.getElementById('constellationCanvas');
         const ctx = canvas.getContext('2d');
         const container = document.getElementById('canvasContainer');
 
         let particlesArray = [];
-        const maxParticlesCount = 75;
+        const maxParticlesCount = 100;
 
         let userMouse = {
             x: null,
             y: null,
-            radius: 120
+            radius: 180
         };
 
 

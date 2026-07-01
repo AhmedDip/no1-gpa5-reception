@@ -74,12 +74,12 @@ class OtpService
     }
 
     /**
-     * Send OTP via SMS (Free testing methods)
+     * Send OTP via SMS 
      */
     private function sendOtp(string $mobile, string $otp): bool
     {
         try {
-            // Development/Testing mode
+            // Development
             // if (app()->environment('local', 'testing')) {
             //     // Log OTP
             //     Log::info("OTP for {$mobile}: {$otp}");
@@ -91,7 +91,7 @@ class OtpService
             //     return true;
             // }
 
-            // Production - Use actual SMS provider
+            // Production 
             return $this->sendProductionOtp($mobile, $otp);
         } catch (\Exception $e) {
             Log::error('Send OTP Error: ' . $e->getMessage());

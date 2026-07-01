@@ -20,26 +20,24 @@
                 @auth
                     <!-- When user is logged in -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="userDropdown"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             @php
                                 $studentDetail = Auth::user()->studentDetail;
                             @endphp
-                            @if($studentDetail && $studentDetail->student_photo)
-                                <img src="{{ asset('storage/' . $studentDetail->student_photo) }}"
-                                     class="rounded-circle"
-                                     width="32"
-                                     height="32"
-                                     style="object-fit: cover;">
+                            @if ($studentDetail && $studentDetail->student_photo)
+                                <img src="{{ asset('storage/' . $studentDetail->student_photo) }}" class="rounded-circle"
+                                    width="32" height="32" style="object-fit: cover;">
                             @else
                                 <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white"
-                                     style="width: 32px; height: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;">
+                                    style="width: 32px; height: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;">
                                     <i class="fas fa-user fa-sm"></i>
                                 </div>
                             @endif
                             <span>{{ Auth::user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="userDropdown">
-                            @if(Auth::user()->user_type_id == 1)
+                            @if (Auth::user()->user_type_id == 1)
                                 <li>
                                     <a class="dropdown-item" href="{{ route('student.dashboard') }}">
                                         <i class="fas fa-tachometer-alt me-2 text-dark"></i> ড্যাশবোর্ড
@@ -57,7 +55,9 @@
                                     <i class="fas fa-edit me-2 text-dark"></i> তথ্য সম্পাদনা
                                 </a>
                             </li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li>
                                 <form method="POST" action="{{ route('student.logout') }}" id="logout-form">
                                     @csrf
@@ -87,261 +87,262 @@
 </nav>
 
 @push('styles')
-<style>
-    /* Navigation Styles */
-    .navbar {
-        background: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-        padding: 12px 0;
-        transition: all 0.3s ease;
-    }
-
-    .navbar.scrolled {
-        padding: 8px 0;
-        background: rgba(255, 255, 255, 0.98);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .navbar-brand span {
-        font-size: 1.2rem;
-        letter-spacing: 0.5px;
-    }
-
-    .nav-link {
-        font-weight: 500;
-        color: #333 !important;
-        transition: all 0.3s ease;
-        position: relative;
-        padding: 8px 12px !important;
-    }
-
-    .nav-link:hover {
-        color: #d32f2f !important;
-        transform: translateY(-2px);
-    }
-
-    .nav-link::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        width: 0;
-        height: 2px;
-        background: #d32f2f;
-        transition: all 0.3s ease;
-        transform: translateX(-50%);
-    }
-
-    .nav-link:hover::after {
-        width: 80%;
-    }
-
-    .btn-outline-primary {
-        border: 2px solid #d32f2f;
-        color: #d32f2f;
-        border-radius: 8px;
-        padding: 8px 20px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
-
-    .btn-outline-primary:hover {
-        background: #d32f2f;
-        border-color: #d32f2f;
-        color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
-    }
-
-    .btn-primary {
-        background: #d32f2f;
-        border: 2px solid #d32f2f;
-        border-radius: 8px;
-        padding: 8px 20px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
-
-    .btn-primary:hover {
-        background: #b71c1c;
-        border-color: #b71c1c;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
-    }
-
-    .dropdown-menu {
-        border-radius: 12px;
-        margin-top: 10px;
-        animation: fadeInDown 0.3s ease;
-    }
-
-    .dropdown-item {
-        padding: 10px 20px;
-        transition: all 0.3s ease;
-        font-weight: 500;
-    }
-
-    .dropdown-item:hover {
-        background: #f8f9fa;
-        transform: translateX(5px);
-    }
-
-    .dropdown-item i {
-        width: 20px;
-    }
-
-    @keyframes fadeInDown {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    /* Mobile Navigation */
-    @media (max-width: 991.98px) {
-        .navbar-collapse {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    <style>
+        /* Navigation Styles */
+        .navbar {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            padding: 12px 0;
+            transition: all 0.3s ease;
         }
 
-        .navbar-nav {
-            gap: 10px !important;
+        .navbar.scrolled {
+            padding: 8px 0;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .nav-item {
-            width: 100%;
+        .navbar-brand span {
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
         }
 
         .nav-link {
-            padding: 10px 0 !important;
-            text-align: center;
+            font-weight: 500;
+            color: #333 !important;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 12px !important;
         }
 
-        .btn-outline-primary,
+        .nav-link:hover {
+            color: #d32f2f !important;
+            transform: translateY(-2px);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #d32f2f;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        .btn-outline-primary {
+            border: 2px solid #d32f2f;
+            color: #d32f2f;
+            border-radius: 8px;
+            padding: 8px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+            background: #d32f2f;
+            border-color: #d32f2f;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+        }
+
         .btn-primary {
-            width: 100%;
-            text-align: center;
-            margin: 5px 0;
+            background: #d32f2f;
+            border: 2px solid #d32f2f;
+            border-radius: 8px;
+            padding: 8px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #b71c1c;
+            border-color: #b71c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
         }
 
         .dropdown-menu {
-            border: none;
-            box-shadow: none;
-            padding-left: 20px;
+            border-radius: 12px;
+            margin-top: 10px;
+            animation: fadeInDown 0.3s ease;
         }
 
-        .dropdown-toggle::after {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
+        .dropdown-item {
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
-    }
 
-    /* Smooth scroll behavior */
-    html {
-        scroll-behavior: smooth;
-    }
+        .dropdown-item:hover {
+            background: #f8f9fa;
+            transform: translateX(5px);
+        }
 
-    /* Active link styling */
-    .nav-link.active {
-        color: #d32f2f !important;
-    }
+        .dropdown-item i {
+            width: 20px;
+        }
 
-    .nav-link.active::after {
-        width: 80%;
-    }
-</style>
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Navigation */
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: white;
+                padding: 20px;
+                border-radius: 12px;
+                margin-top: 15px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .navbar-nav {
+                gap: 10px !important;
+            }
+
+            .nav-item {
+                width: 100%;
+            }
+
+            .nav-link {
+                padding: 10px 0 !important;
+                text-align: center;
+            }
+
+            .btn-outline-primary,
+            .btn-primary {
+                width: 100%;
+                text-align: center;
+                margin: 5px 0;
+            }
+
+            .dropdown-menu {
+                border: none;
+                box-shadow: none;
+                padding-left: 20px;
+            }
+
+            .dropdown-toggle::after {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Active link styling */
+        .nav-link.active {
+            color: #d32f2f !important;
+        }
+
+        .nav-link.active::after {
+            width: 80%;
+        }
+    </style>
 @endpush
 
 @push('scripts')
-<script>
-    // Change navbar style on scroll
-    window.addEventListener('scroll', function() {
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-
-    // Active link highlighting based on scroll position
-    const sections = document.querySelectorAll('section, div[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    window.addEventListener('scroll', () => {
-        let current = '';
-        const scrollPosition = window.scrollY + 100;
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            const sectionId = section.getAttribute('id');
-
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                current = sectionId;
+    <script>
+        // Change navbar style on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
             }
         });
 
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            const href = link.getAttribute('href');
-            if (href === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
-    });
+        // Active link highlighting based on scroll position
+        const sections = document.querySelectorAll('section, div[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
 
-    // Handle logout with SweetAlert
-    @auth
-    const logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            Swal.fire({
-                title: 'লগআউট করুন',
-                text: "আপনি কি নিশ্চিত যে লগআউট করতে চান?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d32f2f',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'হ্যাঁ, লগআউট',
-                cancelButtonText: 'বাতিল করুন',
-                background: '#fff',
-                iconColor: '#d32f2f'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('logout-form').submit();
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const scrollPosition = window.scrollY + 100;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                const sectionId = section.getAttribute('id');
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    current = sectionId;
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                const href = link.getAttribute('href');
+                if (href === `#${current}`) {
+                    link.classList.add('active');
                 }
             });
         });
-    }
-    @endauth
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href !== '#' && href !== '' && href !== '#userDropdown') {
+        // Handle logout with SweetAlert
+        @auth
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                Swal.fire({
+                    title: 'লগআউট করুন',
+                    text: "আপনি কি নিশ্চিত যে লগআউট করতে চান?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d32f2f',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'হ্যাঁ, লগআউট',
+                    cancelButtonText: 'বাতিল করুন',
+                    background: '#fff',
+                    iconColor: '#d32f2f'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('logout-form').submit();
+                    }
+                });
+            });
+        }
+        @endauth
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href !== '' && href !== '#userDropdown') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
                 }
-            }
+            });
         });
-    });
-</script>
+    </script>
 @endpush

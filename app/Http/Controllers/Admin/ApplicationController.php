@@ -23,7 +23,6 @@ class ApplicationController extends Controller
         private ApplicationExportService $exportService,
     ) {}
 
-    // ─── List ─────────────────────────────────────────────────────────────────
 
     public function index(Request $request)
     {
@@ -31,10 +30,9 @@ class ApplicationController extends Controller
 
         $query = $this->exportService->buildQuery($filters);
 
-        $perPage      =  20;
+        $perPage      = 20;
         $applications = $query->paginate($perPage)->withQueryString();
 
-        // Summary counts for header pills
         $counts = [
             'total'    => StudentDetail::count(),
             'pending'  => StudentDetail::where('application_status_id', 1)->count(),
@@ -54,8 +52,6 @@ class ApplicationController extends Controller
         $districts = District::orderBy('name')->get();
         $statuses  = ApplicationStatus::orderBy('order')->get();
 
-        // dd($applications);
-
         return view('backend.modules.student.applications.index', compact(
             'applications',
             'counts',
@@ -68,7 +64,6 @@ class ApplicationController extends Controller
         ));
     }
 
-    // ─── Show ─────────────────────────────────────────────────────────────────
 
     public function show(int $id)
     {
@@ -83,6 +78,7 @@ class ApplicationController extends Controller
             'auditLogs.performedBy',
             'auditLogs.previousStatus',
             'auditLogs.newStatus',
+            'smsLogs' => fn($q) => $q->latest(),
         ])->findOrFail($id);
 
         $statuses = ApplicationStatus::orderBy('order')->get();
@@ -100,43 +96,40 @@ class ApplicationController extends Controller
         );
     }
 
-    // ─── Approve (single) ─────────────────────────────────────────────────────
 
     public function approve(Request $request, int $id)
     {
         $request->validate(['remarks' => 'nullable|string|max:1000']);
 
+        $app            = StudentDetail::with('user')->findOrFail($id);
+        $approvedStatus = ApplicationStatus::where('slug', 'approved')->value('id') ?? 2;
+
+        if ($app->application_status_id === $approvedStatus) {
+            return $this->jsonOrRedirect($request, false, 'আবেদনটি ইতিমধ্যে অনুমোদিত।');
+        }
+
         try {
             DB::beginTransaction();
 
-            $app            = StudentDetail::with('user')->findOrFail($id);
             $previousStatus = $app->application_status_id;
-            $approvedStatus = ApplicationStatus::where('slug', 'approved')->value('id') ?? 2;
-
-            if ($app->application_status_id === $approvedStatus) {
-                return $this->jsonOrRedirect($request, false, 'আবেদনটি ইতিমধ্যে অনুমোদিত।');
-            }
-
             $app->update(['application_status_id' => $approvedStatus]);
 
             $this->logAction($app->id, 'approve', $request->remarks ?? '', $previousStatus, $approvedStatus, $request->ip());
 
             DB::commit();
-
-            // Send SMS after commit
-            if ($request->boolean('send_sms', true)) {
-                $this->notificationService->notifyApproved($app->fresh());
-            }
-
-            return $this->jsonOrRedirect($request, true, 'আবেদন সফলভাবে অনুমোদিত হয়েছে।');
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Approve failed: ' . $e->getMessage());
             return $this->jsonOrRedirect($request, false, 'অনুমোদন ব্যর্থ হয়েছে।');
         }
+
+        if ($request->boolean('send_sms', true)) {
+            $this->notificationService->notifyApproved($app->fresh());
+        }
+
+        return $this->jsonOrRedirect($request, true, 'আবেদন সফলভাবে অনুমোদিত হয়েছে।');
     }
 
-    // ─── Reject (single) ──────────────────────────────────────────────────────
 
     public function reject(Request $request, int $id)
     {
@@ -147,36 +140,35 @@ class ApplicationController extends Controller
             'remarks.min'      => 'কারণ কমপক্ষে ৫ অক্ষরের হতে হবে।',
         ]);
 
+        $app            = StudentDetail::with('user')->findOrFail($id);
+        $rejectedStatus = ApplicationStatus::where('slug', 'rejected')->value('id') ?? 3;
+
+        if ($app->application_status_id === $rejectedStatus) {
+            return $this->jsonOrRedirect($request, false, 'আবেদনটি ইতিমধ্যে প্রত্যাখ্যাত।');
+        }
+
         try {
             DB::beginTransaction();
 
-            $app            = StudentDetail::with('user')->findOrFail($id);
             $previousStatus = $app->application_status_id;
-            $rejectedStatus = ApplicationStatus::where('slug', 'rejected')->value('id') ?? 3;
-
-            if ($app->application_status_id === $rejectedStatus) {
-                return $this->jsonOrRedirect($request, false, 'আবেদনটি ইতিমধ্যে প্রত্যাখ্যাত।');
-            }
-
             $app->update(['application_status_id' => $rejectedStatus]);
 
             $this->logAction($app->id, 'reject', $request->remarks, $previousStatus, $rejectedStatus, $request->ip());
 
             DB::commit();
-
-            if ($request->boolean('send_sms', true)) {
-                $this->notificationService->notifyRejected($app->fresh(), $request->remarks);
-            }
-
-            return $this->jsonOrRedirect($request, true, 'আবেদন প্রত্যাখ্যাত হয়েছে।');
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Reject failed: ' . $e->getMessage());
             return $this->jsonOrRedirect($request, false, 'প্রত্যাখ্যান ব্যর্থ হয়েছে।');
         }
+
+        if ($request->boolean('send_sms', true)) {
+            $this->notificationService->notifyRejected($app->fresh(), $request->remarks);
+        }
+
+        return $this->jsonOrRedirect($request, true, 'আবেদন প্রত্যাখ্যাত হয়েছে।');
     }
 
-    // ─── Bulk Approve ─────────────────────────────────────────────────────────
 
     public function bulkApprove(Request $request)
     {
@@ -236,7 +228,6 @@ class ApplicationController extends Controller
         }
     }
 
-    // ─── Bulk Reject ──────────────────────────────────────────────────────────
 
     public function bulkReject(Request $request)
     {
@@ -289,7 +280,6 @@ class ApplicationController extends Controller
         }
     }
 
-    // ─── Send Notification (single) ───────────────────────────────────────────
 
     public function sendNotification(Request $request, int $id)
     {
@@ -309,7 +299,7 @@ class ApplicationController extends Controller
         };
 
         if ($sent) {
-            $this->logAction($app->id, 'notify', 'SMS পাঠানো হয়েছে', null, null, $request->ip());
+            $this->logAction($app->id, 'notify', 'SMS পাঠানো হয়েছে (' . $request->message_type . ')', null, null, $request->ip());
         }
 
         return response()->json([
@@ -318,7 +308,6 @@ class ApplicationController extends Controller
         ]);
     }
 
-    // ─── Bulk Send Notification ───────────────────────────────────────────────
 
     public function bulkNotify(Request $request)
     {
@@ -345,7 +334,6 @@ class ApplicationController extends Controller
         ]);
     }
 
-    // ─── Export ───────────────────────────────────────────────────────────────
 
     public function export(Request $request)
     {
@@ -353,7 +341,6 @@ class ApplicationController extends Controller
         return $this->exportService->downloadCsv($filters);
     }
 
-    // ─── Helpers ──────────────────────────────────────────────────────────────
 
     private function logAction(
         int $studentDetailId,

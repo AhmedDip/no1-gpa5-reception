@@ -47,7 +47,7 @@ class ApplicationExportService
             });
         }
 
-        return $query->orderBy('created_at', 'desc');
+        return $query->withCount('smsLogs')->orderBy('created_at', 'desc');
     }
 
     /**

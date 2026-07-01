@@ -56,4 +56,8 @@ return [
         'url' => env('SMS_PROVIDER_URL'),
     ],
 
+    'sms' => [
+        'driver' => env('SMS_DRIVER', 'log'),
+    ],
+
 ];

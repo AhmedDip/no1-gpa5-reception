@@ -147,21 +147,4 @@ class OtpVerificationController extends Controller
         ], 429);
     }
 
-    /**
-     * Skip OTP verification (Development only)
-     */
-    public function skipVerification()
-    {
-        if (!app()->environment('local', 'testing')) {
-            abort(404);
-        }
-
-        $user = Auth::user();
-        $user->update([
-            'is_mobile_verified' => true,
-            'mobile_verified_at' => now(),
-        ]);
-
-        return redirect()->route('student.dashboard')->with('success', 'OTP যাচাই বাদ দেওয়া হয়েছে (শুধুমাত্র ডেভেলপমেন্ট)');
-    }
 }
