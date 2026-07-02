@@ -331,7 +331,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-3 mb-3">
+                            {{-- <div class="col-md-3 mb-3">
                                 <a href="{{ route('student.edit.application') }}" class="text-decoration-none">
                                     <div class="menu-btn bg-light">
                                         <i class="fas fa-edit fa-2x text-primary mb-2"></i>
@@ -339,8 +339,8 @@
                                         <small class="text-muted">আপনার তথ্য আপডেট করুন</small>
                                     </div>
                                 </a>
-                            </div>
-                            <div class="col-md-3 mb-3">
+                            </div> --}}
+                            <div class="col-md-4 mb-3">
                                 <a href="{{ route('student.download.certificate') }}" target="_blank"
                                     class="text-decoration-none">
                                     <div class="menu-btn bg-light">
@@ -350,7 +350,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-md-3 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <a href="{{ route('student.invitation.letter') }}" target="_blank"
                                     class="text-decoration-none">
                                     <div class="menu-btn bg-light">
@@ -360,7 +360,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-md-3 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <a href="{{ route('student.notifications.index') }}" class="text-decoration-none">
                                     <div class="menu-btn bg-light position-relative">
                                         @if (($unreadNotifCount ?? 0) > 0)

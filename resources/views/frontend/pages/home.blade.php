@@ -324,16 +324,10 @@
         style="background: linear-gradient(145deg, #F9FAFB 0%, #FFFFFF 100%);">
         <div class="container position-relative">
             <!-- subtle decorative elements -->
-            <div class="position-absolute top-0 start-0 w-100 h-100 d-none d-lg-block"
-                style="pointer-events: none; opacity: 0.03; background: radial-gradient(circle at 10% 20%, #4F46E5, transparent 70%);">
-            </div>
-            <div class="position-absolute bottom-0 end-0 w-50 h-50 d-none d-lg-block"
-                style="pointer-events: none; opacity: 0.02; background: radial-gradient(circle at 90% 80%, #7C3AED, transparent 70%);">
-            </div>
 
             <div class="text-center mb-4 mb-md-5 position-relative">
                 <div
-                    class="d-inline-flex align-items-center gap-2 bg-white px-4 py-2 rounded-pill shadow-sm mb-3 mb-md-4 border border-light">
+                    class="d-inline-flex align-items-center gap-2 bg-white px-4 py-2 rounded-pill shadow-sm mb-3 mb-md-4 border border-light mt-4">
                     <i class="fas fa-calendar-alt text-primary" style="font-size: 0.9rem;"></i>
                     <span class="fw-semibold small text-uppercase tracking-wide">গুরুত্বপূর্ণ সময়সূচি</span>
                 </div>
@@ -347,7 +341,9 @@
                     <div class="timeline-card-elegant text-center p-3 p-md-4 rounded-4 bg-white shadow-sm border-0 h-100 d-flex flex-column align-items-center transition-all duration-300 position-relative"
                         style="border-bottom: 4px solid #4F46E5;">
                         <!-- decorative dot on line -->
-                       <div class="d-none d-md-block position-absolute timeline-dot" style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #4F46E5; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(70, 75, 229, 0.15);"></div>
+                        <div class="d-none d-md-block position-absolute timeline-dot"
+                            style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #4F46E5; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(70, 75, 229, 0.15);">
+                        </div>
                         <div class="timeline-icon-wrapper mb-2 mb-md-3"
                             style="width: 64px; height: 64px; background: linear-gradient(135deg, #EEF2FF, #E0E7FF); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
                             <i class="fas fa-calendar-plus fs-4 text-primary" style="color: #4F46E5;"></i>
@@ -418,7 +414,7 @@
 
             <!-- subtle bottom decoration -->
             <div class="text-center mt-4 mt-md-5 position-relative">
-                <p class="text-muted small d-flex align-items-center justify-content-center gap-2">
+                <p class="text-muted small d-flex align-items-center justify-content-center gap-2 py-4">
                     <i class="fas fa-circle text-primary" style="font-size: 0.35rem; opacity: 0.5;"></i>
                     <span>সকল সময়সূচি পরিবর্তন সাপেক্ষ</span>
                     <i class="fas fa-circle text-primary" style="font-size: 0.35rem; opacity: 0.5;"></i>
@@ -696,8 +692,8 @@
         }
 
         /* .fancy-feature-card:hover .fancy-icon-wrapper {
-                                                                                            transform: scale(1.1);
-                                                                                        } */
+                                                                                                                transform: scale(1.1);
+                                                                                                            } */
 
         @media (min-width: 768px) {
             .fancy-icon-wrapper {

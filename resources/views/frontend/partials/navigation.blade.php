@@ -31,9 +31,9 @@
                         <li class="nav-item dropdown me-lg-1">
                             <a class="nav-link position-relative" href="#" id="notifBellToggle" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-bell fs-5"></i>
+                                <i class="fas fa-bell fs-5 text-warning"></i>
                                 @if ($unreadNotifCount > 0)
-                                    <span class="notif-badge"
+                                    <span class="notif-badge text-warning"
                                         id="notifBadge">{{ $unreadNotifCount > 9 ? '9+' : $unreadNotifCount }}</span>
                                 @endif
                             </a>
@@ -43,7 +43,7 @@
                                     <span class="fw-bold small">নোটিফিকেশন</span>
                                     @if ($unreadNotifCount > 0)
                                         <button type="button" class="btn btn-link btn-sm p-0 small text-decoration-none"
-                                            id="markAllReadBtn">সব পঠিত করুন</button>
+                                            id="markAllReadBtn">সব নোটিফিকেশন পড়ুন</button>
                                     @endif
                                 </li>
                                 @forelse($latestNotifications as $notif)
@@ -103,11 +103,11 @@
                                     <i class="fas fa-tachometer-alt me-2 text-dark"></i> ড্যাশবোর্ড
                                 </a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a class="dropdown-item" href="{{ route('student.edit.application') }}">
                                     <i class="fas fa-edit me-2 text-dark"></i> তথ্য সম্পাদনা
                                 </a>
-                            </li>
+                            </li> --}}
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
