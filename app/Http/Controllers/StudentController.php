@@ -9,12 +9,17 @@ use App\Models\Division;
 use App\Models\District;
 use App\Models\Upazila;
 use App\Models\StudentNotification;
+use App\Services\PhotoUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
+    public function __construct(
+        private PhotoUploadService $photoUploadService
+    ) {}
+
     public function home()
     {
         return view('frontend.pages.home');
@@ -55,10 +60,12 @@ class StudentController extends Controller
 
         $parentPhotoPath = $studentDetail->parent_photo;
         if ($request->hasFile('parent_photo')) {
-            if ($parentPhotoPath && Storage::disk('public')->exists($parentPhotoPath)) {
-                Storage::disk('public')->delete($parentPhotoPath);
-            }
-            $parentPhotoPath = $request->file('parent_photo')->store('students/parents', 'public');
+            $this->photoUploadService->delete($parentPhotoPath);
+            $parentPhotoPath = $this->photoUploadService->store(
+                $request->file('parent_photo'),
+                $user->mobile,
+                'students/parents'
+            );
         }
 
         $studentDetail->update([
@@ -108,11 +115,12 @@ class StudentController extends Controller
         $studentDetail = $user->studentDetail;
 
         if ($request->hasFile('student_photo')) {
-            if ($studentDetail->student_photo && Storage::disk('public')->exists($studentDetail->student_photo)) {
-                Storage::disk('public')->delete($studentDetail->student_photo);
-            }
-            $studentPhotoPath = $request->file('student_photo')->store('students/photos', 'public');
-            $studentDetail->student_photo = $studentPhotoPath;
+            $this->photoUploadService->delete($studentDetail->student_photo);
+            $studentDetail->student_photo = $this->photoUploadService->store(
+                $request->file('student_photo'),
+                $user->mobile,
+                'students/photos'
+            );
         }
 
         $studentDetail->update([
@@ -140,7 +148,6 @@ class StudentController extends Controller
         return back()->with('info', 'একনলজমেন্ট স্লিপ ডাউনলোডের সুবিধা শীঘ্রই যোগ করা হবে।');
     }
 
-
     public function getDistricts($divisionId)
     {
         $districts = District::where('division_id', $divisionId)->get();
@@ -152,7 +159,6 @@ class StudentController extends Controller
         $upazilas = Upazila::where('district_id', $districtId)->get();
         return response()->json($upazilas);
     }
-
 
     public function certificate()
     {

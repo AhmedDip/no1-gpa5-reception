@@ -10,6 +10,7 @@ use App\Models\StudentGroup;
 use App\Models\Division;
 use App\Models\District;
 use App\Models\Upazila;
+use App\Services\PhotoUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,6 +18,10 @@ use Illuminate\Support\Facades\DB;
 
 class StudentAuthController extends Controller
 {
+    public function __construct(
+        private PhotoUploadService $photoUploadService
+    ) {}
+
     public function showRegister()
     {
         $sscBoards = Board::query()->get();
@@ -28,7 +33,6 @@ class StudentAuthController extends Controller
 
     public function register(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'name_en' => 'required|string|max:255',
             'name_bn' => 'required|string|max:255',
@@ -64,7 +68,11 @@ class StudentAuthController extends Controller
         try {
             $studentPhotoPath = null;
             if ($request->hasFile('student_photo')) {
-                $studentPhotoPath = $request->file('student_photo')->store('students/photos', 'public');
+                $studentPhotoPath = $this->photoUploadService->store(
+                    $request->file('student_photo'),
+                    $request->mobile,
+                    'students/photos'
+                );
             }
 
             $user = User::create([
@@ -96,7 +104,6 @@ class StudentAuthController extends Controller
             DB::commit();
             Auth::login($user);
 
-            // Generate and send OTP
             $otpService = app('App\Services\OtpService');
             $result = $otpService->generateAndSendOtp($user);
 
@@ -107,10 +114,9 @@ class StudentAuthController extends Controller
             }
 
             return redirect()->route('student.dashboard')->with('success', 'নিবন্ধন সফল হয়েছে! অনুগ্রহ করে আপনার অভিভাবকের তথ্য প্রদান করুন।');
-
         } catch (\Exception $e) {
             DB::rollback();
-            return back()->with('error', 'নিবন্ধন ব্যর্থ হয়েছে! দয়া করে আবার চেষ্টা করুন。')->withInput();
+            return back()->with('error', 'নিবন্ধন ব্যর্থ হয়েছে! দয়া করে আবার চেষ্টা করুন।')->withInput();
         }
     }
 
@@ -137,7 +143,6 @@ class StudentAuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-
             $user = Auth::user();
 
             if (!$user->hasParentInfo()) {
@@ -147,7 +152,6 @@ class StudentAuthController extends Controller
             return redirect()->route('student.dashboard')->with('success', 'স্বাগতম! আপনি সফলভাবে লগইন করেছেন।');
         }
 
-        //show toastr error
         return back()->with('error', 'মোবাইল নম্বর অথবা পাসওয়ারড ভুল হয়েছে। দয়া করে আবার চেষ্টা করুন।');
     }
 
