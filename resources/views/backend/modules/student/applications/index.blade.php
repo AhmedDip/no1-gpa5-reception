@@ -230,9 +230,8 @@
                                                 </span> --}}
                                                 <span class="avatar-initial rounded-circle bg-label-primary">
                                                     @if ($application->student_photo)
-                                                        <img src="{{ asset('storage/' . $application->student_photo) }}"
-                                                            alt="Student Photo" class="rounded-circle" width="40"
-                                                            height="40">
+                                                        <img src="{{ $application->student_photo_url }}" alt="Student Photo"
+                                                            class="rounded-circle" width="32" height="32">
                                                     @else
                                                         {{ strtoupper(substr($application->name_en ?? 'N/A', 0, 1)) }}
                                                     @endif

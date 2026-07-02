@@ -637,9 +637,7 @@
                                     <td>
                                         <span class="avatar-initial rounded-circle bg-label-primary">
                                             @if ($app->student_photo)
-                                                <img src="{{ asset('storage/' . $app->student_photo) }}"
-                                                    alt="Student Photo" class="rounded-circle" width="40"
-                                                    height="40">
+                                                <img src="{{ $app->student_photo_url }}" alt="Student Photo" class="rounded-circle" width="40" height="40">
                                             @else
                                                 {{ strtoupper(substr($app->name_en ?? 'N/A', 0, 1)) }}
                                             @endif

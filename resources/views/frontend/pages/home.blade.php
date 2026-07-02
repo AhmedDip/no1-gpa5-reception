@@ -86,7 +86,7 @@
             <div class="row g-4 align-items-stretch">
                 <div class="col-12 col-lg-7">
                     <div class="card-premium h-100 p-4 p-md-5 position-relative overflow-hidden"
-                        style="background: linear-gradient(135deg, rgba(159, 126, 249, 0.105), rgba(240, 231, 255, 0.1));">
+                        style="background: linear-gradient(135deg, rgb(255, 255, 255), rgba(255, 232, 239, 0.997));">
                         {{-- <div class="ribbon">স্কলারশিপ</div> --}}
                         <div class="d-flex gap-3 align-items-start">
                             <div class="me-3 d-none d-md-block">

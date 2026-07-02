@@ -21,10 +21,10 @@
     @stack('styles')
     <style>
         :root {
-            --primary: #7e55dd;
+            --primary: #aa1b1d;
             /* indigo-600 */
-            --primary-dark: #520996;
-            --secondary: #852fa7;
+            --primary-dark: #7c1a1c;
+            --secondary: #aa1b1d;
             /* amber-500 */
             --accent: #EF4444;
             /* red-500 */
@@ -35,7 +35,7 @@
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             /* --common: linear-gradient(135deg, #7c8dffb9 0%, #4037e9f3 100%); */
                /* background: linear-gradient(135deg, #7e54de, #341284); */
-             --common: linear-gradient(135deg, #6041a9, #7e54de);
+             --common: linear-gradient(135deg, #aa1b1d, #fdbee9);
         }
 
         * {
@@ -177,7 +177,8 @@
         /* Hero Section */
         .hero {
             /* background: linear-gradient(135deg, #ffffff 0%, #eedffd 100%); */
-            background: linear-gradient(135deg, #ffffff 0%, #eeeeff 50%, #dbd2ff 100%);
+            /* background: linear-gradient(135deg, #ffffff 0%, #fffee9 50%, #fef9e7 100%); */
+            background: linear-gradient(135deg, #ffffff 0%, #fff0f6 50%, #ffd3de 100%);
             position: relative;
             overflow: hidden;
             padding: 8rem 0 7rem;

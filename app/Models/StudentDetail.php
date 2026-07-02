@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 class StudentDetail extends Model
 {
@@ -122,5 +123,24 @@ class StudentDetail extends Model
             3 => 'প্রত্যাখ্যাত',
             default => 'অজানা',
         };
+    }
+
+    public function getStudentPhotoUrlAttribute(): string
+    {
+        return $this->resolvePhotoUrl($this->student_photo);
+    }
+
+    public function getParentPhotoUrlAttribute(): string
+    {
+        return $this->resolvePhotoUrl($this->parent_photo);
+    }
+
+    private function resolvePhotoUrl(?string $path): string
+    {
+        if ($path && Storage::disk('public')->exists($path)) {
+            return asset('storage/' . $path);
+        }
+
+        return asset('images/default-user.png');
     }
 }

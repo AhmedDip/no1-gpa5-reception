@@ -87,7 +87,7 @@
                                 $studentDetail = Auth::user()->studentDetail;
                             @endphp
                             @if ($studentDetail && $studentDetail->student_photo)
-                                <img src="{{ asset('storage/' . $studentDetail->student_photo) }}" class="rounded-circle"
+                                <img src="{{ $studentDetail->student_photo_url }}" class="rounded-circle"
                                     width="32" height="32" style="object-fit: cover;">
                             @else
                                 <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white"
