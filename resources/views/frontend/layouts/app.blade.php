@@ -154,7 +154,7 @@
         .btn-primary:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 15px 30px -12px rgba(79, 70, 229, 0.5);
+            box-shadow: 0 15px 30px -12px rgba(133, 19, 19, 0.5);
         }
 
         .btn-outline-primary:hover {
@@ -168,6 +168,26 @@
             color: var(--primary) !important;
             transform: translateY(-2px);
         }
+
+        .btn-danger {
+            background: var(--primary);
+            border: none;
+            box-shadow: 0 8px 20px -8px rgba(146, 12, 12, 0.4);
+        }
+
+        .btn-danger:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -12px rgba(133, 19, 19, 0.5);
+        }
+
+        .btn-outline-danger {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+
 
         /* Navbar */
         .navbar {
@@ -193,8 +213,8 @@
         /* Hero Section */
         .hero {
             /* background: linear-gradient(135deg, #ffffff 0%, #eedffd 100%); */
-            /* background: linear-gradient(135deg, #ffffff 0%, #fffee9 50%, #e9e1c5 100%); */
-            background: linear-gradient(135deg, #ffffff 0%, #fff3f5 50%, #fdc9c9 100%);
+            /* background: linear-gradient(135deg, #ffffff 0%, #fffee9 50%, #f5edd1 100%); */
+            background: linear-gradient(135deg, #fffcfc 0%, #faf2f4 70%, #ffe2e2 100%);
             position: relative;
             overflow: hidden;
             padding: 8rem 0 7rem;
@@ -293,7 +313,7 @@
         /* Footer */
         footer {
             background-color: "#e4edf4";
-            background: linear-gradient(135deg, #efeff2 0%, #e3e7fc 100%);
+            background: linear-gradient(135deg, #fffffc 0%, #fffef3 100%);
             color: var(--dark);
         }
 

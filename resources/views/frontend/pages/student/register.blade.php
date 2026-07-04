@@ -242,7 +242,7 @@
                                     <div class="mt-3 text-center">
                                         <input type="file" name="student_photo" id="studentPhoto"
                                             accept="image/jpeg,image/jpg,image/png" style="display: none;">
-                                        <button type="button" class="btn btn-outline-primary" id="selectPhotoBtn">
+                                        <button type="button" class="btn btn-outline-danger" id="selectPhotoBtn">
                                             <i class="fas fa-folder-open"></i> ছবি নির্বাচন করুন
                                         </button>
                                         <small class="text-muted d-block mt-2">
@@ -260,7 +260,7 @@
 
                             {{-- Submit Section --}}
                             <div class="d-grid gap-3 mt-4">
-                                <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                                <button type="submit" class="btn btn-danger btn-lg" id="submitBtn">
                                     <i class="bi bi-check-circle-fill"></i> রেজিস্ট্রেশন সম্পন্ন করুন
                                 </button>
                                 <div class="text-center">

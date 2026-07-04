@@ -65,7 +65,7 @@
                             </div>
 
                             {{-- Submit Button --}}
-                            <button type="submit" class="btn btn-primary w-100" id="loginBtn">
+                            <button type="submit" class="btn btn-danger w-100" id="loginBtn">
                                 <i class="fas fa-sign-in-alt me-2"></i>লগইন করুন
                             </button>
                         </form>
@@ -123,7 +123,7 @@
             }
 
             .form-control {
-                border: 1.5px solid #e2e8f0;
+                border: 1.5px solid #f0e2e2;
                 border-radius: 10px;
                 padding: 10px 14px;
                 font-size: 0.95rem;
@@ -132,7 +132,7 @@
             }
 
             .form-control:focus {
-                border-color: #667eea;
+                border-color: #aa3030;
                 box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
                 background: white;
             }
@@ -173,30 +173,6 @@
                 color: #4a5568;
             }
 
-            .btn-primary {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                border: none;
-                padding: 11px;
-                border-radius: 10px;
-                font-weight: 600;
-                font-size: 0.95rem;
-                transition: all 0.3s ease;
-                box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-            }
-
-            .btn-primary:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-            }
-
-            .btn-primary:active {
-                transform: translateY(0);
-            }
-
-            .btn-primary:disabled {
-                opacity: 0.7;
-                transform: none;
-            }
 
             .form-check-input {
                 border: 1.5px solid #e2e8f0;
@@ -205,8 +181,8 @@
             }
 
             .form-check-input:checked {
-                background-color: #667eea;
-                border-color: #667eea;
+                background-color: #b63535;
+                border-color: #aa2240;
             }
 
             .form-check-label {

@@ -47,7 +47,6 @@ return [
             'report' => false,
         ],
 
-        // Stores files directly inside the public/ web root — no `storage:link` required.
         'uploads' => [
             'driver' => 'local',
             'root' => public_path('uploads'),

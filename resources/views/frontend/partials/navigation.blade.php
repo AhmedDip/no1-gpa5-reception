@@ -2,9 +2,8 @@
 @unless (request()->routeIs('student.otp.verify'))
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
-        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{{ url('/') }}">
-            <img src="{{ asset('images/no1-logo.png') }}" alt="Logo" height="45">
-            <span class="text-dark" style="font-weight: 800;">বাবার কৃতী সন্তান</span>
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-3" href="{{ url('/') }}">
+            <img src="{{ asset('images/no1-2026.png') }}" alt="NUMBER 1 Logo" class="logo-img" style="height: 60px; width: auto; object-fit: contain;">
         </a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
             <i class="fas fa-bars fs-1"></i>
@@ -104,11 +103,6 @@
                                     <i class="fas fa-tachometer-alt me-2 text-dark"></i> ড্যাশবোর্ড
                                 </a>
                             </li>
-                            {{-- <li>
-                                <a class="dropdown-item" href="{{ route('student.edit.application') }}">
-                                    <i class="fas fa-edit me-2 text-dark"></i> তথ্য সম্পাদনা
-                                </a>
-                            </li> --}}
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -125,12 +119,12 @@
                 @else
                     <!-- When user is not logged in -->
                     <li class="nav-item ms-lg-2">
-                        <a class="btn btn-outline-primary px-4" href="{{ route('student.login') }}">
+                        <a class="btn btn-outline-danger px-4" href="{{ route('student.login') }}">
                             <i class="fas fa-sign-in-alt me-1"></i> লগইন
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-primary text-white px-4" href="{{ route('student.register') }}">
+                        <a class="btn btn-danger text-white px-4" href="{{ route('student.register') }}">
                             <i class="fas fa-user-plus me-1"></i> নিবন্ধন <i class="fas fa-arrow-right ms-1"></i>
                         </a>
                     </li>
@@ -159,9 +153,44 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .navbar-brand span {
-            font-size: 1.2rem;
-            letter-spacing: 0.5px;
+        /* Logo Styles - IMPROVED */
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            padding: 0;
+        }
+
+        .navbar-brand .logo-img {
+            height: 70px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .navbar.scrolled .navbar-brand .logo-img {
+            height: 55px;
+        }
+
+        .navbar-brand .brand-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+            text-shadow: none;
+        }
+
+        @media (max-width: 576px) {
+            .navbar-brand .logo-img {
+                height: 50px;
+                max-width: 150px;
+            }
         }
 
         .nav-link {

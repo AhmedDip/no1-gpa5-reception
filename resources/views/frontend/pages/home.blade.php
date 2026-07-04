@@ -14,10 +14,16 @@
                     <h1 class="display-large fw-bold main-heading">নাম্বার ওয়ান বাবার <span class="text-gradient">কৃতী
                             সন্তান</span>
                         সংবর্ধনা - ২০২৬</h1>
-                    <p class="lead text-secondary mt-3 mt-lg-4" style="text-align: justify;">
-                        প্রতিটি সাফল্যের পিছনে থাকে বাবা-মার ত্যাগ ও ভালোবাসা। বাংলাদেশের হাজারো চা-স্টল ব্যবসায়ী কঠোর
-                        পরিশ্রম করে সন্তানদের স্বপ্ন পূরণ করেন। তাদের অবদানকে সম্মান জানাতে এবং মেধাবী সন্তানদের অর্জনকে
-                        উদযাপন করতে নাম্বার ওয়ান আয়োজন করেছে "নাম্বার ওয়ান বাবার কৃতি সন্তান সংবর্ধনা ২০২৬"
+                    <p>
+                        প্রতিটি সন্তানের সাফল্যের পেছনে থাকে একজন সংগ্রামী বাবা-মায়ের অক্লান্ত পরিশ্রম, ত্যাগ ও ভালোবাসা।
+                        বাংলাদেশের হাজারো প্রান্তিক চায়ের দোকানি প্রতিদিন কঠোর পরিশ্রম করে তাদের সন্তানদের শিক্ষার স্বপ্ন
+                        পূরণ করে চলেছেন।
+                    </p>
+
+                    <p>
+                        সেই সংগ্রামী বাবা-মায়ের অবদানকে সম্মান জানাতে এবং তাদের মেধাবী সন্তানদের অর্জনকে উদযাপন করতে
+                        <strong>নাম্বার ওয়ান</strong> আয়োজন করেছে <strong>"নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা
+                            ২০২৬"</strong>।
                     </p>
                     <div class="d-flex flex-wrap gap-3 mt-4 justify-content-center justify-content-lg-start">
                         <a href="{{ route('student.register') }}" class="btn btn-primary btn-lg px-4 px-lg-5"> নিবন্ধন করুন
@@ -27,12 +33,12 @@
                     </div>
                     <div class="hero-stats d-inline-flex mt-5 gap-3 gap-lg-4">
                         <div class="d-flex flex-column align-items-center">
-                            <span class="fs-3 fw-bold">১,০০০+</span>
+                            <span class="fs-3 fw-bold">২০০+</span>
                             <span class="small text-secondary">নিবন্ধিত শিক্ষার্থী</span>
                         </div>
 
                         <div class="d-flex flex-column align-items-center">
-                            <span class="fs-3 fw-bold">৫০০+</span>
+                            <span class="fs-3 fw-bold">১০০+</span>
                             <span class="small text-secondary">স্কলারশিপ প্রাপ্ত শিক্ষার্থী</span>
                         </div>
 
@@ -42,9 +48,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-5 text-center floating-element">
-                    <img src="{{ asset('images/hero-image.jpg') }}" alt="hero" class="img-fluid rounded-4 shadow-lg"
-                        style="max-width: 92%;">
+                <div class="col-lg-5 text-center">
+                    <img src="{{ asset('images/hero-image.jpeg') }}" alt="hero" class="img-fluid rounded-4 shadow-lg"
+                        style="max-height: 480px; object-fit: cover;" data-aos="fade-up" data-aos-delay="100">
                 </div>
             </div>
         </div>
@@ -55,16 +61,24 @@
         <div class="row justify-content-center">
             <div class="col-11 col-lg-8">
                 <h2 class="section-title mx-auto">
-                    <img src="{{ asset('images/mgi-logo.png') }}" alt="brand" height="40" class="me-2">
+                    <img src="{{ asset('images/no1-logo.png') }}" alt="brand" height="40" class="me-2">
                     এর পক্ষ থেকে শুভেচ্ছা
                 </h2>
 
                 <p class="lead mt-4 fs-5 fs-md-4 fw-medium text-dark-emphasis">
-                    "সন্তানের সাফল্য, বাবার গর্ব।
-                    চা-স্টল ব্যবসায়ীদের অক্লান্ত পরিশ্রম ও তাদের সন্তানদের অসাধারণ অর্জনকে সম্মান জানাতে নাম্বার ওয়ান
+                    <strong>"সন্তানের সাফল্য, বাবার গর্ব।"</strong>
+                </p>
+                <p>
+                    প্রান্তিক চা দোকানিদের অক্লান্ত পরিশ্রম ও তাদের সন্তানদের অসাধারণ অর্জনকে সম্মান জানাতে নাম্বার ওয়ান
                     সবসময় পাশে আছে।
-                    নাম্বার ওয়ান বাবার কৃতি সন্তান সংবর্ধনা ২০২৬—সংগ্রামের গল্পকে সম্মানের মঞ্চে তুলে ধরার একটি আন্তরিক
-                    উদ্যোগ।"
+                </p>
+                <p>
+                    <strong>নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা ২০২৬</strong>—সংগ্রামের গল্পকে সম্মানের মঞ্চে তুলে ধরার
+                    একটি আন্তরিক উদ্যোগ।
+                </p>
+
+
+
 
                 </p>
                 {{-- <img src="{{ asset('images/no1-logo.png') }}" alt="brand" height="60" class="me-2"> --}}
@@ -96,31 +110,35 @@
                                 </div>
                             </div>
                             <div>
-                                <h3 class="fw-bold">জিপিএ-৫ প্রাপ্ত শিক্ষার্থীদের</h3>
+                                <h3 class="fw-bold">নির্বাচিত শিক্ষার্থীরা কী কী সুবিধা পাবে?</h3>
                                 <p class="text-dark-emphasis">
-                                    🎖️ নাম্বার ওয়ান বাবার কৃতি সন্তান সংবর্ধনা ২০২৬-এ নির্বাচিত শিক্ষার্থীদের জন্য
-                                    স্কলারশিপ, সার্টিফিকেট, ক্রেস্ট এবং সংবর্ধনা মেডেল প্রদান করা হবে।
-                                    এটি শুধু একটি সংবর্ধনা নয়, বরং তাদের মেধা, অধ্যবসায় ও সংগ্রামী বাবা-মায়ের আত্মত্যাগের
-                                    প্রতি শ্রদ্ধার নিদর্শন।
-                                </p>
+                                    নির্বাচিত শিক্ষার্থীরা পাবেন—
                                 <ul class="list-unstyled mt-3 mb-0">
                                     <li class="d-flex align-items-start mb-2">
                                         <i class="fas fa-check text-success me-2 mt-1"></i>
-                                        <span>আর্থিক বৃত্তি ও ভাতা প্রদান করা হবে।</span>
+                                        <span>শিক্ষা বৃত্তি </span>
                                     </li>
                                     <li class="d-flex align-items-start mb-2">
                                         <i class="fas fa-check text-success me-2 mt-1"></i>
-                                        <span>আন্তর্জাতিক মানের সার্টিফিকেট প্রদান করা হবে।</span>
+                                        <span>সংবর্ধনা মেডেল</span>
                                     </li>
                                     <li class="d-flex align-items-start mb-2">
                                         <i class="fas fa-check text-success me-2 mt-1"></i>
-                                        <span>সংবর্ধনা মেডেল প্রদান করা হবে।</span>
+                                        <span>সার্টিফিকেট</span>
+                                    </li>
+                                    <li class="d-flex align-items-start mb-2">
+                                        <i class="fas fa-check text-success me-2 mt-1"></i>
+                                        <span>ক্রেস্ট</span>
+                                    </li>
+                                    <li class="d-flex align-items-start mb-2">
+                                        <i class="fas fa-check text-success me-2 mt-1"></i>
+                                        <span>শিক্ষা উপকরণ</span>
+                                    </li>
+                                    <li class="d-flex align-items-start mb-2">
+                                        <i class="fas fa-check text-success me-2 mt-1"></i>
+                                        <span>নাম্বার ওয়ান এর পক্ষ থেকে বিশেষ উপহার</span>
                                     </li>
                                 </ul>
-                                <div class="mt-4">
-                                    <a href="#eligibility" class="btn btn-primary me-2">যোগ্যতা দেখুন</a>
-                                    <a href="#" class="btn btn-outline-secondary">আরও জানুন</a>
-                                </div>
                             </div>
                         </div>
                         <div class="position-absolute"
@@ -229,9 +247,9 @@
     </section>
 
     <!-- ========== 4. ELIGIBILITY CRITERIA + SPECIAL SEMINAR ========== -->
-    <section id="eligibility" class="container py-4 py-md-5 my-3 my-md-5">
+    <section id="eligibility" class="container py-4">
         <div class="row g-4 g-lg-5 align-items-stretch">
-            <div class="col-12 col-lg-7">
+            <div class="col-12 col-lg-6">
                 <div class="bg-white rounded-4 shadow-sm p-4 p-md-5 h-100 border border-light">
                     <div class="d-flex align-items-center gap-3 mb-4">
                         <div
@@ -244,78 +262,72 @@
                         <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
                             {{-- <i class="fas fa-solid fa-bullseye text-primary fs-6 fs-md-5 mt-1"></i> --}}
                             <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
-                            <div><strong class="fs-6 fs-md-5">এসএসসি/সমমান ২০২৬ পরীক্ষায় </strong><br><span
-                                    class="text-secondary small">কৃতিত্বের সাথে জিপিএ-৫ অর্জন করে সফলভাবে উত্তীর্ণ হতে
-                                    হবে।</span></div>
+                            <div><strong class="fs-6 fs-md-5">এসএসসি ২০২৬ পরীক্ষায় কৃতিত্বের সাথে জিপিএ-৫ পেয়ে উত্তীর্ণ
+                                    হতে হবে। </strong></div>
                         </div>
                         <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
                             {{-- <i class="fas fa-solid fa-bullseye text-primary fs-6 fs-md-5 mt-1"></i> --}}
                             <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
-                            <div><strong class="fs-6 fs-md-5">আবেদনকারী শিক্ষার্থীর বাবা/অভিভাবক</strong><br><span
-                                    class="text-secondary small">একজন সক্রিয় চা-স্টল ব্যবসায়ী হতে হবে এবং তা প্রমাণযোগ্য
-                                    হতে হবে।</span></div>
+                            <div><strong class="fs-6 fs-md-5">আবেদনকারী শিক্ষার্থীর বাবা/অভিভাবক একজন চা দোকানি হতে
+                                    হবে।</strong></div>
                         </div>
                         <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
                             {{-- <i class="fas fa-solid fa-bullseye text-primary fs-6 fs-md-5 mt-1"></i> --}}
                             <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
-                            <div><strong class="fs-6 fs-md-5">নির্ধারিত সময়সীমার মধ্যে অনলাইনে</strong><br><span
-                                    class="text-secondary small">আবেদনপত্রের সকল তথ্য সঠিকভাবে ও নির্ভুলভাবে পূরণ করে
-                                    নির্ধারিত প্রক্রিয়ায় আবেদন সম্পন্ন করতে হবে।</span></div>
+                            <div><strong class="fs-6 fs-md-5">নির্ধারিত সময়ের মধ্যে অনলাইনে আবেদন সম্পন্ন করতে
+                                    হবে।</strong></div>
                         </div>
                         <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
                             <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
-                            <div><strong class="fs-6 fs-md-5">আবেদনপত্রের সঙ্গে প্রয়োজনীয় সকল তথ্য, ছবি ও
-                                    ডকুমেন্ট</strong><br><span class="text-secondary small">নির্ধারিত নির্দেশনা অনুযায়ী
-                                    সঠিকভাবে, সম্পূরণভাবে এবং যথাসময়ে আপলোড করতে হবে।</span></div>
+                            <div><strong class="fs-6 fs-md-5">প্রয়োজনীয় তথ্য ও ডকুমেন্ট সঠিকভাবে আপলোড করতে হবে।</strong>
+                            </div>
                         </div>
 
-                        <div class="d-flex gap-3">
-                            <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
-                            <div><strong class="fs-6 fs-md-5">আবেদনকারীকে নাম্বার ওয়ান কর্তৃপক্ষের
-                                    নির্ধারিত</strong><br><span class="text-secondary small">যাচাই-বাছাই, তথ্য যাচাইকরণ ও
-                                    চূড়ান্ত নির্বাচন প্রক্রিয়ায় সফলভাবে এবং সন্তোষজনকভাবে উত্তীর্ণ হতে হবে।</span></div>
+                            <div class="d-flex gap-3">
+                                <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
+                                <div><strong class="fs-6 fs-md-5">নাম্বার ওয়ান কর্তৃপক্ষের নির্ধারিত যাচাই প্রক্রিয়ায়
+                                        উত্তীর্ণ হতে হবে।</strong></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-12 col-lg-5">
-                <div class="rounded-4 p-4 p-md-5 h-100 d-flex flex-column justify-content-between mega-card"
-                    style="background: linear-gradient(135deg, #fffdf6 0%, #fff1b9 100%);">
-                    <div class="d-flex justify-content-between align-items-start mb-3 mb-md-4">
-                        <i class="fa-solid fa-bullhorn fs-2 fs-md-1 text-danger opacity-75"></i>
-                        <span class="badge bg-dark text-white px-3 py-2 rounded-pill small">লিমিটেড আসন</span>
-                    </div>
-                    <h3 class="fw-bold fs-2 fs-md-1 text-dark">আজই নিবন্ধন করুন</h3>
-                    <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">আপনি যদি <strong
-                            class="text-primary">এসএসসি/সমমান ২০২৬ পরীক্ষায় </strong> কৃতিত্বের সাথে জিপিএ-৫ অর্জন করে
-                        সফলভাবে উত্তীর্ণ হন এবং আপনার বাবা/অভিভাবক একজন চা-স্টল ব্যবসায়ী হন, তাহলে এখনই নিবন্ধন করুন।
-                    </p>
+                <div class="col-12 col-lg-6">
+                    <div class="rounded-4 p-4 p-md-5 h-100 d-flex flex-column justify-content-between mega-card"
+                        style="background: linear-gradient(135deg, #fffdf6 0%, #fff1b9 100%);">
+                        <div class="d-flex justify-content-between align-items-start mb-3 mb-md-4">
+                            <i class="fa-solid fa-bullhorn fs-2 fs-md-1 text-danger opacity-75"></i>
+                            <span class="badge bg-dark text-white px-3 py-2 rounded-pill small">লিমিটেড আসন</span>
+                        </div>
+                        <h3 class="fw-bold fs-2 fs-md-1 text-dark">আজই নিবন্ধন করুন</h3>
+                        <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">আপনি যদি <strong
+                                class="text-primary">এসএসসি/সমমান ২০২৬ পরীক্ষায় </strong> কৃতিত্বের সাথে উত্তীর্ণ একজন
+                            শিক্ষার্থী হন এবং আপনার বাবা/অভিভাবক একজন
+                            চায়ের দোকানি হন, তাহলে এখনই নিবন্ধন করুন।
+                        </p>
 
-                    <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">নিবন্ধন প্রক্রিয়ার জন্য আপনার কাছে থাকা উচিত:
-                    <ul class="list-unstyled mt-2">
-                        <li><i class="fas fa-check text-success me-2"></i>আবেদনকারীর ব্যক্তিগত তথ্য ও যোগাযোগের বিস্তারিত
-                            বিবরণ। </li>
-                        <li><i class="fas fa-check text-success me-2"></i>এসএসসি ২০২৬ পরীক্ষার ফলাফল ও একাডেমিক তথ্য।</li>
-                        <li><i class="fas fa-check text-success me-2"></i>বাবা/অভিভাবকের পরিচয়, পেশা ও প্রয়োজনীয় তথ্য।
-                        </li>
-                        <li><i class="fas fa-check text-success me-2"></i>প্রয়োজনীয় ছবি, ডকুমেন্ট ও সহায়ক কাগজপত্র
-                            আপলোড।</li>
-                    </ul>
-                    </p>
+                        <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">নিবন্ধন প্রক্রিয়ার জন্য আপনার কাছে থাকা
+                            উচিত:
+                        <ul class="list-unstyled mt-2">
+                            <li><i class="fas fa-check text-success me-2"></i>ব্যক্তিগত তথ্য</li>
+                            <li><i class="fas fa-check text-success me-2"></i>এসএসসি পরীক্ষার তথ্য</li>
+                            <li><i class="fas fa-check text-success me-2"></i>অভিভাবকের তথ্য</li>
+                            <li><i class="fas fa-check text-success me-2"></i>প্রয়োজনীয় ডকুমেন্ট আপলোড</li>
+                        </ul>
+                        </p>
 
 
-                    <div class="mt-3 mt-md-4">
+                        {{-- <div class="mt-3 mt-md-4">
                         <a href="{{ route('student.register') }}"
                             class="btn btn-dark btn-lg rounded-pill px-4 px-md-5 shadow-sm w-100 w-md-auto">আসন
                             নিশ্চিত করুন <i class="fas fa-arrow-right ms-2"></i></a>
-                    </div>
-                    <div class="mt-3 mt-md-4 small text-dark-emphasis">
-                        <i class="fas fa-calendar-check"></i> তারিখ: ১০ মে, ২০২৬ | স্থান: নির্ধারিত ভেন্যু
+                    </div> --}}
+                        <div class="mt-3 mt-md-4 small text-dark-emphasis">
+                            <i class="fas fa-calendar-check"></i> তারিখ: অগাস্ট ০৮, ২০২৬ | স্থান: নির্ধারিত ভেন্যু
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
 
@@ -337,7 +349,7 @@
 
             <div class="row g-4 g-md-5 justify-content-center position-relative">
 
-                <div class="col-6 col-md-3 position-relative" style="z-index: 2;">
+                <div class="col-6 col-md-4 position-relative" style="z-index: 2;">
                     <div class="timeline-card-elegant text-center p-3 p-md-4 rounded-4 bg-white shadow-sm border-0 h-100 d-flex flex-column align-items-center transition-all duration-300 position-relative"
                         style="border-bottom: 4px solid #4F46E5;">
                         <!-- decorative dot on line -->
@@ -349,14 +361,14 @@
                             <i class="fas fa-calendar-plus fs-4 text-primary" style="color: #4F46E5;"></i>
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-5 mb-1">নিবন্ধন শুরু</h5>
-                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">১ সেপ্টেম্বর</p>
+                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">২১ জুলাই </p>
                         <p class="text-secondary small mb-0">২০২৬</p>
                         <span class="badge bg-primary-soft text-primary mt-2 px-3 py-1 rounded-pill small fw-normal"
                             style="background: rgba(79, 70, 229, 0.08);">শুরু</span>
                     </div>
                 </div>
 
-                <div class="col-6 col-md-3 position-relative" style="z-index: 2;">
+                <div class="col-6 col-md-4 position-relative" style="z-index: 2;">
                     <div class="timeline-card-elegant text-center p-3 p-md-4 rounded-4 bg-white shadow-sm border-0 h-100 d-flex flex-column align-items-center transition-all duration-300 position-relative"
                         style="border-bottom: 4px solid #EF4444;">
                         <div class="d-none d-md-block position-absolute timeline-dot"
@@ -367,14 +379,14 @@
                             <i class="fas fa-calendar-times fs-4" style="color: #EF4444;"></i>
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-5 mb-1">নিবন্ধন শেষ</h5>
-                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">১৫ সেপ্টেম্বর </p>
+                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">৩১ জুলাই</p>
                         <p class="text-secondary small mb-0">২০২৬</p>
                         <span class="badge bg-danger-soft text-danger mt-2 px-3 py-1 rounded-pill small fw-normal"
                             style="background: rgba(239, 68, 68, 0.08);">শেষ</span>
                     </div>
                 </div>
 
-                <div class="col-6 col-md-3 position-relative" style="z-index: 2;">
+                {{-- <div class="col-6 col-md-3 position-relative" style="z-index: 2;">
                     <div class="timeline-card-elegant text-center p-3 p-md-4 rounded-4 bg-white shadow-sm border-0 h-100 d-flex flex-column align-items-center transition-all duration-300 position-relative"
                         style="border-bottom: 4px solid #22C55E;">
                         <div class="d-none d-md-block position-absolute timeline-dot"
@@ -390,9 +402,9 @@
                         <span class="badge bg-success-soft text-success mt-2 px-3 py-1 rounded-pill small fw-normal"
                             style="background: rgba(34, 197, 94, 0.08);">প্রকাশ</span>
                     </div>
-                </div>
+                </div> --}}
 
-                <div class="col-6 col-md-3 position-relative" style="z-index: 2;">
+                <div class="col-6 col-md-4 position-relative" style="z-index: 2;">
                     <div class="timeline-card-elegant text-center p-3 p-md-4 rounded-4 bg-white shadow-sm border-0 h-100 d-flex flex-column align-items-center transition-all duration-300 position-relative"
                         style="border-bottom: 4px solid #8B5CF6;">
                         <!-- no dot for last -->
@@ -404,7 +416,7 @@
                             <i class="fas fa-people-group fs-4" style="color: #8B5CF6;"></i>
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-5 mb-1">সংবর্ধনা</h5>
-                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">২৫ সেপ্টেম্বর </p>
+                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0"> ০৮ আগস্ট </p>
                         <p class="text-secondary small mb-0">২০২৬</p>
                         <span class="badge bg-primary-soft text-primary mt-2 px-3 py-1 rounded-pill small fw-normal"
                             style="background: rgba(139, 92, 246, 0.08);">আয়োজন</span>
@@ -447,7 +459,9 @@
                         style="height: 200px; object-fit: cover;">
                     <div class="play-btn-overlay"><i class="fas fa-play text-white"></i></div>
                 </div>
-                <p class="mt-2 mt-md-3 fw-bold text-center fs-6 fs-md-5 px-2">সেরা কলেজ পেতে কৌশল - সাফল্যের সাক্ষী রাফসান
+                <p class="mt-2 mt-md-3 fw-bold text-center fs-6 fs-md-5 px-2">
+                    “নাম্বার ওয়ান সংবর্ধনা আমাকে অনুপ্রাণিত করেছে, আমি আরও বড় স্বপ্ন দেখছি।”
+                    <br class="d-none d-md-block">— রিয়াজ, কুমিল্লা
                 </p>
             </div>
         </div>
@@ -467,7 +481,7 @@
                             style="height: 200px; object-fit: cover;">
                         <div class="play-btn-overlay"><i class="fas fa-play text-white"></i></div>
                     </div>
-                    <p class="text-center mt-2 small fw-semibold">ঢাকা বিভাগীয় সংবর্ধনা ২০২৪</p>
+                    <p class="text-center mt-2 small fw-semibold">ঢাকা বিভাগীয় সংবর্ধনা ২০২৩</p>
                 </div>
                 <div class="col-12 col-md-4">
                     <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
@@ -475,7 +489,7 @@
                             style="height: 200px; object-fit: cover;">
                         <div class="play-btn-overlay"><i class="fas fa-play text-white"></i></div>
                     </div>
-                    <p class="text-center mt-2 small fw-semibold">ঢাকা বিভাগীয় সংবর্ধনা ২০২৫</p>
+                    <p class="text-center mt-2 small fw-semibold">ঢাকা বিভাগীয় সংবর্ধনা ২০২৪</p>
                 </div>
                 <div class="col-12 col-md-4">
                     <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
@@ -483,7 +497,7 @@
                             style="height: 200px; object-fit: cover;">
                         <div class="play-btn-overlay"><i class="fas fa-play text-white"></i></div>
                     </div>
-                    <p class="text-center mt-2 small fw-semibold">ঢাকা বিভাগীয় সংবর্ধনা ২০২৬</p>
+                    <p class="text-center mt-2 small fw-semibold">ঢাকা বিভাগীয় সংবর্ধনা ২০২৫</p>
                 </div>
             </div>
         </div>
@@ -498,7 +512,7 @@
         <div class="d-flex justify-content-center mb-4">
             <div class="tab-filter d-flex flex-wrap justify-content-center gap-1">
                 <button class="tab-btn active" data-cat="all">সব ছবি</button>
-                <button class="tab-btn" data-cat="dhaka">২০২৬</button>
+                <button class="tab-btn" data-cat="dhaka">২০২৪</button>
                 <button class="tab-btn" data-cat="chattogram">২০২৫</button>
             </div>
         </div>
@@ -602,7 +616,7 @@
     </section>
 
     <!-- ========== 10. CONTACT INFO ========== -->
-    <section class="container my-4 my-md-5 py-3 py-md-4">
+    {{-- <section class="container my-4 my-md-5 py-3 py-md-4">
         <div class="bg-gradient-contact rounded-4 p-4 p-md-5 text-center text-md-start shadow-lg"
             style="background: linear-gradient(120deg, #eeeffce8 0%, #FFFFFF 100%);">
             <div class="row align-items-center g-3 g-md-4">
@@ -613,10 +627,10 @@
                     <div
                         class="d-flex flex-wrap gap-3 gap-md-4 mt-2 mt-md-3 justify-content-center justify-content-md-start">
                         <div class="small"><i class="fas fa-phone text-dark me-2"></i>
-                            <strong>০১৯৮৮-৭৬৫৪৩২</strong>
+                            <strong>০১৯XX-XXXXXX</strong>
                         </div>
                         <div class="small"><i class="fas fa-envelope text-dark me-2"></i>
-                            <strong>support@babarkritisontan.com</strong>
+                            <strong>https://no1family.com</strong>
                         </div>
                         <div class="small"><i class="fas fa-phone text-dark me-2"></i> <strong>০১৭XX-XXXXXX</strong>
                         </div>
@@ -630,18 +644,18 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- ========== 11. Section আয়োজন  পৃষ্ঠপোষকতায়  Logo of mgi and no1 ========== -->
 
     <section class="py-4" style="background: linear-gradient(135deg, #F8FAFC, #FFFFFF);">
         <div class="container text-center">
-            <h2 class="section-title mx-auto mb-md-5">আমাদের আয়োজনের পৃষ্ঠপোষক</h2>
+            <h2 class="section-title mx-auto mb-md-5">আয়োজনের পৃষ্ঠপোষক</h2>
             <div class="d-flex justify-content-center align-items-center gap-4 flex-wrap">
-                <img src="{{ asset('images/mgi-logo.png') }}" alt="MGI Logo" height="60"
+                <img src="{{ asset('images/no1-logo-2.jpeg') }}" alt="MGI Logo" height="120"
                     style="object-fit: contain;">
-                <img src="{{ asset('images/no1-logo.png') }}" alt="No1 Logo" height="80"
-                    style="object-fit: contain;">
+                {{-- <img src="{{ asset('images/no1-logo.png') }}" alt="No1 Logo" height="80"
+                    style="object-fit: contain;"> --}}
             </div>
         </div>
     </section>
@@ -692,8 +706,8 @@
         }
 
         /* .fancy-feature-card:hover .fancy-icon-wrapper {
-                                                                                                                transform: scale(1.1);
-                                                                                                            } */
+                                                                                                                                                                                                                transform: scale(1.1);
+                                                                                                                                                                                                            } */
 
         @media (min-width: 768px) {
             .fancy-icon-wrapper {
@@ -813,10 +827,11 @@
 
         .text-gradient {
             background: linear-gradient(90deg,
-                    #ff4d6d,
-                    #792cff,
-                    #15c1ff,
-                    #ff5171);
+                    #fd0e0e,
+                    #f73558,
+                    #ff9900,
+                    #ffaf04,
+                    #ff1b54);
             background-size: 300% 100%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
