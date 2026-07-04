@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="{{ asset('template/assets/vendor/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('template/assets/vendor/fonts/fontawesome.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('template/assets/vendor/libs/toastr/toastr.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('template/assets/vendor/libs/sweetalert2/sweetalert2.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('template/assets/vendor/libs/sweetalert2/sweetalert2.css') }}"
+        rel="stylesheet" />
 
 
 
@@ -26,7 +27,7 @@
             --primary-dark: #7c1a1c;
             --secondary: #aa1b1d;
             /* amber-500 */
-            --accent: #EF4444;
+            --accent: #fa709b;
             /* red-500 */
             --dark: #0F172A;
             --gray: #64748B;
@@ -34,8 +35,8 @@
             --card-radius: 1.5rem;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             /* --common: linear-gradient(135deg, #7c8dffb9 0%, #4037e9f3 100%); */
-               /* background: linear-gradient(135deg, #7e54de, #341284); */
-             --common: linear-gradient(135deg, #aa1b1d, #fdbee9);
+            /* background: linear-gradient(135deg, #7e54de, #341284); */
+            --common: linear-gradient(135deg, #7c1a1c, #aa1b1d);
         }
 
         * {
@@ -44,12 +45,27 @@
             box-sizing: border-box;
         }
 
+        html {
+            height: 100%;
+        }
+
         body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             font-family: 'Inter', 'Hind Siliguri', sans-serif;
             color: var(--dark);
             background-color: #FFFFFF;
             line-height: 1.5;
             scroll-behavior: smooth;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+
+        footer {
+            flex-shrink: 0;
         }
 
         /* modern scrollbar */
@@ -177,8 +193,8 @@
         /* Hero Section */
         .hero {
             /* background: linear-gradient(135deg, #ffffff 0%, #eedffd 100%); */
-            /* background: linear-gradient(135deg, #ffffff 0%, #fffee9 50%, #fef9e7 100%); */
-            background: linear-gradient(135deg, #ffffff 0%, #fff0f6 50%, #ffd3de 100%);
+            /* background: linear-gradient(135deg, #ffffff 0%, #fffee9 50%, #e9e1c5 100%); */
+            background: linear-gradient(135deg, #ffffff 0%, #fff3f5 50%, #fdc9c9 100%);
             position: relative;
             overflow: hidden;
             padding: 8rem 0 7rem;

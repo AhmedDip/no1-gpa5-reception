@@ -17,7 +17,7 @@
             <div class="content-wrapper">
 
                 <!--Dynamic Content Start -->
-                <div class="container-xxl flex-grow-1 container-p-y">
+                <div class="flex-grow-1 container-p-y px-4">
                     @include('backend.layouts.admin-template.breadcrumb')
                     @yield('main-content')
                 </div>

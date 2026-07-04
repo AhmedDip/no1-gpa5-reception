@@ -1,5 +1,5 @@
-@unless (request()->routeIs('student.otp.verify'))
-<footer class="pt-4 pb-3 mt-2">
+@unless (request()->routeIs('student.otp.verify') || request()->routeIs('student.login'))
+<footer class="pt-4 mt-2">
     <div class="container">
         <div class="row gy-4 align-items-center">
             <div class="col-md-6 text-center text-md-start">

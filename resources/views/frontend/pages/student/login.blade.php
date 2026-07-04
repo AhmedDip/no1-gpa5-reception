@@ -97,14 +97,14 @@
                 width: 70px;
                 height: 70px;
                 margin: 0 auto;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                background: linear-gradient(135deg, #aa1b1d 0%, #7c1a1c 100%);
                 border-radius: 50%;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 color: white;
                 font-size: 28px;
-                box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             }
 
             .login-card {

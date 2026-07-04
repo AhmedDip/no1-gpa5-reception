@@ -285,18 +285,6 @@
                 box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.1);
                 overflow: hidden;
             }
-
-            .card-header-custom {
-                background: linear-gradient(135deg, #7e54de, #341284);
-                padding: 1.5rem 2rem;
-                color: white;
-            }
-
-            .card-header-custom h4 {
-                margin: 0;
-                font-weight: 700;
-            }
-
             .form-section {
                 background: #F9FAFB;
                 border-radius: 1.2rem;
@@ -307,7 +295,7 @@
             }
 
             .form-section:hover {
-                border-color: #4F46E5;
+                border-color: #991f2f;
                 box-shadow: 0 4px 12px rgba(79, 70, 229, 0.08);
             }
 
@@ -322,7 +310,7 @@
 
             .section-title-icon i {
                 font-size: 1.5rem;
-                color: #4F46E5;
+                color: #e54646;
                 background: rgba(79, 70, 229, 0.1);
                 padding: 8px;
                 border-radius: 12px;
@@ -358,8 +346,8 @@
 
             .form-control:focus,
             .form-select:focus {
-                border-color: #4F46E5;
-                box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+                border-color: #aa1b1d;
+                box-shadow: 0 0 0 3px rgba(170, 27, 29, 0.1);
             }
 
             /* Validation Styles */
@@ -429,7 +417,7 @@
             }
 
             .photo-preview-area:hover {
-                border-color: #4F46E5;
+                border-color: #aa1b1d;
                 background: #F3F4F6;
             }
 

@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="col-lg-5 text-center floating-element">
-                    <img src="{{ asset('images/hero-image.png') }}" alt="hero" class="img-fluid rounded-4 shadow-lg"
+                    <img src="{{ asset('images/hero-image.jpg') }}" alt="hero" class="img-fluid rounded-4 shadow-lg"
                         style="max-width: 92%;">
                 </div>
             </div>
@@ -86,7 +86,7 @@
             <div class="row g-4 align-items-stretch">
                 <div class="col-12 col-lg-7">
                     <div class="card-premium h-100 p-4 p-md-5 position-relative overflow-hidden"
-                        style="background: linear-gradient(135deg, rgb(255, 255, 255), rgba(255, 232, 239, 0.997));">
+                        style="background: linear-gradient(135deg, rgb(255, 255, 255), #fff5f8fe);">
                         {{-- <div class="ribbon">স্কলারশিপ</div> --}}
                         <div class="d-flex gap-3 align-items-start">
                             <div class="me-3 d-none d-md-block">
@@ -814,9 +814,9 @@
         .text-gradient {
             background: linear-gradient(90deg,
                     #ff4d6d,
-                    #5f12e4,
-                    #25b6eb,
-                    #ff4d6d);
+                    #792cff,
+                    #15c1ff,
+                    #ff5171);
             background-size: 300% 100%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;

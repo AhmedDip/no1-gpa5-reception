@@ -13,14 +13,7 @@ class PhotoUploadService
      */
     private const DISK = 'uploads';
 
-    /**
-     * Store an uploaded photo using the convention:
-     * {folder}/{Y-m-d}/{mobile}.{extension}
-     *
-     * Files are saved directly under public/uploads/... via the 'uploads' disk.
-     *
-     * Example: students/photos/2026-07-02/01712345678.jpg
-     */
+
     public function store(UploadedFile $file, string $mobile, string $folder): string
     {
         $date      = now()->format('Y-m-d');
@@ -34,9 +27,6 @@ class PhotoUploadService
         return $file->storeAs($path, $filename, self::DISK);
     }
 
-    /**
-     * Delete a previously stored photo if it exists.
-     */
     public function delete(?string $path): void
     {
         if ($path && Storage::disk(self::DISK)->exists($path)) {
