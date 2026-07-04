@@ -19,14 +19,14 @@ class OtpService
             // Generate OTP
             $otp = $this->generateOtp();
             $expiresAt = now()->addMinutes(5);
-            
+
             Log::info("Generating OTP for user: {$user->id}, Mobile: {$user->mobile}, OTP: {$otp}");
-            
+
             // Invalidate previous OTPs
             OtpVerification::where('user_id', $user->id)
                 ->where('is_verified', false)
                 ->update(['is_verified' => false, 'expires_at' => now()]);
-            
+
             // Create new OTP record
             $otpRecord = OtpVerification::create([
                 'user_id' => $user->id,
@@ -43,7 +43,7 @@ class OtpService
 
             // Send OTP
             $sent = $this->sendOtp($user->mobile, $otp);
-            
+
             if ($sent) {
                 return [
                     'success' => true,
@@ -74,7 +74,7 @@ class OtpService
     }
 
     /**
-     * Send OTP via SMS 
+     * Send OTP via SMS
      */
     private function sendOtp(string $mobile, string $otp): bool
     {
@@ -83,15 +83,15 @@ class OtpService
             // if (app()->environment('local', 'testing')) {
             //     // Log OTP
             //     Log::info("OTP for {$mobile}: {$otp}");
-                
+
             //     // Store in session for testing
             //     session(['test_otp' => $otp]);
             //     session(['test_otp_mobile' => $mobile]);
-                
+
             //     return true;
             // }
 
-            // Production 
+            // Production
             return $this->sendProductionOtp($mobile, $otp);
         } catch (\Exception $e) {
             Log::error('Send OTP Error: ' . $e->getMessage());
@@ -106,7 +106,7 @@ class OtpService
     {
         try {
             Log::info("Verifying OTP for user: {$user->id}, Input OTP: {$otp}");
-            
+
             // Check if already verified
             if ($user->is_mobile_verified) {
                 return [
@@ -149,11 +149,11 @@ class OtpService
 
             // Check OTP
             Log::info("Comparing OTP: Record: {$otpRecord->otp_code}, Input: {$otp}");
-            
+
             if ($otpRecord->otp_code !== $otp) {
                 $otpRecord->increment('attempts');
                 $otpRecord->update(['last_attempt_at' => now()]);
-                
+
                 $remaining = 5 - $otpRecord->attempts;
                 return [
                     'success' => false,
@@ -240,7 +240,7 @@ class OtpService
         $twilioSid = config('services.twilio.sid');
         $twilioToken = config('services.twilio.token');
         $twilioFrom = config('services.twilio.from');
-        
+
         // Check if credentials are set
         if (empty($twilioSid) || empty($twilioToken) || empty($twilioFrom)) {
             Log::error('Twilio credentials missing');
@@ -249,7 +249,7 @@ class OtpService
 
         // Format mobile number for Twilio (ensure it's in E.164 format)
         $formattedMobile = $this->formatMobileNumber($mobile);
-        
+
         // Create Twilio client
         $client = new \Twilio\Rest\Client($twilioSid, $twilioToken);
 
@@ -312,17 +312,17 @@ private function formatMobileNumber(string $mobile): string
 {
     // Remove any non-numeric characters
     $mobile = preg_replace('/[^0-9]/', '', $mobile);
-    
+
     // Check if number starts with 0
     if (str_starts_with($mobile, '0')) {
         $mobile = substr($mobile, 1); // Remove leading 0
     }
-    
+
     // Add Bangladesh country code (+88) if not present
     if (!str_starts_with($mobile, '880')) {
         $mobile = '880' . $mobile;
     }
-    
+
     // Add '+' prefix for E.164 format
     return '+' . $mobile;
 }
@@ -335,7 +335,7 @@ private function getOtpMessage(string $otp): string
     return "আপনার OTP কোড: {$otp}\n\n" .
            "এটি ৫ মিনিটের জন্য বৈধ।\n" .
            "আপনার নিরাপত্তার জন্য এই কোড কাউকে জানাবেন না।\n\n" .
-           "— আপনার প্রতিষ্ঠানের নাম";
+           "— নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা - ২০২৬";
 }
 
 /**
@@ -346,11 +346,11 @@ private function maskMobile(string $mobile): string
     if (strlen($mobile) <= 6) {
         return '***';
     }
-    
+
     $visibleStart = substr($mobile, 0, 4);
     $visibleEnd = substr($mobile, -2);
     $masked = str_repeat('*', strlen($mobile) - 6);
-    
+
     return $visibleStart . $masked . $visibleEnd;
 }
 
@@ -364,16 +364,16 @@ private function checkTwilioBalance(): bool
             config('services.twilio.sid'),
             config('services.twilio.token')
         );
-        
+
         $balance = $client->api->v2010->accounts(
             config('services.twilio.sid')
         )->fetch()->balance;
-        
+
         if ($balance <= 0) {
             Log::warning('Twilio balance is low or empty', ['balance' => $balance]);
             return false;
         }
-        
+
         return true;
     } catch (\Exception $e) {
         Log::error('Failed to check Twilio balance: ' . $e->getMessage());

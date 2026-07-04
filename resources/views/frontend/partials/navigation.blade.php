@@ -1,4 +1,5 @@
 {{-- frontend/partials/navigation.blade.php --}}
+@unless (request()->routeIs('student.otp.verify'))
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
         <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{{ url('/') }}">
@@ -139,6 +140,7 @@
         </div>
     </div>
 </nav>
+@endunless
 
 @push('styles')
     <style>

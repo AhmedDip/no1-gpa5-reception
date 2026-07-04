@@ -183,8 +183,8 @@
                     <div class="card-body text-center p-4">
                         <div class="position-relative d-inline-block">
                             @if ($studentDetail->student_photo)
-                                <img src="{{ $studentDetail->student_photo_url }}"
-                                    class="rounded-circle profile-image" alt="{{ $studentDetail->name_en }}">
+                                <img src="{{ $studentDetail->student_photo_url }}" class="rounded-circle profile-image"
+                                    alt="{{ $studentDetail->name_en }}">
                             @else
                                 <div class="rounded-circle profile-image bg-gradient d-flex align-items-center justify-content-center mx-auto"
                                     style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
@@ -424,8 +424,8 @@
                                     @if ($studentDetail->parent_photo)
                                         <div class="mt-2">
                                             <small class="text-muted">অভিভাবকের ছবি:</small>
-                                            <a href="{{ asset('storage/' . $studentDetail->parent_photo) }}"
-                                                target="_blank" class="d-block">
+                                            <a href="{{ $studentDetail->parent_photo_url }}" target="_blank"
+                                                class="d-block">
                                                 <i class="fas fa-image me-1"></i>
                                                 ছবি দেখুন
                                             </a>

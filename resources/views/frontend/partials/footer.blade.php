@@ -1,3 +1,4 @@
+@unless (request()->routeIs('student.otp.verify'))
 <footer class="pt-4 pb-3 mt-2">
     <div class="container">
         <div class="row gy-4 align-items-center">
@@ -22,3 +23,4 @@
         </div>
     </div>
 </footer>
+@endunless

@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'disks' => [
+  'disks' => [
 
         'local' => [
             'driver' => 'local',
@@ -42,6 +42,16 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/public'),
             'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
+        // Stores files directly inside the public/ web root — no `storage:link` required.
+        'uploads' => [
+            'driver' => 'local',
+            'root' => public_path('uploads'),
+            'url' => rtrim(env('APP_URL', 'http://127.0.0.1:8000'), '/').'/uploads',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,

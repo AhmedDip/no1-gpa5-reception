@@ -9,8 +9,15 @@ use Illuminate\Support\Facades\Storage;
 class PhotoUploadService
 {
     /**
+     * The disk used for direct public/ storage (bypasses storage:link).
+     */
+    private const DISK = 'uploads';
+
+    /**
      * Store an uploaded photo using the convention:
      * {folder}/{Y-m-d}/{mobile}.{extension}
+     *
+     * Files are saved directly under public/uploads/... via the 'uploads' disk.
      *
      * Example: students/photos/2026-07-02/01712345678.jpg
      */
@@ -24,7 +31,7 @@ class PhotoUploadService
         $path     = "{$folder}/{$date}";
 
         // storeAs overwrites if same name already exists in that folder (same day re-upload)
-        return $file->storeAs($path, $filename, 'public');
+        return $file->storeAs($path, $filename, self::DISK);
     }
 
     /**
@@ -32,8 +39,8 @@ class PhotoUploadService
      */
     public function delete(?string $path): void
     {
-        if ($path && Storage::disk('public')->exists($path)) {
-            Storage::disk('public')->delete($path);
+        if ($path && Storage::disk(self::DISK)->exists($path)) {
+            Storage::disk(self::DISK)->delete($path);
         }
     }
 }

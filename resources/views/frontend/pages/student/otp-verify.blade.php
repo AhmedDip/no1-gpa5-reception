@@ -11,7 +11,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
         }
 
@@ -164,6 +163,20 @@
             margin-top: 15px;
         }
 
+        /* Hidden input for paste functionality */
+        .otp-hidden-input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            width: 0;
+            height: 0;
+        }
+
+        .otp-wrapper {
+            position: relative;
+            cursor: text;
+        }
+
         @media (max-width: 576px) {
             .otp-input {
                 width: 40px;
@@ -177,7 +190,7 @@
         }
     </style>
 
-    <div class="otp-container mt-5">
+    <div class="otp-container">
         <div class="otp-card">
             <!-- Header -->
             <div class="otp-header">
@@ -206,14 +219,20 @@
                 <!-- OTP Input -->
                 <form id="otpForm">
                     @csrf
-                    <div class="otp-input-group" id="otpInputs">
-                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric"
-                            autofocus>
-                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
-                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
-                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
-                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
-                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                    <div class="otp-wrapper">
+                        <!-- Hidden input for paste functionality -->
+                        <input type="text" class="otp-hidden-input" id="otpHiddenInput" maxlength="6" pattern="[0-9]*"
+                            inputmode="numeric">
+
+                        <div class="otp-input-group" id="otpInputs">
+                            <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric"
+                                autofocus>
+                            <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                        </div>
                     </div>
 
                     <!-- Error Message -->
@@ -246,22 +265,10 @@
                         <i class="fas fa-check-circle me-2"></i>
                         যাচাই করুন
                     </button>
-
-                    <!-- Skip Verification (Development Only) -->
-                    {{-- @if (app()->environment('local', 'testing'))
-                    <div class="text-center mt-3">
-                        <a href="{{ route('otp.skip') }}" class="text-muted small text-decoration-none">
-                            <i class="fas fa-forward me-1"></i>
-                            ডেভেলপমেন্ট: যাচাই বাদ দিন
-                        </a>
-                    </div>
-                @endif --}}
                 </form>
             </div>
         </div>
     </div>
-
-    {{-- resources/views/frontend/pages/student/otp-verify.blade.php --}}
 
     @push('scripts')
         <script>
@@ -321,6 +328,96 @@
                             otpInputs[index - 1].focus();
                         }
                     });
+
+                    // Add paste event listener to each input
+                    input.addEventListener('paste', handlePaste);
+                });
+
+                // Function to handle paste events
+                function handlePaste(e) {
+                    e.preventDefault();
+                    const pastedData = (e.clipboardData || window.clipboardData).getData('text');
+
+                    // Remove any non-digit characters
+                    const cleanData = pastedData.replace(/\D/g, '');
+
+                    if (cleanData.length === 0) return;
+
+                    // Get the first input that triggered the paste
+                    const firstInput = e.target;
+                    const startIndex = Array.from(otpInputs).indexOf(firstInput);
+
+                    // Distribute digits across input fields
+                    for (let i = 0; i < otpInputs.length; i++) {
+                        const digitIndex = i - startIndex;
+                        if (digitIndex >= 0 && digitIndex < cleanData.length) {
+                            otpInputs[i].value = cleanData[digitIndex];
+                            otpInputs[i].classList.add('filled');
+                        } else {
+                            otpInputs[i].value = '';
+                            otpInputs[i].classList.remove('filled');
+                        }
+                    }
+
+                    // Focus on the next empty field or the last field
+                    const lastFilledIndex = Math.min(startIndex + cleanData.length - 1, otpInputs.length - 1);
+                    const nextIndex = Math.min(lastFilledIndex + 1, otpInputs.length - 1);
+
+                    // If all fields are filled, focus on the last one
+                    if (cleanData.length >= otpInputs.length - startIndex) {
+                        otpInputs[otpInputs.length - 1].focus();
+                    } else {
+                        otpInputs[nextIndex].focus();
+                    }
+
+                    // Auto-submit if all fields are filled
+                    const allFilled = Array.from(otpInputs).every(input => input.value.length === 1);
+                    if (allFilled) {
+                        setTimeout(() => {
+                            otpForm.dispatchEvent(new Event('submit'));
+                        }, 100);
+                    }
+                }
+
+                // Alternative: Add paste listener to the entire form container
+                // This handles paste events on the form itself
+                otpForm.addEventListener('paste', function(e) {
+                    // Check if the paste target is not an input field (to avoid duplicate handling)
+                    if (e.target.tagName === 'INPUT') return;
+
+                    e.preventDefault();
+                    const pastedData = (e.clipboardData || window.clipboardData).getData('text');
+                    const cleanData = pastedData.replace(/\D/g, '');
+
+                    if (cleanData.length === 0) return;
+
+                    // Distribute digits across input fields from the beginning
+                    for (let i = 0; i < otpInputs.length && i < cleanData.length; i++) {
+                        otpInputs[i].value = cleanData[i];
+                        otpInputs[i].classList.add('filled');
+                    }
+
+                    // If there are more digits than inputs, fill what we can
+                    if (cleanData.length > otpInputs.length) {
+                        // Fill all inputs
+                        for (let i = 0; i < otpInputs.length; i++) {
+                            otpInputs[i].value = cleanData[i];
+                            otpInputs[i].classList.add('filled');
+                        }
+                        otpInputs[otpInputs.length - 1].focus();
+                    } else {
+                        // Focus on the next empty field
+                        const nextIndex = Math.min(cleanData.length, otpInputs.length - 1);
+                        otpInputs[nextIndex].focus();
+                    }
+
+                    // Auto-submit if all fields are filled
+                    const allFilled = Array.from(otpInputs).every(input => input.value.length === 1);
+                    if (allFilled) {
+                        setTimeout(() => {
+                            otpForm.dispatchEvent(new Event('submit'));
+                        }, 100);
+                    }
                 });
 
                 // Handle OTP form submission
@@ -386,7 +483,10 @@
                         .then(data => {
                             if (data.success) {
                                 startTimer();
-                                otpInputs.forEach(input => input.value = '');
+                                otpInputs.forEach(input => {
+                                    input.value = '';
+                                    input.classList.remove('filled');
+                                });
                                 otpInputs[0].focus();
                                 showError('OTP পুনরায় পাঠানো হয়েছে।', false);
                             } else {

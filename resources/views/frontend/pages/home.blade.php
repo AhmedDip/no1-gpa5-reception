@@ -281,7 +281,7 @@
 
             <div class="col-12 col-lg-5">
                 <div class="rounded-4 p-4 p-md-5 h-100 d-flex flex-column justify-content-between mega-card"
-                    style="background: linear-gradient(135deg, #fbfdff 10%, #e3e7fc 90%);">
+                    style="background: linear-gradient(135deg, #fffdf6 0%, #fff1b9 100%);">
                     <div class="d-flex justify-content-between align-items-start mb-3 mb-md-4">
                         <i class="fa-solid fa-bullhorn fs-2 fs-md-1 text-danger opacity-75"></i>
                         <span class="badge bg-dark text-white px-3 py-2 rounded-pill small">লিমিটেড আসন</span>

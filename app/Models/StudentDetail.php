@@ -135,10 +135,10 @@ class StudentDetail extends Model
         return $this->resolvePhotoUrl($this->parent_photo);
     }
 
-    private function resolvePhotoUrl(?string $path): string
+     private function resolvePhotoUrl(?string $path): string
     {
-        if ($path && Storage::disk('public')->exists($path)) {
-            return asset('storage/' . $path);
+        if ($path && Storage::disk('uploads')->exists($path)) {
+            return Storage::disk('uploads')->url($path);
         }
 
         return asset('images/default-user.png');
