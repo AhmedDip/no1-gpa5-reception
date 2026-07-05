@@ -31,26 +31,102 @@
                         <a href="#faq" class="btn btn-outline-danger btn-lg px-4 px-lg-5">বিস্তারিত দেখুন
                         </a>
                     </div>
-                    <div class="hero-stats d-inline-flex mt-5 gap-3 gap-lg-4">
-                        {{-- <div class="d-flex flex-column align-items-center">
-                            <span class="fs-3 fw-bold">২০০+</span>
-                            <span class="small text-secondary">নিবন্ধিত শিক্ষার্থী</span>
-                        </div>
-
-                        <div class="d-flex flex-column align-items-center">
-                            <span class="fs-3 fw-bold">১০০+</span>
-                            <span class="small text-secondary">স্কলারশিপ প্রাপ্ত শিক্ষার্থী</span>
-                        </div>
-
-                        <div class="d-flex flex-column align-items-center">
-                            <span class="fs-3 fw-bold">৫০,০০০+ </span>
-                            <span class="small text-secondary">টাকার আর্থিক অনুদান </span>
-                        </div> --}}
-                    </div>
+          
                 </div>
+                <!-- Right Image with Enhanced Circular Background -->
                 <div class="col-lg-5 text-center">
-                    <img src="{{ asset('images/hero-image.jpeg') }}" alt="hero" class="img-fluid rounded-4 shadow-lg"
-                        style="max-height: 480px; object-fit: cover;" data-aos="fade-up" data-aos-delay="100">
+                    <div class="position-relative d-flex justify-content-center align-items-center"
+                        style="min-height: 400px;" data-aos="fade-up" data-aos-easing="ease-out-back">
+                        <!-- Outer Rotating Ring 1 -->
+                        <div class="position-absolute rounded-circle"
+                            style="width: 100%; height: 100%; max-width: 500px; max-height: 500px;
+                                border: 3px solid rgba(255, 0, 0, 0.212);
+                                animation: spin-ring 25s linear infinite;
+                                top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                        </div>
+
+                        <!-- Outer Rotating Ring 2 (Dashed) -->
+                        <div class="position-absolute rounded-circle"
+                            style="width: 92%; height: 92%; max-width: 460px; max-height: 460px;
+                                border: 2px dashed rgba(255, 166, 0, 0.37);
+                                animation: spin-ring 35s linear infinite reverse;
+                                top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                        </div>
+
+                        <!-- Decorative Dots on Ring Path -->
+                        <div class="position-absolute rounded-circle"
+                            style="width: 88%; height: 88%; max-width: 440px; max-height: 440px;
+                                top: 50%; left: 50%; transform: translate(-50%, -50%);">
+
+                            <!-- Dot 1 -->
+                            <div class="position-absolute rounded-circle"
+                                style="width: 10px; height: 10px; background-color: #ff00004d;
+                                    top: -5%; left: 50%; transform: translate(-50%, -50%);">
+                            </div>
+
+                            <!-- Dot 2 -->
+                            <div class="position-absolute rounded-circle"
+                                style="width: 10px; height: 10px; background-color: #ffd0009a;
+                                    top: 50%; left: 100%; transform: translate(-50%, -50%);">
+                            </div>
+
+                            <!-- Dot 3 -->
+                            <div class="position-absolute rounded-circle"
+                                style="width: 10px; height: 10px; background-color: #ff000023;
+                                    top: 105%; left: 50%; transform: translate(-50%, -50%);">
+                            </div>
+
+                            <!-- Dot 4 -->
+                            <div class="position-absolute rounded-circle"
+                                style="width: 10px; height: 10px; background-color: #ffc4005b;
+                                    top: 50%; left: 0%; transform: translate(-50%, -50%);">
+                            </div>
+                        </div>
+
+                        <!-- Image with Floating Effect -->
+                        <div class="position-relative"
+                            style="z-index: 2; width: 100%; max-width: 450px;">
+                            <div class="position-relative" style="padding: 15px;">
+                                <!-- Image Shadow Glow -->
+                                <div class="position-absolute rounded-circle"
+                                    style="width: 100%; height: 100%; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                                        background: radial-gradient(circle, rgba(29, 2, 2, 0.274) 0%, transparent 70%);
+                                        filter: blur(30px); z-index: -1;">
+                                </div>
+
+                                <img src="{{ asset('images/hero-image.jpeg') }}" alt="hero"
+                                    class="img-fluid rounded-4 shadow-lg floating-image"
+                                    style="height: auto; max-height: 480px; width: 100%; object-fit: cover; position: relative; z-index: 1;">
+
+                                <!-- Subtle Overlay on Image -->
+                                <div class="position-absolute top-0 start-0 w-100 h-100 rounded-4"
+                                    style="background: linear-gradient(135deg, rgba(255, 0, 0, 0.03), rgba(255, 165, 0, 0.03)); z-index: 2; pointer-events: none;">
+                                </div>
+
+                                <!-- Corner Decorations -->
+                                <div class="position-absolute" style="top: 5px; left: 5px; z-index: 3;">
+                                    <div
+                                        style="width: 20px; height: 20px; border-top: 3px solid rgba(255, 0, 0, 0.2); border-left: 3px solid rgba(255, 0, 0, 0.2);">
+                                    </div>
+                                </div>
+                                <div class="position-absolute" style="top: 5px; right: 5px; z-index: 3;">
+                                    <div
+                                        style="width: 20px; height: 20px; border-top: 5px solid rgba(255, 165, 0, 0.2); border-right: 3px solid rgba(255, 165, 0, 0.2);">
+                                    </div>
+                                </div>
+                                <div class="position-absolute" style="bottom: 5px; left: 5px; z-index: 3;">
+                                    <div
+                                        style="width: 20px; height: 20px; border-bottom: 3px solid rgba(255, 165, 0, 0.2); border-left: 3px solid rgba(255, 165, 0, 0.2);">
+                                    </div>
+                                </div>
+                                <div class="position-absolute" style="bottom: 5px; right: 5px; z-index: 3;">
+                                    <div
+                                        style="width: 20px; height: 20px; border-bottom: 3px solid rgba(255, 0, 0, 0.2); border-right: 3px solid rgba(255, 0, 0, 0.2);">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -91,7 +167,7 @@
             </div>
 
             <div class="card-premium p-4 p-md-5 position-relative overflow-hidden"
-                style="background: linear-gradient(135deg, rgb(255, 250, 250), #ffececfe); border-radius: 1rem;">
+                style="background: linear-gradient(135deg, rgb(255, 255, 255), #fff7f7); border-radius: 1rem;">
 
                 <div class="d-flex align-items-center gap-3 mb-4">
                     <span class="fancy-icon-wrapper bg-gradient-danger flex-shrink-0"
@@ -327,28 +403,28 @@
 
                 <div class="col-6 col-md-4 position-relative" style="z-index: 2;">
                     <div class="timeline-card-elegant text-center p-3 p-md-4 rounded-4 bg-white shadow-sm border-0 h-100 d-flex flex-column align-items-center transition-all duration-300 position-relative"
-                        style="border-bottom: 4px solid #8B5CF6;">
+                        style="border-bottom: 4px solid #f6ec5c;">
                         <div class="d-none d-md-block position-absolute timeline-dot"
-                            style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #8B5CF6; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);">
+                            style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #f6e75c; border-radius: 50%; transform: translateY(-50%); border: 3px solid rgb(255, 255, 255); box-shadow: 0 0 0 4px rgba(246, 244, 92, 0.308);">
                         </div>
                         <div class="timeline-icon-wrapper mb-2 mb-md-3"
-                            style="width: 64px; height: 64px; background: linear-gradient(135deg, #F5F3FF, #EDE9FE); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
-                            <i class="fas fa-people-group fs-4" style="color: #8B5CF6;"></i>
+                            style="width: 64px; height: 64px; background: linear-gradient(135deg, #fffef3, #fefce9); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                            <i class="fas fa-people-group fs-4" style="color: #f6c55c;"></i>
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-5 mb-1">সংবর্ধনা</h5>
                         <p class="fs-4 fs-md-3 fw-bold text-dark mb-0"> ০৮ আগস্ট </p>
                         <p class="text-secondary small mb-0">২০২৬</p>
-                        <span class="badge bg-primary-soft text-primary mt-2 px-3 py-1 rounded-pill small fw-normal"
-                            style="background: rgba(139, 92, 246, 0.08);">আয়োজন</span>
+                        <span class="badge bg-warning-soft text-warning mt-2 px-3 py-1 rounded-pill small fw-normal"
+                            style="background: rgba(236, 246, 92, 0.08);">আয়োজন</span>
                     </div>
                 </div>
             </div>
 
             <div class="text-center mt-4 mt-md-5 position-relative">
                 <p class="text-muted small d-flex align-items-center justify-content-center gap-2 py-4">
-                    <i class="fas fa-circle text-primary" style="font-size: 0.35rem; opacity: 0.5;"></i>
+                    <i class="fas fa-circle text-danger" style="font-size: 0.35rem; opacity: 0.5;"></i>
                     <span>সকল সময়সূচি পরিবর্তন সাপেক্ষ</span>
-                    <i class="fas fa-circle text-primary" style="font-size: 0.35rem; opacity: 0.5;"></i>
+                    <i class="fas fa-circle text-danger" style="font-size: 0.35rem; opacity: 0.5;"></i>
                 </p>
             </div>
         </div>
@@ -779,7 +855,7 @@
 
         /* Hero stats */
         .hero-stats {
-            /* background: rgba(255, 255, 255, 0.8); */
+            background: #fcf7f8;
             backdrop-filter: blur(8px);
             border-radius: 60px;
             padding: 0.5rem 1.2rem;
@@ -845,6 +921,92 @@
         @media (min-width: 768px) {
             .accordion-button {
                 font-size: 1rem;
+            }
+        }
+
+
+        /* Pulse Circle Animation */
+        @keyframes pulse-circle {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.4);
+                opacity: 1.2;
+            }
+        }
+
+        /* Dot Pulse Animation */
+        @keyframes dot-pulse {
+
+            0%,
+            100% {
+                transform: translateX(-50%) scale(0.8);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: translateX(-50%) scale(1.2);
+                opacity: 1.2;
+            }
+        }
+
+        .position-absolute .position-absolute:nth-child(1) {
+            animation: dot-pulse 2.5s ease-in-out infinite;
+        }
+
+        .position-absolute .position-absolute:nth-child(2) {
+            animation: dot-pulse 2.5s ease-in-out infinite 0.5s;
+        }
+
+        .position-absolute .position-absolute:nth-child(3) {
+            animation: dot-pulse 2.5s ease-in-out infinite 1s;
+        }
+
+        .position-absolute .position-absolute:nth-child(4) {
+            animation: dot-pulse 2.5s ease-in-out infinite 1.5s;
+        }
+
+        @keyframes float-particle {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+
+            25% {
+                transform: translate(30px, -40px) scale(1.2);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: translate(-20px, -80px) scale(0.8);
+                opacity: 0.2;
+            }
+
+            75% {
+                transform: translate(40px, -30px) scale(1.1);
+                opacity: 0.5;
+            }
+        }
+
+        /* Pulse Orb Animation */
+        @keyframes pulse-orb {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
             }
         }
     </style>

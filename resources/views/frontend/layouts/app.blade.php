@@ -221,7 +221,7 @@
         }
 
         .hero-badge {
-            background: rgba(79, 70, 229, 0.1);
+            background: rgba(253, 241, 170, 0.1);
             backdrop-filter: blur(4px);
             border-radius: 80px;
             padding: 0.3rem 1rem;
