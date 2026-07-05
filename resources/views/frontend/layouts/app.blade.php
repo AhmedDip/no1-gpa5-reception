@@ -387,6 +387,46 @@
         .bg-gradient-special {
             box-shadow: 0 20px 40px rgba(79, 70, 229, 0.06);
         }
+
+        .btn-register-glow {
+            position: relative;
+            overflow: visible;
+            z-index: 1;
+        }
+
+        .btn-register-glow::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border: 2px solid rgba(245, 22, 14, 0.925);
+            border-radius: 25px;
+            animation: outlinePulse 1.8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes outlinePulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.9;
+            }
+
+            70% {
+                transform: scale(1.08);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1.08);
+                opacity: 0;
+            }
+        }
+
+          @media (max-width: 576px) {
+            .btn-register-glow {
+                margin-top: 0.5rem;
+            }
+
+        }
     </style>
 </head>
 

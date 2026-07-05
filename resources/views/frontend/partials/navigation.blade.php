@@ -1,139 +1,142 @@
 {{-- frontend/partials/navigation.blade.php --}}
 @unless (request()->routeIs('student.otp.verify'))
-<nav class="navbar navbar-expand-lg fixed-top">
-    <div class="container">
-        <a class="navbar-brand fw-bold d-flex align-items-center gap-3" href="{{ url('/') }}">
-            <img src="{{ asset('images/no1-2026.png') }}" alt="NUMBER 1 Logo" class="logo-img" style="height: 60px; width: auto; object-fit: contain;">
-        </a>
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
-            <i class="fas fa-bars fs-1"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarMain">
-            <ul class="navbar-nav ms-auto align-items-center gap-lg-2">
-                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#introduction">ভূমিকা</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#eligibility">যোগ্যতা</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#timeline">সময়সূচি</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#stories">সফলতার গল্প</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#gallery">গ্যালারি</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#faq">FAQ</a></li>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-3" href="{{ url('/') }}">
+                <img src="{{ asset('images/no1-2026.png') }}" alt="NUMBER 1 Logo" class="logo-img"
+                    style="height: 60px; width: auto; object-fit: contain;">
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                <i class="fas fa-bars fs-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav ms-auto align-items-center gap-lg-2">
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#introduction">ভূমিকা</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#eligibility">যোগ্যতা</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#timeline">সময়সূচি</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#stories">সফলতার গল্প</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#gallery">গ্যালারি</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#faq">FAQ</a></li>
 
-                @auth
-                    @if (Auth::user()->user_type_id == 1)
-                        @php
-                            $unreadNotifCount = \App\Models\StudentNotification::where('user_id', Auth::id())
-                                ->where('is_read', false)
-                                ->count();
-                            $latestNotifications = \App\Models\StudentNotification::where('user_id', Auth::id())
-                                ->latest()
-                                ->limit(6)
-                                ->get();
-                        @endphp
-                        <li class="nav-item dropdown me-lg-1">
-                            <a class="nav-link position-relative" href="#" id="notifBellToggle" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-bell fs-5 text-warning"></i>
-                                @if ($unreadNotifCount > 0)
-                                    <span class="notif-badge text-warning"
-                                        id="notifBadge">{{ $unreadNotifCount > 9 ? '9+' : $unreadNotifCount }}</span>
-                                @endif
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end shadow border-0 notif-dropdown"
-                                aria-labelledby="notifBellToggle">
-                                <li class="px-3 py-2 d-flex justify-content-between align-items-center border-bottom">
-                                    <span class="fw-bold small">নোটিফিকেশন</span>
+                    @auth
+                        @if (Auth::user()->user_type_id == 1)
+                            @php
+                                $unreadNotifCount = \App\Models\StudentNotification::where('user_id', Auth::id())
+                                    ->where('is_read', false)
+                                    ->count();
+                                $latestNotifications = \App\Models\StudentNotification::where('user_id', Auth::id())
+                                    ->latest()
+                                    ->limit(6)
+                                    ->get();
+                            @endphp
+                            <li class="nav-item dropdown me-lg-1">
+                                <a class="nav-link position-relative" href="#" id="notifBellToggle" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-bell fs-5 text-warning"></i>
                                     @if ($unreadNotifCount > 0)
-                                        <button type="button" class="btn btn-link btn-sm p-0 small text-decoration-none"
-                                            id="markAllReadBtn">সব নোটিফিকেশন পড়ুন</button>
+                                        <span class="notif-badge text-warning"
+                                            id="notifBadge">{{ $unreadNotifCount > 9 ? '9+' : $unreadNotifCount }}</span>
                                     @endif
-                                </li>
-                                @forelse($latestNotifications as $notif)
-                                    <li>
-                                        <a href="javascript:void(0)"
-                                            class="dropdown-item notif-item {{ $notif->is_read ? '' : 'unread' }}"
-                                            data-id="{{ $notif->id }}" data-title="{{ $notif->title }}"
-                                            data-message="{{ $notif->message }}"
-                                            data-read-url="{{ route('student.notifications.read', $notif->id) }}">
-                                            <div class="d-flex gap-2">
-                                                <i class="fas {{ $notif->icon }} mt-1"></i>
-                                                <div class="flex-grow-1">
-                                                    <div class="fw-semibold small">{{ $notif->title }}</div>
-                                                    <div class="text-muted small notif-msg">
-                                                        {{ \Illuminate\Support\Str::limit($notif->message, 60) }}</div>
-                                                    <div class="text-muted" style="font-size: 0.7rem;">
-                                                        {{ $notif->created_at->diffForHumans() }}</div>
-                                                </div>
-                                            </div>
-                                        </a>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end shadow border-0 notif-dropdown"
+                                    aria-labelledby="notifBellToggle">
+                                    <li class="px-3 py-2 d-flex justify-content-between align-items-center border-bottom">
+                                        <span class="fw-bold small">নোটিফিকেশন</span>
+                                        @if ($unreadNotifCount > 0)
+                                            <button type="button" class="btn btn-link btn-sm p-0 small text-decoration-none"
+                                                id="markAllReadBtn">সব নোটিফিকেশন পড়ুন</button>
+                                        @endif
                                     </li>
-                                @empty
-                                    <li><span class="dropdown-item-text text-muted small text-center py-3 d-block">কোনো
-                                            নোটিফিকেশন নেই</span></li>
-                                @endforelse
+                                    @forelse($latestNotifications as $notif)
+                                        <li>
+                                            <a href="javascript:void(0)"
+                                                class="dropdown-item notif-item {{ $notif->is_read ? '' : 'unread' }}"
+                                                data-id="{{ $notif->id }}" data-title="{{ $notif->title }}"
+                                                data-message="{{ $notif->message }}"
+                                                data-read-url="{{ route('student.notifications.read', $notif->id) }}">
+                                                <div class="d-flex gap-2">
+                                                    <i class="fas {{ $notif->icon }} mt-1"></i>
+                                                    <div class="flex-grow-1">
+                                                        <div class="fw-semibold small">{{ $notif->title }}</div>
+                                                        <div class="text-muted small notif-msg">
+                                                            {{ \Illuminate\Support\Str::limit($notif->message, 60) }}</div>
+                                                        <div class="text-muted" style="font-size: 0.7rem;">
+                                                            {{ $notif->created_at->diffForHumans() }}</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    @empty
+                                        <li><span class="dropdown-item-text text-muted small text-center py-3 d-block">কোনো
+                                                নোটিফিকেশন নেই</span></li>
+                                    @endforelse
+                                    <li>
+                                        <hr class="dropdown-divider m-0">
+                                    </li>
+                                    <li class="text-center">
+                                        <a href="{{ route('student.notifications.index') }}"
+                                            class="dropdown-item text-center small fw-semibold py-2">সব নোটিফিকেশন দেখুন</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="userDropdown"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @php
+                                    $studentDetail = Auth::user()->studentDetail;
+                                @endphp
+                                @if ($studentDetail && $studentDetail->student_photo)
+                                    <img src="{{ $studentDetail->student_photo_url }}" class="rounded-circle" width="32"
+                                        height="32" style="object-fit: cover;">
+                                @else
+                                    <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white"
+                                        style="width: 32px; height: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;">
+                                        <i class="fas fa-user fa-sm"></i>
+                                    </div>
+                                @endif
+                                <span>{{ Auth::user()->name }}</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="userDropdown">
                                 <li>
-                                    <hr class="dropdown-divider m-0">
+                                    <a class="dropdown-item" href="{{ route('student.dashboard') }}">
+                                        <i class="fas fa-tachometer-alt me-2 text-dark"></i> ড্যাশবোর্ড
+                                    </a>
                                 </li>
-                                <li class="text-center">
-                                    <a href="{{ route('student.notifications.index') }}"
-                                        class="dropdown-item text-center small fw-semibold py-2">সব নোটিফিকেশন দেখুন</a>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <form method="POST" action="{{ route('student.logout') }}" id="logout-form">
+                                        @csrf
+                                        <button type="button" class="dropdown-item text-danger" id="logoutBtn">
+                                            <i class="fas fa-sign-out-alt me-2"></i> লগআউট
+                                        </button>
+                                    </form>
                                 </li>
                             </ul>
                         </li>
-                    @endif
+                    @else
+                        <!-- When user is not logged in -->
+                        <li class="nav-item ms-lg-2">
+                            <a class="btn btn-outline-danger px-4" href="{{ route('student.login') }}">
+                                <i class="fas fa-sign-in-alt me-1"></i> লগইন
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-danger text-white px-4 btn-register-glow"
+                                href="{{ route('student.register') }}">
+                                <i class="fas fa-user-plus me-1"></i>
+                                নিবন্ধন
+                            </a>
+                        </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="userDropdown"
-                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            @php
-                                $studentDetail = Auth::user()->studentDetail;
-                            @endphp
-                            @if ($studentDetail && $studentDetail->student_photo)
-                                <img src="{{ $studentDetail->student_photo_url }}" class="rounded-circle"
-                                    width="32" height="32" style="object-fit: cover;">
-                            @else
-                                <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white"
-                                    style="width: 32px; height: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;">
-                                    <i class="fas fa-user fa-sm"></i>
-                                </div>
-                            @endif
-                            <span>{{ Auth::user()->name }}</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="userDropdown">
-                            <li>
-                                <a class="dropdown-item" href="{{ route('student.dashboard') }}">
-                                    <i class="fas fa-tachometer-alt me-2 text-dark"></i> ড্যাশবোর্ড
-                                </a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <form method="POST" action="{{ route('student.logout') }}" id="logout-form">
-                                    @csrf
-                                    <button type="button" class="dropdown-item text-danger" id="logoutBtn">
-                                        <i class="fas fa-sign-out-alt me-2"></i> লগআউট
-                                    </button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                @else
-                    <!-- When user is not logged in -->
-                    <li class="nav-item ms-lg-2">
-                        <a class="btn btn-outline-danger px-4" href="{{ route('student.login') }}">
-                            <i class="fas fa-sign-in-alt me-1"></i> লগইন
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-danger text-white px-4" href="{{ route('student.register') }}">
-                            <i class="fas fa-user-plus me-1"></i> নিবন্ধন <i class="fas fa-arrow-right ms-1"></i>
-                        </a>
-                    </li>
-
-                @endauth
-            </ul>
+                    @endauth
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 @endunless
 
 @push('styles')
@@ -191,6 +194,7 @@
                 height: 50px;
                 max-width: 150px;
             }
+
         }
 
         .nav-link {

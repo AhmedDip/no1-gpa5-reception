@@ -28,11 +28,11 @@
                     <div class="d-flex flex-wrap gap-3 mt-4 justify-content-center justify-content-lg-start">
                         <a href="{{ route('student.register') }}" class="btn btn-primary btn-lg px-4 px-lg-5"> নিবন্ধন করুন
                             <i class="fas fa-chevron-right"></i></a>
-                        <a href="#faq" class="btn btn-outline-secondary btn-lg px-4 px-lg-5">বিস্তারিত দেখুন
+                        <a href="#faq" class="btn btn-outline-danger btn-lg px-4 px-lg-5">বিস্তারিত দেখুন
                         </a>
                     </div>
                     <div class="hero-stats d-inline-flex mt-5 gap-3 gap-lg-4">
-                        <div class="d-flex flex-column align-items-center">
+                        {{-- <div class="d-flex flex-column align-items-center">
                             <span class="fs-3 fw-bold">২০০+</span>
                             <span class="small text-secondary">নিবন্ধিত শিক্ষার্থী</span>
                         </div>
@@ -45,7 +45,7 @@
                         <div class="d-flex flex-column align-items-center">
                             <span class="fs-3 fw-bold">৫০,০০০+ </span>
                             <span class="small text-secondary">টাকার আর্থিক অনুদান </span>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="col-lg-5 text-center">
@@ -61,7 +61,7 @@
         <div class="row justify-content-center">
             <div class="col-11 col-lg-8">
                 <h2 class="section-title mx-auto">
-                    <img src="{{ asset('images/no1-logo.png') }}" alt="brand" height="40" class="me-2">
+                    <img src="{{ asset('images/no1-logo.png') }}" alt="brand" height="45" class="me-2">
                     এর পক্ষ থেকে শুভেচ্ছা
                 </h2>
 
@@ -76,12 +76,6 @@
                     <strong>নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা ২০২৬</strong>—সংগ্রামের গল্পকে সম্মানের মঞ্চে তুলে ধরার
                     একটি আন্তরিক উদ্যোগ।
                 </p>
-
-
-
-
-                </p>
-                {{-- <img src="{{ asset('images/no1-logo.png') }}" alt="brand" height="60" class="me-2"> --}}
             </div>
         </div>
     </section>
@@ -90,157 +84,116 @@
     <section class="bg-light py-5 py-md-6 mt-3 mt-md-5">
         <div class="container">
             <div class="text-center mb-4 mb-md-5">
-                <h2 class="section-title">স্কলারশিপ ও সার্টিফিকেট বিবরণ</h2>
+                <h2 class="section-title">স্কলারশিপ ও সংবর্ধনা বিবরণ</h2>
                 <p class="text-secondary px-2">
-                    নাম্বার ওয়ান বাবার কৃতি সন্তান সংবর্ধনা ২০২৬-এ নির্বাচিত শিক্ষার্থীদের জন্য স্কলারশিপ, সার্টিফিকেট,
-                    ক্রেস্ট এবং সংবর্ধনা মেডেল প্রদান করা হবে।
+                    নাম্বার ওয়ান বাবার কৃতি সন্তান সংবর্ধনা ২০২৬-এ নির্বাচিত শিক্ষার্থীদের জন্য বিশেষ সুবিধা প্রদান করা হবে।
                 </p>
             </div>
 
-            <div class="row g-4 align-items-stretch">
-                <div class="col-12 col-lg-7">
-                    <div class="card-premium h-100 p-4 p-md-5 position-relative overflow-hidden"
-                        style="background: linear-gradient(135deg, rgb(255, 255, 255), #fff5f8fe);">
-                        {{-- <div class="ribbon">স্কলারশিপ</div> --}}
-                        <div class="d-flex gap-3 align-items-start">
-                            <div class="me-3 d-none d-md-block">
-                                <div
-                                    class="fancy-icon-wrapper bg-gradient-danger text-white d-flex align-items-center justify-content-center">
-                                    <i class="fas fa-award fs-2 text-white"></i>
-                                </div>
+            <div class="card-premium p-4 p-md-5 position-relative overflow-hidden"
+                style="background: linear-gradient(135deg, rgb(255, 250, 250), #ffececfe); border-radius: 1rem;">
+
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <span class="fancy-icon-wrapper bg-gradient-danger flex-shrink-0"
+                        style="width: 65px; height: 65px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%;">
+                        <i class="fas fa-award fs-2 text-white"></i>
+                    </span>
+                    <div>
+                        <h3 class="fw-bold mb-1">নির্বাচিত শিক্ষার্থীরা কী কী সুবিধা পাবে?</h3>
+                        <p class="text-dark-emphasis mb-0">নির্বাচিত শিক্ষার্থীরা পাবেন—</p>
+                    </div>
+                </div>
+
+                <div class="row g-4 mt-2">
+                    <!-- Card 1: Scholarship -->
+                    <div class="col-6 col-sm-6 col-lg-4">
+                        <div
+                            class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100 text-center mega-card">
+                            <div class="fancy-icon-wrapper bg-gradient-danger mx-auto mb-3"
+                                style="width: 65px; height: 65px;">
+                                <i class="fas fa-graduation-cap fs-2 text-white"></i>
                             </div>
-                            <div>
-                                <h3 class="fw-bold">নির্বাচিত শিক্ষার্থীরা কী কী সুবিধা পাবে?</h3>
-                                <p class="text-dark-emphasis">
-                                    নির্বাচিত শিক্ষার্থীরা পাবেন—
-                                <ul class="list-unstyled mt-3 mb-0">
-                                    <li class="d-flex align-items-start mb-2">
-                                        <i class="fas fa-check text-success me-2 mt-1"></i>
-                                        <span>শিক্ষা বৃত্তি </span>
-                                    </li>
-                                    <li class="d-flex align-items-start mb-2">
-                                        <i class="fas fa-check text-success me-2 mt-1"></i>
-                                        <span>সংবর্ধনা মেডেল</span>
-                                    </li>
-                                    <li class="d-flex align-items-start mb-2">
-                                        <i class="fas fa-check text-success me-2 mt-1"></i>
-                                        <span>সার্টিফিকেট</span>
-                                    </li>
-                                    <li class="d-flex align-items-start mb-2">
-                                        <i class="fas fa-check text-success me-2 mt-1"></i>
-                                        <span>ক্রেস্ট</span>
-                                    </li>
-                                    <li class="d-flex align-items-start mb-2">
-                                        <i class="fas fa-check text-success me-2 mt-1"></i>
-                                        <span>শিক্ষা উপকরণ</span>
-                                    </li>
-                                    <li class="d-flex align-items-start mb-2">
-                                        <i class="fas fa-check text-success me-2 mt-1"></i>
-                                        <span>নাম্বার ওয়ান এর পক্ষ থেকে বিশেষ উপহার</span>
-                                    </li>
-                                </ul>
-                            </div>
+                            <h5 class="fw-bold mb-2">শিক্ষা বৃত্তি</h5>
+                            <p class="small text-secondary mb-0">নির্বাচিত শিক্ষার্থীদের জন্য আর্থিক সহায়তা</p>
                         </div>
-                        <div class="position-absolute"
-                            style="right: -60px; bottom: -30px; opacity:0.12; transform: rotate(-20deg);">
-                            <img src="{{ asset('images/no1-logo.png') }}" alt="logo" height="220">
+                    </div>
+
+                    <!-- Card 2: Medal -->
+                    <div class="col-6 col-sm-6 col-lg-4">
+                        <div
+                            class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100 text-center mega-card">
+                            <div class="fancy-icon-wrapper bg-gradient-warning mx-auto mb-3"
+                                style="width: 65px; height: 65px;">
+                                <i class="fas fa-medal fs-2 text-white"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2">সংবর্ধনা মেডেল</h5>
+                            <p class="small text-secondary mb-0">
+                                সংবর্ধনা অনুষ্ঠানে বিশেষ মেডেল প্রদান
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Certificate -->
+                    <div class="col-6 col-sm-6 col-lg-4">
+                        <div
+                            class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100 text-center mega-card">
+                            <div class="fancy-icon-wrapper bg-gradient-primary mx-auto mb-3"
+                                style="width: 65px; height: 65px;">
+                                <i class="fas fa-certificate fs-2 text-white"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2">সার্টিফিকেট</h5>
+                            <p class="small text-secondary mb-0">
+                                নির্বাচিত প্রতিটি কৃতী সন্তানকে সার্টিফিকেট প্রদান করা হবে
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Crest -->
+                    <div class="col-6 col-sm-6 col-lg-4">
+                        <div
+                            class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100 text-center mega-card">
+                            <div class="fancy-icon-wrapper bg-gradient-success mx-auto mb-3"
+                                style="width: 65px; height: 65px;">
+                                <i class="fas fa-trophy fs-2 text-white"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2">ক্রেস্ট</h5>
+                            <p class="small text-secondary mb-0">
+                                সংবর্ধনা অনুষ্ঠানে স্মারক ক্রেস্ট প্রদান করা হবে
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: Educational Materials -->
+                    <div class="col-6 col-sm-6 col-lg-4">
+                        <div
+                            class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100 text-center mega-card">
+                            <div class="fancy-icon-wrapper bg-gradient-info mx-auto mb-3"
+                                style="width: 65px; height: 65px;">
+                                <i class="fas fa-book fs-2 text-white"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2">শিক্ষা উপকরণ</h5>
+                            <p class="small text-secondary mb-0">প্রয়োজনীয় শিক্ষা সামগ্রী</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 6: Special Gift -->
+                    <div class="col-6 col-sm-6 col-lg-4">
+                        <div
+                            class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100 text-center mega-card">
+                            <div class="fancy-icon-wrapper bg-gradient-danger mx-auto mb-3"
+                                style="width: 65px; height: 65px;">
+                                <i class="fas fa-gift fs-2 text-white"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2">বিশেষ উপহার</h5>
+                            <p class="small text-secondary mb-0">নাম্বার ওয়ান থেকে বিশেষ উপহার</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-5">
-                    <div class="row g-3">
-                        <div class="col-12">
-                            <div class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="fancy-icon-wrapper bg-gradient-primary text-white">
-                                        <i class="fas fa-certificate fs-3 text-white"></i>
-                                    </div>
-                                    <div>
-                                        <h5 class="mb-1 fw-bold">সার্টিফিকেট</h5>
-                                        <p class="small text-secondary mb-0">
-                                            নির্বাচিত প্রতিটি কৃতী সন্তানকে সার্টিফিকেট প্রদান করা হবে
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="fancy-icon-wrapper bg-gradient-warning text-white">
-                                        <i class="fas fa-award fs-3 text-white"></i>
-                                    </div>
-                                    <div>
-                                        <h5 class="mb-1 fw-bold">ক্রেস্ট </h5>
-                                        <p class="small text-secondary mb-0">
-                                            নির্বাচিত প্রতিটি কৃতী সন্তানকে প্রদান করা হবে ক্রেস্ট
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-12">
-                            <div class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="fancy-icon-wrapper bg-gradient-success text-white">
-                                        <i class="fas fa-medal fs-3 text-white"></i>
-                                    </div>
-                                    <div>
-                                        <h5 class="mb-1 fw-bold">সংবর্ধনা মেডেল </h5>
-                                        <p class="small text-secondary mb-0">
-                                            নির্বাচিত প্রতিটি কৃতী সন্তানের অভিভাবককে প্রদান করা হবে সংবর্ধনা মেডেল
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Feature badges -->
-            <div class="row mt-4 mt-md-5 g-3 g-md-4 justify-content-center">
-                <div class="col-6 col-md-3">
-                    <div class="fancy-feature-card text-center p-3 p-md-4 rounded-4 bg-white shadow-sm hover-lift">
-                        <div class="fancy-icon-wrapper bg-gradient-danger mx-auto mb-2 mb-md-3">
-                            <i class="fas fa-award fs-1 text-white"></i>
-                        </div>
-                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">শিক্ষা সহায়তা</h5>
-                        <p class="small text-secondary mb-0 d-none d-md-block">বৃত্তি ও ভাতা</p>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="fancy-feature-card text-center p-3 p-md-4 rounded-4 bg-white shadow-sm hover-lift">
-                        <div class="fancy-icon-wrapper bg-gradient-success mx-auto mb-2 mb-md-3">
-                            <i class="fas fa-book fs-1 text-white"></i>
-                        </div>
-                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">শিক্ষা উপকরণ</h5>
-                        <p class="small text-secondary mb-0 d-none d-md-block">প্রয়োজনীয় শিক্ষা উপকরণ</p>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="fancy-feature-card text-center p-3 p-md-4 rounded-4 bg-white shadow-sm hover-lift">
-                        <div class="fancy-icon-wrapper bg-gradient-warning mx-auto mb-2 mb-md-3">
-                            <i class="fas fa-star fs-1 text-white"></i>
-                        </div>
-                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">মেন্টরশিপ</h5>
-                        <p class="small text-secondary mb-0 d-none d-md-block">বিশেষ ওয়ার্কশপ</p>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="fancy-feature-card text-center p-3 p-md-4 rounded-4 bg-white shadow-sm hover-lift">
-                        <div class="fancy-icon-wrapper bg-gradient-info mx-auto mb-2 mb-md-3">
-                            <i class="fas fa-gift fs-1 text-white"></i>
-                        </div>
-                        <h5 class="fw-bold mb-0 mb-md-1 fs-6 fs-md-5">বিশেষ উপহার</h5>
-                        <p class="small text-secondary mb-0 d-none d-md-block">
-                            নাম্বার ওয়ান এর পক্ষ থেকে বিশেষ উপহার
-                        </p>
-                    </div>
+                <!-- Logo Overlay -->
+                <div class="position-absolute"
+                    style="right: -60px; bottom: -30px; opacity:0.15; transform: rotate(-20deg);">
+                    <img src="{{ asset('images/no1-logo.png') }}" alt="logo" height="220">
                 </div>
             </div>
         </div>
@@ -260,19 +213,16 @@
                     </div>
                     <div class="mt-3 mt-md-4">
                         <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
-                            {{-- <i class="fas fa-solid fa-bullseye text-primary fs-6 fs-md-5 mt-1"></i> --}}
                             <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
                             <div><strong class="fs-6 fs-md-5">এসএসসি ২০২৬ পরীক্ষায় কৃতিত্বের সাথে জিপিএ-৫ পেয়ে উত্তীর্ণ
                                     হতে হবে। </strong></div>
                         </div>
                         <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
-                            {{-- <i class="fas fa-solid fa-bullseye text-primary fs-6 fs-md-5 mt-1"></i> --}}
                             <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
                             <div><strong class="fs-6 fs-md-5">আবেদনকারী শিক্ষার্থীর বাবা/অভিভাবক একজন চা দোকানি হতে
                                     হবে।</strong></div>
                         </div>
                         <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
-                            {{-- <i class="fas fa-solid fa-bullseye text-primary fs-6 fs-md-5 mt-1"></i> --}}
                             <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
                             <div><strong class="fs-6 fs-md-5">নির্ধারিত সময়ের মধ্যে অনলাইনে আবেদন সম্পন্ন করতে
                                     হবে।</strong></div>
@@ -283,60 +233,51 @@
                             </div>
                         </div>
 
-                            <div class="d-flex gap-3">
-                                <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
-                                <div><strong class="fs-6 fs-md-5">নাম্বার ওয়ান কর্তৃপক্ষের নির্ধারিত যাচাই প্রক্রিয়ায়
-                                        উত্তীর্ণ হতে হবে।</strong></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-lg-6">
-                    <div class="rounded-4 p-4 p-md-5 h-100 d-flex flex-column justify-content-between mega-card"
-                        style="background: linear-gradient(135deg, #fffdf6 0%, #fff1b9 100%);">
-                        <div class="d-flex justify-content-between align-items-start mb-3 mb-md-4">
-                            <i class="fa-solid fa-bullhorn fs-2 fs-md-1 text-danger opacity-75"></i>
-                            <span class="badge bg-dark text-white px-3 py-2 rounded-pill small">লিমিটেড আসন</span>
-                        </div>
-                        <h3 class="fw-bold fs-2 fs-md-1 text-dark">আজই নিবন্ধন করুন</h3>
-                        <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">আপনি যদি <strong
-                                class="text-primary">এসএসসি/সমমান ২০২৬ পরীক্ষায় </strong> কৃতিত্বের সাথে উত্তীর্ণ একজন
-                            শিক্ষার্থী হন এবং আপনার বাবা/অভিভাবক একজন
-                            চায়ের দোকানি হন, তাহলে এখনই নিবন্ধন করুন।
-                        </p>
-
-                        <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">নিবন্ধন প্রক্রিয়ার জন্য আপনার কাছে থাকা
-                            উচিত:
-                        <ul class="list-unstyled mt-2">
-                            <li><i class="fas fa-check text-success me-2"></i>ব্যক্তিগত তথ্য</li>
-                            <li><i class="fas fa-check text-success me-2"></i>এসএসসি পরীক্ষার তথ্য</li>
-                            <li><i class="fas fa-check text-success me-2"></i>অভিভাবকের তথ্য</li>
-                            <li><i class="fas fa-check text-success me-2"></i>প্রয়োজনীয় ডকুমেন্ট আপলোড</li>
-                        </ul>
-                        </p>
-
-
-                        {{-- <div class="mt-3 mt-md-4">
-                        <a href="{{ route('student.register') }}"
-                            class="btn btn-dark btn-lg rounded-pill px-4 px-md-5 shadow-sm w-100 w-md-auto">আসন
-                            নিশ্চিত করুন <i class="fas fa-arrow-right ms-2"></i></a>
-                    </div> --}}
-                        <div class="mt-3 mt-md-4 small text-dark-emphasis">
-                            <i class="fas fa-calendar-check"></i> তারিখ: অগাস্ট ০৮, ২০২৬ | স্থান: নির্ধারিত ভেন্যু
+                        <div class="d-flex gap-3">
+                            <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
+                            <div><strong class="fs-6 fs-md-5">নাম্বার ওয়ান কর্তৃপক্ষের নির্ধারিত যাচাই প্রক্রিয়ায়
+                                    উত্তীর্ণ হতে হবে।</strong></div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="col-12 col-lg-6">
+                <div class="rounded-4 p-4 p-md-5 h-100 d-flex flex-column justify-content-between mega-card"
+                    style="background: linear-gradient(135deg, #fffdf6 0%, #fff1b9 100%);">
+                    <div class="d-flex justify-content-between align-items-start mb-3 mb-md-4">
+                        <i class="fa-solid fa-bullhorn fs-2 fs-md-1 text-danger opacity-75"></i>
+                        <span class="badge bg-dark text-white px-3 py-2 rounded-pill small">লিমিটেড আসন</span>
+                    </div>
+                    <h3 class="fw-bold fs-2 fs-md-1 text-dark">আজই নিবন্ধন করুন</h3>
+                    <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">আপনি যদি <strong
+                            class="text-primary">এসএসসি/সমমান ২০২৬ পরীক্ষায় </strong> কৃতিত্বের সাথে উত্তীর্ণ একজন
+                        শিক্ষার্থী হন এবং আপনার বাবা/অভিভাবক একজন
+                        চায়ের দোকানি হন, তাহলে এখনই নিবন্ধন করুন।
+                    </p>
+
+                    <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">নিবন্ধন প্রক্রিয়ার জন্য আপনার কাছে থাকা
+                        উচিত:
+                    <ul class="list-unstyled mt-2">
+                        <li><i class="fas fa-check text-danger me-2"></i>ব্যক্তিগত তথ্য</li>
+                        <li><i class="fas fa-check text-danger me-2"></i>এসএসসি পরীক্ষার তথ্য</li>
+                        <li><i class="fas fa-check text-danger me-2"></i>অভিভাবকের তথ্য</li>
+                        <li><i class="fas fa-check text-danger me-2"></i>প্রয়োজনীয় ডকুমেন্ট আপলোড</li>
+                    </ul>
+                    </p>
+
+                    <div class="mt-3 mt-md-4 small text-dark-emphasis">
+                        <i class="fas fa-calendar-check"></i> তারিখ: অগাস্ট ০৮, ২০২৬ | স্থান: নির্ধারিত ভেন্যু
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-
-    <!-- ========== 5. TIMELINE  ========== -->
+    <!-- ========== 5. TIMELINE ========== -->
     <section id="timeline" class="py-4 py-md-6 mt-3 mt-md-5 position-relative overflow-hidden"
         style="background: linear-gradient(145deg, #F9FAFB 0%, #FFFFFF 100%);">
         <div class="container position-relative">
-            <!-- subtle decorative elements -->
-
             <div class="text-center mb-4 mb-md-5 position-relative">
                 <div
                     class="d-inline-flex align-items-center gap-2 bg-white px-4 py-2 rounded-pill shadow-sm mb-3 mb-md-4 border border-light mt-4">
@@ -348,11 +289,9 @@
             </div>
 
             <div class="row g-4 g-md-5 justify-content-center position-relative">
-
                 <div class="col-6 col-md-4 position-relative" style="z-index: 2;">
                     <div class="timeline-card-elegant text-center p-3 p-md-4 rounded-4 bg-white shadow-sm border-0 h-100 d-flex flex-column align-items-center transition-all duration-300 position-relative"
                         style="border-bottom: 4px solid #4F46E5;">
-                        <!-- decorative dot on line -->
                         <div class="d-none d-md-block position-absolute timeline-dot"
                             style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #4F46E5; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(70, 75, 229, 0.15);">
                         </div>
@@ -386,28 +325,9 @@
                     </div>
                 </div>
 
-                {{-- <div class="col-6 col-md-3 position-relative" style="z-index: 2;">
-                    <div class="timeline-card-elegant text-center p-3 p-md-4 rounded-4 bg-white shadow-sm border-0 h-100 d-flex flex-column align-items-center transition-all duration-300 position-relative"
-                        style="border-bottom: 4px solid #22C55E;">
-                        <div class="d-none d-md-block position-absolute timeline-dot"
-                            style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #22C55E; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15);">
-                        </div>
-                        <div class="timeline-icon-wrapper mb-2 mb-md-3"
-                            style="width: 64px; height: 64px; background: linear-gradient(135deg, #F0FDF4, #DCFCE7); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
-                            <i class="fas fa-list-check fs-4" style="color: #22C55E;"></i>
-                        </div>
-                        <h5 class="fw-bold fs-6 fs-md-5 mb-1">মেধা তালিকা</h5>
-                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">২০ সেপ্টেম্বর </p>
-                        <p class="text-secondary small mb-0">২০২৬</p>
-                        <span class="badge bg-success-soft text-success mt-2 px-3 py-1 rounded-pill small fw-normal"
-                            style="background: rgba(34, 197, 94, 0.08);">প্রকাশ</span>
-                    </div>
-                </div> --}}
-
                 <div class="col-6 col-md-4 position-relative" style="z-index: 2;">
                     <div class="timeline-card-elegant text-center p-3 p-md-4 rounded-4 bg-white shadow-sm border-0 h-100 d-flex flex-column align-items-center transition-all duration-300 position-relative"
                         style="border-bottom: 4px solid #8B5CF6;">
-                        <!-- no dot for last -->
                         <div class="d-none d-md-block position-absolute timeline-dot"
                             style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #8B5CF6; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);">
                         </div>
@@ -424,7 +344,6 @@
                 </div>
             </div>
 
-            <!-- subtle bottom decoration -->
             <div class="text-center mt-4 mt-md-5 position-relative">
                 <p class="text-muted small d-flex align-items-center justify-content-center gap-2 py-4">
                     <i class="fas fa-circle text-primary" style="font-size: 0.35rem; opacity: 0.5;"></i>
@@ -441,29 +360,17 @@
             <h2 class="section-title mx-auto">আলোকিত গল্প, সফলতার অনুপ্রেরণা</h2>
             <p class="text-secondary px-2">আগের বছরের কৃতী শিক্ষার্থীদের অভিজ্ঞতা</p>
         </div>
-        <div class="row g-3 g-md-4">
-            <div class="col-12 col-md-6">
-                <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
-                    <img src="{{ asset('images/success-story-1.jpg') }}" alt="success story" class="w-100"
-                        style="height: 200px; object-fit: cover;">
-                    <div class="play-btn-overlay"><i class="fas fa-play text-white"></i></div>
-                </div>
-                <p class="mt-2 mt-md-3 fw-bold text-center fs-6 fs-md-5 px-2">“এই সংবর্ধনা আমার জীবনের মোড় ঘুরিয়ে
-                    দিয়েছে।”
-                    <br class="d-none d-md-block">— রাইসা, চাঁপাইনবাবগঞ্জ
-                </p>
-            </div>
-            <div class="col-12 col-md-6">
-                <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
-                    <img src="{{ asset('images/success-story-4.jpg') }}" alt="success story" class="w-100"
-                        style="height: 200px; object-fit: cover;">
-                    <div class="play-btn-overlay"><i class="fas fa-play text-white"></i></div>
-                </div>
-                <p class="mt-2 mt-md-3 fw-bold text-center fs-6 fs-md-5 px-2">
-                    “নাম্বার ওয়ান সংবর্ধনা আমাকে অনুপ্রাণিত করেছে, আমি আরও বড় স্বপ্ন দেখছি।”
-                    <br class="d-none d-md-block">— রিয়াজ, কুমিল্লা
-                </p>
-            </div>
+
+        <!-- Stories Grid -->
+        <div class="row g-3 g-md-4" id="storiesGrid">
+            <!-- Stories will be injected here by JavaScript -->
+        </div>
+
+        <!-- Load More Button -->
+        <div class="text-center mt-4" id="storiesLoadMoreWrapper">
+            <button type="button" class="btn btn-primary rounded-pill px-4 px-md-5" id="storiesLoadMoreBtn">
+                <i class="fas fa-plus me-1"></i> আরও গল্প দেখুন
+            </button>
         </div>
     </section>
 
@@ -474,31 +381,13 @@
                 <h2 class="section-title text-white mx-auto fs-3 fs-md-2">বিগত বছরের সংবর্ধনার ভিডিও চিত্র</h2>
                 <p class="text-light opacity-75 small">মুহূর্তগুলো দেখুন, অনুপ্রেরণা নিন</p>
             </div>
-            <div class="row g-3 g-md-4">
-                <div class="col-12 col-md-4">
-                    <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
-                        <img src="{{ asset('images/success-story-1.jpg') }}" alt="success story" class="w-100"
-                            style="height: 200px; object-fit: cover;">
-                        <div class="play-btn-overlay"><i class="fas fa-play text-white"></i></div>
-                    </div>
-                    <p class="text-center mt-2 small fw-semibold">ঢাকা বিভাগীয় সংবর্ধনা ২০২৩</p>
-                </div>
-                <div class="col-12 col-md-4">
-                    <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
-                        <img src="{{ asset('images/success-story-3.jpg') }}" alt="success story" class="w-100"
-                            style="height: 200px; object-fit: cover;">
-                        <div class="play-btn-overlay"><i class="fas fa-play text-white"></i></div>
-                    </div>
-                    <p class="text-center mt-2 small fw-semibold">ঢাকা বিভাগীয় সংবর্ধনা ২০২৪</p>
-                </div>
-                <div class="col-12 col-md-4">
-                    <div class="video-thumb rounded-4 overflow-hidden shadow-lg" data-video-id="k6X4nDePiTw">
-                        <img src="{{ asset('images/success-story-4.jpg') }}" alt="success story" class="w-100"
-                            style="height: 200px; object-fit: cover;">
-                        <div class="play-btn-overlay"><i class="fas fa-play text-white"></i></div>
-                    </div>
-                    <p class="text-center mt-2 small fw-semibold">ঢাকা বিভাগীয় সংবর্ধনা ২০২৫</p>
-                </div>
+            <div class="row g-3 g-md-4" id="videoGrid">
+                <!-- videos will be injected here by JS -->
+            </div>
+            <div class="text-center mt-4" id="loadMoreWrapper">
+                <button type="button" class="btn btn-outline-light rounded-pill px-4" id="loadMoreVideosBtn">
+                    <i class="fas fa-plus me-1"></i> আরও ভিডিও দেখুন
+                </button>
             </div>
         </div>
     </section>
@@ -605,7 +494,6 @@
                                     • ক্রেস্ট
                                     • শিক্ষা উপকরণ
                                     • নাম্বার ওয়ান এর পক্ষ থেকে বিশেষ উপহার
-
                                 </div>
                             </div>
                         </div>
@@ -615,51 +503,16 @@
         </div>
     </section>
 
-    <!-- ========== 10. CONTACT INFO ========== -->
-    {{-- <section class="container my-4 my-md-5 py-3 py-md-4">
-        <div class="bg-gradient-contact rounded-4 p-4 p-md-5 text-center text-md-start shadow-lg"
-            style="background: linear-gradient(120deg, #eeeffce8 0%, #FFFFFF 100%);">
-            <div class="row align-items-center g-3 g-md-4">
-                <div class="col-12 col-md-8">
-                    <h3 class="fw-bold fs-3 fs-md-2">আপনার প্রশ্ন আছে?</h3>
-                    <p class="fs-6 fs-md-5 text-secondary mb-2 mb-md-3">আমাদের সাপোর্ট টিম ২৪/৭ নিয়োজিত আছে আপনার যেকোনো
-                        সমস্যার সমাধানে।</p>
-                    <div
-                        class="d-flex flex-wrap gap-3 gap-md-4 mt-2 mt-md-3 justify-content-center justify-content-md-start">
-                        <div class="small"><i class="fas fa-phone text-dark me-2"></i>
-                            <strong>০১৯XX-XXXXXX</strong>
-                        </div>
-                        <div class="small"><i class="fas fa-envelope text-dark me-2"></i>
-                            <strong>https://no1family.com</strong>
-                        </div>
-                        <div class="small"><i class="fas fa-phone text-dark me-2"></i> <strong>০১৭XX-XXXXXX</strong>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 text-center mt-3 mt-md-0">
-                    <img src="{{ asset('images/no1-logo.png') }}" alt="customer care"
-                        class="rounded-circle shadow-lg border border-white border-3" width="90" height="90"
-                        style="object-fit: cover;">
-                    <p class="mt-2 fw-semibold small">কাস্টমার কেয়ার</p>
-                </div>
-            </div>
-        </div>
-    </section> --}}
-
-    <!-- ========== 11. Section আয়োজন  পৃষ্ঠপোষকতায়  Logo of mgi and no1 ========== -->
-
+    <!-- ========== 10. আয়োজন পৃষ্ঠপোষকতায় Logo ========== -->
     <section class="py-4" style="background: linear-gradient(135deg, #F8FAFC, #FFFFFF);">
         <div class="container text-center">
             <h2 class="section-title mx-auto mb-md-5">আয়োজনের পৃষ্ঠপোষক</h2>
             <div class="d-flex justify-content-center align-items-center gap-4 flex-wrap">
                 <img src="{{ asset('images/no1-logo-2.jpeg') }}" alt="MGI Logo" height="120"
                     style="object-fit: contain;">
-                {{-- <img src="{{ asset('images/no1-logo.png') }}" alt="No1 Logo" height="80"
-                    style="object-fit: contain;"> --}}
             </div>
         </div>
     </section>
-
 
     <!-- Video Modal -->
     <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
@@ -692,7 +545,7 @@
 
         .fancy-feature-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 25px -10px rgba(0, 0, 0, 0.12) !important;
+            box-shadow: 0 15px 25px -10px rgba(0, 0, 0, 0.89) !important;
         }
 
         .fancy-icon-wrapper {
@@ -703,11 +556,9 @@
             align-items: center;
             justify-content: center;
             transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-
-        /* .fancy-feature-card:hover .fancy-icon-wrapper {
-                                                                                                                                                                                                                transform: scale(1.1);
-                                                                                                                                                                                                            } */
 
         @media (min-width: 768px) {
             .fancy-icon-wrapper {
@@ -740,56 +591,29 @@
             background: linear-gradient(135deg, #14ffadd4, #203620);
         }
 
-
         /* Premium Shine Effect */
-
-        .bg-gradient-primary::before,
-        .bg-gradient-success::before,
-        .bg-gradient-warning::before,
-        .bg-gradient-danger::before,
-        .bg-gradient-info::before,
-        .bg-gradient-special::before {
-
+        .fancy-icon-wrapper::before {
             content: "";
-
             position: absolute;
-
             top: 0;
             left: -100%;
-
             width: 50%;
             height: 100%;
-
             background: linear-gradient(120deg,
                     transparent,
                     rgba(255, 255, 255, .18),
                     transparent);
-
             transition: .7s;
         }
 
-        .bg-gradient-primary:hover::before,
-        .bg-gradient-success:hover::before,
-        .bg-gradient-warning:hover::before,
-        .bg-gradient-danger:hover::before,
-        .bg-gradient-info:hover::before,
-        .bg-gradient-special:hover::before {
+        .fancy-icon-wrapper:hover::before {
             left: 150%;
         }
 
-        .bg-gradient-primary:hover,
-        .bg-gradient-success:hover,
-        .bg-gradient-warning:hover,
-        .bg-gradient-danger:hover,
-        .bg-gradient-info:hover,
-        .bg-gradient-special:hover,
-        .bg-gradient-dark:hover {
-
+        .fancy-icon-wrapper:hover {
             transform: translateY(-4px);
-
             box-shadow: 0 14px 32px rgba(0, 0, 0, .22);
         }
-
 
         .mega-card {
             position: relative;
@@ -824,7 +648,6 @@
             box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
         }
 
-
         .text-gradient {
             background: linear-gradient(90deg,
                     #fd0e0e,
@@ -849,65 +672,25 @@
         }
 
         /* Timeline Card */
-        .timeline-card-modern {
-            transition: all 0.3s ease;
-        }
-
-        .timeline-card-modern:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px -10px rgba(0, 0, 0, 0.12) !important;
-        }
-
-        .timeline-number {
-            font-size: 2rem;
-            font-weight: 800;
-            color: rgba(0, 0, 0, 0.04);
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            line-height: 1;
-        }
-
-        @media (min-width: 768px) {
-            .timeline-number {
-                font-size: 3rem;
-                top: 10px;
-                right: 20px;
-            }
-        }
-
-        /* Add this to your style section or CSS file */
         @keyframes dotPulse {
             0% {
                 transform: translateY(-50%) scale(1);
-                box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+                box-shadow: 0 0 0 4px rgba(136, 18, 18, 0.15);
             }
 
             50% {
                 transform: translateY(-50%) scale(1.3);
-                box-shadow: 0 0 0 8px rgba(79, 70, 229, 0.25);
+                box-shadow: 0 0 0 8px rgba(136, 18, 18, 0.25);
             }
 
             100% {
                 transform: translateY(-50%) scale(1);
-                box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+                box-shadow: 0 0 0 4px rgba(136, 18, 18, 0.15);
             }
         }
 
         .timeline-dot {
             animation: dotPulse 2s ease-in-out infinite;
-        }
-
-        .timeline-dot:nth-child(2) {
-            animation-delay: 0.5s;
-        }
-
-        .timeline-dot:nth-child(3) {
-            animation-delay: 1s;
-        }
-
-        .timeline-dot:nth-child(4) {
-            animation-delay: 1.5s;
         }
 
         /* Gallery Thumbnails */
@@ -919,7 +702,7 @@
 
         .gallery-thumb.active {
             opacity: 1;
-            border-color: var(--primary, #4F46E5);
+            border-color: #881212;
             transform: scale(0.98);
         }
 
@@ -932,6 +715,22 @@
         .tab-btn {
             font-size: 0.8rem;
             padding: 0.4rem 1rem;
+            border: 2px solid #e5e7eb;
+            background: transparent;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tab-btn.active {
+            background: #881212;
+            color: white;
+            border-color: #ce3c3c;
+        }
+
+        .tab-btn:hover:not(.active) {
+            border-color: #881212;
+            background: #f3f4f6;
         }
 
         @media (min-width: 768px) {
@@ -957,6 +756,7 @@
             font-size: 1.3rem;
             transition: all 0.3s ease;
             cursor: pointer;
+            z-index: 2;
         }
 
         @media (min-width: 768px) {
@@ -967,14 +767,19 @@
             }
         }
 
+        .video-thumb {
+            position: relative;
+            cursor: pointer;
+        }
+
         .video-thumb:hover .play-btn-overlay {
             transform: translate(-50%, -50%) scale(1.1);
-            background: var(--primary, #4F46E5);
+            background: #881212;
         }
 
         /* Hero stats */
         .hero-stats {
-            background: rgba(255, 255, 255, 0.8);
+            /* background: rgba(255, 255, 255, 0.8); */
             backdrop-filter: blur(8px);
             border-radius: 60px;
             padding: 0.5rem 1.2rem;
@@ -1067,44 +872,6 @@
             currentVideoModal.show();
         }
 
-        // Handle video thumbnails click
-        document.querySelectorAll('.video-thumb').forEach(el => {
-            el.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-
-                let videoId = el.getAttribute('data-video-id');
-
-                // If the clicked element doesn't have data-video-id, check parent
-                if (!videoId && el.closest('[data-video-id]')) {
-                    videoId = el.closest('[data-video-id]').getAttribute('data-video-id');
-                }
-
-                if (videoId) {
-                    playVideo(videoId);
-                } else {
-                    console.error('No video ID found for:', el);
-                }
-            });
-        });
-
-        // Also handle any elements with .video-play-btn class
-        document.querySelectorAll('.video-play-btn').forEach(el => {
-            el.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-
-                let videoId = el.getAttribute('data-video-id');
-                if (!videoId && el.closest('[data-video-id]')) {
-                    videoId = el.closest('[data-video-id]').getAttribute('data-video-id');
-                }
-
-                if (videoId) {
-                    playVideo(videoId);
-                }
-            });
-        });
-
         // Reset video when modal is closed
         document.getElementById('videoModal').addEventListener('hidden.bs.modal', function() {
             const iframe = document.getElementById('videoFrame');
@@ -1113,10 +880,172 @@
             }
         });
 
-        // Gallery functionality
+        // ============== DYNAMIC SUCCESS STORIES ==============
+        const storyList = [{
+            videoId: 'tQ9s2vlJ_mU',
+            quote: '“এই সংবর্ধনা আমার জীবনের মোড় ঘুরিয়ে দিয়েছে।”',
+            author: '— রাইসা, চাঁপাইনবাবগঞ্জ',
+            thumbnail: '{{ asset('images/success-story-1.jpg') }}'
+        }, {
+            videoId: 'bqGGZS_QQSc',
+            quote: '“নাম্বার ওয়ান সংবর্ধনা আমাকে অনুপ্রাণিত করেছে, আমি আরও বড় স্বপ্ন দেখছি।”',
+            author: '— রিয়াজ, কুমিল্লা',
+            thumbnail: '{{ asset('images/success-story-2.jpg') }}'
+        }, {
+            videoId: '1558RuFY4D4',
+            quote: '“আমার বাবার স্বপ্ন পূরণ হয়েছে এই সংবর্ধনার মাধ্যমে।”',
+            author: '— সাব্বির, রাজশাহী',
+            thumbnail: '{{ asset('images/success-story-3.jpg') }}'
+        }, {
+            videoId: 'Ygc2yRAkhTU',
+            quote: '“নাম্বার ওয়ান আমার স্বপ্নকে বাস্তবায়িত করতে সাহায্য করেছে।”',
+            author: '— ফাতেমা, সিলেট',
+            thumbnail: '{{ asset('images/success-story-4.jpg') }}'
+        }];
+
+        const STORIES_PER_PAGE = 2;
+        let storiesShown = 0;
+
+        const storiesGrid = document.getElementById('storiesGrid');
+        const loadMoreBtn = document.getElementById('storiesLoadMoreBtn');
+        const loadMoreWrapper = document.getElementById('storiesLoadMoreWrapper');
+
+        function renderStoryCard(story) {
+            const col = document.createElement('div');
+            col.className = 'col-12 col-md-6';
+
+            col.innerHTML = `
+                <div class="video-thumb rounded-4 overflow-hidden shadow-lg position-relative"
+                     style="cursor: pointer;"
+                     data-video-id="${story.videoId}">
+                    <img src="${story.thumbnail}"
+                         alt="Success Story"
+                         class="w-100 story-thumbnail"
+                         style="height: 200px; object-fit: cover;">
+                    <div class="play-btn-overlay"><i class="fas fa-play text-white"></i></div>
+                </div>
+                <p class="mt-2 mt-md-3 fw-bold text-center fs-6 fs-md-5 px-2">
+                    ${story.quote}
+                    <br class="d-none d-md-block">${story.author}
+                </p>
+            `;
+            return col;
+        }
+
+        function loadMoreStories() {
+            const nextBatch = storyList.slice(storiesShown, storiesShown + STORIES_PER_PAGE);
+
+            nextBatch.forEach(story => {
+                const card = renderStoryCard(story);
+                storiesGrid.appendChild(card);
+
+                // Attach click handler to the video thumbnail
+                const thumb = card.querySelector('.video-thumb');
+                thumb.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const videoId = this.getAttribute('data-video-id');
+                    if (videoId) {
+                        playVideo(videoId);
+                    }
+                });
+            });
+
+            storiesShown += nextBatch.length;
+
+            // Hide load more button if all stories are shown
+            if (storiesShown >= storyList.length) {
+                loadMoreWrapper.style.display = 'none';
+            }
+        }
+
+        // Initial load - show first 2 stories
+        loadMoreStories();
+
+        // Load more on button click
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', loadMoreStories);
+        }
+
+        // ============== DYNAMIC VIDEO GALLERY ==============
+        const videoList = [{
+                id: 'tQ9s2vlJ_mU',
+                title: 'ঢাকা বিভাগীয় সংবর্ধনা ২০২৩',
+                thumbnail: '{{ asset('images/success-story-1.jpg') }}'
+            },
+            {
+                id: 'bqGGZS_QQSc',
+                title: 'ঢাকা বিভাগীয় সংবর্ধনা ২০২৪',
+                thumbnail: '{{ asset('images/success-story-2.jpg') }}'
+            },
+            {
+                id: '1558RuFY4D4',
+                title: 'ঢাকা বিভাগীয় সংবর্ধনা ২০২৫',
+                thumbnail: '{{ asset('images/success-story-3.jpg') }}'
+            },
+            {
+                id: 'Ygc2yRAkhTU',
+                title: 'নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা',
+                thumbnail: '{{ asset('images/success-story-4.jpg') }}'
+            },
+        ];
+
+        const VIDEOS_PER_PAGE = 3;
+        let videosShown = 0;
+
+        const videoGrid = document.getElementById('videoGrid');
+        const loadMoreVideosBtn = document.getElementById('loadMoreVideosBtn');
+        const loadMoreVideosWrapper = document.getElementById('loadMoreWrapper');
+
+        function renderVideoCard(video) {
+            const col = document.createElement('div');
+            col.className = 'col-12 col-md-4';
+
+            col.innerHTML = `
+                <div class="video-thumb rounded-4 overflow-hidden shadow-lg position-relative" data-video-id="${video.id}">
+                    <img src="${video.thumbnail}"
+                         alt="${video.title}"
+                         class="w-100"
+                         style="height: 200px; object-fit: cover;">
+                    <div class="play-btn-overlay"><i class="fas fa-play text-white"></i></div>
+                </div>
+                <p class="text-center mt-2 small fw-semibold">${video.title}</p>
+            `;
+            return col;
+        }
+
+        function loadMoreVideos() {
+            const nextBatch = videoList.slice(videosShown, videosShown + VIDEOS_PER_PAGE);
+
+            nextBatch.forEach(video => {
+                const card = renderVideoCard(video);
+                videoGrid.appendChild(card);
+
+                // attach click handler to the newly added card
+                card.querySelector('.video-thumb').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    playVideo(this.getAttribute('data-video-id'));
+                });
+            });
+
+            videosShown += nextBatch.length;
+
+            if (videosShown >= videoList.length) {
+                loadMoreVideosWrapper.style.display = 'none';
+            }
+        }
+
+        // Initial load
+        loadMoreVideos();
+
+        if (loadMoreVideosBtn) {
+            loadMoreVideosBtn.addEventListener('click', loadMoreVideos);
+        }
+
+        // ============== GALLERY FUNCTIONALITY ==============
         const galleryData = {
             all: [
-                // "http://127.0.0.1:8000/images/success-story-1.jpg",
                 "{{ asset('images/success-story-1.jpg') }}",
                 "{{ asset('images/success-story-2.jpg') }}",
                 "{{ asset('images/success-story-3.jpg') }}",

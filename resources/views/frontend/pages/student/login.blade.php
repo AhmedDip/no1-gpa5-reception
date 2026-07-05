@@ -5,7 +5,7 @@
 @section('content')
     <div class="container py-4 mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-6 col-lg-5">
+            <div class="col-md-6 col-lg-5 mt-4">
                 <div class="login-wrapper">
                     {{-- Logo/Brand --}}
                     <div class="text-center mb-4">
