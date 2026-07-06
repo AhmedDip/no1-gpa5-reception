@@ -4,8 +4,8 @@
         <div class="row gy-4 align-items-center">
             <div class="col-md-6 text-center text-md-start">
                 <div class="d-flex align-items-center gap-3 justify-content-center justify-content-md-start">
-                    <img src="{{ asset('images/no1-logo.png') }}" alt="No1" height="45">
-                    <img src="{{ asset('images/mgi-logo.png') }}" alt="MGI" height="35">
+                    {{-- <img src="{{ asset('images/no1-logo.png') }}" alt="No1" height="45"> --}}
+                    <img src="{{ asset('images/mgi-logo.png') }}" alt="MGI" height="35" width="85">
                 </div>
                 <p class="small mt-3 opacity-75">© ২০২৬ MGI. সর্বস্বত্ব সংরক্ষিত</p>
 

@@ -9,7 +9,7 @@
             <div class="row align-items-center g-4 g-lg-5">
                 <div class="col-lg-7 text-center text-lg-start" data-aos="fade-up">
                     <div class="hero-badge d-inline-flex">
-                        <span>২০২৬ সালের বৃহৎ শিক্ষা উদ্যোগ</span>
+                        {{-- <span>২০২৬ সালের বৃহৎ শিক্ষা উদ্যোগ</span> --}}
                     </div>
                     <h1 class="display-large fw-bold main-heading">নাম্বার ওয়ান বাবার <span class="text-gradient">কৃতী
                             সন্তান</span>
@@ -31,7 +31,7 @@
                         <a href="#faq" class="btn btn-outline-danger btn-lg px-4 px-lg-5">বিস্তারিত দেখুন
                         </a>
                     </div>
-          
+
                 </div>
                 <!-- Right Image with Enhanced Circular Background -->
                 <div class="col-lg-5 text-center">
@@ -162,7 +162,7 @@
             <div class="text-center mb-4 mb-md-5">
                 <h2 class="section-title">স্কলারশিপ ও সংবর্ধনা বিবরণ</h2>
                 <p class="text-secondary px-2">
-                    নাম্বার ওয়ান বাবার কৃতি সন্তান সংবর্ধনা ২০২৬-এ নির্বাচিত শিক্ষার্থীদের জন্য বিশেষ সুবিধা প্রদান করা হবে।
+                    নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা ২০২৬-এ নির্বাচিত শিক্ষার্থীদের জন্য বিশেষ সুবিধা প্রদান করা হবে।
                 </p>
             </div>
 
@@ -290,7 +290,7 @@
                     <div class="mt-3 mt-md-4">
                         <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
                             <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
-                            <div><strong class="fs-6 fs-md-5">এসএসসি ২০২৬ পরীক্ষায় কৃতিত্বের সাথে জিপিএ-৫ পেয়ে উত্তীর্ণ
+                            <div><strong class="fs-6 fs-md-5">এসএসসি ২০২৬ পরীক্ষায় কৃতীত্বের সাথে জিপিএ-৫ পেয়ে উত্তীর্ণ
                                     হতে হবে। </strong></div>
                         </div>
                         <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
@@ -327,7 +327,7 @@
                     </div>
                     <h3 class="fw-bold fs-2 fs-md-1 text-dark">আজই নিবন্ধন করুন</h3>
                     <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">আপনি যদি <strong
-                            class="text-primary">এসএসসি/সমমান ২০২৬ পরীক্ষায় </strong> কৃতিত্বের সাথে উত্তীর্ণ একজন
+                            class="text-primary">এসএসসি/সমমান ২০২৬ পরীক্ষায় </strong> কৃতীত্বের সাথে উত্তীর্ণ একজন
                         শিক্ষার্থী হন এবং আপনার বাবা/অভিভাবক একজন
                         চায়ের দোকানি হন, তাহলে এখনই নিবন্ধন করুন।
                     </p>
@@ -361,7 +361,7 @@
                     <span class="fw-semibold small text-uppercase tracking-wide">গুরুত্বপূর্ণ সময়সূচি</span>
                 </div>
                 <h2 class="display-6 display-md-5 fw-bold text-dark">প্রধান সময়সূচি</h2>
-                <p class="text-secondary fs-6 fs-md-5 px-2 mt-2">২০২৬ সালের গুরুত্বপূর্ণ মাইলফলক</p>
+                {{-- <p class="text-secondary fs-6 fs-md-5 px-2 mt-2">২০২৬ সালের গুরুত্বপূর্ণ মাইলফলক</p> --}}
             </div>
 
             <div class="row g-4 g-md-5 justify-content-center position-relative">
@@ -503,8 +503,7 @@
                                     class="accordion-button rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
                                     data-bs-toggle="collapse" data-bs-target="#faq1">কারা আবেদন করতে পারবে?</button></h2>
                             <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-secondary small">এসএসসি ২০২৬ পরীক্ষায় কৃতিত্বের সাথে
-                                    উত্তীর্ণ চা-স্টল ব্যবসায়ীদের সন্তানেরা আবেদন করতে পারবে।</div>
+                                <div class="accordion-body text-secondary small">এসএসসি ২০২৬ পরীক্ষায় কৃতীত্বের সাথে উত্তীর্ণ প্রান্তিক চায়ের দোকানির সন্তানেরা আবেদন করতে পারবে।</div>
                             </div>
                         </div>
                         <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">

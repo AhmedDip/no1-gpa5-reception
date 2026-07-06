@@ -146,12 +146,12 @@
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-            padding: 12px 0;
+            padding: 10px 0;
             transition: all 0.3s ease;
         }
 
         .navbar.scrolled {
-            padding: 8px 0;
+            padding: 6px 0;
             background: rgba(255, 255, 255, 0.98);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
@@ -160,7 +160,7 @@
         .navbar-brand {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             text-decoration: none;
             padding: 0;
         }
@@ -168,7 +168,7 @@
         .navbar-brand .logo-img {
             height: 70px;
             width: auto;
-            max-width: 200px;
+            max-width: 180px;
             object-fit: contain;
             transition: all 0.3s ease;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));

@@ -192,9 +192,8 @@
         /* Navbar */
         .navbar {
             backdrop-filter: blur(12px);
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(247, 238, 238, 0.92);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-            padding: 1rem 0;
             transition: all 0.2s;
         }
 
@@ -221,15 +220,7 @@
         }
 
         .hero-badge {
-            background: rgba(253, 241, 170, 0.1);
-            backdrop-filter: blur(4px);
-            border-radius: 80px;
-            padding: 0.3rem 1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-            color: var(--primary);
+            background: #fcf7f8;
             margin-bottom: 1.5rem;
         }
 
@@ -329,6 +320,7 @@
 
             .hero {
                 padding: 3rem 0;
+                margin-top:30px;
             }
 
             .btn {
