@@ -142,7 +142,7 @@
                         </div>
                         <div class="col-md-2">
                             <label class="form-label">District</label>
-                            <select name="district" class="form-select" id="districtFilter">
+                            <select name="district" class="form-select select2" id="districtFilter">
                                 <option value="">All Districts</option>
                                 @foreach ($districts as $district)
                                     <option value="{{ $district->id }}"

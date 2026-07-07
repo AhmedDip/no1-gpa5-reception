@@ -16,6 +16,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#timeline">সময়সূচি</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#stories">সফলতার গল্প</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#gallery">গ্যালারি</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('previous-year.index') }}">বিগত বছর</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#faq">FAQ</a></li>
 
                     @auth
