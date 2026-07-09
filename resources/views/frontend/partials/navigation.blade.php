@@ -45,7 +45,7 @@
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-bell fs-5 text-warning"></i>
                                     @if ($unreadNotifCount > 0)
-                                        <span class="notif-badge text-warning"
+                                        <span class="notification-glow position-absolute top-0 start-100 translate-middle"
                                             id="notifBadge">{{ $unreadNotifCount > 9 ? '9+' : $unreadNotifCount }}</span>
                                     @endif
                                 </a>

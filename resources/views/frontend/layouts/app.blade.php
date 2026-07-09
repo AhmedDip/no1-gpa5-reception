@@ -17,7 +17,10 @@
     <link rel="stylesheet" href="{{ asset('template/assets/vendor/libs/sweetalert2/sweetalert2.css') }}"
         rel="stylesheet" />
 
-    
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" href="{{ asset('template/assets/vendor/libs/bootstrap-select/bootstrap-select.css') }}" />
+    <link rel="stylesheet" href="{{ asset('template/assets/vendor/libs/select2/select2.css') }}" />
+
 
 
 
@@ -292,7 +295,7 @@
         .badge-archive-glow {
             font-size: 0.65rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #ffc107 0%, #ff8f00 100%);
+            background: linear-gradient(135deg, #ffc001 0%, #db7c00 100%);
             color: #212529;
             padding: 2px 5px;
             border-radius: 4px;
@@ -300,8 +303,8 @@
             line-height: 1;
             display: inline-block;
             transform: translateY(-5px);
-            box-shadow: 0 2px 8px rgba(255, 143, 0, 0.4);
-            animation: badgePulse 2s infinite;
+            box-shadow: 0 2px 8px rgba(255, 145, 0, 0.673);
+            animation: badgePulse 1.8s infinite;
         }
 
         @keyframes badgePulse {
@@ -451,10 +454,27 @@
             }
 
         }
-        .second-heading{
-            font-size: 1.2rem;
-            color:#3f3f42de;
+
+        .second-heading {
+            font-size: 1.3rem;
+            color: #3f3f42de;
             text-align: justify;
+        }
+
+        .notification-glow {
+            font-size: 0.65rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffc108 0%, #ffc108cf 100%);
+            color: #212529;
+            padding: 2px 5px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            line-height: 1;
+            display: inline-block;
+            transform: translateY(-5px);
+            box-shadow: 0 2px 8px rgba(255, 145, 0, 0.673);
+            margin-top: 7px;
+            animation: badgePulse 1.8s infinite;
         }
     </style>
 </head>
@@ -472,6 +492,13 @@
     <script src="{{ asset('template/assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
     <script src="{{ asset('template/assets/vendor/libs/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('template/assets/vendor/libs/toastr/toastr.js') }}"></script>
+
+    {{-- Select2 Scripts --}}
+
+    <script src="{{ asset('template/assets/vendor/libs/bootstrap-select/bootstrap-select.js') }}"></script>
+    <script src="{{ asset('template/assets/vendor/libs/select2/select2.js') }}"></script>
+    <script src="{{ asset('template/assets/js/forms-selects.js') }}"></script>
+
 
     @stack('scripts')
     <script>
