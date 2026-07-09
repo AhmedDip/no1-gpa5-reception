@@ -5,10 +5,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\StudentDetail;
 use App\Models\ApplicationStatus;
 use App\Models\Division;
+use App\Models\StudentDetail;
 use App\Services\MenuService;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -84,45 +85,56 @@ class DashboardController extends Controller
     /**
      * Statistics page
      */
+    // public function stats()
+    // {
+    //     $page_content = [
+    //         'page_title'      => 'Statistics',
+    //         'module_name'     => 'Dashboard',
+    //         'module_route'    => route('admin.dashboard'),
+    //         'sub_module_name' => 'Statistics',
+    //     ];
+
+    //     $data = Cache::remember('admin_dashboard_stats_page', 300, function () {
+    //         $dailyApplications = StudentDetail::select(
+    //             DB::raw('DATE(created_at) as date'),
+    //             DB::raw('count(*) as total')
+    //         )
+    //             ->where('created_at', '>=', now()->subDays(30))
+    //             ->groupBy('date')
+    //             ->orderBy('date')
+    //             ->get();
+
+    //         $gpaDistribution = StudentDetail::select('gpa_result', DB::raw('count(*) as total'))
+    //             ->groupBy('gpa_result')
+    //             ->orderByDesc('total')
+    //             ->limit(10)
+    //             ->get();
+
+    //         $topDistricts = StudentDetail::select('districts.name_bn as name', DB::raw('count(*) as total'))
+    //             ->join('districts', 'student_details.district_id', '=', 'districts.id')
+    //             ->groupBy('districts.name_bn')
+    //             ->orderByDesc('total')
+    //             ->limit(10)
+    //             ->get();
+
+    //         return compact('dailyApplications', 'gpaDistribution', 'topDistricts');
+    //     });
+
+    //     return view('backend.modules.admin.dashboard.stats', array_merge(
+    //         compact('page_content'),
+    //         $data
+    //     ));
+    // }
+
     public function stats()
     {
-        $page_content = [
-            'page_title'      => 'Statistics',
-            'module_name'     => 'Dashboard',
-            'module_route'    => route('admin.dashboard'),
-            'sub_module_name' => 'Statistics',
-        ];
-
-        $data = Cache::remember('admin_dashboard_stats_page', 300, function () {
-            $dailyApplications = StudentDetail::select(
-                DB::raw('DATE(created_at) as date'),
-                DB::raw('count(*) as total')
-            )
-                ->where('created_at', '>=', now()->subDays(30))
-                ->groupBy('date')
-                ->orderBy('date')
-                ->get();
-
-            $gpaDistribution = StudentDetail::select('gpa_result', DB::raw('count(*) as total'))
-                ->groupBy('gpa_result')
-                ->orderByDesc('total')
-                ->limit(10)
-                ->get();
-
-            $topDistricts = StudentDetail::select('districts.name_bn as name', DB::raw('count(*) as total'))
-                ->join('districts', 'student_details.district_id', '=', 'districts.id')
-                ->groupBy('districts.name_bn')
-                ->orderByDesc('total')
-                ->limit(10)
-                ->get();
-
-            return compact('dailyApplications', 'gpaDistribution', 'topDistricts');
-        });
-
-        return view('backend.modules.admin.dashboard.stats', array_merge(
-            compact('page_content'),
-            $data
-        ));
+        //make cache clear php artisan o:c command
+        Artisan::call('optimize:clear');
+        //make a response to show the cache clear message
+        return response()->json([
+            'success' => true,
+            'message' => 'Application cache cleared successfully.',
+        ]);
     }
 
     public function NoPermission()

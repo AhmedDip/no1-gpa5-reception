@@ -42,7 +42,10 @@
                     @forelse ($photos as $index => $photo)
                         <div class="col-6 col-md-4 col-lg-3">
                             <div class="photo-card rounded-4 overflow-hidden shadow-sm" data-index="{{ $index }}">
-                                <img src="{{ $photo['src'] }}" alt="{{ $photo['caption'] }}" loading="lazy">
+                                {{-- <img src="{{ $photo['src'] ?? asset('images/default-user.png') }}" alt="{{ $photo['caption'] }}" loading="lazy"> --}}
+                                {{-- add on error handler --}}
+                                <img src="{{ $photo['src'] ?? asset('images/dummy-image.png') }}" alt="{{ $photo['caption'] }}"
+                                    loading="lazy" onerror="this.onerror=null;this.src='{{ asset('images/dummy-image.png') }}';">
                                 <div class="photo-overlay">
                                     <i class="fas fa-expand"></i>
                                 </div>
@@ -59,10 +62,10 @@
             <div class="tab-pane fade" id="py-videos" role="tabpanel" aria-labelledby="py-videos-tab">
                 <div class="row g-4">
                     @forelse ($videos as $video)
-                        <div class="col-12 col-md-6 col-lg-4">
+                        <div class="col-12 col-md-4 col-lg-4">
                             <div class="video-thumb rounded-4 overflow-hidden shadow-sm"
                                 data-video-id="{{ $video['id'] }}">
-                                <img src="{{ $video['thumbnail'] }}" alt="{{ $video['title'] }}" loading="lazy">
+                                <img src="{{ $video['thumbnail'] ?? asset('images/dummy-image.png') }}" alt="{{ $video['title'] }}" loading="lazy">
                                 <div class="play-btn-overlay">
                                     <i class="fas fa-play"></i>
                                 </div>
@@ -81,7 +84,7 @@
                     @forelse ($newsList as $news)
                         <div class="col-12 col-md-6">
                             <div class="card news-card border-0 shadow-sm h-100 rounded-4 overflow-hidden">
-                                <img src="{{ $news['image'] }}" class="news-card-img" alt="{{ $news['title'] }}"
+                                <img src="{{ $news['image'] ?? asset('images/dummy-image.png') }}" class="news-card-img" alt="{{ $news['title'] }}"
                                     loading="lazy">
                                 <div class="card-body">
                                     <span class="badge bg-danger-soft text-danger mb-2">
@@ -95,7 +98,7 @@
                                         বিস্তারিত পড়ুন <i class="fas fa-arrow-right ms-1"></i>
                                     </button> --}}
                                     <a href="{{ $news['link'] }}" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill">
-                                        বিস্তারিত পড়ুন <i class="fas fa-arrow-right ms-1"></i>
+                                        বিস্তারিত <i class="fas fa-arrow-right ms-1"></i>
                                     </a>
                                 </div>
                             </div>

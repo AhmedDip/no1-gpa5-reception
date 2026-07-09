@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="{{ asset('template/assets/vendor/libs/sweetalert2/sweetalert2.css') }}"
         rel="stylesheet" />
 
+    
+
 
 
     @stack('styles')
@@ -286,6 +288,36 @@
             gap: 0.5rem;
         }
 
+        /* Previous Year Archive Custom Badge */
+        .badge-archive-glow {
+            font-size: 0.65rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffc107 0%, #ff8f00 100%);
+            color: #212529;
+            padding: 2px 5px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            line-height: 1;
+            display: inline-block;
+            transform: translateY(-5px);
+            box-shadow: 0 2px 8px rgba(255, 143, 0, 0.4);
+            animation: badgePulse 2s infinite;
+        }
+
+        @keyframes badgePulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 143, 0, 0.5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 6px rgba(255, 143, 0, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 143, 0, 0);
+            }
+        }
+
         .tab-btn {
             border: none;
             background: transparent;
@@ -320,7 +352,7 @@
 
             .hero {
                 padding: 3rem 0;
-                margin-top:30px;
+                margin-top: 30px;
             }
 
             .btn {
@@ -390,7 +422,7 @@
             content: "";
             position: absolute;
             inset: -1px;
-            border: 2px solid rgba(245, 22, 14, 0.925);
+            border: 3px solid rgba(177, 12, 75, 0.993);
             border-radius: 25px;
             animation: outlinePulse 1.8s ease-in-out infinite;
             pointer-events: none;
@@ -413,11 +445,16 @@
             }
         }
 
-          @media (max-width: 576px) {
+        @media (max-width: 576px) {
             .btn-register-glow {
                 margin-top: 0.5rem;
             }
 
+        }
+        .second-heading{
+            font-size: 1.2rem;
+            color:#3f3f42de;
+            text-align: justify;
         }
     </style>
 </head>

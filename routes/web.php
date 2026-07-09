@@ -7,6 +7,8 @@ use App\Http\Controllers\StudentAuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentNotificationController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 // Home page
 Route::get('/', [StudentController::class, 'home'])->name('home');
 
-// Previous Year (বিগত বছর)
+
+// Previous Year
 Route::get('/previous-year', [PreviousYearController::class, 'index'])->name('previous-year.index');
 
 Route::prefix('student')->name('student.')->group(function () {

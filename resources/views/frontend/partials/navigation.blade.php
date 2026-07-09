@@ -11,13 +11,23 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarMain">
                 <ul class="navbar-nav ms-auto align-items-center gap-lg-2">
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#introduction">ভূমিকা</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#campaign">ভূমিকা</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#eligibility">যোগ্যতা</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#timeline">সময়সূচি</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#stories">সফলতার গল্প</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#gallery">গ্যালারি</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('previous-year.index') }}">বিগত বছর</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#faq">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#faq">
+                        সাধারণ জিজ্ঞাসা
+                    </a></li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative d-inline-flex align-items-center gap-1"
+                            href="{{ route('previous-year.index') }}">
+                            বিগত বছর
+                            <span class="badge-archive-glow">
+                               Archive
+                            </span>
+                        </a>
+                    </li>
 
                     @auth
                         @if (Auth::user()->user_type_id == 1)
@@ -139,256 +149,6 @@
         </div>
     </nav>
 @endunless
-
-@push('styles')
-    <style>
-        /* Navigation Styles */
-        .navbar {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-            padding: 10px 0;
-            transition: all 0.3s ease;
-        }
-
-        .navbar.scrolled {
-            padding: 6px 0;
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Logo Styles - IMPROVED */
-        .navbar-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            padding: 0;
-        }
-
-        .navbar-brand .logo-img {
-            height: 70px;
-            width: auto;
-            max-width: 180px;
-            object-fit: contain;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-        }
-
-        .navbar.scrolled .navbar-brand .logo-img {
-            height: 55px;
-        }
-
-        .navbar-brand .brand-text {
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 1px;
-            text-shadow: none;
-        }
-
-        @media (max-width: 576px) {
-            .navbar-brand .logo-img {
-                height: 50px;
-                max-width: 150px;
-            }
-
-        }
-
-        .nav-link {
-            font-weight: 500;
-            color: #333 !important;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 8px 12px !important;
-        }
-
-        .nav-link:hover {
-            color: #d32f2f !important;
-            transform: translateY(-2px);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: #d32f2f;
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        .nav-link:hover::after {
-            width: 80%;
-        }
-
-        .btn-outline-primary {
-            border: 2px solid #d32f2f;
-            color: #d32f2f;
-            border-radius: 8px;
-            padding: 8px 20px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-outline-primary:hover {
-            background: #d32f2f;
-            border-color: #d32f2f;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
-        }
-
-        .btn-primary {
-            background: #d32f2f;
-            border: 2px solid #d32f2f;
-            border-radius: 8px;
-            padding: 8px 20px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background: #b71c1c;
-            border-color: #b71c1c;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
-        }
-
-        .dropdown-menu {
-            border-radius: 12px;
-            margin-top: 10px;
-            animation: fadeInDown 0.3s ease;
-        }
-
-        .dropdown-item {
-            padding: 10px 20px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .dropdown-item:hover {
-            background: #f8f9fa;
-            transform: translateX(5px);
-        }
-
-        .dropdown-item i {
-            width: 20px;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Mobile Navigation */
-        @media (max-width: 991.98px) {
-            .navbar-collapse {
-                background: white;
-                padding: 20px;
-                border-radius: 12px;
-                margin-top: 15px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            }
-
-            .navbar-nav {
-                gap: 10px !important;
-            }
-
-            .nav-item {
-                width: 100%;
-            }
-
-            .nav-link {
-                padding: 10px 0 !important;
-                text-align: center;
-            }
-
-            .btn-outline-primary,
-            .btn-primary {
-                width: 100%;
-                text-align: center;
-                margin: 5px 0;
-            }
-
-            .dropdown-menu {
-                border: none;
-                box-shadow: none;
-                padding-left: 20px;
-            }
-
-            .dropdown-toggle::after {
-                position: absolute;
-                right: 0;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-        }
-
-        /* Smooth scroll behavior */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Active link styling */
-        .nav-link.active {
-            color: #d32f2f !important;
-        }
-
-        .nav-link.active::after {
-            width: 80%;
-        }
-
-        .notif-badge {
-            position: absolute;
-            top: 2px;
-            right: -2px;
-            background: #d32f2f;
-            color: #fff;
-            border-radius: 50%;
-            font-size: 0.65rem;
-            font-weight: 700;
-            min-width: 17px;
-            height: 17px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 3px;
-            line-height: 1;
-        }
-
-        .notif-dropdown {
-            width: 360px;
-            max-width: 90vw;
-            max-height: 420px;
-            overflow-y: auto;
-            padding: 0;
-        }
-
-        .notif-item.unread {
-            background: #fff5f5;
-        }
-
-        .notif-item .notif-msg {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 260px;
-        }
-    </style>
-@endpush
 
 @push('scripts')
     <script>

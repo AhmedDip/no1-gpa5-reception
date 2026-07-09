@@ -14,13 +14,13 @@
                     <h1 class="display-large fw-bold main-heading">নাম্বার ওয়ান বাবার <span class="text-gradient">কৃতী
                             সন্তান</span>
                         সংবর্ধনা - ২০২৬</h1>
-                    <p>
+                    <p class="second-heading">
                         প্রতিটি সন্তানের সাফল্যের পেছনে থাকে একজন সংগ্রামী বাবা-মায়ের অক্লান্ত পরিশ্রম, ত্যাগ ও ভালোবাসা।
                         বাংলাদেশের হাজারো প্রান্তিক চায়ের দোকানি প্রতিদিন কঠোর পরিশ্রম করে তাদের সন্তানদের শিক্ষার স্বপ্ন
                         পূরণ করে চলেছেন।
                     </p>
 
-                    <p>
+                    <p class="second-heading">
                         সেই সংগ্রামী বাবা-মায়ের অবদানকে সম্মান জানাতে এবং তাদের মেধাবী সন্তানদের অর্জনকে উদযাপন করতে
                         <strong>নাম্বার ওয়ান</strong> আয়োজন করেছে <strong>"নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা
                             ২০২৬"</strong>।
@@ -84,8 +84,7 @@
                         </div>
 
                         <!-- Image with Floating Effect -->
-                        <div class="position-relative"
-                            style="z-index: 2; width: 100%; max-width: 450px;">
+                        <div class="position-relative" style="z-index: 2; width: 100%; max-width: 450px;">
                             <div class="position-relative" style="padding: 15px;">
                                 <!-- Image Shadow Glow -->
                                 <div class="position-absolute rounded-circle"
@@ -434,7 +433,7 @@
     <section id="stories" class="container py-4 py-md-5 my-3 my-md-4">
         <div class="text-center mb-4 mb-md-5">
             <h2 class="section-title mx-auto">আলোকিত গল্প, সফলতার অনুপ্রেরণা</h2>
-            <p class="text-secondary px-2">আগের বছরের কৃতী শিক্ষার্থীদের অভিজ্ঞতা</p>
+            <p class="text-secondary px-2">আগের বছরের কৃতী শিক্ষার্থী ও তাদের অবিভাবকদের অভিজ্ঞতা</p>
         </div>
 
         <!-- Stories Grid -->
@@ -477,13 +476,13 @@
         <div class="d-flex justify-content-center mb-4">
             <div class="tab-filter d-flex flex-wrap justify-content-center gap-1">
                 <button class="tab-btn active" data-cat="all">সব ছবি</button>
-                <button class="tab-btn" data-cat="dhaka">২০২৪</button>
-                <button class="tab-btn" data-cat="chattogram">২০২৫</button>
+                <button class="tab-btn" data-cat="2024">২০২৪</button>
+                <button class="tab-btn" data-cat="2025">২০২৫</button>
             </div>
         </div>
         <div class="gallery-main-container">
             <img id="galleryMain" src="" alt="Gallery Main" class="gallery-main-img w-100 rounded-4 shadow-lg"
-                style="height: auto; max-height: 400px; min-height: 250px; object-fit: cover;">
+                style="height: auto; max-height: 450px; min-height: 250px; object-fit: cover;">
             <div id="galleryThumbs" class="row mt-3 mt-md-4 g-2 justify-content-center"></div>
         </div>
     </section>
@@ -503,7 +502,8 @@
                                     class="accordion-button rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
                                     data-bs-toggle="collapse" data-bs-target="#faq1">কারা আবেদন করতে পারবে?</button></h2>
                             <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-secondary small">এসএসসি ২০২৬ পরীক্ষায় কৃতীত্বের সাথে উত্তীর্ণ প্রান্তিক চায়ের দোকানির সন্তানেরা আবেদন করতে পারবে।</div>
+                                <div class="accordion-body text-secondary small">এসএসসি ২০২৬ পরীক্ষায় কৃতীত্বের সাথে
+                                    উত্তীর্ণ প্রান্তিক চায়ের দোকানির সন্তানেরা আবেদন করতে পারবে।</div>
                             </div>
                         </div>
                         <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
@@ -892,7 +892,7 @@
 
         @media (min-width: 992px) {
             .display-large {
-                font-size: 3.5rem;
+                font-size: 3.6rem;
             }
         }
 
@@ -1043,28 +1043,38 @@
 
         // ============== DYNAMIC SUCCESS STORIES ==============
         const storyList = [{
-            videoId: 'tQ9s2vlJ_mU',
-            quote: '“এই সংবর্ধনা আমার জীবনের মোড় ঘুরিয়ে দিয়েছে।”',
-            author: '— রাইসা, চাঁপাইনবাবগঞ্জ',
-            thumbnail: '{{ asset('images/success-story-1.jpg') }}'
-        }, {
-            videoId: 'bqGGZS_QQSc',
-            quote: '“নাম্বার ওয়ান সংবর্ধনা আমাকে অনুপ্রাণিত করেছে, আমি আরও বড় স্বপ্ন দেখছি।”',
-            author: '— রিয়াজ, কুমিল্লা',
-            thumbnail: '{{ asset('images/success-story-2.jpg') }}'
-        }, {
-            videoId: '1558RuFY4D4',
-            quote: '“আমার বাবার স্বপ্ন পূরণ হয়েছে এই সংবর্ধনার মাধ্যমে।”',
-            author: '— সাব্বির, রাজশাহী',
-            thumbnail: '{{ asset('images/success-story-3.jpg') }}'
-        }, {
-            videoId: 'Ygc2yRAkhTU',
-            quote: '“নাম্বার ওয়ান আমার স্বপ্নকে বাস্তবায়িত করতে সাহায্য করেছে।”',
-            author: '— ফাতেমা, সিলেট',
-            thumbnail: '{{ asset('images/success-story-4.jpg') }}'
-        }];
+                videoId: 'FN70yEkHFlY',
+                quote: '“কমলাপুর, ঢাকা থেকে আগত নাম্বার ওয়ান বাবার কৃতী সন্তান জনাব জাহিদ হোসেন-এর বাবা জনাব মোঃ জাহাঙ্গীর তাঁর ভালো লাগার অনুভূতি শেয়ার করছেন।”',
+                author: '',
+                thumbnail: '{{ asset('images/thumbnail/thumb-1.jpg') }}'
+            },
+            {
+                videoId: '6ji8FHWegpU',
+                quote: '“গাজীপুর থেকে আগত নাম্বার ওয়ান বাবার কৃতী সন্তান জনাব মো: মুজাহিদ প্রধান নাম্বার ওয়ান ব্র্যান্ড-কে ধন্যবাদ প্রদান করেছেন এই ধরণের প্রোগ্রাম আয়োজন করার জন্য।”',
+                author: '',
+                thumbnail: '{{ asset('images/thumbnail/thumb-3.jpg') }}'
+            },
+            {
+                videoId: '7-kC5XP-qYk',
+                quote: '“ঠাকুরগাঁও থেকে আগত নাম্বার ওয়ান বাবা মোঃ আবুল হোসেন নাম্বার ওয়ান ব্র্যান্ডকে ধন্যবাদ জানিয়েছেন তাঁদেরকে নিয়ে এই প্রোগ্রাম আয়োজন করার জন্য।”',
+                author: '',
+                thumbnail: '{{ asset('images/thumbnail/thumb-4.jpg') }}'
+            },
+            {
+                videoId: '5Dtj-bUegMY',
+                quote: '“কুমিল্লা থেকে আগত নাম্বার ওয়ান বাবার কৃতী সন্তান জনাব মো: তানিম আনাস তাঁর অনুভূতি শেয়ার করছেন।”',
+                author: '',
+                thumbnail: '{{ asset('images/thumbnail/thumb-2.jpg') }}'
+            },
+            {
+                videoId: '1558RuFY4D4',
+                quote: '“দিনাজপুর থেকে আগত নাম্বার ওয়ান বাবার কৃতী সন্তান দিয়া রায় তাঁর অনুভূতি শেয়ার করছেন।”',
+                author: '',
+                thumbnail: '{{ asset('images/thumbnail/thumb-5.png') }}'
+            },
+        ];
 
-        const STORIES_PER_PAGE = 2;
+        const STORIES_PER_PAGE = 3;
         let storiesShown = 0;
 
         const storiesGrid = document.getElementById('storiesGrid');
@@ -1073,7 +1083,7 @@
 
         function renderStoryCard(story) {
             const col = document.createElement('div');
-            col.className = 'col-12 col-md-6';
+            col.className = 'col-12 col-md-4';
 
             col.innerHTML = `
                 <div class="video-thumb rounded-4 overflow-hidden shadow-lg position-relative"
@@ -1087,7 +1097,6 @@
                 </div>
                 <p class="mt-2 mt-md-3 fw-bold text-center fs-6 fs-md-5 px-2">
                     ${story.quote}
-                    <br class="d-none d-md-block">${story.author}
                 </p>
             `;
             return col;
@@ -1131,24 +1140,34 @@
         // ============== DYNAMIC VIDEO GALLERY ==============
         const videoList = [{
                 id: 'tQ9s2vlJ_mU',
-                title: 'ঢাকা বিভাগীয় সংবর্ধনা ২০২৩',
-                thumbnail: '{{ asset('images/success-story-1.jpg') }}'
+                title: 'সংবর্ধনা ২০২৫ - স্মৃতিচারণ',
+                thumbnail: '{{ asset('images/thumbnail/thumb-5.jpg') }}'
             },
             {
-                id: 'bqGGZS_QQSc',
-                title: 'ঢাকা বিভাগীয় সংবর্ধনা ২০২৪',
-                thumbnail: '{{ asset('images/success-story-2.jpg') }}'
+                id: 'cm0n089vPDM',
+                title: 'সংবর্ধনা ২০২৫ - স্মৃতিচারণ',
+                thumbnail: '{{ asset('images/thumbnail/thumb-6.jpg') }}'
             },
             {
-                id: '1558RuFY4D4',
-                title: 'ঢাকা বিভাগীয় সংবর্ধনা ২০২৫',
-                thumbnail: '{{ asset('images/success-story-3.jpg') }}'
+                id: 'QDJ2-roC3Zs',
+                title: 'সংবর্ধনা ২০২৫ - স্মৃতিচারণ',
+                thumbnail: '{{ asset('images/thumbnail/thumb-7.jpg') }}'
+            },
+            {
+                id: 'NyCj_Ku4tqg',
+                title: 'সংবর্ধনা ২০২৫ - স্মৃতিচারণ',
+                thumbnail: '{{ asset('images/thumbnail/thumb-8.png') }}'
             },
             {
                 id: 'Ygc2yRAkhTU',
-                title: 'নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা',
-                thumbnail: '{{ asset('images/success-story-4.jpg') }}'
+                title: 'সংবর্ধনা ২০২৫ - স্মৃতিচারণ',
+                thumbnail: '{{ asset('images/thumbnail/thumb-9.png') }}'
             },
+            {
+                id: 'bqGGZS_QQSc',
+                title: 'সংবর্ধনা ২০২৫ - স্মৃতিচারণ',
+                thumbnail: '{{ asset('images/thumbnail/thumb-10.png') }}'
+            }
         ];
 
         const VIDEOS_PER_PAGE = 3;
@@ -1163,13 +1182,16 @@
             col.className = 'col-12 col-md-4';
 
             col.innerHTML = `
-                <div class="video-thumb rounded-4 overflow-hidden shadow-lg position-relative" data-video-id="${video.id}">
-                    <img src="${video.thumbnail}"
-                         alt="${video.title}"
-                         class="w-100"
-                         style="height: 200px; object-fit: cover;">
-                    <div class="play-btn-overlay"><i class="fas fa-play text-white"></i></div>
+           <div class="video-thumb rounded-4 overflow-hidden shadow-lg position-relative" data-video-id="${video.id}">
+                <img src="${video.thumbnail}"
+                    alt="${video.title}"
+                    class="w-100"
+                    style="height: 200px; object-fit: cover;"
+                    onerror="this.onerror=null;this.src='/images/dummy-image.png';">
+                <div class="play-btn-overlay">
+                    <i class="fas fa-play text-white"></i>
                 </div>
+            </div>
                 <p class="text-center mt-2 small fw-semibold">${video.title}</p>
             `;
             return col;
@@ -1210,15 +1232,16 @@
                 "{{ asset('images/success-story-1.jpg') }}",
                 "{{ asset('images/success-story-2.jpg') }}",
                 "{{ asset('images/success-story-3.jpg') }}",
-                "{{ asset('images/success-story-4.jpg') }}"
+                "{{ asset('images/success-story-5.png') }}",
             ],
-            dhaka: [
-                "{{ asset('images/success-story-1.jpg') }}",
-                "{{ asset('images/success-story-2.jpg') }}",
-            ],
-            chattogram: [
+            2024: [
                 "{{ asset('images/success-story-3.jpg') }}",
                 "{{ asset('images/success-story-4.jpg') }}",
+
+            ],
+            2025: [
+                "{{ asset('images/success-story-1.jpg') }}",
+                "{{ asset('images/success-story-2.jpg') }}",
             ]
         };
 
