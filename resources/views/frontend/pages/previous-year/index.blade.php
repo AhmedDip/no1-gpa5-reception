@@ -314,24 +314,19 @@
         }
 
         .video-thumb:hover .play-btn-overlay {
-            background: rgba(170, 27, 29, 0.6);
+            background: rgba(255, 158, 158, 0.253);
         }
 
         .play-btn-overlay i {
-            color: #fff;
+            color: #ffffff;
             font-size: 3.5rem;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(136, 12, 12, 0.979);
             padding: 20px 25px;
             border-radius: 50%;
             backdrop-filter: blur(4px);
             transition: all 0.3s ease;
         }
 
-        .video-thumb:hover .play-btn-overlay i {
-            transform: scale(1.1);
-            background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 30px rgba(170, 27, 29, 0.4);
-        }
 
         /* News Card Styles */
         .news-card {

@@ -1072,6 +1072,12 @@
                 author: '',
                 thumbnail: '{{ asset('images/thumbnail/thumb-5.png') }}'
             },
+            {
+                videoId: 'Ygc2yRAkhTU',
+                quote: '“চট্টগ্রাম থেকে আগত নাম্বার ওয়ান বাবার কৃতী সন্তান মেহেরাজ আক্তার পুষ্পা তাঁর অনুভূতি শেয়ার করছেন।”',
+                author: '',
+                thumbnail: '{{ asset('images/thumbnail/thumb-9.png') }}'
+            },
         ];
 
         const STORIES_PER_PAGE = 3;
@@ -1232,10 +1238,10 @@
                 "{{ asset('images/success-story-1.jpg') }}",
                 "{{ asset('images/success-story-2.jpg') }}",
                 "{{ asset('images/success-story-3.jpg') }}",
-                "{{ asset('images/success-story-5.png') }}",
+                "{{ asset('images/success-story-5.jpg') }}",
             ],
             2024: [
-                "{{ asset('images/success-story-3.jpg') }}",
+                "{{ asset('images/success-story-5.jpg') }}",
                 "{{ asset('images/success-story-4.jpg') }}",
 
             ],
