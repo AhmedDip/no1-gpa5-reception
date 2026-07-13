@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             UserTypeSeeder::class,
             SSCBoardSeeder::class,
             AdminSeeder::class,
-
+            WingRegionalManagerSeeder::class, 
         ]);
     }
 }

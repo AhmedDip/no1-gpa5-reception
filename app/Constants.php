@@ -30,10 +30,7 @@ class Constants
     const USER_TYPES = [
         1 => ['name' => 'Student', 'slug' => 'student'],
         2 => ['name' => 'Admin', 'slug' => 'admin'],
-        3 => ['name' => 'No.1 Brand Team', 'slug' => 'brand-team'],
-        4 => ['name' => 'Sales Team', 'slug' => 'sales-team'],
-        5 => ['name' => 'Agency Team', 'slug' => 'agency-team'],
-        6 => ['name' => 'Scholarship Partners', 'slug' => 'scholarship-partners'],
-        7 => ['name' => 'Event Management Team', 'slug' => 'event-team'],
+        3 => ['name' => 'Wing Manager', 'slug' => 'wing-manager'],
+        4 => ['name' => 'Regional Manager', 'slug' => 'regional-manager'],
     ];
 }

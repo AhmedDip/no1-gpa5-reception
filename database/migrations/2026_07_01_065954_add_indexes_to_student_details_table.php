@@ -19,9 +19,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('student_details', function (Blueprint $table) {
-            $table->dropIndex(['student_details_application_status_id_index']);
-            $table->dropIndex(['student_details_created_at_index']);
-            $table->dropIndex(['student_details_application_status_id_created_at_index']);
+            $table->dropIndex(['application_status_id']);
+            $table->dropIndex(['created_at']);
+            $table->dropIndex(['application_status_id', 'created_at']);
         });
     }
 };

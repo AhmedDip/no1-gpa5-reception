@@ -22,11 +22,10 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email'    => 'required|email',
+            'email'    => 'required',
             'password' => 'required|string',
         ], [
             'email.required'    => 'ইমেইল প্রয়োজন',
-            'email.email'       => 'সঠিক ইমেইল দিন',
             'password.required' => 'পাসওয়ার্ড প্রয়োজন',
         ]);
 

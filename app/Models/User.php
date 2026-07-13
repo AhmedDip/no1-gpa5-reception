@@ -21,6 +21,7 @@ class User extends Authenticatable
         'password',
         'user_type_id',
         'wmng_id',
+        'aemp_mngr',
         'is_mobile_verified',
         'mobile_verified_at',
     ];

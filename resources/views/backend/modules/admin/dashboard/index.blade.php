@@ -369,7 +369,9 @@
                     <div class="hero-meta">
                         <span><i class="bx bx-calendar-alt"></i>{{ now()->translatedFormat('l, d F Y') }}</span>
                         <span class="d-none d-sm-inline" style="color:#d0c8e0;">|</span>
-                        <span><i class="bx bx-badge-check"></i>{{ Auth::user()->webMenuGroup->wmng_name ?? 'Admin' }}</span>
+                        <span><i class="bx bx-badge-check"></i>
+                             {{ Auth::user()?->userType?->name ?? 'Admin' }}</span>
+                        </span>
                     </div>
                 </div>
                 <div>
