@@ -11,40 +11,71 @@ use App\Models\District;
 use App\Models\Division;
 use App\Models\StudentDetail;
 use App\Services\ApplicationExportService;
+use App\Services\ApplicationWorkflowService;
+use App\Services\ManagerScopeService;
 use App\Services\NotificationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ApplicationController extends Controller
 {
     public function __construct(
-        private NotificationService    $notificationService,
+        private NotificationService      $notificationService,
         private ApplicationExportService $exportService,
+        private ManagerScopeService      $managerScope,
+        private ApplicationWorkflowService $workflowService,
     ) {}
+
+    private function scopeUpazilaIds(): ?array
+    {
+        $user = Auth::user();
+
+        if ($user->isAdmin()) {
+            return null;
+        }
+
+        if ($user->isRegionalManager() || $user->isWingManager()) {
+            return $this->managerScope->visibleUpazilaIds($user);
+        }
+
+        return []; // unknown role -> sees nothing
+    }
 
 
     public function index(Request $request)
     {
-        $filters = $request->only(['status', 'board', 'division', 'district', 'search', 'per_page']);
+        $filters    = $request->only(['status', 'board', 'division', 'district', 'search', 'per_page']);
+        $upazilaIds = $this->scopeUpazilaIds();
 
         $query = $this->exportService->buildQuery($filters);
+        if ($upazilaIds !== null) {
+            $query->whereIn('upazila_id', $upazilaIds);
+        }
 
-        $perPage      = 20;
+        $perPage      = $filters['per_page'] ?? 20;
         $applications = $query->paginate($perPage)->withQueryString();
 
+        $countsBase = StudentDetail::query();
+        if ($upazilaIds !== null) {
+            $countsBase->whereIn('upazila_id', $upazilaIds);
+        }
+
         $counts = [
-            'total'    => StudentDetail::count(),
-            'pending'  => StudentDetail::where('application_status_id', 1)->count(),
-            'approved' => StudentDetail::where('application_status_id', 2)->count(),
-            'rejected' => StudentDetail::where('application_status_id', 3)->count(),
+            'total'          => (clone $countsBase)->count(),
+            'pending'        => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_PENDING))->count(),
+            'approved_by_rm' => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_APPROVED_BY_RM))->count(),
+            'approved_by_wm' => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_APPROVED_BY_WM))->count(),
+            'approved'       => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_APPROVED))->count(),
+            'rejected'       => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_REJECTED))->count(),
         ];
 
         $page_content = [
             'page_title'      => 'Applications',
             'module_name'     => 'Applications',
             'module_route'    => route('admin.applications.index'),
-            'sub_module_name' => 'All Applications',
+            'sub_module_name' => Auth::user()->isAdmin() ? 'All Applications' : 'My Region Applications',
         ];
 
         $boards    = Board::orderBy('name')->get();
@@ -67,7 +98,7 @@ class ApplicationController extends Controller
 
     public function show(int $id)
     {
-        $application = StudentDetail::with([
+        $application = $this->findScoped($id, [
             'user',
             'board',
             'group',
@@ -75,11 +106,13 @@ class ApplicationController extends Controller
             'district',
             'upazila',
             'applicationStatus',
+            'rmReviewer',
+            'wmReviewer',
             'auditLogs.performedBy',
             'auditLogs.previousStatus',
             'auditLogs.newStatus',
             'smsLogs' => fn($q) => $q->latest(),
-        ])->findOrFail($id);
+        ]);
 
         $statuses = ApplicationStatus::orderBy('order')->get();
 
@@ -96,40 +129,50 @@ class ApplicationController extends Controller
         );
     }
 
-
     public function approve(Request $request, int $id)
     {
         $request->validate(['remarks' => 'nullable|string|max:1000']);
 
-        $app            = StudentDetail::with('user')->findOrFail($id);
-        $approvedStatus = ApplicationStatus::where('slug', 'approved')->value('id') ?? 2;
-
-        if ($app->application_status_id === $approvedStatus) {
-            return $this->jsonOrRedirect($request, false, 'আবেদনটি ইতিমধ্যে অনুমোদিত।');
-        }
+        $user = Auth::user();
+        $app  = $this->findScoped($id, ['user']);
 
         try {
-            DB::beginTransaction();
+            if ($user->isAdmin()) {
+                $approvedStatus = ApplicationStatus::where('slug', 'approved')->value('id') ?? 2;
 
-            $previousStatus = $app->application_status_id;
-            $app->update(['application_status_id' => $approvedStatus]);
+                if ($app->application_status_id === $approvedStatus) {
+                    return $this->jsonOrRedirect($request, false, 'আবেদনটি ইতিমধ্যে অনুমোদিত।');
+                }
 
-            $this->logAction($app->id, 'approve', $request->remarks ?? '', $previousStatus, $approvedStatus, $request->ip());
+                DB::transaction(function () use ($app, $approvedStatus, $request) {
+                    $previousStatus = $app->application_status_id;
+                    $app->update(['application_status_id' => $approvedStatus]);
+                    $this->logAction($app->id, 'approve', $request->remarks ?? '', $previousStatus, $approvedStatus, $request->ip());
+                });
 
-            DB::commit();
+                $message = 'আবেদন সফলভাবে অনুমোদিত হয়েছে।';
+
+                if ($request->boolean('send_sms', true)) {
+                    $this->notificationService->notifyApproved($app->fresh());
+                }
+            } elseif ($user->isRegionalManager()) {
+                $this->workflowService->rmApprove($app, $user, $request->remarks);
+                $message = 'আবেদনটি RM কর্তৃক অনুমোদিত হয়েছে।';
+            } elseif ($user->isWingManager()) {
+                $this->workflowService->wmApprove($app, $user, $request->remarks);
+                $message = 'আবেদনটি WM কর্তৃক অনুমোদিত হয়েছে।';
+            } else {
+                return $this->jsonOrRedirect($request, false, 'আপনার অনুমতি নেই।', 403);
+            }
+        } catch (\RuntimeException $e) {
+            return $this->jsonOrRedirect($request, false, $e->getMessage(), 422);
         } catch (\Exception $e) {
-            DB::rollBack();
             Log::error('Approve failed: ' . $e->getMessage());
-            return $this->jsonOrRedirect($request, false, 'অনুমোদন ব্যর্থ হয়েছে।');
+            return $this->jsonOrRedirect($request, false, 'অনুমোদন ব্যর্থ হয়েছে।', 500);
         }
 
-        if ($request->boolean('send_sms', true)) {
-            $this->notificationService->notifyApproved($app->fresh());
-        }
-
-        return $this->jsonOrRedirect($request, true, 'আবেদন সফলভাবে অনুমোদিত হয়েছে।');
+        return $this->jsonOrRedirect($request, true, $message);
     }
-
 
     public function reject(Request $request, int $id)
     {
@@ -140,30 +183,38 @@ class ApplicationController extends Controller
             'remarks.min'      => 'কারণ কমপক্ষে ৫ অক্ষরের হতে হবে।',
         ]);
 
-        $app            = StudentDetail::with('user')->findOrFail($id);
-        $rejectedStatus = ApplicationStatus::where('slug', 'rejected')->value('id') ?? 3;
-
-        if ($app->application_status_id === $rejectedStatus) {
-            return $this->jsonOrRedirect($request, false, 'আবেদনটি ইতিমধ্যে প্রত্যাখ্যাত।');
-        }
+        $user = Auth::user();
+        $app  = $this->findScoped($id, ['user']);
 
         try {
-            DB::beginTransaction();
+            if ($user->isAdmin()) {
+                $rejectedStatus = ApplicationStatus::where('slug', 'rejected')->value('id') ?? 3;
 
-            $previousStatus = $app->application_status_id;
-            $app->update(['application_status_id' => $rejectedStatus]);
+                if ($app->application_status_id === $rejectedStatus) {
+                    return $this->jsonOrRedirect($request, false, 'আবেদনটি ইতিমধ্যে প্রত্যাখ্যাত।');
+                }
 
-            $this->logAction($app->id, 'reject', $request->remarks, $previousStatus, $rejectedStatus, $request->ip());
+                DB::transaction(function () use ($app, $rejectedStatus, $request) {
+                    $previousStatus = $app->application_status_id;
+                    $app->update(['application_status_id' => $rejectedStatus]);
+                    $this->logAction($app->id, 'reject', $request->remarks, $previousStatus, $rejectedStatus, $request->ip());
+                });
 
-            DB::commit();
+                if ($request->boolean('send_sms', true)) {
+                    $this->notificationService->notifyRejected($app->fresh(), $request->remarks);
+                }
+            } elseif ($user->isRegionalManager()) {
+                $this->workflowService->rmReject($app, $user, $request->remarks);
+            } elseif ($user->isWingManager()) {
+                $this->workflowService->wmReject($app, $user, $request->remarks);
+            } else {
+                return $this->jsonOrRedirect($request, false, 'আপনার অনুমতি নেই।', 403);
+            }
+        } catch (\RuntimeException $e) {
+            return $this->jsonOrRedirect($request, false, $e->getMessage(), 422);
         } catch (\Exception $e) {
-            DB::rollBack();
             Log::error('Reject failed: ' . $e->getMessage());
-            return $this->jsonOrRedirect($request, false, 'প্রত্যাখ্যান ব্যর্থ হয়েছে।');
-        }
-
-        if ($request->boolean('send_sms', true)) {
-            $this->notificationService->notifyRejected($app->fresh(), $request->remarks);
+            return $this->jsonOrRedirect($request, false, 'প্রত্যাখ্যান ব্যর্থ হয়েছে।', 500);
         }
 
         return $this->jsonOrRedirect($request, true, 'আবেদন প্রত্যাখ্যাত হয়েছে।');
@@ -172,6 +223,7 @@ class ApplicationController extends Controller
 
     public function bulkApprove(Request $request)
     {
+        abort_unless(Auth::user()->isAdmin(), 403);
         $request->validate([
             'application_ids'   => 'required|array|min:1|max:200',
             'application_ids.*' => 'integer|exists:student_details,id',
@@ -231,6 +283,7 @@ class ApplicationController extends Controller
 
     public function bulkReject(Request $request)
     {
+        abort_unless(Auth::user()->isAdmin(), 403);
         $request->validate([
             'application_ids'   => 'required|array|min:1|max:200',
             'application_ids.*' => 'integer|exists:student_details,id',
@@ -283,6 +336,7 @@ class ApplicationController extends Controller
 
     public function sendNotification(Request $request, int $id)
     {
+        abort_unless(Auth::user()->isAdmin(), 403);
         $request->validate([
             'message_type' => 'required|in:approved,rejected,custom',
             'custom_msg'   => 'required_if:message_type,custom|nullable|string|max:300',
@@ -311,6 +365,7 @@ class ApplicationController extends Controller
 
     public function bulkNotify(Request $request)
     {
+        abort_unless(Auth::user()->isAdmin(), 403);
         $request->validate([
             'application_ids'   => 'required|array|min:1|max:200',
             'application_ids.*' => 'integer|exists:student_details,id',
@@ -337,10 +392,23 @@ class ApplicationController extends Controller
 
     public function export(Request $request)
     {
+        abort_unless(Auth::user()->isAdmin(), 403);
         $filters = $request->only(['status', 'board', 'division', 'district', 'search']);
         return $this->exportService->downloadCsv($filters);
     }
 
+
+    private function findScoped(int $id, array $with = []): StudentDetail
+    {
+        $upazilaIds = $this->scopeUpazilaIds();
+        $query      = StudentDetail::with($with);
+
+        if ($upazilaIds !== null) {
+            $query->whereIn('upazila_id', $upazilaIds);
+        }
+
+        return $query->findOrFail($id);
+    }
 
     private function logAction(
         int $studentDetailId,
@@ -361,10 +429,10 @@ class ApplicationController extends Controller
         ]);
     }
 
-    private function jsonOrRedirect(Request $request, bool $success, string $message): mixed
+    private function jsonOrRedirect(Request $request, bool $success, string $message, ?int $status = null): mixed
     {
         if ($request->expectsJson() || $request->ajax()) {
-            return response()->json(['success' => $success, 'message' => $message], $success ? 200 : 422);
+            return response()->json(['success' => $success, 'message' => $message], $status ?? ($success ? 200 : 422));
         }
 
         $type = $success ? 'success' : 'error';

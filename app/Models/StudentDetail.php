@@ -11,6 +11,13 @@ class StudentDetail extends Model
 {
     protected $table = 'student_details';
 
+    const STATUS_PENDING        = 'pending';
+    const STATUS_APPROVED_BY_RM = 'approved_by_rm';
+    const STATUS_APPROVED_BY_WM = 'approved_by_wm';
+    const STATUS_APPROVED       = 'approved';
+    const STATUS_REJECTED       = 'rejected';
+
+
     protected $fillable = [
         'user_id',
         'name_en',
@@ -34,12 +41,18 @@ class StudentDetail extends Model
         'application_status_id',
         'sms_sent_at',
         'notification_sent',
+        'rm_reviewed_by',
+        'rm_reviewed_at',
+        'wm_reviewed_by',
+        'wm_reviewed_at',
     ];
 
     protected $casts = [
         'is_parent_info_provided' => 'boolean',
         'notification_sent'       => 'boolean',
         'sms_sent_at'             => 'datetime',
+        'rm_reviewed_at'          => 'datetime',
+        'wm_reviewed_at'          => 'datetime',
     ];
 
 
@@ -85,45 +98,13 @@ class StudentDetail extends Model
     }
 
 
-    public function isApproved(): bool
-    {
-        return $this->application_status_id === 2;
-    }
 
-    public function isRejected(): bool
-    {
-        return $this->application_status_id === 3;
-    }
-
-    public function isPending(): bool
-    {
-        return $this->application_status_id === 1;
-    }
 
     public function smsLogs(): HasMany
     {
         return $this->hasMany(SmsLog::class);
     }
 
-    public function getStatusColorAttribute(): string
-    {
-        return match ($this->application_status_id) {
-            1 => 'warning',
-            2 => 'success',
-            3 => 'danger',
-            default => 'secondary',
-        };
-    }
-
-    public function getStatusLabelBnAttribute(): string
-    {
-        return match ($this->application_status_id) {
-            1 => 'অপেক্ষমাণ',
-            2 => 'অনুমোদিত',
-            3 => 'প্রত্যাখ্যাত',
-            default => 'অজানা',
-        };
-    }
 
     public function getStudentPhotoUrlAttribute(): string
     {
@@ -135,12 +116,62 @@ class StudentDetail extends Model
         return $this->resolvePhotoUrl($this->parent_photo);
     }
 
-     private function resolvePhotoUrl(?string $path): string
+    private function resolvePhotoUrl(?string $path): string
     {
         if ($path && Storage::disk('uploads')->exists($path)) {
             return Storage::disk('uploads')->url($path);
         }
 
         return asset('images/default-user.png');
+    }
+
+    public function rmReviewer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'rm_reviewed_by');
+    }
+
+    public function wmReviewer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'wm_reviewed_by');
+    }
+
+    public function isApproved(): bool
+    {
+        return $this->applicationStatus?->slug === self::STATUS_APPROVED;
+    }
+
+    public function isRejected(): bool
+    {
+        return $this->applicationStatus?->slug === self::STATUS_REJECTED;
+    }
+
+    public function isPending(): bool
+    {
+        return $this->applicationStatus?->slug === self::STATUS_PENDING;
+    }
+
+    // Replace getStatusColorAttribute() and getStatusLabelBnAttribute() with slug-based versions
+    public function getStatusColorAttribute(): string
+    {
+        return match ($this->applicationStatus?->slug) {
+            self::STATUS_PENDING        => 'warning',
+            self::STATUS_APPROVED_BY_RM => 'info',
+            self::STATUS_APPROVED_BY_WM => 'primary',
+            self::STATUS_APPROVED       => 'success',
+            self::STATUS_REJECTED       => 'danger',
+            default                     => 'secondary',
+        };
+    }
+
+    public function getStatusLabelBnAttribute(): string
+    {
+        return match ($this->applicationStatus?->slug) {
+            self::STATUS_PENDING        => 'অপেক্ষমাণ',
+            self::STATUS_APPROVED_BY_RM => 'RM কর্তৃক অনুমোদিত',
+            self::STATUS_APPROVED_BY_WM => 'WM কর্তৃক অনুমোদিত',
+            self::STATUS_APPROVED       => 'অনুমোদিত',
+            self::STATUS_REJECTED       => 'প্রত্যাখ্যাত',
+            default                     => 'অজানা',
+        };
     }
 }

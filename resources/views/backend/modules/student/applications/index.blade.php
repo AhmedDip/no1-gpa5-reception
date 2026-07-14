@@ -89,9 +89,11 @@
                 <h5 class="mb-0">
                     <i class="fas fa-filter me-2"></i>Filter Applications
                 </h5>
-                <a href="{{ route('admin.applications.export', request()->query()) }}" class="btn btn-success btn-sm">
-                    <i class="fas fa-file-excel me-1"></i> Export
-                </a>
+                @if (auth()->user()->isAdmin())
+                    <a href="{{ route('admin.applications.export', request()->query()) }}" class="btn btn-success btn-sm">
+                        <i class="fas fa-file-excel me-1"></i> Export
+                    </a>
+                @endif
             </div>
             <div class="card-body">
                 <form method="GET" action="{{ route('admin.applications.index') }}" id="filterForm">
@@ -185,15 +187,17 @@
                     <i class="fas fa-list me-2"></i>Applications List
                 </h5>
                 <div class="d-flex gap-2">
-                    <button type="button" class="btn btn-success btn-sm" id="bulkApproveBtn" disabled>
-                        <i class="fas fa-check me-1"></i> Approve
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm" id="bulkRejectBtn" disabled>
-                        <i class="fas fa-times me-1"></i> Reject
-                    </button>
-                    <button type="button" class="btn btn-info btn-sm" id="bulkNotifyBtn" disabled>
-                        <i class="fas fa-sms me-1"></i> Notify
-                    </button>
+                    @if (auth()->user()->isAdmin())
+                        <button type="button" class="btn btn-success btn-sm" id="bulkApproveBtn" disabled>
+                            <i class="fas fa-check me-1"></i> Approve
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm" id="bulkRejectBtn" disabled>
+                            <i class="fas fa-times me-1"></i> Reject
+                        </button>
+                        <button type="button" class="btn btn-info btn-sm" id="bulkNotifyBtn" disabled>
+                            <i class="fas fa-sms me-1"></i> Notify
+                        </button>
+                    @endif
                 </div>
             </div>
             <div class="card-body">
@@ -202,7 +206,9 @@
                         <thead>
                             <tr>
                                 <th width="30">
-                                    <input type="checkbox" id="selectAll" class="form-check-input">
+                                    @if (auth()->user()->isAdmin())
+                                        <input type="checkbox" id="selectAll" class="form-check-input">
+                                    @endif
                                 </th>
                                 <th>#</th>
                                 <th>Student</th>
@@ -218,8 +224,10 @@
                             @forelse($applications as $index => $application)
                                 <tr>
                                     <td>
-                                        <input type="checkbox" class="form-check-input application-checkbox"
-                                            value="{{ $application->id }}">
+                                        @if (auth()->user()->isAdmin())
+                                            <input type="checkbox" class="form-check-input application-checkbox"
+                                                value="{{ $application->id }}">
+                                        @endif
                                     </td>
                                     <td>{{ $applications->firstItem() + $index }}</td>
                                     <td>
@@ -230,8 +238,9 @@
                                                 </span> --}}
                                                 <span class="avatar-initial rounded-circle bg-label-primary">
                                                     @if ($application->student_photo)
-                                                        <img src="{{ $application->student_photo_url }}" alt="Student Photo"
-                                                            class="rounded-circle" width="32" height="32">
+                                                        <img src="{{ $application->student_photo_url }}"
+                                                            alt="Student Photo" class="rounded-circle" width="32"
+                                                            height="32">
                                                     @else
                                                         {{ strtoupper(substr($application->name_en ?? 'N/A', 0, 1)) }}
                                                     @endif
@@ -282,7 +291,23 @@
                                                 class="btn btn-icon btn-outline-info btn-sm" title="View">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            @if ($application->application_status_id == 1)
+                                            @php
+                                                $slug = $application->applicationStatus->slug ?? null;
+                                                $me = auth()->user();
+
+                                                $canAct = $me->isAdmin()
+                                                    ? in_array($slug, [
+                                                        \App\Models\StudentDetail::STATUS_PENDING,
+                                                        \App\Models\StudentDetail::STATUS_APPROVED_BY_RM,
+                                                        \App\Models\StudentDetail::STATUS_APPROVED_BY_WM,
+                                                    ])
+                                                    : ($me->isRegionalManager() &&
+                                                            $slug === \App\Models\StudentDetail::STATUS_PENDING) ||
+                                                        ($me->isWingManager() &&
+                                                            $slug === \App\Models\StudentDetail::STATUS_APPROVED_BY_RM);
+                                            @endphp
+
+                                            @if ($canAct)
                                                 <button class="btn btn-icon btn-outline-success btn-sm approve-btn"
                                                     data-id="{{ $application->id }}" title="Approve">
                                                     <i class="fas fa-check"></i>
@@ -764,7 +789,7 @@
                         $('#bulkRejectForm button[type="submit"]').prop('disabled', true)
                             .html(
                                 '<span class="spinner-border spinner-border-sm me-1"></span> Processing...'
-                                );
+                            );
                     },
                     success: function(response) {
                         if (response.success) {

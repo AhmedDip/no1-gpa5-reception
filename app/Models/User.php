@@ -132,4 +132,36 @@ class User extends Authenticatable
                 return false;
         }
     }
+
+    // app/Models/User.php — add inside the class
+
+    public function manager(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'aemp_mngr');
+    }
+
+    public function subordinates(): HasMany
+    {
+        return $this->hasMany(User::class, 'aemp_mngr');
+    }
+
+    public function upazilaAssignments(): HasMany
+    {
+        return $this->hasMany(UpazilaManagerAssignment::class, 'user_id');
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->user_type_id == 2;
+    }
+
+    public function isWingManager(): bool
+    {
+        return $this->user_type_id == 3;
+    }
+
+    public function isRegionalManager(): bool
+    {
+        return $this->user_type_id == 4;
+    }
 }

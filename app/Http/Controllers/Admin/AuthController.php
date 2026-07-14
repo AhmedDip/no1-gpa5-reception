@@ -30,7 +30,7 @@ class AuthController extends Controller
         ]);
 
         // Rate limiting
-        $throttleKey = Str::lower($request->email).'|'.$request->ip();
+        $throttleKey = Str::lower($request->email) . '|' . $request->ip();
 
         if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
             $seconds = RateLimiter::availableIn($throttleKey);
@@ -61,7 +61,11 @@ class AuthController extends Controller
             RateLimiter::clear($throttleKey);
             $request->session()->regenerate();
 
-            return redirect()->route('admin.dashboard')->with('success', 'স্বাগতম, '.$user->name.'!');
+            if ($user->isWingManager() || $user->isRegionalManager()) {
+                return redirect()->route('admin.applications.index')->with('success', 'স্বাগতম, ' . $user->name . '!');
+            }
+
+            return redirect()->route('admin.dashboard')->with('success', 'স্বাগতম, ' . $user->name . '!');
         }
 
         RateLimiter::hit($throttleKey);
