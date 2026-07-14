@@ -115,6 +115,11 @@ class WingRegionalManagerSeeder extends Seeder
             ['id' => 56, 'name' => '(Gulshan_R-C)Shafiqur Rahman',         'aemp_usnm' => '005476', 'aemp_mngr' => 13],
             ['id' => 57,  'name' => '(Jatrabari_R-C)Mojidur Rahman',        'aemp_usnm' => '017283', 'aemp_mngr' => 13],
             ['id' => 58,  'name' => '(Lalbag_R-C)Masum Billah',             'aemp_usnm' => '133017', 'aemp_mngr' => 13],
+
+
+            //missing ids add
+            ['id' => 59,  'name' => '(Motijheel_R-C)Md. Shafiqul Islam',      'aemp_usnm' => '003042', 'aemp_mngr' => 5],
+
         ];
 
         foreach ($regionalManagers as $rm) {
@@ -139,7 +144,6 @@ class WingRegionalManagerSeeder extends Seeder
             ['email' => $data['aemp_usnm']],
             [
                 'name'                => $data['name'],
-                // 'mobile'              => $data['aemp_usnm'],
                 'email'               => $data['aemp_usnm'],
                 'password'            => Hash::make($data['aemp_usnm']),
                 'user_type_id'        => $userTypeId,

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SmsLogController;
+use App\Http\Controllers\Admin\UpazilaManagerImportController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -15,6 +16,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
     Route::middleware(['auth', 'admin.auth', 'prevent.back'])->group(function () {
+
+        Route::prefix('upazila-managers')->name('upazila-managers.')->group(function () {
+            Route::get('/', [UpazilaManagerImportController::class, 'index'])->name('index');
+        });
 
         Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
