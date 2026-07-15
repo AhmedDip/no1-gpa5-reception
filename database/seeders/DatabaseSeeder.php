@@ -10,14 +10,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            DivisionSeeder::class,
-            DistrictSeeder::class,
-            UpazilaSeeder::class,
             StudentGroupSeeder::class,
             UserTypeSeeder::class,
             SSCBoardSeeder::class,
+            ApplicationStatusSeeder::class,
             AdminSeeder::class,
-            WingRegionalManagerSeeder::class, 
+            WingRegionalManagerSeeder::class,
         ]);
     }
 }
