@@ -4,275 +4,56 @@
 
 @push('css')
     <style>
-        :root {
-            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            --bg-soft: #f6f4fe;
-            --glass: rgba(255, 255, 255, 0.842);
-            --glass-border: rgba(255, 255, 255, 0.5);
-            --shadow-soft: 0 12px 40px -12px rgba(40, 20, 80, 0.12);
-            --radius-card: 24px;
-            --radius-sm: 14px;
-            --color-primary: #4f3b8c;
-            --color-primary-light: #7c6bb0;
-            --color-text: #1f1a2e;
-            --color-muted: #7a6e96;
-            --color-border-light: rgba(79, 59, 140, 0.08);
+        /* Stats Card Animations */
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(200%) rotate(45deg); }
         }
 
-        body {
-            font-family: var(--font) !important;
-            background: var(--bg-soft) !important;
-            color: var(--color-text);
-            line-height: 1.5;
+        .stat-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none !important;
+            border-radius: 20px !important;
         }
 
-        .gc {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-card);
-            box-shadow: var(--shadow-soft);
-            transition: all 0.25s ease;
+        .stat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08) !important;
         }
 
-        .gc:hover {
-            box-shadow: 0 20px 48px -16px rgba(40, 20, 80, 0.18);
-            border-color: rgba(255, 255, 255, 0.7);
+        .stat-card:hover .stat-icon-wrapper > div {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
         }
 
-        .hero-card {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(245, 240, 255, 0.6));
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: var(--radius-card);
-            box-shadow: var(--shadow-soft);
-            position: relative;
-            overflow: hidden;
+        .stat-card .stat-icon-wrapper > div {
+            transition: transform 0.3s ease;
         }
 
-        .hero-card::before {
-            content: '';
-            position: absolute;
-            top: -40%;
-            right: -10%;
-            width: 280px;
-            height: 280px;
-            background: radial-gradient(circle, rgba(120, 90, 200, 0.06), transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .hero-greeting {
-            font-size: 1.6rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--color-text);
-            line-height: 1.2;
-        }
-
-        .hero-greeting span {
-            color: var(--color-primary);
-        }
-
-        .hero-meta {
-            font-size: 0.85rem;
-            color: var(--color-muted);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            align-items: center;
-            margin-top: 0.25rem;
-        }
-
-        .hero-meta i {
-            margin-right: 4px;
-            font-size: 1rem;
-            vertical-align: -1px;
-        }
-
-        .btn-hero {
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(79, 59, 140, 0.15);
-            border-radius: 60px;
-            padding: 8px 22px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--color-primary);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s;
-            box-shadow: 0 2px 10px rgba(79, 59, 140, 0.06);
-        }
-
-        .btn-hero:hover {
-            background: #fff;
-            border-color: var(--color-primary-light);
-            box-shadow: 0 8px 24px rgba(79, 59, 140, 0.12);
-            transform: translateY(-1px);
-            color: var(--color-primary);
-        }
-
-        .stat-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            color: #fff;
-            flex-shrink: 0;
-        }
-
-        .si-purple {
-            background: linear-gradient(145deg, #8b75c0, #5a4298);
-        }
-
-        .si-orange {
-            background: linear-gradient(145deg, #eab55a, #ca9430);
-        }
-
-        .si-green {
-            background: linear-gradient(145deg, #44c9a0, #1e9e7a);
-        }
-
-        .si-red {
-            background: linear-gradient(145deg, #e6776a, #c34a3c);
-        }
-
-        .stat-num {
-            font-size: 1.9rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--color-text);
-            line-height: 1.1;
-            margin-top: 0.6rem;
-        }
-
-        .stat-lbl {
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: var(--color-muted);
-            letter-spacing: 0.2px;
-            margin-top: 2px;
-        }
-
-        .stat-trend {
-            font-size: 0.7rem;
-            color: var(--color-muted);
-            margin-top: 8px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .trend-up {
-            color: #1e9e7a;
-            font-weight: 600;
-        }
-
-        .trend-warn {
-            color: #b58a2a;
-            font-weight: 600;
-        }
-
-        .trend-down {
-            color: #b54a3c;
-            font-weight: 600;
-        }
-
-        .bdg {
-            font-size: 0.6rem;
-            font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 40px;
-            letter-spacing: 0.3px;
-            background: rgba(79, 59, 140, 0.06);
-            color: var(--color-primary-light);
-            border: 1px solid rgba(79, 59, 140, 0.08);
-        }
-
-        .bdg-orange {
-            background: rgba(235, 180, 60, 0.08);
-            color: #b58a2a;
-            border-color: rgba(235, 180, 60, 0.12);
-        }
-
-        .bdg-green {
-            background: rgba(50, 200, 150, 0.08);
-            color: #1e8a6a;
-            border-color: rgba(50, 200, 150, 0.12);
-        }
-
-        .bdg-red {
-            background: rgba(220, 90, 70, 0.07);
-            color: #b54a3c;
-            border-color: rgba(220, 90, 70, 0.10);
-        }
-
-        .sec-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--color-text);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 0;
-        }
-
-        .sec-title i {
-            font-size: 1rem;
-            color: var(--color-primary-light);
-        }
-
-        .tbl-wrap {
-            border-collapse: separate;
-            border-spacing: 0 6px;
-            width: 100%;
-        }
-
-        .tbl-wrap thead th {
-            font-size: 0.6rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.6px;
-            color: var(--color-muted);
-            padding: 8px 14px;
-            border: 0;
-            background: transparent;
-        }
-
-        .tbl-wrap tbody tr {
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(4px);
-            border-radius: 14px;
+        .stat-card .badge {
             transition: all 0.2s ease;
         }
 
-        .tbl-wrap tbody tr:hover {
-            background: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 6px 20px -8px rgba(40, 20, 80, 0.12);
+        .stat-card:hover .badge {
+            transform: scale(1.02);
         }
 
-        .tbl-wrap tbody td {
-            border: 0;
-            padding: 12px 14px;
-            font-size: 0.8rem;
-            vertical-align: middle;
-            color: var(--color-text);
+        .stat-card .progress-bar-animated {
+            transition: width 1.5s ease-in-out;
         }
 
-        .tbl-wrap tbody td:first-child {
-            border-radius: 14px 0 0 14px;
+        /* Chart Styles */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            min-height: 280px;
         }
 
-        .tbl-wrap tbody td:last-child {
-            border-radius: 0 14px 14px 0;
+        .chart-container .apexcharts-canvas {
+            margin: 0 auto;
         }
 
+        /* Table Styles */
         .td-name-en {
             font-weight: 600;
             font-size: 0.8rem;
@@ -280,7 +61,7 @@
 
         .td-name-bn {
             font-size: 0.65rem;
-            color: var(--color-muted);
+            color: #7a6e96;
             margin-top: 1px;
         }
 
@@ -319,7 +100,7 @@
         .btn-viewall {
             font-size: 0.7rem;
             font-weight: 600;
-            color: var(--color-primary-light);
+            color: #7c6bb0;
             border: 1px solid rgba(79, 59, 140, 0.12);
             background: rgba(79, 59, 140, 0.02);
             border-radius: 40px;
@@ -334,229 +115,300 @@
         .btn-viewall:hover {
             background: rgba(79, 59, 140, 0.06);
             border-color: rgba(79, 59, 140, 0.2);
-            color: var(--color-primary);
+            color: #4f3b8c;
         }
 
-        .chart-box {
-            min-height: 220px;
+        .hero-greeting {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #1f1a2e;
+            line-height: 1.2;
+        }
+
+        .hero-greeting span {
+            color: #4f3b8c;
+        }
+
+        .hero-meta {
+            font-size: 0.85rem;
+            color: #7a6e96;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 0.25rem;
+        }
+
+        .hero-meta i {
+            margin-right: 4px;
+            font-size: 1rem;
+            vertical-align: -1px;
+        }
+
+        .btn-hero {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(79, 59, 140, 0.15);
+            border-radius: 60px;
+            padding: 8px 22px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #4f3b8c;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            box-shadow: 0 2px 10px rgba(79, 59, 140, 0.06);
+        }
+
+        .btn-hero:hover {
+            background: #fff;
+            border-color: #7c6bb0;
+            box-shadow: 0 8px 24px rgba(79, 59, 140, 0.12);
+            transform: translateY(-1px);
+            color: #4f3b8c;
+        }
+
+        .tbl-wrap {
+            border-collapse: separate;
+            border-spacing: 0 6px;
             width: 100%;
         }
 
+        .tbl-wrap thead th {
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #7a6e96;
+            padding: 8px 14px;
+            border: 0;
+            background: transparent;
+        }
+
+        .tbl-wrap tbody tr {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(4px);
+            border-radius: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .tbl-wrap tbody tr:hover {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 6px 20px -8px rgba(40, 20, 80, 0.12);
+        }
+
+        .tbl-wrap tbody td {
+            border: 0;
+            padding: 12px 14px;
+            font-size: 0.8rem;
+            vertical-align: middle;
+            color: #1f1a2e;
+        }
+
+        .tbl-wrap tbody td:first-child {
+            border-radius: 14px 0 0 14px;
+        }
+
+        .tbl-wrap tbody td:last-child {
+            border-radius: 0 14px 14px 0;
+        }
+
+        /* Progress Ring Styles */
+        .progress-ring {
+            transition: all 0.3s ease;
+        }
+
+        .progress-ring:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
         @media (max-width: 576px) {
             .hero-greeting {
                 font-size: 1.2rem;
             }
 
-            .stat-num {
-                font-size: 1.5rem;
+            .stat-card .card-body {
+                padding: 1.25rem !important;
             }
 
-            .stat-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 1.1rem;
+            .stat-card h2 {
+                font-size: 1.6rem !important;
+            }
+
+            .stat-icon-wrapper > div {
+                width: 44px !important;
+                height: 44px !important;
+            }
+
+            .stat-icon-wrapper > div i {
+                font-size: 1.4rem !important;
             }
         }
     </style>
 @endpush
 
 @section('main-content')
+    <!-- Hero Section -->
     <div class="row mb-4">
         <div class="col-12">
-            <div class="hero-card p-4 p-lg-5 d-flex align-items-center justify-content-between flex-wrap gap-3">
-                <div>
-                    <div class="hero-greeting">স্বাগতম, <span>{{ Auth::user()->name }}</span></div>
-                    <div class="hero-meta">
-                        <span><i class="bx bx-calendar-alt"></i>{{ now()->translatedFormat('l, d F Y') }}</span>
-                        <span class="d-none d-sm-inline" style="color:#d0c8e0;">|</span>
-                        <span><i class="bx bx-badge-check"></i>
-                             {{ Auth::user()?->userType?->name ?? 'Admin' }}</span>
-                        </span>
+            <div class="card">
+                <div class="card-body d-flex align-items-center justify-content-between flex-wrap gap-3">
+                    <div>
+                        <div class="hero-greeting">স্বাগতম, <span>{{ Auth::user()->name }}</span></div>
+                        <div class="hero-meta">
+                            <span><i class="bx bx-calendar-alt"></i>{{ now()->translatedFormat('l, d F Y') }}</span>
+                            <span class="d-none d-sm-inline" style="color:#d0c8e0;">|</span>
+                            <span><i class="bx bx-badge-check"></i>{{ Auth::user()?->userType?->name ?? 'Admin' }}</span>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <a href="{{ route('home') }}" target="_blank" class="btn-hero">
-                        <i class="bx bx-globe"></i> পাবলিক সাইট
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row g-3 mb-4">
-        {{-- Total --}}
-        <div class="col-6 col-lg-3">
-            <div class="gc" style="position:relative;overflow:hidden;padding:16px 20px;min-height:120px;display:flex;flex-direction:column;justify-content:center;">
-                <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:10rem; opacity:0.06; pointer-events:none; color:#5a4298; line-height:1;">
-                    <i class="bx bx-file"></i>
-                </div>
-                <div style="position:relative;z-index:1;">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <span class="bdg">মোট</span>
-                    </div>
-                    <div class="stat-num" style="font-size:2.6rem;margin-top:0.2rem;">
-                        {{ number_format($totalApplications) }}
-                    </div>
-                    <div class="stat-lbl">মোট আবেদন</div>
-                    <div class="stat-trend" style="margin-top:4px;">
-                        <i class="bx bx-trending-up trend-up"></i>
-                        <span class="trend-up">সর্বমোট</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{-- Pending --}}
-        <div class="col-6 col-lg-3">
-            <div class="gc" style="position:relative;overflow:hidden;padding:16px 20px;min-height:120px;display:flex;flex-direction:column;justify-content:center;">
-                <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:10rem; opacity:0.06; pointer-events:none; color:#ca9430; line-height:1;">
-                    <i class="bx bx-time-five"></i>
-                </div>
-                <div style="position:relative;z-index:1;">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <span class="bdg bdg-orange">অপেক্ষমাণ</span>
-                    </div>
-                    <div class="stat-num" style="font-size:2.6rem;margin-top:0.2rem;">
-                        {{ number_format($pendingApplications) }}
-                    </div>
-                    <div class="stat-lbl">পেন্ডিং আবেদন</div>
-                    <div class="stat-trend" style="margin-top:4px;">
-                        <i class="bx bx-error-circle trend-warn"></i>
-                        <span class="trend-warn">পর্যালোচনা প্রয়োজন</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{-- Approved --}}
-        <div class="col-6 col-lg-3">
-            <div class="gc" style="position:relative;overflow:hidden;padding:16px 20px;min-height:120px;display:flex;flex-direction:column;justify-content:center;">
-                <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:10rem; opacity:0.06; pointer-events:none; color:#1e9e7a; line-height:1;">
-                    <i class="bx bx-check-circle"></i>
-                </div>
-                <div style="position:relative;z-index:1;">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <span class="bdg bdg-green">অনুমোদিত</span>
-                    </div>
-                    <div class="stat-num" style="font-size:2.6rem;margin-top:0.2rem;">
-                        {{ number_format($approvedApplications) }}
-                    </div>
-                    <div class="stat-lbl">অনুমোদিত আবেদন</div>
-                    <div class="stat-trend" style="margin-top:4px;">
-                        <i class="bx bx-trending-up trend-up"></i>
-                        <span class="trend-up">সফলভাবে প্রক্রিয়াকৃত</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{-- Rejected --}}
-        <div class="col-6 col-lg-3">
-            <div class="gc" style="position:relative;overflow:hidden;padding:16px 20px;min-height:120px;display:flex;flex-direction:column;justify-content:center;">
-                <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:10rem; opacity:0.06; pointer-events:none; color:#c34a3c; line-height:1;">
-                    <i class="bx bx-x-circle"></i>
-                </div>
-                <div style="position:relative;z-index:1;">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <span class="bdg bdg-red">প্রত্যাখ্যাত</span>
-                    </div>
-                    <div class="stat-num" style="font-size:2.6rem;margin-top:0.2rem;">
-                        {{ number_format($rejectedApplications) }}
-                    </div>
-                    <div class="stat-lbl">প্রত্যাখ্যাত আবেদন</div>
-                    <div class="stat-trend" style="margin-top:4px;">
-                        <i class="bx bx-trending-down trend-down"></i>
-                        @if ($totalApplications > 0)
-                            <span class="trend-down">{{ round(($rejectedApplications / $totalApplications) * 100) }}%</span>
-                            মোটের মধ্যে
-                        @else
-                            <span>কোনো ডেটা নেই</span>
-                        @endif
+                    <div>
+                        <a href="{{ route('home') }}" target="_blank" class="btn-hero">
+                            <i class="bx bx-globe"></i> পাবলিক সাইট
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    @if ($totalApplications > 0)
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-4">
+        @php
+            $stats = [
+                [
+                    'label' => 'মোট আবেদন',
+                    'value' => $totalApplications,
+                    'icon' => 'bx-file',
+                    'color' => 'purple',
+                    'trend' => $totalApplications > 0 ? '100% মোটের মধ্যে' : 'কোনো ডেটা নেই',
+                    'trendClass' => 'text-success',
+                    'bgGradient' => 'linear-gradient(135deg, #8b75c0 0%, #5a4298 100%)',
+                    'shadowColor' => 'rgba(90, 66, 152, 0.15)',
+                    'iconBg' => 'rgba(255, 255, 255, 0.2)'
+                ],
+                [
+                    'label' => 'পেন্ডিং আবেদন',
+                    'value' => $pendingApplications,
+                    'icon' => 'bx-time-five',
+                    'color' => 'orange',
+                    'trend' => $totalApplications > 0 ? round(($pendingApplications / $totalApplications) * 100) . '% মোটের মধ্যে' : 'কোনো ডেটা নেই',
+                    'trendClass' => 'text-warning',
+                    'bgGradient' => 'linear-gradient(135deg, #eab55a 0%, #ca9430 100%)',
+                    'shadowColor' => 'rgba(202, 148, 48, 0.15)',
+                    'iconBg' => 'rgba(255, 255, 255, 0.2)'
+                ],
+                [
+                    'label' => 'অনুমোদিত আবেদন',
+                    'value' => $approvedApplications,
+                    'icon' => 'bx-check-circle',
+                    'color' => 'green',
+                    'trend' => $totalApplications > 0 ? round(($approvedApplications / $totalApplications) * 100) . '% মোটের মধ্যে' : 'কোনো ডেটা নেই',
+                    'trendClass' => 'text-success',
+                    'bgGradient' => 'linear-gradient(135deg, #44c9a0 0%, #1e9e7a 100%)',
+                    'shadowColor' => 'rgba(30, 158, 122, 0.15)',
+                    'iconBg' => 'rgba(255, 255, 255, 0.2)'
+                ],
+                [
+                    'label' => 'প্রত্যাখ্যাত আবেদন',
+                    'value' => $rejectedApplications,
+                    'icon' => 'bx-x-circle',
+                    'color' => 'red',
+                    'trend' => $totalApplications > 0 ? round(($rejectedApplications / $totalApplications) * 100) . '% মোটের মধ্যে' : 'কোনো ডেটা নেই',
+                    'trendClass' => 'text-danger',
+                    'bgGradient' => 'linear-gradient(135deg, #e6776a 0%, #c34a3c 100%)',
+                    'shadowColor' => 'rgba(195, 74, 60, 0.15)',
+                    'iconBg' => 'rgba(255, 255, 255, 0.2)'
+                ],
+            ];
+        @endphp
+
+        @foreach($stats as $stat)
+            <div class="col-6 col-lg-3">
+                <div class="card stat-card h-100" style="background: #ffffff; box-shadow: 0 4px 20px {{ $stat['shadowColor'] }};">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start justify-content-between">
+                            <div class="flex-grow-1 me-3">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="badge" style="background: {{ $stat['bgGradient'] }}; color: white; padding: 4px 12px; border-radius: 50px; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase;">
+                                        {{ $stat['label'] }}
+                                    </span>
+                                </div>
+
+                                <div class="d-flex align-items-baseline gap-2">
+                                    <h2 class="mb-0" style="font-size: 2.2rem; font-weight: 700; color: #1f1a2e; line-height: 1.2; letter-spacing: -0.02em;">
+                                        {{ number_format($stat['value']) }}
+                                    </h2>
+                                    <span class="text-muted" style="font-size: 0.75rem; font-weight: 500;">টি</span>
+                                </div>
+
+                                <div class="mt-2 d-flex align-items-center gap-2">
+                                    <span class="badge {{ $stat['trendClass'] }}" style="background: {{ $stat['trendClass'] == 'text-success' ? 'rgba(30, 158, 122, 0.1)' : ($stat['trendClass'] == 'text-warning' ? 'rgba(202, 148, 48, 0.1)' : 'rgba(195, 74, 60, 0.1)') }}; color: {{ $stat['trendClass'] == 'text-success' ? '#1e9e7a' : ($stat['trendClass'] == 'text-warning' ? '#b58a2a' : '#b54a3c') }}; border-radius: 50px; padding: 4px 10px; font-size: 0.6rem; font-weight: 600;">
+                                        <i class="bx bx-trending-up"></i> {{ $stat['trend'] }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="stat-icon-wrapper" style="position: relative; flex-shrink: 0;">
+                                <div style="width: 56px; height: 56px; border-radius: 16px; background: {{ $stat['bgGradient'] }}; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px {{ $stat['shadowColor'] }}; position: relative; overflow: hidden;">
+                                    <div style="position: absolute; top: -50%; right: -50%; width: 100%; height: 100%; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent); transform: rotate(45deg); animation: shine 3s infinite;"></div>
+                                    <i class="bx {{ $stat['icon'] }}" style="font-size: 1.8rem; color: white; position: relative; z-index: 1;"></i>
+                                </div>
+                                <div style="position: absolute; top: -4px; right: -4px; width: 64px; height: 64px; border-radius: 20px; border: 2px solid {{ $stat['shadowColor'] }}; opacity: 0.3; pointer-events: none;"></div>
+                            </div>
+                        </div>
+
+                        <div class="mt-3" style="height: 3px; background: #f0edf8; border-radius: 10px; overflow: hidden;">
+                            <div class="progress-bar-animated" style="height: 100%; width: {{ $totalApplications > 0 ? round(($stat['value'] / $totalApplications) * 100) : 0 }}%; background: {{ $stat['bgGradient'] }}; border-radius: 10px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+
+    <!-- Progress Rings -->
+    @if($totalApplications > 0)
         @php
             $approvedPct = round(($approvedApplications / $totalApplications) * 100);
             $pendingPct = round(($pendingApplications / $totalApplications) * 100);
             $rejectedPct = round(($rejectedApplications / $totalApplications) * 100);
+            $rings = [
+                ['pct' => $approvedPct, 'color' => '#44c9a0', 'label' => 'অনুমোদিত', 'icon' => 'bx-check-circle', 'count' => $approvedApplications, 'textColor' => '#1e8a6a', 'bgGradient' => 'linear-gradient(135deg, #44c9a0 0%, #1e9e7a 100%)'],
+                ['pct' => $pendingPct, 'color' => '#eab55a', 'label' => 'অপেক্ষমাণ', 'icon' => 'bx-time-five', 'count' => $pendingApplications, 'textColor' => '#b58a2a', 'bgGradient' => 'linear-gradient(135deg, #eab55a 0%, #ca9430 100%)'],
+                ['pct' => $rejectedPct, 'color' => '#e6776a', 'label' => 'প্রত্যাখ্যাত', 'icon' => 'bx-x-circle', 'count' => $rejectedApplications, 'textColor' => '#b54a3c', 'bgGradient' => 'linear-gradient(135deg, #e6776a 0%, #c34a3c 100%)'],
+            ];
         @endphp
         <div class="row mb-4">
             <div class="col-12">
-                <div class="gc p-4">
-                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4">
-                        <h6 class="sec-title"><i class="bx bx-pie-chart-alt"></i> আবেদন অগ্রগতি</h6>
-                        <span style="font-size:0.75rem;font-weight:500;color:var(--color-muted);">মোট
-                            {{ number_format($totalApplications) }}টি আবেদন</span>
-                    </div>
-                    <div class="row g-4">
-                        <!-- Approved Ring -->
-                        <div class="col-4 text-center">
-                            <div class="position-relative d-inline-block">
-                                <svg width="100" height="100" viewBox="0 0 120 120">
-                                    <circle cx="60" cy="60" r="50" fill="none" stroke="#f0edf8"
-                                        stroke-width="10" />
-                                    <circle cx="60" cy="60" r="50" fill="none" stroke="#44c9a0"
-                                        stroke-width="10" stroke-dasharray="{{ $approvedPct * 3.14 }} 314"
-                                        stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 60 60)" />
-                                </svg>
-                                <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">
-                                    <div style="font-size:1.3rem;font-weight:700;color:#1f1a2e;">{{ $approvedPct }}%
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="margin-top:8px;font-weight:600;color:#1e8a6a;font-size:0.85rem;">
-                                <i class="bx bx-check-circle" style="vertical-align:-1px;"></i> অনুমোদিত
-                            </div>
-                            <div style="font-size:0.75rem;color:var(--color-muted);">
-                                {{ number_format($approvedApplications) }}টি</div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4">
+                            <h6 class="card-title mb-0"><i class="bx bx-pie-chart-alt"></i> আবেদন অগ্রগতি</h6>
+                            <span class="text-muted small">মোট {{ number_format($totalApplications) }}টি আবেদন</span>
                         </div>
-
-                        <!-- Pending Ring -->
-                        <div class="col-4 text-center">
-                            <div class="position-relative d-inline-block">
-                                <svg width="100" height="100" viewBox="0 0 120 120">
-                                    <circle cx="60" cy="60" r="50" fill="none" stroke="#f0edf8"
-                                        stroke-width="10" />
-                                    <circle cx="60" cy="60" r="50" fill="none" stroke="#eab55a"
-                                        stroke-width="10" stroke-dasharray="{{ $pendingPct * 3.14 }} 314"
-                                        stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 60 60)" />
-                                </svg>
-                                <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">
-                                    <div style="font-size:1.3rem;font-weight:700;color:#1f1a2e;">{{ $pendingPct }}%
+                        <div class="row g-4">
+                            @foreach($rings as $ring)
+                                <div class="col-4 text-center">
+                                    <div class="progress-ring position-relative d-inline-block">
+                                        <svg width="100" height="100" viewBox="0 0 120 120">
+                                            <circle cx="60" cy="60" r="50" fill="none" stroke="#f0edf8" stroke-width="10"/>
+                                            <circle cx="60" cy="60" r="50" fill="none" stroke="{{ $ring['color'] }}" stroke-width="10"
+                                                stroke-dasharray="{{ $ring['pct'] * 3.14 }} 314" stroke-dashoffset="0"
+                                                stroke-linecap="round" transform="rotate(-90 60 60)"/>
+                                        </svg>
+                                        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">
+                                            <div style="font-size:1.3rem;font-weight:700;color:#1f1a2e;">{{ $ring['pct'] }}%</div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div style="margin-top:8px;font-weight:600;color:#b58a2a;font-size:0.85rem;">
-                                <i class="bx bx-time-five" style="vertical-align:-1px;"></i> অপেক্ষমাণ
-                            </div>
-                            <div style="font-size:0.75rem;color:var(--color-muted);">
-                                {{ number_format($pendingApplications) }}টি</div>
-                        </div>
-
-                        <!-- Rejected Ring -->
-                        <div class="col-4 text-center">
-                            <div class="position-relative d-inline-block">
-                                <svg width="100" height="100" viewBox="0 0 120 120">
-                                    <circle cx="60" cy="60" r="50" fill="none" stroke="#f0edf8"
-                                        stroke-width="10" />
-                                    <circle cx="60" cy="60" r="50" fill="none" stroke="#e6776a"
-                                        stroke-width="10" stroke-dasharray="{{ $rejectedPct * 3.14 }} 314"
-                                        stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 60 60)" />
-                                </svg>
-                                <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">
-                                    <div style="font-size:1.3rem;font-weight:700;color:#1f1a2e;">{{ $rejectedPct }}%
+                                    <div class="mt-2 fw-semibold" style="color:{{ $ring['textColor'] }};">
+                                        <i class="bx {{ $ring['icon'] }}"></i> {{ $ring['label'] }}
                                     </div>
+                                    <div class="text-muted small">{{ number_format($ring['count']) }}টি</div>
                                 </div>
-                            </div>
-                            <div style="margin-top:8px;font-weight:600;color:#b54a3c;font-size:0.85rem;">
-                                <i class="bx bx-x-circle" style="vertical-align:-1px;"></i> প্রত্যাখ্যাত
-                            </div>
-                            <div style="font-size:0.75rem;color:var(--color-muted);">
-                                {{ number_format($rejectedApplications) }}টি</div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -564,107 +416,95 @@
         </div>
     @endif
 
+    <!-- Charts -->
     <div class="row g-3 mb-4">
         <div class="col-12 col-lg-6">
-            <div class="gc p-4 h-100">
-                <div class="d-flex align-items-center gap-2 mb-3">
-                    <i class="bx bx-pie-chart-alt-2 fs-5" style="color:var(--color-primary-light);"></i>
-                    <h6 class="sec-title">বোর্ড অনুযায়ী আবেদন</h6>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <i class="bx bx-pie-chart-alt-2 fs-5" style="color:#7c6bb0;"></i>
+                        <h6 class="card-title mb-0">বোর্ড অনুযায়ী আবেদন</h6>
+                    </div>
+                    <div id="boardChart" class="chart-container"></div>
                 </div>
-                <div id="boardChart" class="chart-box"></div>
             </div>
         </div>
         <div class="col-12 col-lg-6">
-            <div class="gc p-4 h-100">
-                <div class="d-flex align-items-center gap-2 mb-3">
-                    <i class="bx bx-map fs-5" style="color:#44c9a0;"></i>
-                    <h6 class="sec-title">বিভাগ অনুযায়ী আবেদন</h6>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <i class="bx bx-map fs-5" style="color:#44c9a0;"></i>
+                        <h6 class="card-title mb-0">বিভাগ অনুযায়ী আবেদন</h6>
+                    </div>
+                    <div id="divisionChart" class="chart-container"></div>
                 </div>
-                <div id="divisionChart" class="chart-box"></div>
             </div>
         </div>
     </div>
 
+    <!-- Recent Applications Table -->
     <div class="row">
         <div class="col-12">
-            <div class="gc p-0 overflow-hidden">
-                <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 p-4 pb-2">
-                    <h6 class="sec-title"><i class="bx bx-list-ul"></i> সাম্প্রতিক আবেদনসমূহ</h6>
+            <div class="card">
+                <div class="card-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+                    <h6 class="card-title mb-0"><i class="bx bx-list-ul"></i> সাম্প্রতিক আবেদনসমূহ</h6>
                     @can('viewAny', \App\Models\StudentDetail::class)
                         <a href="{{ route('admin.applications.index') }}" class="btn-viewall">
                             সব দেখুন <i class="bx bx-right-arrow-alt"></i>
                         </a>
                     @endcan
                 </div>
-
-                <div class="table-responsive px-2 pb-3">
-                    <table class="tbl-wrap">
-                        <thead>
-                            <tr>
-                                <th class="ps-3">#</th>
-                                <th>শিক্ষার্থীর নাম</th>
-                                <th>শিক্ষার্থীর মোবাইল</th>
-                                <th>শিক্ষার্থীর ফটো</th>
-                                <th>বোর্ড</th>
-                                <th>রোল নম্বর</th>
-                                <th>জিপিএ</th>
-                                <th>বিভাগ</th>
-                                <th>স্ট্যাটাস</th>
-                                <th>তারিখ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($recentApplications as $i => $app)
-                                @php
-                                    $statusMap = [
-                                        1 => ['label' => 'অপেক্ষমাণ', 'class' => 'st-pending'],
-                                        2 => ['label' => 'অনুমোদিত', 'class' => 'st-approved'],
-                                        3 => ['label' => 'প্রত্যাখ্যাত', 'class' => 'st-rejected'],
-                                    ];
-                                    $st = $statusMap[$app->application_status_id] ?? [
-                                        'label' => $app->applicationStatus->name ?? 'N/A',
-                                        'class' => 'st-pending',
-                                    ];
-                                @endphp
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="tbl-wrap">
+                            <thead>
                                 <tr>
-                                    <td class="ps-3" style="color:var(--color-muted);font-weight:600;font-size:0.7rem;">
-                                        {{ $i + 1 }}</td>
-                                    <td>
-                                        <div class="td-name-en">{{ $app->name_en }}</div>
-                                        <div class="td-name-bn">{{ $app->name_bn }}</div>
-                                    </td>
-                                    <td style="font-family:monospace;font-size:0.75rem;color:var(--color-muted);">
-                                        {{ $app?->user?->mobile ?? '—' }}
-                                    </td>
-                                    <td>
-                                        <span class="avatar-initial rounded-circle bg-label-primary">
-                                            @if ($app->student_photo)
-                                                <img src="{{ $app->student_photo_url }}" alt="Student Photo" class="rounded-circle" width="40" height="40">
-                                            @else
-                                                {{ strtoupper(substr($app->name_en ?? 'N/A', 0, 1)) }}
-                                            @endif
-                                        </span>
-                                    </td>
-                                    <td style="font-weight:500;color:var(--color-text);">{{ $app->board->name_bn ?? '—' }}
-                                    </td>
-                                    <td style="font-family:monospace;font-size:0.75rem;color:var(--color-muted);">
-                                        {{ $app->roll_number }}</td>
-                                    <td><span class="gpa-badge">{{ $app->gpa_result }}</span></td>
-                                    <td style="color:var(--color-muted);">{{ $app->division->name_bn ?? '—' }}</td>
-                                    <td><span class="st-pill {{ $st['class'] }}">{{ $st['label'] }}</span></td>
-                                    <td style="font-size:0.7rem;color:var(--color-muted);">
-                                        {{ $app->created_at->format('d M Y') }}</td>
+                                    <th class="ps-3">#</th>
+                                    <th>শিক্ষার্থীর নাম</th>
+                                    <th>মোবাইল</th>
+                                    <th>বোর্ড</th>
+                                    <th>রোল</th>
+                                    <th>জিপিএ</th>
+                                    <th>বিভাগ</th>
+                                    <th>স্ট্যাটাস</th>
+                                    <th>তারিখ</th>
                                 </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="9" class="text-center py-5" style="color:var(--color-muted);">
-                                        <i class="bx bx-inbox" style="font-size:2rem;display:block;margin-bottom:0.4rem;opacity:0.4;"></i>
-                                        কোনো আবেদন পাওয়া যায়নি
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @forelse($recentApplications as $i => $app)
+                                    @php
+                                        $statusMap = [
+                                            1 => ['label' => 'অপেক্ষমাণ', 'class' => 'st-pending'],
+                                            2 => ['label' => 'অনুমোদিত', 'class' => 'st-approved'],
+                                            3 => ['label' => 'প্রত্যাখ্যাত', 'class' => 'st-rejected'],
+                                        ];
+                                        $st = $statusMap[$app->application_status_id] ?? ['label' => $app->applicationStatus->name ?? 'N/A', 'class' => 'st-pending'];
+                                    @endphp
+                                    <tr>
+                                        <td class="ps-3 text-muted fw-semibold small">{{ $i + 1 }}</td>
+                                        <td>
+                                            <div class="td-name-en">{{ $app->name_en }}</div>
+                                            <div class="td-name-bn">{{ $app->name_bn }}</div>
+                                        </td>
+                                        <td class="text-muted small font-monospace">{{ $app?->user?->mobile ?? '—' }}</td>
+                                        <td class="fw-medium">{{ $app->board->name_bn ?? '—' }}</td>
+                                        <td class="text-muted small font-monospace">{{ $app->roll_number }}</td>
+                                        <td><span class="gpa-badge">{{ $app->gpa_result }}</span></td>
+                                        <td class="text-muted">{{ $app->division->name_bn ?? '—' }}</td>
+                                        <td><span class="st-pill {{ $st['class'] }}">{{ $st['label'] }}</span></td>
+                                        <td class="text-muted small">{{ $app->created_at->format('d M Y') }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="9" class="text-center py-5 text-muted">
+                                            <i class="bx bx-inbox" style="font-size:2rem;display:block;margin-bottom:0.4rem;opacity:0.4;"></i>
+                                            কোনো আবেদন পাওয়া যায়নি
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -674,196 +514,208 @@
 @push('script')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Function to safely render charts
+            function renderChart(selector, options) {
+                const element = document.querySelector(selector);
+                if (!element) return;
+
+                // Check if there's data to display
+                const hasData = options.series && options.series.length > 0 &&
+                               options.series.some(s => s.data && s.data.some(v => v > 0));
+
+                if (!hasData) {
+                    element.innerHTML = '<div class="text-center text-muted py-4">কোনো ডেটা নেই</div>';
+                    return;
+                }
+
+                try {
+                    element.innerHTML = '';
+                    const chart = new ApexCharts(element, options);
+                    chart.render();
+                } catch (e) {
+                    console.warn('Chart render error:', e);
+                    element.innerHTML = '<div class="text-center text-muted py-4">চার্ট লোড করা যায়নি</div>';
+                }
+            }
+
+            // Board Chart - Bar Chart
             const boardData = @json($applicationsByBoard);
             const boardNames = Object.keys(boardData);
-            const boardVals = Object.values(boardData);
+            const boardValues = Object.values(boardData);
 
-            if (boardNames.length) {
-                new ApexCharts(document.querySelector('#boardChart'), {
-                    chart: {
-                        type: 'donut',
-                        height: 240,
-                        fontFamily: "'Inter', sans-serif",
-                        toolbar: {
-                            show: false
+            renderChart('#boardChart', {
+                chart: {
+                    type: 'bar',
+                    height: 280,
+                    fontFamily: "'Inter', sans-serif",
+                    toolbar: { show: false },
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 650
+                    }
+                },
+                series: [{
+                    name: 'আবেদন',
+                    data: boardValues,
+                    color: '#7c6bb0'
+                }],
+                xaxis: {
+                    categories: boardNames,
+                    labels: {
+                        style: {
+                            fontSize: '11px',
+                            fontWeight: 500,
+                            colors: '#7a6e96'
                         },
-                        animations: {
-                            enabled: true,
-                            easing: 'easeinout',
-                            speed: 650
-                        }
+                        rotate: -25
                     },
-                    series: boardVals,
-                    labels: boardNames,
-                    colors: ['#7c6bb0', '#44c9a2', '#5fc3d4', '#eab55a', '#e6776a', '#b59ad0', '#9aa6b5'],
-                    legend: {
-                        position: 'bottom',
-                        fontSize: '10px',
-                        fontFamily: "'Inter', sans-serif",
-                        fontWeight: 500,
-                        markers: {
-                            radius: 6,
-                            width: 10,
-                            height: 10
-                        },
-                        itemMargin: {
-                            horizontal: 8,
-                            vertical: 3
-                        },
-                        labels: {
-                            colors: '#5a4e7a'
-                        }
-                    },
-                    plotOptions: {
-                        pie: {
-                            donut: {
-                                size: '60%',
-                                labels: {
-                                    show: true,
-                                    name: {
-                                        show: true,
-                                        fontSize: '12px',
-                                        fontWeight: 600,
-                                        color: '#7a6e96',
-                                        offsetY: -4
-                                    },
-                                    value: {
-                                        show: true,
-                                        fontSize: '20px',
-                                        fontWeight: 700,
-                                        color: '#1f1a2e',
-                                        offsetY: 6,
-                                        formatter: v => Number(v).toLocaleString()
-                                    },
-                                    total: {
-                                        show: true,
-                                        label: 'মোট',
-                                        fontSize: '12px',
-                                        fontWeight: 600,
-                                        color: '#7a6e96',
-                                        formatter: w => w.globals.seriesTotals.reduce((a, b) => a + b, 0)
-                                            .toLocaleString()
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    dataLabels: {
-                        enabled: false
-                    },
-                    stroke: {
-                        width: 2,
-                        colors: ['rgba(255,255,255,0.6)']
-                    },
-                    tooltip: {
-                        theme: 'light',
-                        y: {
-                            formatter: v => v.toLocaleString() + ' টি'
+                    axisBorder: { show: false },
+                    axisTicks: { show: false }
+                },
+                yaxis: {
+                    labels: {
+                        formatter: v => Math.floor(v).toLocaleString(),
+                        style: {
+                            fontSize: '11px',
+                            colors: '#9a8abc'
                         }
                     }
-                }).render();
-            } else {
-                document.querySelector('#boardChart').innerHTML =
-                    '<div style="text-align:center;color:#9a8abc;padding:2rem 0;">কোনো ডেটা নেই</div>';
-            }
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: 8,
+                        columnWidth: '55%',
+                        borderRadiusApplication: 'end',
+                        colors: {
+                            ranges: [{
+                                from: 0,
+                                to: 1000,
+                                color: '#7c6bb0'
+                            }]
+                        }
+                    }
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'light',
+                        type: 'vertical',
+                        gradientToColors: ['#5a4298'],
+                        stops: [0, 100]
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: v => v.toLocaleString(),
+                    style: {
+                        fontSize: '10px',
+                        fontWeight: 600,
+                        colors: ['#1f1a2e']
+                    },
+                    offsetY: -6
+                },
+                grid: {
+                    borderColor: 'rgba(79, 59, 140, 0.04)',
+                    strokeDashArray: 4,
+                    xaxis: { lines: { show: false } }
+                },
+                tooltip: {
+                    theme: 'light',
+                    y: {
+                        formatter: v => v.toLocaleString() + ' টি আবেদন'
+                    }
+                }
+            });
 
+            // Division Chart - Area Chart
             const divData = @json($applicationsByDivision);
             const divNames = Object.keys(divData);
-            const divVals = Object.values(divData);
+            const divValues = Object.values(divData);
 
-            if (divNames.length) {
-                new ApexCharts(document.querySelector('#divisionChart'), {
-                    chart: {
-                        type: 'bar',
-                        height: 240,
-                        fontFamily: "'Inter', sans-serif",
-                        toolbar: {
-                            show: false
-                        },
-                        animations: {
-                            enabled: true,
-                            easing: 'easeinout',
-                            speed: 600
-                        }
-                    },
-                    series: [{
-                        name: 'আবেদন',
-                        data: divVals
-                    }],
-                    xaxis: {
-                        categories: divNames,
-                        labels: {
-                            style: {
-                                fontSize: '10px',
-                                fontWeight: 500,
-                                colors: '#7a6e96'
-                            },
-                            rotate: -25,
-                            trim: true
-                        },
-                        axisBorder: {
-                            show: false
-                        },
-                        axisTicks: {
-                            show: false
-                        }
-                    },
-                    yaxis: {
-                        labels: {
-                            formatter: v => Math.floor(v).toLocaleString(),
-                            style: {
-                                fontSize: '10px',
-                                colors: '#9a8abc'
-                            }
-                        }
-                    },
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            shade: 'light',
-                            type: 'vertical',
-                            gradientToColors: ['#5a4298'],
-                            stops: [0, 100]
-                        }
-                    },
-                    colors: ['#8b75c0'],
-                    plotOptions: {
-                        bar: {
-                            borderRadius: 8,
-                            columnWidth: '46%',
-                            borderRadiusApplication: 'end'
-                        }
-                    },
-                    dataLabels: {
+            renderChart('#divisionChart', {
+                chart: {
+                    type: 'area',
+                    height: 280,
+                    fontFamily: "'Inter', sans-serif",
+                    toolbar: { show: false },
+                    animations: {
                         enabled: true,
-                        formatter: v => v.toLocaleString(),
+                        easing: 'easeinout',
+                        speed: 650
+                    }
+                },
+                series: [{
+                    name: 'আবেদন',
+                    data: divValues,
+                    color: '#44c9a0'
+                }],
+                xaxis: {
+                    categories: divNames,
+                    labels: {
                         style: {
-                            fontSize: '10px',
-                            fontWeight: 600,
-                            colors: ['#1f1a2e']
+                            fontSize: '11px',
+                            fontWeight: 500,
+                            colors: '#7a6e96'
                         },
-                        offsetY: -6
+                        rotate: -25
                     },
-                    grid: {
-                        borderColor: 'rgba(79, 59, 140, 0.04)',
-                        strokeDashArray: 4,
-                        xaxis: {
-                            lines: {
-                                show: false
-                            }
-                        }
-                    },
-                    tooltip: {
-                        theme: 'light',
-                        y: {
-                            formatter: v => v.toLocaleString() + ' টি আবেদন'
+                    axisBorder: { show: false },
+                    axisTicks: { show: false }
+                },
+                yaxis: {
+                    labels: {
+                        formatter: v => Math.floor(v).toLocaleString(),
+                        style: {
+                            fontSize: '11px',
+                            colors: '#9a8abc'
                         }
                     }
-                }).render();
-            } else {
-                document.querySelector('#divisionChart').innerHTML =
-                    '<div style="text-align:center;color:#9a8abc;padding:2rem 0;">কোনো ডেটা নেই</div>';
-            }
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 2
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'light',
+                        type: 'vertical',
+                        gradientToColors: ['#1e9e7a'],
+                        stops: [0, 90]
+                    }
+                },
+                markers: {
+                    size: 5,
+                    colors: ['#fff'],
+                    strokeColors: '#44c9a0',
+                    strokeWidth: 2,
+                    hover: {
+                        size: 7
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: v => v.toLocaleString(),
+                    style: {
+                        fontSize: '10px',
+                        fontWeight: 600,
+                        colors: ['#1f1a2e']
+                    },
+                    offsetY: -10
+                },
+                grid: {
+                    borderColor: 'rgba(79, 59, 140, 0.04)',
+                    strokeDashArray: 4,
+                    xaxis: { lines: { show: false } }
+                },
+                tooltip: {
+                    theme: 'light',
+                    y: {
+                        formatter: v => v.toLocaleString() + ' টি আবেদন'
+                    }
+                }
+            });
         });
     </script>
 @endpush

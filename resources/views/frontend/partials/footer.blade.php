@@ -1,4 +1,4 @@
-@unless (request()->routeIs('student.otp.verify') || request()->routeIs('student.login'))
+@unless (request()->routeIs('student.otp.verify') || request()->routeIs('student.login') || request()->routeIs('student.password.reset.otp'))
 <footer class="pt-4 mt-2">
     <div class="container">
         <div class="row gy-4 align-items-center">

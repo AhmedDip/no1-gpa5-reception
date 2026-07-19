@@ -40,7 +40,7 @@
                         <!-- Outer Rotating Ring 1 -->
                         <div class="position-absolute rounded-circle"
                             style="width: 100%; height: 100%; max-width: 500px; max-height: 500px;
-                                border: 3px solid rgba(255, 0, 0, 0.212);
+                                border: 3px solid rgba(255, 0, 0, 0.048);
                                 animation: spin-ring 25s linear infinite;
                                 top: 50%; left: 50%; transform: translate(-50%, -50%);">
                         </div>
@@ -48,7 +48,7 @@
                         <!-- Outer Rotating Ring 2 (Dashed) -->
                         <div class="position-absolute rounded-circle"
                             style="width: 92%; height: 92%; max-width: 460px; max-height: 460px;
-                                border: 2px dashed rgba(255, 166, 0, 0.37);
+                                border: 2px dashed rgba(255, 166, 0, 0.151);
                                 animation: spin-ring 35s linear infinite reverse;
                                 top: 50%; left: 50%; transform: translate(-50%, -50%);">
                         </div>

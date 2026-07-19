@@ -6,8 +6,9 @@ use App\Http\Controllers\PreviousYearController;
 use App\Http\Controllers\StudentAuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentNotificationController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentPasswordResetController;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Route;
 
 
 /*
@@ -33,6 +34,16 @@ Route::prefix('student')->name('student.')->group(function () {
         Route::get('/login', [StudentAuthController::class, 'showLogin'])->name('login');
         Route::post('/login', [StudentAuthController::class, 'login'])->name('login.submit');
 
+        // Forgot Password
+        Route::get('/forgot-password', [StudentPasswordResetController::class, 'showForgotForm'])->name('password.forgot');
+        Route::post('/forgot-password', [StudentPasswordResetController::class, 'sendOtp'])->name('password.forgot.submit');
+
+        Route::get('/reset-password/otp', [StudentPasswordResetController::class, 'showOtpForm'])->name('password.reset.otp');
+        Route::post('/reset-password/otp', [StudentPasswordResetController::class, 'verifyOtp'])->name('password.reset.otp.verify');
+        Route::post('/reset-password/otp/resend', [StudentPasswordResetController::class, 'resendOtp'])->name('password.reset.otp.resend');
+
+        Route::get('/reset-password', [StudentPasswordResetController::class, 'showResetForm'])->name('password.reset');
+        Route::post('/reset-password', [StudentPasswordResetController::class, 'resetPassword'])->name('password.reset.submit');
     });
 
 
@@ -45,13 +56,16 @@ Route::prefix('student')->name('student.')->group(function () {
 
         Route::post('/update-parent-info', [StudentController::class, 'updateParentInfo'])->name('update.parent');
 
-         //Invitation Letter
+        //Invitation Letter
         Route::get('/invitation-letter', [InvitationLetterController::class, 'index'])->name('invitation.letter');
 
         //Professional Certificate
         Route::get('/acknowledgment-certificate', [StudentController::class, 'certificate'])->name('certificate');
 
         Route::middleware(['check.mobile.verified'])->group(function () {
+
+            //Change Password
+            Route::post('/change-password', [StudentController::class, 'changePassword'])->name('password.update');
 
             // Dashboard
             Route::get('/dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
@@ -73,8 +87,6 @@ Route::prefix('student')->name('student.')->group(function () {
             Route::get('/notifications', [StudentNotificationController::class, 'index'])->name('notifications.index');
             Route::post('/notifications/{id}/read', [StudentNotificationController::class, 'markRead'])->name('notifications.read');
             Route::post('/notifications/mark-all-read', [StudentNotificationController::class, 'markAllRead'])->name('notifications.read-all');
-
-
         });
 
 
@@ -87,8 +99,7 @@ Route::prefix('student')->name('student.')->group(function () {
 Route::prefix('api')->name('api.')->group(function () {
     Route::get('/districts/{divisionId}', [StudentController::class, 'getDistricts'])->name('districts');
     Route::get('/upazilas/{districtId}', [StudentController::class, 'getUpazilas'])->name('upazilas');
-
 });
 
 
-require __DIR__.'/admin.php';
+require __DIR__ . '/admin.php';

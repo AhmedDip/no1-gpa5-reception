@@ -187,7 +187,7 @@
                     <i class="fas fa-list me-2"></i>Applications List
                 </h5>
                 <div class="d-flex gap-2">
-                    @if (auth()->user()->isAdmin())
+                    {{-- @if (auth()->user()->isAdmin())
                         <button type="button" class="btn btn-success btn-sm" id="bulkApproveBtn" disabled>
                             <i class="fas fa-check me-1"></i> Approve
                         </button>
@@ -197,7 +197,7 @@
                         <button type="button" class="btn btn-info btn-sm" id="bulkNotifyBtn" disabled>
                             <i class="fas fa-sms me-1"></i> Notify
                         </button>
-                    @endif
+                    @endif --}}
                 </div>
             </div>
             <div class="card-body">
@@ -205,11 +205,11 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th width="30">
+                                {{-- <th width="30">
                                     @if (auth()->user()->isAdmin())
                                         <input type="checkbox" id="selectAll" class="form-check-input">
                                     @endif
-                                </th>
+                                </th> --}}
                                 <th>#</th>
                                 <th>Student</th>
                                 <th>Contact</th>
@@ -223,12 +223,12 @@
                         <tbody>
                             @forelse($applications as $index => $application)
                                 <tr>
-                                    <td>
+                                    {{-- <td>
                                         @if (auth()->user()->isAdmin())
                                             <input type="checkbox" class="form-check-input application-checkbox"
                                                 value="{{ $application->id }}">
                                         @endif
-                                    </td>
+                                    </td> --}}
                                     <td>{{ $applications->firstItem() + $index }}</td>
                                     <td>
                                         <div class="d-flex align-items-center">
@@ -291,6 +291,26 @@
                                                 class="btn btn-icon btn-outline-info btn-sm" title="View">
                                                 <i class="fas fa-eye"></i>
                                             </a>
+
+                                            @if (auth()->user()->isAdmin())
+                                                <button class="btn btn-icon btn-outline-primary btn-sm notify-btn"
+                                                    data-id="{{ $application->id }}" title="Send Notification">
+                                                    <i class="fas fa-sms"></i>
+                                                </button>
+
+                                                <a href="{{ route('admin.sms-logs.index', ['student_detail_id' => $application->id]) }}"
+                                                    class="btn btn-icon btn-outline-secondary btn-sm position-relative"
+                                                    title="SMS History">
+                                                    <i class="fas fa-history"></i>
+                                                    @if (($application->sms_logs_count ?? 0) > 0)
+                                                        <span
+                                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                            style="font-size:0.55rem;">
+                                                            {{ $application->sms_logs_count }}
+                                                        </span>
+                                                    @endif
+                                                </a>
+                                            @endif
                                             @php
                                                 $slug = $application->applicationStatus->slug ?? null;
                                                 $me = auth()->user();
@@ -317,29 +337,12 @@
                                                     <i class="fas fa-times"></i>
                                                 </button>
                                             @endif
-                                            <button class="btn btn-icon btn-outline-primary btn-sm notify-btn"
-                                                data-id="{{ $application->id }}" title="Send Notification">
-                                                <i class="fas fa-sms"></i>
-                                            </button>
-
-                                            <a href="{{ route('admin.sms-logs.index', ['student_detail_id' => $application->id]) }}"
-                                                class="btn btn-icon btn-outline-secondary btn-sm position-relative"
-                                                title="SMS History">
-                                                <i class="fas fa-history"></i>
-                                                @if (($application->sms_logs_count ?? 0) > 0)
-                                                    <span
-                                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                                                        style="font-size:0.55rem;">
-                                                        {{ $application->sms_logs_count }}
-                                                    </span>
-                                                @endif
-                                            </a>
                                         </div>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="9" class="text-center py-4">
+                                    <td colspan="8" class="text-center py-4">
                                         <div class="d-flex flex-column align-items-center">
                                             <i class="fas fa-inbox fa-3x text-muted mb-2"></i>
                                             <h6 class="mb-0">No applications found</h6>
@@ -379,10 +382,10 @@
                 <form id="approveForm">
                     <div class="modal-body">
                         <input type="hidden" id="approveApplicationId" name="application_id">
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label class="form-label">Remarks <small class="text-muted">(Optional)</small></label>
                             <textarea name="remarks" class="form-control" rows="3" placeholder="Add remarks if any..."></textarea>
-                        </div>
+                        </div> --}}
                         <div class="mb-0">
                             <div class="form-check form-switch">
                                 <input type="checkbox" class="form-check-input" id="approveSendSms" name="send_sms"
@@ -417,11 +420,11 @@
                 <form id="rejectForm">
                     <div class="modal-body">
                         <input type="hidden" id="rejectApplicationId" name="application_id">
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label class="form-label">Remarks <span class="text-danger">*</span></label>
                             <textarea name="remarks" class="form-control" rows="3" placeholder="Please provide reason for rejection..."
                                 required></textarea>
-                        </div>
+                        </div> --}}
                         <div class="mb-0">
                             <div class="form-check form-switch">
                                 <input type="checkbox" class="form-check-input" id="rejectSendSms" name="send_sms"
@@ -468,10 +471,10 @@
                             <label class="form-label">Custom Message</label>
                             <textarea name="custom_msg" class="form-control" rows="3" placeholder="Enter custom message..."></textarea>
                         </div>
-                        <div class="mb-0">
+                        {{-- <div class="mb-0">
                             <label class="form-label">Remarks <small class="text-muted">(Optional)</small></label>
                             <textarea name="remarks" class="form-control" rows="2" placeholder="Add remarks..."></textarea>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -485,7 +488,7 @@
     </div>
 
     <!-- Bulk Reject Modal -->
-    <div class="modal fade" id="bulkRejectModal" tabindex="-1">
+    {{-- <div class="modal fade" id="bulkRejectModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -522,7 +525,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 @push('styles')

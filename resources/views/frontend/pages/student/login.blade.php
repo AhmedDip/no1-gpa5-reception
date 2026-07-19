@@ -59,7 +59,7 @@
                                         আমাকে মনে রাখুন
                                     </label>
                                 </div>
-                                <a href="#" class="text-decoration-none small" id="forgotPassword">
+                                <a href="{{ route('student.password.forgot') }}" class="text-decoration-none small">
                                     পাসওয়ার্ড ভুলে গেছেন?
                                 </a>
                             </div>
@@ -266,16 +266,16 @@
             });
 
             // Forgot password
-            document.getElementById('forgotPassword').addEventListener('click', function(e) {
-                e.preventDefault();
-                Swal.fire({
-                    title: 'পাসওয়ার্ড রিসেট',
-                    text: 'পাসওয়ার্ড রিসেট করার সুবিধা শীঘ্রই যোগ করা হবে।',
-                    icon: 'info',
-                    confirmButtonColor: '#667eea',
-                    confirmButtonText: 'বুঝেছি'
-                });
-            });
+            // document.getElementById('forgotPassword').addEventListener('click', function(e) {
+            //     e.preventDefault();
+            //     Swal.fire({
+            //         title: 'পাসওয়ার্ড রিসেট',
+            //         text: 'পাসওয়ার্ড রিসেট করার সুবিধা শীঘ্রই যোগ করা হবে।',
+            //         icon: 'info',
+            //         confirmButtonColor: '#667eea',
+            //         confirmButtonText: 'বুঝেছি'
+            //     });
+            // });
         </script>
     @endpush
 @endsection

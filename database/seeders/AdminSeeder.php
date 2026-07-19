@@ -62,6 +62,12 @@ class AdminSeeder extends Seeder
             'wmnu_oseq' => 4,
         ]);
 
+        $settingsMenu = WebMenu::firstOrCreate(['wmnu_name' => 'Settings'], [
+            'wmnu_name' => 'Settings',
+            'wmnu_icon' => 'bx bx-cog',
+            'wmnu_oseq' => 5,
+        ]);
+
 
         $subMenus = [
             // Dashboard
@@ -147,6 +153,35 @@ class AdminSeeder extends Seeder
                 'wsmn_wurl' => '/admin/reports/export',
                 'wsmn_oseq' => 3,
                 'wsmn_ukey' => 'reports.export',
+            ],
+            // Settings — Menu Management module
+            [
+                'wmnu_id'   => $settingsMenu->id,
+                'wsmn_name' => 'User Groups',
+                'wsmn_wurl' => '/admin/menu-management/groups',
+                'wsmn_oseq' => 1,
+                'wsmn_ukey' => 'settings.menu-groups',
+            ],
+            [
+                'wmnu_id'   => $settingsMenu->id,
+                'wsmn_name' => 'Web Menus',
+                'wsmn_wurl' => '/admin/menu-management/web-menus',
+                'wsmn_oseq' => 2,
+                'wsmn_ukey' => 'settings.web-menus',
+            ],
+            [
+                'wmnu_id'   => $settingsMenu->id,
+                'wsmn_name' => 'Sub Menus',
+                'wsmn_wurl' => '/admin/menu-management/sub-menus',
+                'wsmn_oseq' => 3,
+                'wsmn_ukey' => 'settings.sub-menus',
+            ],
+            [
+                'wmnu_id'   => $settingsMenu->id,
+                'wsmn_name' => 'Permissions',
+                'wsmn_wurl' => '/admin/menu-management/permissions',
+                'wsmn_oseq' => 4,
+                'wsmn_ukey' => 'settings.permissions',
             ],
 
         ];

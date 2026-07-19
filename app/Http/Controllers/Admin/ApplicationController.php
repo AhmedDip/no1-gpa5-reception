@@ -124,7 +124,7 @@ class ApplicationController extends Controller
         ];
 
         return view(
-            'backend.modules.admin.applications.show',
+            'backend.modules.student.applications.show',
             compact('application', 'statuses', 'page_content')
         );
     }

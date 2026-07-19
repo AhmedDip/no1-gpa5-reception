@@ -4,14 +4,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Board;
-use App\Models\StudentGroup;
-use App\Models\Division;
 use App\Models\District;
-use App\Models\Upazila;
+use App\Models\Division;
+use App\Models\StudentGroup;
 use App\Models\StudentNotification;
+use App\Models\Upazila;
 use App\Services\PhotoUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
@@ -164,5 +165,27 @@ class StudentController extends Controller
     {
         $name = Auth::user()->studentDetail->name_bn ?? Auth::user()->name;
         return view('frontend.pages.certificate.index', compact('name'));
+    }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'new_password'      => ['required', 'string', 'min:6', 'confirmed', 'different:current_password'],
+        ], [
+            'current_password.required'         => 'বর্তমান পাসওয়ার্ড প্রয়োজন',
+            'current_password.current_password' => 'বর্তমান পাসওয়ার্ড সঠিক নয়',
+            'new_password.required'             => 'নতুন পাসওয়ার্ড প্রয়োজন',
+            'new_password.min'                  => 'নতুন পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে',
+            'new_password.confirmed'            => 'নতুন পাসওয়ার্ড মিলছে না',
+            'new_password.different'            => 'নতুন পাসওয়ার্ড আগের পাসওয়ার্ড থেকে ভিন্ন হতে হবে',
+        ]);
+
+        Auth::user()->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+
+        return redirect()->route('student.dashboard')
+            ->with('success', 'আপনার পাসওয়ার্ড সফলভাবে পরিবর্তন করা হয়েছে!');
     }
 }

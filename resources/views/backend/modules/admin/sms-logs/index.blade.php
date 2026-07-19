@@ -17,7 +17,7 @@
 
 @section('main-content')
 
-@if($driver !== 'twilio')
+{{-- @if($driver !== 'twilio')
     <div class="alert alert-warning d-flex align-items-center mb-4" role="alert">
         <i class="fas fa-flask fa-lg me-3"></i>
         <div>
@@ -25,7 +25,7 @@
             <small>No real SMS is being sent right now. Every approve/reject/notify action is being logged here for free, exactly as it would look in production. Set <code>SMS_DRIVER=twilio</code> in your <code>.env</code> when you're ready to go live.</small>
         </div>
     </div>
-@endif
+@endif --}}
 
 @if($filteredStudent)
     <div class="alert alert-info d-flex justify-content-between align-items-center mb-4">

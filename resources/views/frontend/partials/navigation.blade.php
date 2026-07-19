@@ -1,5 +1,5 @@
 {{-- frontend/partials/navigation.blade.php --}}
-@unless (request()->routeIs('student.otp.verify'))
+@unless (request()->routeIs('student.otp.verify') || request()->routeIs('student.password.reset.otp'))
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand fw-bold d-flex align-items-center gap-3" href="{{ url('/') }}">
@@ -17,14 +17,14 @@
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#stories">সফলতার গল্প</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#gallery">গ্যালারি</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#faq">
-                        সাধারণ জিজ্ঞাসা
-                    </a></li>
+                            সাধারণ জিজ্ঞাসা
+                        </a></li>
                     <li class="nav-item">
                         <a class="nav-link position-relative d-inline-flex align-items-center gap-1"
                             href="{{ route('previous-year.index') }}">
                             বিগত বছর
                             <span class="badge-archive-glow">
-                               Archive
+                                Archive
                             </span>
                         </a>
                     </li>
@@ -115,6 +115,16 @@
                                         <i class="fas fa-tachometer-alt me-2 text-dark"></i> ড্যাশবোর্ড
                                     </a>
                                 </li>
+                                        <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal"
+                                        data-bs-target="#passwordModal">
+                                        <i class="fas fa-key me-2 text-dark"></i> পাসওয়ার্ড পরিবর্তন
+                                    </a>
+                                </li>
+
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -148,6 +158,68 @@
             </div>
         </div>
     </nav>
+
+    @auth
+        <!-- Change Password Modal -->
+        <div class="modal fade" id="passwordModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title"><i class="fas fa-key me-2"></i>পাসওয়ার্ড পরিবর্তন করুন</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form action="{{ route('student.password.update') }}" method="POST" id="passwordForm">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label required">বর্তমান পাসওয়ার্ড</label>
+                                <div class="input-group">
+                                    <input type="password"
+                                        class="form-control @error('current_password') is-invalid @enderror"
+                                        name="current_password" id="current_password" required>
+                                    <button class="btn btn-outline-secondary toggle-pass" type="button"
+                                        data-target="current_password"><i class="fas fa-eye"></i></button>
+                                    @error('current_password')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label required">নতুন পাসওয়ার্ড</label>
+                                <div class="input-group">
+                                    <input type="password"
+                                        class="form-control @error('new_password') is-invalid @enderror"
+                                        name="new_password" id="new_password" minlength="6" required>
+                                    <button class="btn btn-outline-secondary toggle-pass" type="button"
+                                        data-target="new_password"><i class="fas fa-eye"></i></button>
+                                    @error('new_password')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <small class="text-muted">কমপক্ষে ৬ অক্ষরের হতে হবে</small>
+                            </div>
+                            <div class="mb-0">
+                                <label class="form-label required">নতুন পাসওয়ার্ড নিশ্চিত করুন</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control"
+                                        name="new_password_confirmation" id="new_password_confirmation"
+                                        minlength="6" required>
+                                    <button class="btn btn-outline-secondary toggle-pass" type="button"
+                                        data-target="new_password_confirmation"><i class="fas fa-eye"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">বাতিল</button>
+                            <button type="submit" class="btn btn-danger px-4">
+                                <i class="fas fa-save me-2"></i>পরিবর্তন করুন
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endauth
 @endunless
 
 @push('scripts')
@@ -302,5 +374,43 @@
                 });
             </script>
         @endif
+    @endauth
+
+    @auth
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                @if ($errors->has('current_password') || $errors->has('new_password'))
+                    new bootstrap.Modal(document.getElementById('passwordModal')).show();
+                @endif
+
+                document.querySelectorAll('#passwordModal .toggle-pass').forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        const target = document.getElementById(this.dataset.target);
+                        const icon = this.querySelector('i');
+                        const isHidden = target.type === 'password';
+                        target.type = isHidden ? 'text' : 'password';
+                        icon.classList.toggle('fa-eye', !isHidden);
+                        icon.classList.toggle('fa-eye-slash', isHidden);
+                    });
+                });
+
+                const passwordForm = document.getElementById('passwordForm');
+                if (passwordForm) {
+                    passwordForm.addEventListener('submit', function(e) {
+                        const newPass = document.getElementById('new_password').value;
+                        const confirmPass = document.getElementById('new_password_confirmation').value;
+                        if (newPass !== confirmPass) {
+                            e.preventDefault();
+                            Swal.fire({
+                                title: 'পাসওয়ার্ড মিলছে না!',
+                                text: 'নতুন পাসওয়ার্ড এবং নিশ্চিতকরণ পাসওয়ার্ড একই হতে হবে।',
+                                icon: 'error',
+                                confirmButtonColor: '#d32f2f'
+                            });
+                        }
+                    });
+                }
+            });
+        </script>
     @endauth
 @endpush
