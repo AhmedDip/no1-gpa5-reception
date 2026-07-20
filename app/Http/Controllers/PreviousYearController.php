@@ -23,6 +23,7 @@ class PreviousYearController extends Controller
             ['src' => asset('images/gallery/16.JPG'), 'caption' => 'সংবর্ধনা অনুষ্ঠানের দৃশ্য'],
             ['src' => asset('images/gallery/17.JPG'), 'caption' => 'কৃতী শিক্ষার্থীদের অভিভাবকদের সংবর্ধনা'],
             ['src' => asset('images/gallery/18.jpg'), 'caption' => 'সংবর্ধনা অনুষ্ঠানের মুহূর্ত'],
+            ['src' => asset('images/gallery/26.JPG'), 'caption' => 'সংবর্ধনা অনুষ্ঠানের মুহূর্ত'],
             ['src' => asset('images/gallery/19.JPG'), 'caption' => 'কৃতী শিক্ষার্থীদের সংবর্ধনা'],
             ['src' => asset('images/gallery/20.JPG'), 'caption' => 'সংবর্ধনা অনুষ্ঠানের দৃশ্য'],
             ['src' => asset('images/gallery/21.JPG'), 'caption' => 'কৃতী শিক্ষার্থীদের অভিভাবকদের সংবর্ধনা'],
@@ -31,6 +32,14 @@ class PreviousYearController extends Controller
             ['src' => asset('images/gallery/24.JPG'), 'caption' => 'সংবর্ধনা অনুষ্ঠানের দৃশ্য'],
             ['src' => asset('images/gallery/25.JPG'), 'caption' => 'কৃতী শিক্ষার্থীদের অভিভাবকদের সংবর্ধনা'],
             ['src' => asset('images/gallery/3.jpg'), 'caption' => 'কৃতী শিক্ষার্থীদের সংবর্ধনা'],
+            ['src' => asset('images/gallery/2024/1.JPG'), 'caption' => 'সংবর্ধনা অনুষ্ঠানের দৃশ্য'],
+            ['src' => asset('images/gallery/2024/2.JPG'), 'caption' => 'সংবর্ধনা অনুষ্ঠানের দৃশ্য'],
+            ['src' => asset('images/gallery/2024/3.JPG'), 'caption' => 'সংবর্ধনা অনুষ্ঠানের দৃশ্য'],
+            ['src' => asset('images/gallery/2024/4.JPG'), 'caption' => 'সংবর্ধনা অনুষ্ঠানের দৃশ্য'],
+            ['src' => asset('images/gallery/2024/5.JPG'), 'caption' => 'সংবর্ধনা অনুষ্ঠানের দৃশ্য'],
+            ['src' => asset('images/gallery/2024/6.JPG'), 'caption' => 'সংবর্ধনা অনুষ্ঠানের দৃশ্য'],
+            ['src' => asset('images/gallery/2024/7.JPG'), 'caption' => 'সংবর্ধনা অনুষ্ঠানের দৃশ্য'],
+            ['src' => asset('images/gallery/2024/8.JPG'), 'caption' => 'সংবর্ধনা অনুষ্ঠানের দৃশ্য'],
 
         ];
 
@@ -72,7 +81,7 @@ class PreviousYearController extends Controller
             [
                 'title'   => 'নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা',
                 'date'    => '০৪ জুন ২০২৪ | ২০:০০',
-                'image'   => asset('images/news/2.jpg'),
+                'image'   => asset('images/gallery/2024/5.JPG'),
                 'excerpt' => 'ঘনা গ্রুপ অব ইন্ডাস্ট্রিজের জনপ্রিয় ব্র্যান্ড নাম্বার ওয়ানের সৌজন্যে গতকাল সোমবার (৩ জুন) রাজধানীর এক অভিজাত হোটেলে নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা ২০২৪ অনুষ্ঠিত হয়। ',
                 'link'    => 'https://www.ntvbd.com/economy/news-1411205',
             ],

@@ -448,9 +448,9 @@
             }
         }
 
-        @media (max-width: 576px) {
+        @media (max-width: 1200px) {
             .btn-register-glow {
-                margin-top: 0.5rem;
+                margin-top: 0.3rem;
             }
 
         }

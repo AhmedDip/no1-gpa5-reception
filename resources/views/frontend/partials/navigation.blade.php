@@ -1,6 +1,6 @@
 {{-- frontend/partials/navigation.blade.php --}}
 @unless (request()->routeIs('student.otp.verify') || request()->routeIs('student.password.reset.otp'))
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-expand-xl fixed-top">
         <div class="container">
             <a class="navbar-brand fw-bold d-flex align-items-center gap-3" href="{{ url('/') }}">
                 <img src="{{ asset('images/no1-2026.png') }}" alt="NUMBER 1 Logo" class="logo-img"
@@ -115,7 +115,7 @@
                                         <i class="fas fa-tachometer-alt me-2 text-dark"></i> ড্যাশবোর্ড
                                     </a>
                                 </li>
-                                        <li>
+                                <li>
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
@@ -187,8 +187,7 @@
                             <div class="mb-3">
                                 <label class="form-label required">নতুন পাসওয়ার্ড</label>
                                 <div class="input-group">
-                                    <input type="password"
-                                        class="form-control @error('new_password') is-invalid @enderror"
+                                    <input type="password" class="form-control @error('new_password') is-invalid @enderror"
                                         name="new_password" id="new_password" minlength="6" required>
                                     <button class="btn btn-outline-secondary toggle-pass" type="button"
                                         data-target="new_password"><i class="fas fa-eye"></i></button>
@@ -201,9 +200,8 @@
                             <div class="mb-0">
                                 <label class="form-label required">নতুন পাসওয়ার্ড নিশ্চিত করুন</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control"
-                                        name="new_password_confirmation" id="new_password_confirmation"
-                                        minlength="6" required>
+                                    <input type="password" class="form-control" name="new_password_confirmation"
+                                        id="new_password_confirmation" minlength="6" required>
                                     <button class="btn btn-outline-secondary toggle-pass" type="button"
                                         data-target="new_password_confirmation"><i class="fas fa-eye"></i></button>
                                 </div>

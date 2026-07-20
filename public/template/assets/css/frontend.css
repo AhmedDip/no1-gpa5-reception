@@ -1,7 +1,7 @@
 :root {
-    --primary: #542ec4;
+    --primary: #380ef0;
     /* indigo-600 */
-    --primary-dark: #13a4c9;
+    --primary-dark: #13bee9;
     --secondary: #852fa7;
     /* amber-500 */
     --accent: #ef4444;
@@ -11,7 +11,7 @@
     --light-bg: #f8fafc;
     --card-radius: 1.5rem;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --common: linear-gradient(135deg, #7c8dffb9 0%, #4037e9f3 100%);
+    --common: linear-gradient(135deg, #2c48fff5 0%, #4037e9f3 100%);
 }
 
 * {

@@ -1237,17 +1237,20 @@
             all: [
                 "{{ asset('images/success-story-1.jpg') }}",
                 "{{ asset('images/success-story-2.jpg') }}",
-                "{{ asset('images/success-story-3.jpg') }}",
+                "{{ asset('images/success-story-4.jpg') }}",
                 "{{ asset('images/success-story-5.jpg') }}",
+                "{{ asset('images/success-story-6.jpg') }}",
+                "{{ asset('images/success-story-7.jpg') }}",
             ],
             2024: [
-                "{{ asset('images/success-story-5.jpg') }}",
-                "{{ asset('images/success-story-4.jpg') }}",
-
+                "{{ asset('images/success-story-6.jpg') }}",
+                "{{ asset('images/success-story-7.jpg') }}",
             ],
             2025: [
                 "{{ asset('images/success-story-1.jpg') }}",
                 "{{ asset('images/success-story-2.jpg') }}",
+                "{{ asset('images/success-story-4.jpg') }}",
+                "{{ asset('images/success-story-5.jpg') }}",
             ]
         };
 
