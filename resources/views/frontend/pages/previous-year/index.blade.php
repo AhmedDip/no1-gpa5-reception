@@ -38,12 +38,19 @@
 
             {{-- ============ TAB 1: PHOTO GALLERY ============ --}}
             <div class="tab-pane fade show active" id="py-photos" role="tabpanel" aria-labelledby="py-photos-tab">
+
+                {{-- Year Filter --}}
+                <div class="d-flex justify-content-center flex-wrap gap-2 mb-4 year-filter-bar" data-target="#photoGrid">
+                    <button class="tab-btn active" data-year="all">সব ছবি</button>
+                    @foreach ($availableYears as $y)
+                        <button class="tab-btn" data-year="{{ $y }}">{{ $y }}</button>
+                    @endforeach
+                </div>
+
                 <div class="row g-4" id="photoGrid">
                     @forelse ($photos as $index => $photo)
-                        <div class="col-6 col-md-4 col-lg-3">
+                        <div class="col-6 col-md-4 col-lg-3 gallery-item" data-year="{{ $photo['year'] }}">
                             <div class="photo-card rounded-4 overflow-hidden shadow-sm" data-index="{{ $index }}">
-                                {{-- <img src="{{ $photo['src'] ?? asset('images/default-user.png') }}" alt="{{ $photo['caption'] }}" loading="lazy"> --}}
-                                {{-- add on error handler --}}
                                 <img src="{{ $photo['src'] ?? asset('images/dummy-image.png') }}" alt="{{ $photo['caption'] }}"
                                     loading="lazy" onerror="this.onerror=null;this.src='{{ asset('images/dummy-image.png') }}';">
                                 <div class="photo-overlay">
@@ -60,9 +67,18 @@
 
             {{-- ============ TAB 2: VIDEO GALLERY ============ --}}
             <div class="tab-pane fade" id="py-videos" role="tabpanel" aria-labelledby="py-videos-tab">
-                <div class="row g-4">
+
+                {{-- Year Filter --}}
+                <div class="d-flex justify-content-center flex-wrap gap-2 mb-4 year-filter-bar" data-target="#videoGrid">
+                    <button class="tab-btn active" data-year="all">সব ভিডিও</button>
+                    @foreach ($availableYears as $y)
+                        <button class="tab-btn" data-year="{{ $y }}">{{ $y }}</button>
+                    @endforeach
+                </div>
+
+                <div class="row g-4" id="videoGrid">
                     @forelse ($videos as $video)
-                        <div class="col-12 col-md-4 col-lg-4">
+                        <div class="col-12 col-md-4 col-lg-4 video-item" data-year="{{ $video['year'] }}">
                             <div class="video-thumb rounded-4 overflow-hidden shadow-sm"
                                 data-video-id="{{ $video['id'] }}">
                                 <img src="{{ $video['thumbnail'] ?? asset('images/dummy-image.png') }}" alt="{{ $video['title'] }}" loading="lazy">
@@ -80,9 +96,18 @@
 
             {{-- ============ TAB 3: NEWS ============ --}}
             <div class="tab-pane fade" id="py-news" role="tabpanel" aria-labelledby="py-news-tab">
-                <div class="row g-4">
+
+                {{-- Year Filter --}}
+                <div class="d-flex justify-content-center flex-wrap gap-2 mb-4 year-filter-bar" data-target="#newsGrid">
+                    <button class="tab-btn active" data-year="all">সব খবর</button>
+                    @foreach ($availableYears as $y)
+                        <button class="tab-btn" data-year="{{ $y }}">{{ $y }}</button>
+                    @endforeach
+                </div>
+
+                <div class="row g-4" id="newsGrid">
                     @forelse ($newsList as $news)
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-6 news-item" data-year="{{ $news['year'] }}">
                             <div class="card news-card border-0 shadow-sm h-100 rounded-4 overflow-hidden">
                                 <img src="{{ $news['image'] ?? asset('images/dummy-image.png') }}" class="news-card-img" alt="{{ $news['title'] }}"
                                     loading="lazy">
@@ -92,11 +117,6 @@
                                     </span>
                                     <h5 class="fw-bold">{{ $news['title'] }}</h5>
                                     <p class="text-secondary small mb-3">{{ $news['excerpt'] }}</p>
-                                    {{-- <button type="button" class="btn btn-outline-primary btn-sm rounded-pill news-read-btn"
-                                        data-title="{{ $news['title'] }}" data-date="{{ $news['date'] }}"
-                                        data-content="{{ $news['content'] }}" data-image="{{ $news['image'] }}">
-                                        বিস্তারিত পড়ুন <i class="fas fa-arrow-right ms-1"></i>
-                                    </button> --}}
                                     <a href="{{ $news['link'] }}" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill">
                                         বিস্তারিত <i class="fas fa-arrow-right ms-1"></i>
                                     </a>
@@ -215,6 +235,28 @@
             }
         }
 
+        /* Year Filter Pills */
+        .year-filter-bar .tab-btn {
+            border: none;
+            background: #F1F5F9;
+            padding: 0.45rem 1.4rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        .year-filter-bar .tab-btn.active {
+            background: #aa1b1d;
+            color: #fff;
+            box-shadow: 0 6px 14px -6px rgba(170, 27, 29, 0.5);
+        }
+
+        .year-filter-bar .tab-btn:hover:not(.active) {
+            background: #e9e2e2;
+        }
+
         /* Photo Card Styles */
         .photo-card {
             position: relative;
@@ -228,7 +270,7 @@
 
         .photo-card:hover {
             transform: scale(1.02);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 25px rgba(255, 247, 247, 0.15);
         }
 
         .photo-card img {
@@ -245,12 +287,10 @@
         .photo-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(170, 27, 29, 0.7) 0%, rgba(0, 0, 0, 0.4) 100%);
+            background: rgba(255, 255, 255, 0.205);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
-            font-size: 2rem;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -445,6 +485,27 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
 
+                /* ---------- YEAR FILTER (Photos / Videos / News) ---------- */
+                document.querySelectorAll('.year-filter-bar').forEach(function(bar) {
+                    const target = document.querySelector(bar.dataset.target);
+                    if (!target) return;
+
+                    bar.querySelectorAll('.tab-btn').forEach(function(btn) {
+                        btn.addEventListener('click', function() {
+                            bar.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                            this.classList.add('active');
+
+                            const selectedYear = this.dataset.year;
+
+                            target.querySelectorAll('[data-year]').forEach(function(item) {
+                                const matches = selectedYear === 'all' || item.dataset.year ===
+                                    selectedYear;
+                                item.classList.toggle('d-none', !matches);
+                            });
+                        });
+                    });
+                });
+
                 /* ---------- PHOTO LIGHTBOX ---------- */
                 const photos = @json($photos);
                 const lightboxModalEl = document.getElementById('photoLightboxModal');
@@ -453,7 +514,13 @@
                 const lightboxCaption = document.getElementById('lightboxCaption');
                 let currentIndex = 0;
 
-                function showLightbox(index) {
+                function getVisiblePhotoCards() {
+                    return Array.from(document.querySelectorAll(
+                        '#photoGrid .gallery-item:not(.d-none) .photo-card'));
+                }
+
+                function showLightboxByCard(card) {
+                    const index = parseInt(card.dataset.index, 10);
                     if (!photos[index]) return;
                     currentIndex = index;
                     lightboxImage.src = photos[index].src;
@@ -463,28 +530,35 @@
 
                 document.querySelectorAll('.photo-card').forEach(card => {
                     card.addEventListener('click', function() {
-                        showLightbox(parseInt(this.dataset.index, 10));
+                        showLightboxByCard(this);
                         lightboxModal.show();
                     });
                 });
 
-                document.getElementById('lightboxPrev').addEventListener('click', function() {
-                    showLightbox((currentIndex - 1 + photos.length) % photos.length);
-                });
-                document.getElementById('lightboxNext').addEventListener('click', function() {
-                    showLightbox((currentIndex + 1) % photos.length);
-                });
+                function navigateLightbox(direction) {
+                    const visibleCards = getVisiblePhotoCards();
+                    const currentPos = visibleCards.findIndex(c => parseInt(c.dataset.index, 10) ===
+                        currentIndex);
+                    if (currentPos === -1 || visibleCards.length === 0) return;
+
+                    const nextPos = (currentPos + direction + visibleCards.length) % visibleCards.length;
+                    showLightboxByCard(visibleCards[nextPos]);
+                }
+
+                document.getElementById('lightboxPrev').addEventListener('click', () => navigateLightbox(-
+                    1));
+                document.getElementById('lightboxNext').addEventListener('click', () => navigateLightbox(1));
 
                 // Keyboard navigation for lightbox
                 document.addEventListener('keydown', function(e) {
                     if (!lightboxModalEl.classList.contains('show')) return;
                     if (e.key === 'ArrowLeft') {
                         e.preventDefault();
-                        showLightbox((currentIndex - 1 + photos.length) % photos.length);
+                        navigateLightbox(-1);
                     }
                     if (e.key === 'ArrowRight') {
                         e.preventDefault();
-                        showLightbox((currentIndex + 1) % photos.length);
+                        navigateLightbox(1);
                     }
                     if (e.key === 'Escape') {
                         lightboxModal.hide();
@@ -508,7 +582,7 @@
                     pyVideoFrame.src = '';
                 });
 
-                /* ---------- NEWS DETAIL MODAL ---------- */
+
                 const newsDetailModal = new bootstrap.Modal(document.getElementById('newsDetailModal'));
 
                 document.querySelectorAll('.news-read-btn').forEach(btn => {
@@ -521,15 +595,14 @@
                     });
                 });
 
-                /* ---------- TAB SWITCHING CLEANUP ---------- */
-                // Ensure tab content is properly hidden/shown
+
                 document.querySelectorAll('.py-tab-nav .nav-link').forEach(tab => {
                     tab.addEventListener('shown.bs.tab', function(e) {
-                        // Remove any leftover active states
+
                         document.querySelectorAll('.tab-pane').forEach(pane => {
                             pane.classList.remove('show', 'active');
                         });
-                        // Activate the target pane
+
                         const target = document.querySelector(this.dataset.bsTarget);
                         if (target) {
                             target.classList.add('show', 'active');
