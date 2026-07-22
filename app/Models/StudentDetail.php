@@ -13,10 +13,11 @@ class StudentDetail extends Model
 
     const STATUS_PENDING        = 'pending';
     const STATUS_APPROVED_BY_RM = 'approved_by_rm';
+    const STATUS_REJECTED_BY_RM = 'rejected_by_rm';
     const STATUS_APPROVED_BY_WM = 'approved_by_wm';
+    const STATUS_REJECTED_BY_WM = 'rejected_by_wm';
     const STATUS_APPROVED       = 'approved';
     const STATUS_REJECTED       = 'rejected';
-
 
     protected $fillable = [
         'user_id',
@@ -150,13 +151,14 @@ class StudentDetail extends Model
         return $this->applicationStatus?->slug === self::STATUS_PENDING;
     }
 
-    // Replace getStatusColorAttribute() and getStatusLabelBnAttribute() with slug-based versions
     public function getStatusColorAttribute(): string
     {
         return match ($this->applicationStatus?->slug) {
             self::STATUS_PENDING        => 'warning',
             self::STATUS_APPROVED_BY_RM => 'info',
+            self::STATUS_REJECTED_BY_RM => 'danger',
             self::STATUS_APPROVED_BY_WM => 'primary',
+            self::STATUS_REJECTED_BY_WM => 'danger',
             self::STATUS_APPROVED       => 'success',
             self::STATUS_REJECTED       => 'danger',
             default                     => 'secondary',
@@ -168,7 +170,9 @@ class StudentDetail extends Model
         return match ($this->applicationStatus?->slug) {
             self::STATUS_PENDING        => 'অপেক্ষমাণ',
             self::STATUS_APPROVED_BY_RM => 'RM কর্তৃক অনুমোদিত',
+            self::STATUS_REJECTED_BY_RM => 'RM কর্তৃক প্রত্যাখ্যাত',
             self::STATUS_APPROVED_BY_WM => 'WM কর্তৃক অনুমোদিত',
+            self::STATUS_REJECTED_BY_WM => 'WM কর্তৃক প্রত্যাখ্যাত',
             self::STATUS_APPROVED       => 'অনুমোদিত',
             self::STATUS_REJECTED       => 'প্রত্যাখ্যাত',
             default                     => 'অজানা',

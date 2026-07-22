@@ -133,9 +133,9 @@
                                         <label class="form-label required">রোল নম্বর</label>
                                         <input type="text"
                                             class="form-control @error('roll_number') is-invalid @enderror" minlength="1"
-                                            maxlength="8" name="roll_number" value="{{ old('roll_number') }}"
-                                            placeholder="যেমন: 12345678" required>
-                                        <div class="invalid-feedback">সঠিক রোল নম্বর দিন (সর্বোচ্চ ৮ ডিজিট)</div>
+                                            maxlength="6" name="roll_number" value="{{ old('roll_number') }}"
+                                            placeholder="যেমন: 123456" required>
+                                        <div class="invalid-feedback">সঠিক রোল নম্বর দিন (সর্বোচ্চ ৬ ডিজিট)</div>
                                         @error('roll_number')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -144,21 +144,22 @@
                                         <label class="form-label required">রেজিস্ট্রেশন নম্বর</label>
                                         <input type="text"
                                             class="form-control @error('registration_number') is-invalid @enderror"
-                                            minlength="1" maxlength="12" name="registration_number"
-                                            value="{{ old('registration_number') }}" placeholder="যেমন: 123456789012"
+                                            minlength="1" maxlength="10" name="registration_number"
+                                            value="{{ old('registration_number') }}" placeholder="যেমন: 12345678910"
                                             required>
-                                        <div class="invalid-feedback">সঠিক রেজিস্ট্রেশন নম্বর দিন (সর্বোচ্চ ১২ ডিজিট)</div>
+                                        <div class="invalid-feedback">সঠিক রেজিস্ট্রেশন নম্বর দিন (সর্বোচ্চ ১০ ডিজিট)</div>
                                         @error('registration_number')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label required">জিপিএ/ফলাফল</label>
-                                        <input type="text"
+                                        <input type="number"
                                             class="form-control @error('gpa_result') is-invalid @enderror"
+                                            step="0.01" min="1" max="5"
                                             name="gpa_result" value="{{ old('gpa_result') }}" placeholder="যেমন: 5.00"
                                             required>
-                                        <div class="invalid-feedback">সঠিক জিপিএ দিন (যেমন: GPA-5.00 অথবা 5.00)</div>
+                                        <div class="invalid-feedback">সঠিক জিপিএ দিন (যেমন: 5.00)</div>
                                         @error('gpa_result')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -493,7 +494,6 @@
     @push('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                // ============== FORM VALIDATION ==============
                 const form = document.getElementById('registerForm');
                 const submitBtn = document.getElementById('submitBtn');
 
@@ -540,9 +540,9 @@
                                 if (!/^\d+$/.test(value)) {
                                     isValid = false;
                                     errorMessage = 'শুধুমাত্র সংখ্যা দিন';
-                                } else if (value.length > 8) {
+                                } else if (value.length > 6) {
                                     isValid = false;
-                                    errorMessage = 'সর্বোচ্চ ৮ ডিজিট হতে পারে';
+                                    errorMessage = 'সর্বোচ্চ ৬ ডিজিট হতে পারে';
                                 }
                                 break;
 
@@ -550,16 +550,17 @@
                                 if (!/^\d+$/.test(value)) {
                                     isValid = false;
                                     errorMessage = 'শুধুমাত্র সংখ্যা দিন';
-                                } else if (value.length > 12) {
+                                } else if (value.length > 10) {
                                     isValid = false;
-                                    errorMessage = 'সর্বোচ্চ ১২ ডিজিট হতে পারে';
+                                    errorMessage = 'সর্বোচ্চ ১০ ডিজিট হতে পারে';
                                 }
                                 break;
 
                             case 'gpa_result':
-                                if (value && !/^(GPA-)?[0-5](\.\d{1,2})?$/i.test(value)) {
+                                const gpa = parseFloat(value);
+                                if (isNaN(gpa) || gpa < 1 || gpa > 5) {
                                     isValid = false;
-                                    errorMessage = 'সঠিক জিপিএ দিন (যেমন: GPA-5.00 বা 5.00)';
+                                    errorMessage = 'সঠিক জিপিএ দিন (যেমন: 5.00)';
                                 }
                                 break;
 
@@ -567,6 +568,12 @@
                                 if (value && !/^[a-zA-Z\s.]+$/.test(value)) {
                                     isValid = false;
                                     errorMessage = 'শুধুমাত্র ইংরেজি অক্ষর ব্যবহার করুন';
+                                }
+                                break;
+                            case 'name_bn':
+                                if (value && !/^[\u0980-\u09FF\s.]+$/.test(value)) {
+                                    isValid = false;
+                                    errorMessage = 'শুধুমাত্র বাংলা অক্ষর ব্যবহার করুন';
                                 }
                                 break;
                         }

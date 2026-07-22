@@ -24,16 +24,22 @@ class OtpVerificationController extends Controller
     public function showVerifyForm()
     {
         $user = Auth::user();
-        
-        // If already verified, redirect to dashboard
+
         if ($user->is_mobile_verified) {
             return redirect()->route('student.dashboard')->with('info', 'আপনার মোবাইল নম্বর ইতিমধ্যে যাচাই করা হয়েছে।');
         }
 
-        // Check if OTP already sent and not expired
+        if ($this->otpService->deleteIfExpired($user)) {
+            Auth::logout();
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+
+            return redirect()->route('student.register')
+                ->with('error', 'নির্ধারিত সময়ের মধ্যে OTP যাচাই না হওয়ায় আপনার নিবন্ধন বাতিল হয়েছে। দয়া করে পুনরায় নিবন্ধন করুন।');
+        }
+
         $latestOtp = $user->latestOtp;
         if (!$latestOtp || $latestOtp->isExpired() || $latestOtp->is_verified) {
-            // Send new OTP
             $result = $this->otpService->generateAndSendOtp($user);
             if (!$result['success']) {
                 return redirect()->route('student.dashboard')->with('error', $result['message']);
@@ -50,7 +56,7 @@ class OtpVerificationController extends Controller
     {
         // Log the request for debugging
         Log::info('OTP Verification Request', $request->all());
-        
+
         $validator = Validator::make($request->all(), [
             'otp' => 'required|string|size:6',
         ], [
@@ -66,7 +72,7 @@ class OtpVerificationController extends Controller
         }
 
         $user = Auth::user();
-        
+
         // Check if user is authenticated
         if (!$user) {
             return response()->json([
@@ -74,7 +80,7 @@ class OtpVerificationController extends Controller
                 'message' => 'আপনি লগইন করেননি। দয়া করে লগইন করুন।'
             ], 401);
         }
-        
+
         // Check if already verified
         if ($user->is_mobile_verified) {
             return response()->json([
@@ -95,7 +101,7 @@ class OtpVerificationController extends Controller
                     'showParentModal' => true
                 ]);
             }
-            
+
             return response()->json([
                 'success' => true,
                 'message' => $result['message'],
@@ -115,14 +121,14 @@ class OtpVerificationController extends Controller
     public function resendOtp(Request $request)
     {
         $user = Auth::user();
-        
+
         if (!$user) {
             return response()->json([
                 'success' => false,
                 'message' => 'আপনি লগইন করেননি।'
             ], 401);
         }
-        
+
         // Check if already verified
         if ($user->is_mobile_verified) {
             return response()->json([
@@ -146,5 +152,4 @@ class OtpVerificationController extends Controller
             'message' => $result['message']
         ], 429);
     }
-
 }

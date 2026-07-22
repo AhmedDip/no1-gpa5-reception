@@ -268,6 +268,10 @@
                                         @php
                                             $statusColors = [
                                                 'pending' => 'warning',
+                                                'approved_by_rm' => 'info',
+                                                'rejected_by_rm' => 'danger',
+                                                'approved_by_wm' => 'primary',
+                                                'rejected_by_wm' => 'danger',
                                                 'approved' => 'success',
                                                 'rejected' => 'danger',
                                             ];
@@ -320,6 +324,8 @@
                                                         \App\Models\StudentDetail::STATUS_PENDING,
                                                         \App\Models\StudentDetail::STATUS_APPROVED_BY_RM,
                                                         \App\Models\StudentDetail::STATUS_APPROVED_BY_WM,
+                                                        \App\Models\StudentDetail::STATUS_REJECTED_BY_RM,
+                                                        \App\Models\StudentDetail::STATUS_REJECTED_BY_WM,
                                                     ])
                                                     : ($me->isRegionalManager() &&
                                                             $slug === \App\Models\StudentDetail::STATUS_PENDING) ||
@@ -382,19 +388,21 @@
                 <form id="approveForm">
                     <div class="modal-body">
                         <input type="hidden" id="approveApplicationId" name="application_id">
-                        {{-- <div class="mb-3">
+                        <div class="mb-3">
                             <label class="form-label">Remarks <small class="text-muted">(Optional)</small></label>
                             <textarea name="remarks" class="form-control" rows="3" placeholder="Add remarks if any..."></textarea>
-                        </div> --}}
-                        <div class="mb-0">
-                            <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input" id="approveSendSms" name="send_sms"
-                                    value="1" checked>
-                                <label class="form-check-label" for="approveSendSms">
-                                    <i class="fas fa-sms me-1"></i> Send SMS Notification
-                                </label>
-                            </div>
                         </div>
+                        @if (auth()->user()->isAdmin())
+                            <div class="mb-0">
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" id="approveSendSms" name="send_sms"
+                                        value="1" checked>
+                                    <label class="form-check-label" for="approveSendSms">
+                                        <i class="fas fa-sms me-1"></i> Send SMS Notification
+                                    </label>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -420,11 +428,12 @@
                 <form id="rejectForm">
                     <div class="modal-body">
                         <input type="hidden" id="rejectApplicationId" name="application_id">
-                        {{-- <div class="mb-3">
+                        <div class="mb-3">
                             <label class="form-label">Remarks <span class="text-danger">*</span></label>
                             <textarea name="remarks" class="form-control" rows="3" placeholder="Please provide reason for rejection..."
                                 required></textarea>
-                        </div> --}}
+                        </div>
+                        @if(auth()->user()->isAdmin())
                         <div class="mb-0">
                             <div class="form-check form-switch">
                                 <input type="checkbox" class="form-check-input" id="rejectSendSms" name="send_sms"
@@ -434,6 +443,7 @@
                                 </label>
                             </div>
                         </div>
+                        @endif
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -600,26 +610,22 @@
 @push('script')
     <script>
         $(document).ready(function() {
-            // =====================================================
-            // SELECT ALL
-            // =====================================================
-            $('#selectAll').change(function() {
-                $('.application-checkbox').prop('checked', $(this).prop('checked'));
-                updateBulkButtons();
-            });
 
-            $(document).on('change', '.application-checkbox', function() {
-                updateBulkButtons();
-            });
+            // $('#selectAll').change(function() {
+            //     $('.application-checkbox').prop('checked', $(this).prop('checked'));
+            //     updateBulkButtons();
+            // });
 
-            function updateBulkButtons() {
-                var count = $('.application-checkbox:checked').length;
-                $('#bulkApproveBtn, #bulkRejectBtn, #bulkNotifyBtn').prop('disabled', count === 0);
-            }
+            // $(document).on('change', '.application-checkbox', function() {
+            //     updateBulkButtons();
+            // });
 
-            // =====================================================
-            // SINGLE APPROVE
-            // =====================================================
+            // function updateBulkButtons() {
+            //     var count = $('.application-checkbox:checked').length;
+            //     $('#bulkApproveBtn, #bulkRejectBtn, #bulkNotifyBtn').prop('disabled', count === 0);
+            // }
+
+
             $(document).on('click', '.approve-btn', function() {
                 var id = $(this).data('id');
                 $('#approveApplicationId').val(id);
@@ -666,9 +672,7 @@
                 });
             });
 
-            // =====================================================
-            // SINGLE REJECT
-            // =====================================================
+
             $(document).on('click', '.reject-btn', function() {
                 var id = $(this).data('id');
                 $('#rejectApplicationId').val(id);
@@ -715,109 +719,104 @@
                 });
             });
 
-            // =====================================================
-            // BULK APPROVE
-            // =====================================================
-            $('#bulkApproveBtn').click(function() {
-                var ids = getSelectedIds();
-                if (ids.length === 0) return;
 
-                if (!confirm('Are you sure you want to approve ' + ids.length + ' applications?')) return;
+            // $('#bulkApproveBtn').click(function() {
+            //     var ids = getSelectedIds();
+            //     if (ids.length === 0) return;
 
-                $.ajax({
-                    url: '{{ route('admin.applications.bulk-approve') }}',
-                    type: 'POST',
-                    data: {
-                        application_ids: ids,
-                        send_sms: 1
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    beforeSend: function() {
-                        $('#bulkApproveBtn').prop('disabled', true)
-                            .html(
-                                '<span class="spinner-border spinner-border-sm me-1"></span> Processing...'
-                            );
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            toastr.success(response.message);
-                            setTimeout(function() {
-                                location.reload();
-                            }, 2000);
-                        } else {
-                            toastr.error(response.message);
-                        }
-                    },
-                    error: function(xhr) {
-                        var msg = xhr.responseJSON?.message || 'Something went wrong!';
-                        toastr.error(msg);
-                    },
-                    complete: function() {
-                        $('#bulkApproveBtn').html('<i class="fas fa-check me-1"></i> Approve')
-                            .prop('disabled', false);
-                    }
-                });
-            });
+            //     if (!confirm('Are you sure you want to approve ' + ids.length + ' applications?')) return;
 
-            // =====================================================
-            // BULK REJECT
-            // =====================================================
-            $('#bulkRejectBtn').click(function() {
-                var ids = getSelectedIds();
-                if (ids.length === 0) return;
-                $('#bulkRejectCount').text(ids.length);
-                $('#bulkRejectModal').modal('show');
-            });
+            //     $.ajax({
+            //         url: '{{ route('admin.applications.bulk-approve') }}',
+            //         type: 'POST',
+            //         data: {
+            //             application_ids: ids,
+            //             send_sms: 1
+            //         },
+            //         headers: {
+            //             'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            //         },
+            //         beforeSend: function() {
+            //             $('#bulkApproveBtn').prop('disabled', true)
+            //                 .html(
+            //                     '<span class="spinner-border spinner-border-sm me-1"></span> Processing...'
+            //                 );
+            //         },
+            //         success: function(response) {
+            //             if (response.success) {
+            //                 toastr.success(response.message);
+            //                 setTimeout(function() {
+            //                     location.reload();
+            //                 }, 2000);
+            //             } else {
+            //                 toastr.error(response.message);
+            //             }
+            //         },
+            //         error: function(xhr) {
+            //             var msg = xhr.responseJSON?.message || 'Something went wrong!';
+            //             toastr.error(msg);
+            //         },
+            //         complete: function() {
+            //             $('#bulkApproveBtn').html('<i class="fas fa-check me-1"></i> Approve')
+            //                 .prop('disabled', false);
+            //         }
+            //     });
+            // });
 
-            $('#bulkRejectForm').submit(function(e) {
-                e.preventDefault();
-                var ids = getSelectedIds();
 
-                var data = {};
-                $.each($(this).serializeArray(), function(_, field) {
-                    data[field.name] = field.value;
-                });
-                data.application_ids = ids;
+            // $('#bulkRejectBtn').click(function() {
+            //     var ids = getSelectedIds();
+            //     if (ids.length === 0) return;
+            //     $('#bulkRejectCount').text(ids.length);
+            //     $('#bulkRejectModal').modal('show');
+            // });
 
-                $.ajax({
-                    url: '{{ route('admin.applications.bulk-reject') }}',
-                    type: 'POST',
-                    data: data,
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    beforeSend: function() {
-                        $('#bulkRejectForm button[type="submit"]').prop('disabled', true)
-                            .html(
-                                '<span class="spinner-border spinner-border-sm me-1"></span> Processing...'
-                            );
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            toastr.success(response.message);
-                            setTimeout(function() {
-                                location.reload();
-                            }, 2000);
-                        } else {
-                            toastr.error(response.message);
-                        }
-                    },
-                    error: function(xhr) {
-                        var msg = xhr.responseJSON?.message || 'Something went wrong!';
-                        toastr.error(msg);
-                    },
-                    complete: function() {
-                        $('#bulkRejectForm button[type="submit"]').prop('disabled', false)
-                            .html('<i class="fas fa-times me-1"></i> Reject All');
-                        $('#bulkRejectModal').modal('hide');
-                    }
-                });
-            });
-            // =====================================================
-            // NOTIFICATION
-            // =====================================================
+            // $('#bulkRejectForm').submit(function(e) {
+            //     e.preventDefault();
+            //     var ids = getSelectedIds();
+
+            //     var data = {};
+            //     $.each($(this).serializeArray(), function(_, field) {
+            //         data[field.name] = field.value;
+            //     });
+            //     data.application_ids = ids;
+
+            //     $.ajax({
+            //         url: '{{ route('admin.applications.bulk-reject') }}',
+            //         type: 'POST',
+            //         data: data,
+            //         headers: {
+            //             'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            //         },
+            //         beforeSend: function() {
+            //             $('#bulkRejectForm button[type="submit"]').prop('disabled', true)
+            //                 .html(
+            //                     '<span class="spinner-border spinner-border-sm me-1"></span> Processing...'
+            //                 );
+            //         },
+            //         success: function(response) {
+            //             if (response.success) {
+            //                 toastr.success(response.message);
+            //                 setTimeout(function() {
+            //                     location.reload();
+            //                 }, 2000);
+            //             } else {
+            //                 toastr.error(response.message);
+            //             }
+            //         },
+            //         error: function(xhr) {
+            //             var msg = xhr.responseJSON?.message || 'Something went wrong!';
+            //             toastr.error(msg);
+            //         },
+            //         complete: function() {
+            //             $('#bulkRejectForm button[type="submit"]').prop('disabled', false)
+            //                 .html('<i class="fas fa-times me-1"></i> Reject All');
+            //             $('#bulkRejectModal').modal('hide');
+            //         }
+            //     });
+            // });
+
+
             $(document).on('click', '.notify-btn', function() {
                 var id = $(this).data('id');
                 $('#notifyApplicationId').val(id);
@@ -869,9 +868,8 @@
                 });
             });
 
-            // =====================================================
-            // BULK NOTIFY
-            // =====================================================
+
+            //bulk notify
             $('#bulkNotifyBtn').click(function() {
                 var ids = getSelectedIds();
                 if (ids.length === 0) return;
@@ -919,9 +917,7 @@
                 });
             });
 
-            // =====================================================
-            // HELPER FUNCTIONS
-            // =====================================================
+            //helper function
             function getSelectedIds() {
                 var ids = [];
                 $('.application-checkbox:checked').each(function() {

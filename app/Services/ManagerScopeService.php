@@ -8,11 +8,6 @@ use App\Models\UpazilaManagerAssignment;
 
 class ManagerScopeService
 {
-    /**
-     * Upazila IDs visible to a Wing Manager or Regional Manager.
-     * RM: upazilas directly assigned to them.
-     * WM: upazilas assigned to any RM that reports to them (users.aemp_mngr).
-     */
     public function visibleUpazilaIds(User $user): array
     {
         if ($user->isRegionalManager()) {

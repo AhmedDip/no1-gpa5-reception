@@ -33,6 +33,8 @@ class StudentAuthController extends Controller
 
     public function register(Request $request)
     {
+        $this->deleteIfStaleUnverified($request->mobile);
+
         $request->validate([
             'name_en' => 'required|string|max:255',
             'name_bn' => 'required|string|max:255',
@@ -135,6 +137,8 @@ class StudentAuthController extends Controller
             'password.required' => 'পাসওয়ার্ড প্রয়োজন',
         ]);
 
+        $this->deleteIfStaleUnverified($request->mobile);
+
         $credentials = [
             'mobile' => $request->mobile,
             'password' => $request->password
@@ -162,5 +166,21 @@ class StudentAuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('student.login')->with('success', 'আপনি সফলভাবে লগআউট করেছেন।');
+    }
+
+    private function deleteIfStaleUnverified(?string $mobile): void
+    {
+        if (!$mobile) return;
+
+        $stale = User::where('mobile', $mobile)
+            ->where('is_mobile_verified', false)
+            ->where('created_at', '<=', now()->subMinutes(1))
+            ->first();
+
+        if ($stale) {
+            $stale->studentDetail()?->delete();
+            $stale->otpVerifications()->delete();
+            $stale->delete();
+        }
     }
 }

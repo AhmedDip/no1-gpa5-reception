@@ -20,7 +20,7 @@ class OtpService
             $otp = $this->generateOtp();
             $expiresAt = now()->addMinutes(5);
 
-            Log::info("Generating OTP for user: {$user->id}, Mobile: {$user->mobile}, OTP: {$otp}");
+            // Log::info("Generating OTP for user: {$user->id}, Mobile: {$user->mobile}, OTP: {$otp}");
 
             // Invalidate previous OTPs
             OtpVerification::where('user_id', $user->id)
@@ -39,7 +39,7 @@ class OtpService
                 'user_agent' => Request::userAgent(),
             ]);
 
-            Log::info("OTP Record Created: ID: {$otpRecord->id}");
+            // Log::info("OTP Record Created: ID: {$otpRecord->id}");
 
             // Send OTP
             $sent = $this->sendOtp($user->mobile, $otp);
@@ -372,5 +372,23 @@ class OtpService
             Log::error('Failed to check Twilio balance: ' . $e->getMessage());
             return false;
         }
+    }
+
+
+    public function deleteIfExpired(User $user): bool
+    {
+        if ($user->is_mobile_verified) {
+            return false;
+        }
+
+        if ($user->created_at->gt(now()->subMinutes(1))) {
+            return false;
+        }
+
+        $user->studentDetail()?->delete();
+        $user->otpVerifications()->delete();
+        $user->delete();
+
+        return true;
     }
 }

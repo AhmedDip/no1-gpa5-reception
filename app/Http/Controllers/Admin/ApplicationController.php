@@ -62,11 +62,13 @@ class ApplicationController extends Controller
             $countsBase->whereIn('upazila_id', $upazilaIds);
         }
 
-        $counts = [
+      $counts = [
             'total'          => (clone $countsBase)->count(),
             'pending'        => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_PENDING))->count(),
             'approved_by_rm' => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_APPROVED_BY_RM))->count(),
+            'rejected_by_rm' => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_REJECTED_BY_RM))->count(),
             'approved_by_wm' => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_APPROVED_BY_WM))->count(),
+            'rejected_by_wm' => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_REJECTED_BY_WM))->count(),
             'approved'       => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_APPROVED))->count(),
             'rejected'       => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_REJECTED))->count(),
         ];
@@ -176,19 +178,12 @@ class ApplicationController extends Controller
 
     public function reject(Request $request, int $id)
     {
-        $request->validate([
-            'remarks' => 'required|string|min:5|max:1000',
-        ], [
-            'remarks.required' => 'প্রত্যাখ্যানের কারণ লিখুন।',
-            'remarks.min'      => 'কারণ কমপক্ষে ৫ অক্ষরের হতে হবে।',
-        ]);
-
         $user = Auth::user();
         $app  = $this->findScoped($id, ['user']);
 
         try {
             if ($user->isAdmin()) {
-                $rejectedStatus = ApplicationStatus::where('slug', 'rejected')->value('id') ?? 3;
+                $rejectedStatus = ApplicationStatus::where('slug', 'rejected')->value('id') ?? 7;
 
                 if ($app->application_status_id === $rejectedStatus) {
                     return $this->jsonOrRedirect($request, false, 'আবেদনটি ইতিমধ্যে প্রত্যাখ্যাত।');

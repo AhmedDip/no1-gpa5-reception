@@ -37,7 +37,6 @@ class AdminAuthenticate
                 ->with('error', 'আপনার এই পেজে প্রবেশের অনুমতি নেই।');
         }
 
-        // Must have a menu group (role) assigned
         if (!$user->wmng_id) {
             Auth::logout();
             $request->session()->invalidate();

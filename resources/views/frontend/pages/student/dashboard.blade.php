@@ -57,6 +57,11 @@
             border-radius: 12px;
             padding: 15px;
             text-align: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .menu-btn:hover {
@@ -109,6 +114,10 @@
             padding-left: 10px;
         }
 
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
         .quick-action-btn {
             border-radius: 10px;
             transition: all 0.3s ease;
@@ -145,12 +154,70 @@
             font-size: 10px;
             font-weight: bold;
         }
+
+        .stat-icon {
+            opacity: 0.5;
+            font-size: 2.5rem;
+        }
+
+        .detail-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .card-header-custom {
+            background: transparent;
+            border-bottom: 2px solid #f0f0f0;
+            padding: 1rem 1.25rem 0.5rem 1.25rem;
+        }
+
+        /* Fix parent photo alignment */
+        .parent-photo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .parent-photo-container img {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        /* Ensure even spacing in stat cards */
+        .stat-card .card-body {
+            padding: 1.25rem;
+        }
+
+        /* Fix for event card alignment */
+        .event-card .d-flex {
+            align-items: flex-start;
+        }
+
+        /* Button alignment fix */
+        .menu-btn i {
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-btn h6 {
+            margin-bottom: 0.25rem;
+        }
+
+        .menu-btn small {
+            line-height: 1.2;
+        }
     </style>
 
     <div class="container py-4 mb-5">
         <!-- Welcome Banner -->
         <div class="welcome-banner fade-in-up" style="margin-top: 80px; margin-bottom: 40px;">
-            <div class="row align-items-center">
+            <div class="row align-items-center g-3">
                 <div class="col-md-8">
                     <h2 class="fw-bold mb-2">
                         <i class="fas fa-user-graduate fa-flip me-2" style="--fa-animation-duration: 5s;"></i>
@@ -158,9 +225,36 @@
                     </h2>
                     <p class="mb-0 opacity-90">
                         <i class="fas fa-calendar-alt me-2"></i>
-                        আজকে {{ date('j F, Y', strtotime(now())) }} |
+                        @php
+                            $bnMonths = [
+                                'January' => 'জানুয়ারি',
+                                'February' => 'ফেব্রুয়ারি',
+                                'March' => 'মার্চ',
+                                'April' => 'এপ্রিল',
+                                'May' => 'মে',
+                                'June' => 'জুন',
+                                'July' => 'জুলাই',
+                                'August' => 'আগস্ট',
+                                'September' => 'সেপ্টেম্বর',
+                                'October' => 'অক্টোবর',
+                                'November' => 'নভেম্বর',
+                                'December' => 'ডিসেম্বর',
+                            ];
+                            $month = $bnMonths[date('F')] ?? date('F');
+                            $day = date('j');
+                            $year = date('Y');
+                            $bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+                            $bnDay = str_replace(range(0, 9), $bnDigits, $day);
+                            $bnYear = str_replace(range(0, 9), $bnDigits, $year);
+                        @endphp
+                        {{ $bnDay }} {{ $month }}, {{ $bnYear }} |
                         <i class="fas fa-clock ms-2 me-2"></i>
-                        {{ date('h:i A', strtotime(now())) }}
+                        @php
+                            $time = date('h:i A');
+                            $bnTime = str_replace(range(0, 9), $bnDigits, $time);
+                            $bnTime = str_replace(['AM', 'PM'], ['পূর্বাহ্ণ', 'অপরাহ্ণ'], $bnTime);
+                        @endphp
+                        {{ $bnTime }}
                     </p>
                     <p class="mt-2 mb-0">
                         <i class="fas fa-trophy me-2"></i>
@@ -175,9 +269,9 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row g-4">
             <!-- Left Column - Profile Information -->
-            <div class="col-lg-4 mb-4 fade-in-up" style="animation-delay: 0.1s">
+            <div class="col-lg-4 fade-in-up" style="animation-delay: 0.1s">
                 <!-- Profile Card -->
                 <div class="card info-card shadow-sm mb-4">
                     <div class="card-body text-center p-4">
@@ -214,7 +308,7 @@
                             স্ট্যাটাস: {{ $studentDetail->applicationStatus->name ?? 'Pending' }}
                         </span>
 
-                        <div class="row mt-3">
+                        <div class="row mt-3 g-2">
                             <div class="col-6">
                                 <div class="border-end">
                                     <small class="text-muted d-block">মোবাইল</small>
@@ -233,41 +327,41 @@
 
                 <!-- Academic Information Card -->
                 <div class="card info-card shadow-sm">
-                    <div class="card-header bg-white border-0 pt-4 pb-0">
+                    <div class="card-header card-header-custom">
                         <h5 class="fw-bold mb-0">
                             <i class="fas fa-book-open text-primary me-2"></i>
                             শিক্ষাগত তথ্য
                         </h5>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-3">
                         <div class="detail-row">
-                            <div class="row">
-                                <div class="col-6 text-muted">এসএসসি বোর্ড:</div>
-                                <div class="col-6 fw-semibold">{{ $studentDetail->board->name_bn ?? 'N/A' }}</div>
+                            <div class="row g-0">
+                                <div class="col-6 detail-label">এসএসসি বোর্ড:</div>
+                                <div class="col-6 detail-value">{{ $studentDetail->board->name_bn ?? 'N/A' }}</div>
                             </div>
                         </div>
                         <div class="detail-row">
-                            <div class="row">
-                                <div class="col-6 text-muted">গ্রুপ:</div>
-                                <div class="col-6 fw-semibold">{{ $studentDetail->group->name_bn ?? 'N/A' }}</div>
+                            <div class="row g-0">
+                                <div class="col-6 detail-label">গ্রুপ:</div>
+                                <div class="col-6 detail-value">{{ $studentDetail->group->name_bn ?? 'N/A' }}</div>
                             </div>
                         </div>
                         <div class="detail-row">
-                            <div class="row">
-                                <div class="col-6 text-muted">রোল নম্বর:</div>
-                                <div class="col-6 fw-semibold">{{ $studentDetail->roll_number }}</div>
+                            <div class="row g-0">
+                                <div class="col-6 detail-label">রোল নম্বর:</div>
+                                <div class="col-6 detail-value">{{ $studentDetail->roll_number }}</div>
                             </div>
                         </div>
                         <div class="detail-row">
-                            <div class="row">
-                                <div class="col-6 text-muted">রেজিস্ট্রেশন নম্বর:</div>
-                                <div class="col-6 fw-semibold">{{ $studentDetail->registration_number }}</div>
+                            <div class="row g-0">
+                                <div class="col-6 detail-label">রেজিস্ট্রেশন নম্বর:</div>
+                                <div class="col-6 detail-value">{{ $studentDetail->registration_number }}</div>
                             </div>
                         </div>
                         <div class="detail-row">
-                            <div class="row">
-                                <div class="col-6 text-muted">জিপিএ/ফলাফল:</div>
-                                <div class="col-6 fw-bold text-success">{{ $studentDetail->gpa_result }}</div>
+                            <div class="row g-0">
+                                <div class="col-6 detail-label">জিপিএ/ফলাফল:</div>
+                                <div class="col-6 detail-value text-success">{{ $studentDetail->gpa_result }}</div>
                             </div>
                         </div>
                     </div>
@@ -277,8 +371,8 @@
             <!-- Right Column - Main Content -->
             <div class="col-lg-8 fade-in-up" style="animation-delay: 0.2s">
                 <!-- Statistics Cards -->
-                <div class="row mb-4">
-                    <div class="col-md-4 mb-3">
+                <div class="row g-3 mb-4">
+                    <div class="col-md-4">
                         <div class="card stat-card bg-primary text-white h-100">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -288,12 +382,12 @@
                                             {{ $studentDetail->applicationStatus->name ?? 'Pending' }}
                                         </h3>
                                     </div>
-                                    <i class="fas fa-clipboard-list fa-3x text-white-50"></i>
+                                    <i class="fas fa-clipboard-list stat-icon text-white"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-4">
                         <div class="card stat-card bg-success text-white h-100">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -301,12 +395,12 @@
                                         <h6 class="text-white-50 mb-1">এসএসসি ফলাফল</h6>
                                         <h3 class="text-white mb-0">{{ $studentDetail->gpa_result }}</h3>
                                     </div>
-                                    <i class="fas fa-chart-line fa-3x text-white-50"></i>
+                                    <i class="fas fa-chart-line stat-icon text-white"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-4">
                         <div class="card stat-card bg-info text-white h-100">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -314,7 +408,7 @@
                                         <h6 class="text-white-50 mb-1">নিবন্ধন নম্বর</h6>
                                         <h6 class="text-white mb-0">{{ $studentDetail->registration_number }}</h6>
                                     </div>
-                                    <i class="fas fa-id-card fa-3x text-white-50"></i>
+                                    <i class="fas fa-id-card stat-icon text-white"></i>
                                 </div>
                             </div>
                         </div>
@@ -323,52 +417,43 @@
 
                 <!-- Quick Actions -->
                 <div class="card info-card shadow-sm mb-4">
-                    <div class="card-header bg-white border-0 pt-4 pb-0">
+                    <div class="card-header card-header-custom">
                         <h5 class="fw-bold mb-0">
                             <i class="fas fa-bolt text-warning me-2"></i>
                             দ্রুত কর্মসমূহ
                         </h5>
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            {{-- <div class="col-md-3 mb-3">
-                                <a href="{{ route('student.edit.application') }}" class="text-decoration-none">
-                                    <div class="menu-btn bg-light">
-                                        <i class="fas fa-edit fa-2x text-primary mb-2"></i>
-                                        <h6 class="mb-0 text-dark">তথ্য সম্পাদনা</h6>
-                                        <small class="text-muted">আপনার তথ্য আপডেট করুন</small>
-                                    </div>
-                                </a>
-                            </div> --}}
-                            <div class="col-md-4 mb-3">
+                        <div class="row g-3">
+                            <div class="col-md-4">
                                 <a href="{{ route('student.download.certificate') }}" target="_blank"
                                     class="text-decoration-none">
                                     <div class="menu-btn bg-light">
-                                        <i class="fas fa-download fa-2x text-success mb-2"></i>
-                                        <h6 class="mb-0 text-dark">একনলজমেন্ট সার্টিফিকেট</h6>
+                                        <i class="fas fa-download fa-2x text-success"></i>
+                                        <h6 class="mb-0 text-dark mt-1">একনলজমেন্ট সার্টিফিকেট</h6>
                                         <small class="text-muted">ডাউনলোড করুন</small>
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-4">
                                 <a href="{{ route('student.invitation.letter') }}" target="_blank"
                                     class="text-decoration-none">
                                     <div class="menu-btn bg-light">
-                                        <i class="fas fa-envelope fa-2x text-danger mb-2"></i>
-                                        <h6 class="mb-0 text-dark">আমন্ত্রণপত্র</h6>
+                                        <i class="fas fa-envelope fa-2x text-danger"></i>
+                                        <h6 class="mb-0 text-dark mt-1">আমন্ত্রণপত্র</h6>
                                         <small class="text-muted">ইভেন্টের আমন্ত্রণপত্র</small>
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-4">
                                 <a href="{{ route('student.notifications.index') }}" class="text-decoration-none">
                                     <div class="menu-btn bg-light position-relative">
                                         @if (($unreadNotifCount ?? 0) > 0)
                                             <span class="position-absolute badge bg-danger rounded-pill"
                                                 style="top: 8px; right: 8px; font-size: 0.65rem;">{{ $unreadNotifCount }}</span>
                                         @endif
-                                        <i class="fas fa-bell fa-2x text-warning mb-2"></i>
-                                        <h6 class="mb-0 text-dark">নোটিফিকেশন</h6>
+                                        <i class="fas fa-bell fa-2x text-warning"></i>
+                                        <h6 class="mb-0 text-dark mt-1">নোটিফিকেশন</h6>
                                         <small class="text-muted">প্রেরিত বার্তা দেখুন</small>
                                     </div>
                                 </a>
@@ -379,56 +464,53 @@
 
                 <!-- Parent Information Card -->
                 @if ($studentDetail->is_parent_info_provided)
-                    <div class="card info-card shadow-sm mb-4">
-                        <div class="card-header bg-white border-0 pt-4 pb-0">
+                    <div class="card info-card shadow-sm mb-4 mt-4">
+                        <div class="card-header card-header-custom">
                             <h5 class="fw-bold mb-0">
                                 <i class="fas fa-users text-info me-2"></i>
                                 অভিভাবকের তথ্য
                             </h5>
                         </div>
-                        <div class="card-body">
-                            <div class="row">
+                        <div class="card-body p-3">
+                            <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="detail-row">
-                                        <div class="row">
-                                            <div class="col-5 text-muted">পিতার নাম:</div>
-                                            <div class="col-7 fw-semibold">{{ $studentDetail->father_name }}</div>
+                                        <div class="row g-0">
+                                            <div class="col-5 detail-label">পিতার নাম:</div>
+                                            <div class="col-7 detail-value">{{ $studentDetail->father_name }}</div>
                                         </div>
                                     </div>
                                     <div class="detail-row">
-                                        <div class="row">
-                                            <div class="col-5 text-muted">মাতার নাম:</div>
-                                            <div class="col-7 fw-semibold">{{ $studentDetail->mother_name }}</div>
+                                        <div class="row g-0">
+                                            <div class="col-5 detail-label">মাতার নাম:</div>
+                                            <div class="col-7 detail-value">{{ $studentDetail->mother_name }}</div>
                                         </div>
                                     </div>
                                     <div class="detail-row">
-                                        <div class="row">
-                                            <div class="col-5 text-muted">অভিভাবকের মোবাইল:</div>
-                                            <div class="col-7 fw-semibold">{{ $studentDetail->parent_mobile }}</div>
+                                        <div class="row g-0">
+                                            <div class="col-5 detail-label">অভিভাবকের মোবাইল:</div>
+                                            <div class="col-7 detail-value">{{ $studentDetail->parent_mobile }}</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="detail-row">
-                                        <div class="row">
-                                            <div class="col-5 text-muted">চায়ের দোকানের নাম:</div>
-                                            <div class="col-7 fw-semibold">{{ $studentDetail->tea_stall_name }}</div>
+                                        <div class="row g-0">
+                                            <div class="col-5 detail-label">চায়ের দোকানের নাম:</div>
+                                            <div class="col-7 detail-value">{{ $studentDetail->tea_stall_name }}</div>
                                         </div>
                                     </div>
                                     <div class="detail-row">
-                                        <div class="row">
-                                            <div class="col-5 text-muted">দোকানের অবস্থান:</div>
-                                            <div class="col-7 fw-semibold">{{ $studentDetail->tea_stall_location }}</div>
+                                        <div class="row g-0">
+                                            <div class="col-5 detail-label">দোকানের অবস্থান:</div>
+                                            <div class="col-7 detail-value">{{ $studentDetail->tea_stall_location }}</div>
                                         </div>
                                     </div>
                                     @if ($studentDetail->parent_photo)
-                                        <div class="mt-2">
+                                        <div class="mt-2 parent-photo-container">
                                             <small class="text-muted">অভিভাবকের ছবি:</small>
-                                            <a href="{{ $studentDetail->parent_photo_url }}" target="_blank"
-                                                class="d-block">
-                                                <i class="fas fa-image me-1"></i>
-                                                ছবি দেখুন
-                                            </a>
+                                            <img src="{{ $studentDetail->parent_photo_url }}" alt="Parent Photo"
+                                                class="mt-1">
                                         </div>
                                     @endif
                                 </div>
@@ -438,53 +520,56 @@
                 @endif
 
                 <!-- Event Information Card -->
-                <div class="card info-card shadow-sm">
-                    <div class="card-header bg-white border-0 pt-4 pb-0">
-                        <h5 class="fw-bold mb-0">
-                            <i class="fas fa-calendar-alt text-danger me-2"></i>
-                            ইভেন্ট তথ্য
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="event-card p-3 mb-3 bg-light">
-                            <div class="d-flex align-items-start">
-                                <div class="me-3">
-                                    <i class="fas fa-map-marker-alt fa-2x text-danger"></i>
-                                </div>
-                                <div>
-                                    <h6 class="fw-bold mb-1">স্থান</h6>
-                                    <p class="mb-0 text-muted">শীঘ্রই ঘোষণা করা হবে</p>
+                {{-- @if($studentDetail->application_status_id == 2) --}}
+                    <div class="card info-card shadow-sm">
+                        <div class="card-header card-header-custom">
+                            <h5 class="fw-bold mt-4">
+                                <i class="fas fa-calendar-alt text-danger me-2"></i>
+                                ইভেন্ট তথ্য
+                            </h5>
+                        </div>
+                        <div class="card-body p-3">
+                            <div class="event-card p-3 mb-3 bg-light">
+                                <div class="d-flex align-items-start">
+                                    <div class="me-3">
+                                        <i class="fas fa-map-marker-alt fa-2x text-danger"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">স্থান</h6>
+                                        <p class="mb-0 text-muted">শীঘ্রই ঘোষণা করা হবে</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="event-card p-3 mb-3 bg-light">
-                            <div class="d-flex align-items-start">
-                                <div class="me-3">
-                                    <i class="fas fa-calendar-day fa-2x text-danger"></i>
-                                </div>
-                                <div>
-                                    <h6 class="fw-bold mb-1">তারিখ ও সময়</h6>
-                                    <p class="mb-0 text-muted">শীঘ্রই ঘোষণা করা হবে</p>
+                            <div class="event-card p-3 mb-3 bg-light">
+                                <div class="d-flex align-items-start">
+                                    <div class="me-3">
+                                        <i class="fas fa-calendar-day fa-2x text-danger"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">তারিখ ও সময়</h6>
+                                        <p class="mb-0 text-muted">শীঘ্রই ঘোষণা করা হবে</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="event-card p-3 bg-light">
-                            <div class="d-flex align-items-start">
-                                <div class="me-3">
-                                    <i class="fas fa-info-circle fa-2x text-danger"></i>
-                                </div>
-                                <div>
-                                    <h6 class="fw-bold mb-1">বিশেষ দ্রষ্টব্য</h6>
-                                    <p class="mb-0 text-muted small">
-                                        সকল আপডেট এই ড্যাশবোর্ডে জানানো হবে। নিয়মিত ভিজিট করার জন্য ধন্যবাদ।
-                                    </p>
+                            <div class="event-card p-3 bg-light">
+                                <div class="d-flex align-items-start">
+                                    <div class="me-3">
+                                        <i class="fas fa-info-circle fa-2x text-danger"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">বিশেষ দ্রষ্টব্য</h6>
+                                        <p class="mb-0 text-muted small">
+                                            সকল আপডেট এই ড্যাশবোর্ডে জানানো হবে। নিয়মিত ভিজিট করার জন্য ধন্যবাদ।
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                {{-- @endif --}}
+
             </div>
         </div>
     </div>
@@ -498,7 +583,6 @@
                         <h5 class="modal-title">
                             <i class="fas fa-users me-2"></i>অভিভাবকের তথ্য প্রদান করুন
                         </h5>
-
                     </div>
                     <form action="{{ route('student.update.parent') }}" method="POST" enctype="multipart/form-data"
                         id="parentForm">
@@ -509,15 +593,15 @@
                                 আপনার ড্যাশবোর্ড সম্পূর্ণভাবে দেখার জন্য অভিভাবকের তথ্য প্রদান করা আবশ্যক।
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
+                            <div class="row g-3">
+                                <div class="col-md-6">
                                     <label class="form-label required">পিতার নাম</label>
                                     <input type="text" class="form-control" name="father_name" required>
                                     @error('father_name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6">
                                     <label class="form-label required">মাতার নাম</label>
                                     <input type="text" class="form-control" name="mother_name" required>
                                     @error('mother_name')
@@ -526,15 +610,15 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
+                            <div class="row g-3 mt-1">
+                                <div class="col-md-6">
                                     <label class="form-label required">চায়ের দোকানের নাম</label>
                                     <input type="text" class="form-control" name="tea_stall_name" required>
                                     @error('tea_stall_name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6">
                                     <label class="form-label required">চায়ের দোকানের অবস্থান</label>
                                     <input type="text" class="form-control" name="tea_stall_location" required>
                                     @error('tea_stall_location')
@@ -543,15 +627,15 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
+                            <div class="row g-3 mt-1">
+                                <div class="col-md-6">
                                     <label class="form-label required">অভিভাবকের মোবাইল নম্বর</label>
                                     <input type="tel" class="form-control" name="parent_mobile" required>
                                     @error('parent_mobile')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6">
                                     <label class="form-label">অভিভাবকের ছবি</label>
                                     <input type="file" class="form-control" name="parent_photo" accept="image/*"
                                         id="parentPhoto">
@@ -577,12 +661,10 @@
     @push('scripts')
         <script>
             @if ($showParentModal)
-                // Show parent modal on page load
                 document.addEventListener('DOMContentLoaded', function() {
                     var modal = new bootstrap.Modal(document.getElementById('parentModal'));
                     modal.show();
 
-                    // Parent photo preview
                     document.getElementById('parentPhoto').addEventListener('change', function(e) {
                         const preview = document.getElementById('parentPhotoPreview');
                         preview.innerHTML = '';
@@ -603,21 +685,6 @@
                     });
                 });
             @endif
-
-
-            // Real-time clock update
-            function updateClock() {
-                const now = new Date();
-                const timeString = now.toLocaleTimeString('bn-BD', {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-                const clockElement = document.querySelector('.fa-clock');
-                if (clockElement) {
-                    clockElement.nextSibling.textContent = ` ${timeString}`;
-                }
-            }
-            setInterval(updateClock, 60000);
         </script>
     @endpush
 @endsection
