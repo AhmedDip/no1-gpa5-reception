@@ -13,7 +13,7 @@ class OtpService
     /**
      * Generate and send OTP for user
      */
-  public function __construct(private NotificationService $notificationService) {}
+    public function __construct(private NotificationService $notificationService) {}
 
     public function generateAndSendOtp(User $user): array
     {
@@ -57,26 +57,28 @@ class OtpService
     /**
      * Generate random 6-digit OTP
      */
-   private function generateOtp(): string
+    private function generateOtp(): string
     {
         return str_pad((string) random_int(100000, 999999), 6, '0', STR_PAD_LEFT);
     }
     /**
      * Send OTP via SMS
      */
-   private function sendOtp(string $mobile, string $otp): bool
+    private function sendOtp(string $mobile, string $otp): bool
     {
         try {
-            Log::info("OTP for {$mobile}: {$otp}");
+            Log::info("OTP generated for mobile: {$this->maskMobile($mobile)}");
 
-            if (app()->environment('local', 'testing')) {
+            // Local/dev convenience only — controlled by SHOW_TEST_OTP env flag,
+            // NOT by APP_ENV. Whether a *real* SMS goes out is decided solely by
+            // SMS_DRIVER (log vs banglalink) inside NotificationService — the
+            // exact same rule Approve/Reject/Notify already follow.
+            if (config('services.sms.show_test_otp')) {
                 session(['test_otp' => $otp]);
                 session(['test_otp_mobile' => $mobile]);
-                return true;
             }
 
-            $message = $this->getOtpMessage($otp);
-            return $this->notificationService->sendSms($mobile, $message, null, 'otp');
+            return $this->notificationService->sendOtpSms($mobile, $otp);
         } catch (\Exception $e) {
             Log::error('Send OTP Error: ' . $e->getMessage());
             return false;

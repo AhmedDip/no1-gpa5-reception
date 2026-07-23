@@ -57,7 +57,8 @@ return [
     ],
 
     'sms' => [
-        'driver' => env('SMS_DRIVER', 'banglalink'), // Default SMS driver
+        'driver' => env('SMS_DRIVER', 'banglalink'),
+         'show_test_otp' => env('SHOW_TEST_OTP', false),
     ],
 
     'banglalink' => [

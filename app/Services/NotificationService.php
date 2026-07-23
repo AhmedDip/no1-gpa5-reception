@@ -236,4 +236,16 @@ class NotificationService
         }
         return substr($mobile, 0, 4) . str_repeat('*', strlen($mobile) - 6) . substr($mobile, -2);
     }
+
+    public function otpTemplate(string $otp): string
+    {
+        return "আপনার OTP কোড: {$otp}\n"
+            . "এটি ৫ মিনিটের জন্য বৈধ।\n"
+            . "— নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা - ২০২৬";
+    }
+
+    public function sendOtpSms(string $mobile, string $otp): bool
+    {
+        return $this->sendSms($mobile, $this->otpTemplate($otp), null, 'otp');
+    }
 }

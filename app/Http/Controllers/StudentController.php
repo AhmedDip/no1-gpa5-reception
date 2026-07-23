@@ -32,6 +32,8 @@ class StudentController extends Controller
         $studentDetail = $user->studentDetail;
         $showParentModal = !$user->hasParentInfo();
 
+        // dd($studentDetail);
+
         $unreadNotifCount = StudentNotification::where('user_id', $user->id)
             ->where('is_read', false)
             ->count();

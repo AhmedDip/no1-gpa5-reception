@@ -129,7 +129,6 @@ class OtpVerificationController extends Controller
             ], 401);
         }
 
-        // Check if already verified
         if ($user->is_mobile_verified) {
             return response()->json([
                 'success' => false,
@@ -143,7 +142,7 @@ class OtpVerificationController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => $result['message'],
-                'test_otp' => app()->environment('local', 'testing') ? session('test_otp') : null
+                'test_otp' => config('services.sms.show_test_otp') ? session('test_otp') : null,
             ]);
         }
 
