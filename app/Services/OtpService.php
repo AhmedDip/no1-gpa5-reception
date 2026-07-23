@@ -13,86 +13,69 @@ class OtpService
     /**
      * Generate and send OTP for user
      */
+  public function __construct(private NotificationService $notificationService) {}
+
     public function generateAndSendOtp(User $user): array
     {
         try {
-            // Generate OTP
             $otp = $this->generateOtp();
             $expiresAt = now()->addMinutes(5);
 
-            // Log::info("Generating OTP for user: {$user->id}, Mobile: {$user->mobile}, OTP: {$otp}");
+            Log::info("Generating OTP for user: {$user->id}, Mobile: {$user->mobile}");
 
-            // Invalidate previous OTPs
             OtpVerification::where('user_id', $user->id)
                 ->where('is_verified', false)
                 ->update(['is_verified' => false, 'expires_at' => now()]);
 
-            // Create new OTP record
             $otpRecord = OtpVerification::create([
-                'user_id' => $user->id,
-                'mobile' => $user->mobile,
-                'otp_code' => $otp,
-                'expires_at' => $expiresAt,
-                'is_verified' => false,
-                'attempts' => 0,
-                'ip_address' => Request::ip(),
-                'user_agent' => Request::userAgent(),
+                'user_id'         => $user->id,
+                'mobile'          => $user->mobile,
+                'otp_code'        => $otp,
+                'expires_at'      => $expiresAt,
+                'is_verified'     => false,
+                'attempts'        => 0,
+                'ip_address'      => Request::ip(),
+                'user_agent'      => Request::userAgent(),
             ]);
 
-            // Log::info("OTP Record Created: ID: {$otpRecord->id}");
-
-            // Send OTP
             $sent = $this->sendOtp($user->mobile, $otp);
 
             if ($sent) {
                 return [
-                    'success' => true,
-                    'message' => 'OTP পাঠানো হয়েছে',
-                    'otp_record_id' => $otpRecord->id
+                    'success'       => true,
+                    'message'       => 'OTP পাঠানো হয়েছে',
+                    'otp_record_id' => $otpRecord->id,
                 ];
             }
 
-            return [
-                'success' => false,
-                'message' => 'OTP পাঠাতে ব্যর্থ হয়েছে'
-            ];
+            return ['success' => false, 'message' => 'OTP পাঠাতে ব্যর্থ হয়েছে'];
         } catch (\Exception $e) {
             Log::error('OTP Generation Error: ' . $e->getMessage());
-            return [
-                'success' => false,
-                'message' => 'OTP তৈরি করতে ব্যর্থ হয়েছে: ' . $e->getMessage()
-            ];
+            return ['success' => false, 'message' => 'OTP তৈরি করতে ব্যর্থ হয়েছে: ' . $e->getMessage()];
         }
     }
-
     /**
      * Generate random 6-digit OTP
      */
-    private function generateOtp(): string
+   private function generateOtp(): string
     {
-        return str_pad(random_int(100000, 999999), 6, '0', STR_PAD_LEFT);
+        return str_pad((string) random_int(100000, 999999), 6, '0', STR_PAD_LEFT);
     }
-
     /**
      * Send OTP via SMS
      */
-    private function sendOtp(string $mobile, string $otp): bool
+   private function sendOtp(string $mobile, string $otp): bool
     {
         try {
-            // Development
-            if (app()->environment('local', 'testing')) {
-                // Log OTP
-                Log::info("OTP for {$mobile}: {$otp}");
+            Log::info("OTP for {$mobile}: {$otp}");
 
-                // Store in session for testing
+            if (app()->environment('local', 'testing')) {
                 session(['test_otp' => $otp]);
                 session(['test_otp_mobile' => $mobile]);
-
                 return true;
             }
 
-            // Production
-            // return $this->sendProductionOtp($mobile, $otp);
+            return $this->notificationService->sendSms($mobile, $this->getOtpMessage($otp), null, 'otp');
         } catch (\Exception $e) {
             Log::error('Send OTP Error: ' . $e->getMessage());
             return false;
@@ -226,80 +209,7 @@ class OtpService
         }
     }
 
-    /**
-     * Production OTP Sending
-     */
-    private function sendProductionOtp(string $mobile, string $otp): bool
-    {
-        try {
-            // Validate Twilio credentials
-            $twilioSid = config('services.twilio.sid');
-            $twilioToken = config('services.twilio.token');
-            $twilioFrom = config('services.twilio.from');
 
-            // Check if credentials are set
-            if (empty($twilioSid) || empty($twilioToken) || empty($twilioFrom)) {
-                Log::error('Twilio credentials missing');
-                return false;
-            }
-
-            // Format mobile number for Twilio (ensure it's in E.164 format)
-            $formattedMobile = $this->formatMobileNumber($mobile);
-
-            // Create Twilio client
-            $client = new \Twilio\Rest\Client($twilioSid, $twilioToken);
-
-            // Send SMS with better error handling
-            $message = $client->messages->create(
-                $formattedMobile,
-                [
-                    'from' => $twilioFrom,
-                    'body' => $this->getOtpMessage($otp),
-                ]
-            );
-
-            // Log message SID for tracking
-            Log::info('OTP SMS sent successfully', [
-                'mobile' => $this->maskMobile($formattedMobile),
-                'message_sid' => $message->sid,
-                'status' => $message->status
-            ]);
-
-            return true;
-        } catch (\Twilio\Exceptions\RestException $e) {
-            // Twilio specific exceptions
-            Log::error('Twilio API Error: ' . $e->getMessage(), [
-                'code' => $e->getCode(),
-                'mobile' => $this->maskMobile($mobile),
-                'more_info' => $e->getMoreInfo()
-            ]);
-
-            // Handle specific Twilio errors
-            if ($e->getCode() === 21211) {
-                // Invalid 'To' Phone Number
-                Log::error('Invalid mobile number format');
-            } elseif ($e->getCode() === 21606) {
-                // 'To' Phone Number is not a mobile number
-                Log::error('Not a valid mobile number');
-            } elseif ($e->getCode() === 21614) {
-                // 'To' Phone Number is not verified
-                Log::error('Phone number not verified');
-            }
-
-            return false;
-        } catch (\Twilio\Exceptions\ConfigurationException $e) {
-            // Configuration errors (missing credentials)
-            Log::error('Twilio Configuration Error: ' . $e->getMessage());
-            return false;
-        } catch (\Exception $e) {
-            // Catch any other exceptions
-            Log::error('SMS Error: ' . $e->getMessage(), [
-                'mobile' => $this->maskMobile($mobile),
-                'trace' => $e->getTraceAsString()
-            ]);
-            return false;
-        }
-    }
 
     private function formatMobileNumber(string $mobile): string
     {
@@ -330,7 +240,6 @@ class OtpService
             "আপনার নিরাপত্তার জন্য এই কোড কাউকে জানাবেন না।\n\n" .
             "— নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা - ২০২৬";
     }
-
     /**
      * Mask mobile number for logging
      */

@@ -57,7 +57,21 @@ return [
     ],
 
     'sms' => [
-        'driver' => env('SMS_DRIVER', 'log'),
+        'driver' => env('SMS_DRIVER', 'banglalink'), // Default SMS driver
     ],
+
+    'banglalink' => [
+        'sms_url'      => env('BANGLALINK_SMS_URL', 'https://corpsms.banglalink.net/bl/api/v1/smsapigw/'),
+        // CLI check + Balance check + Delivery report — same base endpoint, different apicode
+        'ecm_url'      => env('BANGLALINK_ECM_URL', 'https://corpsms.banglalink.net/bl/ecmapigw/webresources/ecmapigw.v3'),
+        'username'     => env('BANGLALINK_SMS_USERNAME'),
+        'password'     => env('BANGLALINK_SMS_PASSWORD'),
+        'cli'          => env('BANGLALINK_SMS_CLI'),
+        'country_code' => env('BANGLALINK_SMS_COUNTRY_CODE', '880'),
+        'rn_code'      => env('BANGLALINK_SMS_RN_CODE', '91'),
+        // apicode 5 = send with delivery receipt, 6 = send without delivery receipt
+        'apicode'      => env('BANGLALINK_SMS_APICODE', '5'),
+    ],
+
 
 ];

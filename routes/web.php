@@ -103,3 +103,52 @@ Route::prefix('api')->name('api.')->group(function () {
 
 
 require __DIR__ . '/admin.php';
+
+
+// TEMPORARY — remove after debugging
+Route::get('/debug-sms-test', function () {
+    $mobile = '01998663117'; // আপনার নিজের নম্বর দিন
+    $mobile2 = '01969917144'; // আপনার নিজের নম্বর দিন
+
+    try {
+        $response = \Illuminate\Support\Facades\Http::timeout(15)
+            ->acceptJson()
+            ->asJson()
+            ->post(config('services.banglalink.sms_url'), [
+                'username'      => config('services.banglalink.username'),
+                'password'      => config('services.banglalink.password'),
+                'apicode'       => config('services.banglalink.apicode'),
+                'msisdn'        => ['880' . ltrim($mobile, '0')],
+                'countrycode'   => config('services.banglalink.country_code'),
+                'cli'           => config('services.banglalink.cli'),
+                'messagetype'   => '1',
+                'message'       => 'Local test ' . now()->format('His'),
+                'clienttransid' => 'T' . now()->timestamp . rand(100, 999),
+                'bill_msisdn'   => '880' . ltrim($mobile2, '0'),
+                'tran_type'     => 'T',
+                'request_type'  => 'S',
+                'rn_code'       => config('services.banglalink.rn_code'),
+            ]);
+
+        return response()->json([
+            'http_status'    => $response->status(),
+            'successful'     => $response->successful(),
+            'raw_body'       => $response->json(),
+            'config_used'    => [
+                'url'      => config('services.banglalink.sms_url'),
+                'username' => config('services.banglalink.username'),
+                'cli'      => config('services.banglalink.cli'),
+            ],
+        ]);
+    } catch (\Illuminate\Http\Client\ConnectionException $e) {
+        return response()->json([
+            'error' => 'CONNECTION_FAILED — network/DNS/firewall issue, could not even reach Banglalink server',
+            'message' => $e->getMessage(),
+        ], 500);
+    } catch (\Throwable $e) {
+        return response()->json([
+            'error' => 'UNEXPECTED_EXCEPTION',
+            'message' => $e->getMessage(),
+        ], 500);
+    }
+});

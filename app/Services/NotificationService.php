@@ -8,9 +8,11 @@ use App\Models\StudentNotification;
 use App\Models\User;
 use App\Models\SmsLog;
 use Illuminate\Support\Facades\Log;
+use App\Services\Sms\BanglalinkSmsService;
 
 class NotificationService
 {
+    public function __construct(private BanglalinkSmsService $banglalinkSms) {}
 
     public function approvedTemplate(StudentDetail $app): string
     {
@@ -26,7 +28,7 @@ class NotificationService
             . "— নাম্বার ওয়ান ব্র্যান্ড";
     }
 
-  
+
     public function rejectedTemplate(StudentDetail $app, string $remarks = ''): string
     {
         $name = $app->name_bn ?: $app->name_en;
@@ -71,7 +73,7 @@ class NotificationService
 
     public function sendSms(string $mobile, string $message, ?int $studentDetailId = null, string $type = 'custom'): bool
     {
-        $driver = config('services.sms.driver', 'log');
+        $driver = config('services.sms.driver', 'banglalink');
         $result = $this->dispatch($driver, $mobile, $message);
 
         try {
@@ -96,60 +98,39 @@ class NotificationService
     private function dispatch(string $driver, string $mobile, string $message): array
     {
         switch ($driver) {
-            case 'twilio':
-                return $this->sendViaTwilio($mobile, $message);
+            case 'banglalink':
+                return $this->sendViaBanglalink($mobile, $message);
             case 'log':
             default:
                 return $this->sendViaLog($mobile, $message);
         }
     }
 
-   
-    private function sendViaTwilio(string $mobile, string $message): array
+    private function sendViaBanglalink(string $mobile, string $message): array
     {
-        try {
-            $sid   = config('services.twilio.sid');
-            $token = config('services.twilio.token');
-            $from  = config('services.twilio.from');
+        $result = $this->banglalinkSms->send($mobile, $message, $this->containsBangla($message));
 
-            if (empty($sid) || empty($token) || empty($from)) {
-                Log::warning('Twilio credentials not configured; SMS skipped.', ['mobile' => $this->maskMobile($mobile)]);
-                return [
-                    'success' => false,
-                    'response' => 'Twilio credentials not configured'
-                ];
-            }
+        Log::info('SMS dispatched via Banglalink', [
+            'mobile'  => $this->maskMobile($mobile),
+            'status'  => $result['status_code'],
+            'success' => $result['success'],
+        ]);
 
-            $formattedMobile = $this->formatMobile($mobile);
-
-            $client = new \Twilio\Rest\Client($sid, $token);
-            $sms = $client->messages->create($formattedMobile, [
-                'from' => $from,
-                'body' => $message,
-            ]);
-
-            Log::info('SMS sent via Twilio', ['sid' => $sms->sid, 'mobile' => $this->maskMobile($formattedMobile)]);
-
-            return [
-                'success' => true,
-                'response' => $sms->sid
-            ];
-        } catch (\Twilio\Exceptions\RestException $e) {
-            Log::error('Twilio SMS error: ' . $e->getMessage(), ['code' => $e->getCode()]);
-            return [
-                'success' => false,
-                'response' => $e->getMessage()
-            ];
-        } catch (\Exception $e) {
-            Log::error('SMS error: ' . $e->getMessage());
-            return [
-                'success' => false,
-                'response' => $e->getMessage()
-            ];
-        }
+        return [
+            'success'  => $result['success'],
+            'response' => trim(($result['status_code'] ?? '') . ' - ' . $result['message']),
+        ];
     }
 
-    
+    /** Bangla messages need messagetype "3" (Unicode) instead of "1" (English) */
+    private function containsBangla(string $text): bool
+    {
+        return (bool) preg_match('/\p{Bengali}/u', $text);
+    }
+
+
+
+
     private function sendViaLog(string $mobile, string $message): array
     {
         Log::info('SMS logged (driver: log)', [
@@ -197,7 +178,7 @@ class NotificationService
         return $this->sendSms($mobile, $message, $app->id, 'rejected');
     }
 
- 
+
     public function sendBulk(array $applications, string $customMessage = ''): array
     {
         $sent   = 0;
