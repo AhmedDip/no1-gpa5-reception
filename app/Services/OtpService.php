@@ -75,7 +75,8 @@ class OtpService
                 return true;
             }
 
-            return $this->notificationService->sendSms($mobile, $this->getOtpMessage($otp), null, 'otp');
+            $message = $this->getOtpMessage($otp);
+            return $this->notificationService->sendSms($mobile, $message, null, 'otp');
         } catch (\Exception $e) {
             Log::error('Send OTP Error: ' . $e->getMessage());
             return false;
@@ -227,7 +228,7 @@ class OtpService
         }
 
         // Add '+' prefix for E.164 format
-        return '+' . $mobile;
+        return $mobile;
     }
 
     /**
@@ -235,9 +236,8 @@ class OtpService
      */
     private function getOtpMessage(string $otp): string
     {
-        return "আপনার OTP কোড: {$otp}\n\n" .
+        return "আপনার OTP কোড: {$otp}\n" .
             "এটি ৫ মিনিটের জন্য বৈধ।\n" .
-            "আপনার নিরাপত্তার জন্য এই কোড কাউকে জানাবেন না।\n\n" .
             "— নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা - ২০২৬";
     }
     /**

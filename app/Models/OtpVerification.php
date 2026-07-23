@@ -47,6 +47,13 @@ class OtpVerification extends Model
 
     public function canResend(): bool
     {
-        return $this->last_attempt_at && $this->last_attempt_at->diffInSeconds(now()) >= 60;
+        return now()->gte($this->getResendAvailableAt());
+    }
+
+    public function getResendAvailableAt()
+    {
+        $baseTime = $this->last_attempt_at ?? $this->created_at ?? now();
+
+        return $baseTime->copy()->addSeconds(60);
     }
 }

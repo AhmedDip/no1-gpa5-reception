@@ -71,6 +71,7 @@ return [
         'rn_code'      => env('BANGLALINK_SMS_RN_CODE', '91'),
         // apicode 5 = send with delivery receipt, 6 = send without delivery receipt
         'apicode'      => env('BANGLALINK_SMS_APICODE', '5'),
+         'bill_msisdn'  => env('BANGLALINK_SMS_BILL_MSISDN', '8801969917144'),
     ],
 
 

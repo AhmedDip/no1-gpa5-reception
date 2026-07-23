@@ -276,7 +276,7 @@
                 <div class="card info-card shadow-sm mb-4">
                     <div class="card-body text-center p-4">
                         <div class="position-relative d-inline-block">
-                            @if ($studentDetail->student_photo)
+                            @if ($studentDetail?->student_photo)
                                 <img src="{{ $studentDetail->student_photo_url }}" class="rounded-circle profile-image"
                                     alt="{{ $studentDetail->name_en }}">
                             @else
@@ -287,8 +287,8 @@
                             @endif
                         </div>
 
-                        <h3 class="mt-3 mb-1 fw-bold">{{ $studentDetail->name_en }}</h3>
-                        <p class="text-muted mb-3">{{ $studentDetail->name_bn }}</p>
+                        <h3 class="mt-3 mb-1 fw-bold">{{ $studentDetail?->name_en }}</h3>
+                        <p class="text-muted mb-3">{{ $studentDetail?->name_bn }}</p>
 
                         @php
                             $statusColors = [
@@ -305,7 +305,7 @@
 
                         <span class="status-badge bg-{{ $status['bg'] }} text-white d-inline-block mb-3">
                             <i class="fas fa-circle me-1" style="font-size: 8px;"></i>
-                            স্ট্যাটাস: {{ $studentDetail->applicationStatus->name ?? 'Pending' }}
+                            স্ট্যাটাস: {{ $studentDetail?->applicationStatus->name ?? 'Pending' }}
                         </span>
 
                         <div class="row mt-3 g-2">
@@ -379,7 +379,7 @@
                                     <div>
                                         <h6 class="text-white-50 mb-1">আবেদন স্ট্যাটাস</h6>
                                         <h3 class="text-white mb-0">
-                                            {{ $studentDetail->applicationStatus->name ?? 'Pending' }}
+                                            {{ $studentDetail?->applicationStatus->name ?? 'Pending' }}
                                         </h3>
                                     </div>
                                     <i class="fas fa-clipboard-list stat-icon text-white"></i>
@@ -393,7 +393,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <h6 class="text-white-50 mb-1">এসএসসি ফলাফল</h6>
-                                        <h3 class="text-white mb-0">{{ $studentDetail->gpa_result }}</h3>
+                                        <h3 class="text-white mb-0">{{ $studentDetail?->gpa_result }}</h3>
                                     </div>
                                     <i class="fas fa-chart-line stat-icon text-white"></i>
                                 </div>
@@ -406,7 +406,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <h6 class="text-white-50 mb-1">নিবন্ধন নম্বর</h6>
-                                        <h6 class="text-white mb-0">{{ $studentDetail->registration_number }}</h6>
+                                        <h6 class="text-white mb-0">{{ $studentDetail?->registration_number }}</h6>
                                     </div>
                                     <i class="fas fa-id-card stat-icon text-white"></i>
                                 </div>

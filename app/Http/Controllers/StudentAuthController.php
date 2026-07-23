@@ -109,13 +109,13 @@ class StudentAuthController extends Controller
             $otpService = app('App\Services\OtpService');
             $result = $otpService->generateAndSendOtp($user);
 
-            if ($result['success']) {
-                session()->flash('success', 'OTP পাঠানো হয়েছে আপনার মোবাইলে। অনুগ্রহ করে OTP দিয়ে আপনার মোবাইল নম্বর যাচাই করুন।');
-            } else {
-                session()->flash('error', 'OTP পাঠাতে ব্যর্থ হয়েছে। অনুগ্রহ করে পরে আবার চেষ্টা করুন।');
+            if (!$result['success']) {
+                return redirect()->route('student.dashboard')
+                    ->with('error', $result['message']);
             }
 
-            return redirect()->route('student.dashboard')->with('success', 'নিবন্ধন সফল হয়েছে! অনুগ্রহ করে আপনার অভিভাবকের তথ্য প্রদান করুন।');
+            return redirect()->route('student.dashboard')
+                ->with('success', 'নিবন্ধন সফল হয়েছে! OTP পাঠানো হয়েছে আপনার মোবাইলে। অনুগ্রহ করে যাচাই সম্পন্ন করুন।');
         } catch (\Exception $e) {
             DB::rollback();
             return back()->with('error', 'নিবন্ধন ব্যর্থ হয়েছে! দয়া করে আবার চেষ্টা করুন।')->withInput();

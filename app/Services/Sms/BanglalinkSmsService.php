@@ -54,7 +54,7 @@ class BanglalinkSmsService
             'messagetype'   => $isUnicode ? '3' : '1', // 3 = Unicode(Bangla), 1 = English text
             'message'       => $message,
             'clienttransid' => $this->generateTransId(),
-            'bill_msisdn'   => $this->normalizeMsisdn($mobile),
+            'bill_msisdn'   => config('services.banglalink.bill_msisdn'),
             'tran_type'     => 'T', // Transactional
             'request_type'  => 'S', // Single
             'rn_code'       => config('services.banglalink.rn_code', '91'),
