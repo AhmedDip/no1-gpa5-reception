@@ -182,12 +182,12 @@
 
         <!-- Applications Table -->
         <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
                 <h5 class="mb-0">
                     <i class="fas fa-list me-2"></i>Applications List
                 </h5>
-                <div class="d-flex gap-2">
-                    {{-- @if (auth()->user()->isAdmin())
+                @if (auth()->user()->isAdmin())
+                    <div class="d-flex gap-2">
                         <button type="button" class="btn btn-success btn-sm" id="bulkApproveBtn" disabled>
                             <i class="fas fa-check me-1"></i> Approve
                         </button>
@@ -197,19 +197,19 @@
                         <button type="button" class="btn btn-info btn-sm" id="bulkNotifyBtn" disabled>
                             <i class="fas fa-sms me-1"></i> Notify
                         </button>
-                    @endif --}}
-                </div>
+                    </div>
+                @endif
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                {{-- <th width="30">
+                                <th width="30">
                                     @if (auth()->user()->isAdmin())
                                         <input type="checkbox" id="selectAll" class="form-check-input">
                                     @endif
-                                </th> --}}
+                                </th>
                                 <th>#</th>
                                 <th>Student</th>
                                 <th>Contact</th>
@@ -223,19 +223,16 @@
                         <tbody>
                             @forelse($applications as $index => $application)
                                 <tr>
-                                    {{-- <td>
+                                    <td>
                                         @if (auth()->user()->isAdmin())
                                             <input type="checkbox" class="form-check-input application-checkbox"
                                                 value="{{ $application->id }}">
                                         @endif
-                                    </td> --}}
+                                    </td>
                                     <td>{{ $applications->firstItem() + $index }}</td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="avatar avatar-sm me-2">
-                                                {{-- <span class="avatar-initial rounded-circle bg-label-primary">
-                                                    {{ strtoupper(substr($application->name_en ?? 'N/A', 0, 1)) }}
-                                                </span> --}}
                                                 <span class="avatar-initial rounded-circle bg-label-primary">
                                                     @if ($application->student_photo)
                                                         <img src="{{ $application->student_photo_url }}"
@@ -348,7 +345,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8" class="text-center py-4">
+                                    <td colspan="9" class="text-center py-4">
                                         <div class="d-flex flex-column align-items-center">
                                             <i class="fas fa-inbox fa-3x text-muted mb-2"></i>
                                             <h6 class="mb-0">No applications found</h6>
@@ -481,10 +478,6 @@
                             <label class="form-label">Custom Message</label>
                             <textarea name="custom_msg" class="form-control" rows="3" placeholder="Enter custom message..."></textarea>
                         </div>
-                        {{-- <div class="mb-0">
-                            <label class="form-label">Remarks <small class="text-muted">(Optional)</small></label>
-                            <textarea name="remarks" class="form-control" rows="2" placeholder="Add remarks..."></textarea>
-                        </div> --}}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -498,7 +491,7 @@
     </div>
 
     <!-- Bulk Reject Modal -->
-    {{-- <div class="modal fade" id="bulkRejectModal" tabindex="-1">
+    <div class="modal fade" id="bulkRejectModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -518,8 +511,8 @@
                         </div>
                         <div class="mb-0">
                             <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input" id="bulkRejectSendSms" name="send_sms"
-                                    value="1">
+                                <input type="checkbox" class="form-check-input" id="bulkRejectSendSms"
+                                    name="send_sms" value="1">
                                 <label class="form-check-label" for="bulkRejectSendSms">
                                     <i class="fas fa-sms me-1"></i> Send SMS Notification
                                 </label>
@@ -535,7 +528,7 @@
                 </form>
             </div>
         </div>
-    </div> --}}
+    </div>
 @endsection
 
 @push('styles')
@@ -611,21 +604,38 @@
     <script>
         $(document).ready(function() {
 
-            // $('#selectAll').change(function() {
-            //     $('.application-checkbox').prop('checked', $(this).prop('checked'));
-            //     updateBulkButtons();
-            // });
+            // =====================================================
+            // SELECT ALL / ROW CHECKBOX SYNC
+            // =====================================================
+            $('#selectAll').change(function() {
+                $('.application-checkbox').prop('checked', $(this).prop('checked'));
+                updateBulkButtons();
+            });
 
-            // $(document).on('change', '.application-checkbox', function() {
-            //     updateBulkButtons();
-            // });
+            $(document).on('change', '.application-checkbox', function() {
+                // Keep "select all" checkbox in sync when rows are unchecked individually
+                var total = $('.application-checkbox').length;
+                var checked = $('.application-checkbox:checked').length;
+                $('#selectAll').prop('checked', total > 0 && total === checked);
+                updateBulkButtons();
+            });
 
-            // function updateBulkButtons() {
-            //     var count = $('.application-checkbox:checked').length;
-            //     $('#bulkApproveBtn, #bulkRejectBtn, #bulkNotifyBtn').prop('disabled', count === 0);
-            // }
+            function updateBulkButtons() {
+                var count = $('.application-checkbox:checked').length;
+                $('#bulkApproveBtn, #bulkRejectBtn, #bulkNotifyBtn').prop('disabled', count === 0);
+            }
 
+            function getSelectedIds() {
+                var ids = [];
+                $('.application-checkbox:checked').each(function() {
+                    ids.push($(this).val());
+                });
+                return ids;
+            }
 
+            // =====================================================
+            // SINGLE APPROVE
+            // =====================================================
             $(document).on('click', '.approve-btn', function() {
                 var id = $(this).data('id');
                 $('#approveApplicationId').val(id);
@@ -672,7 +682,9 @@
                 });
             });
 
-
+            // =====================================================
+            // SINGLE REJECT
+            // =====================================================
             $(document).on('click', '.reject-btn', function() {
                 var id = $(this).data('id');
                 $('#rejectApplicationId').val(id);
@@ -719,107 +731,139 @@
                 });
             });
 
+            // =====================================================
+            // BULK APPROVE
+            // =====================================================
+            $('#bulkApproveBtn').click(function() {
+                var ids = getSelectedIds();
+                if (ids.length === 0) return;
 
-            // $('#bulkApproveBtn').click(function() {
-            //     var ids = getSelectedIds();
-            //     if (ids.length === 0) return;
+                Swal.fire({
+                    title: 'Approve applications?',
+                    text: 'You are about to approve ' + ids.length + ' application(s).',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, approve',
+                    cancelButtonText: 'Cancel',
+                    confirmButtonColor: '#71dd37'
+                }).then(function(result) {
+                    if (!result.isConfirmed) return;
 
-            //     if (!confirm('Are you sure you want to approve ' + ids.length + ' applications?')) return;
+                    $.ajax({
+                        url: '{{ route('admin.applications.bulk-approve') }}',
+                        type: 'POST',
+                        data: {
+                            application_ids: ids,
+                            send_sms: 1
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        beforeSend: function() {
+                            $('#bulkApproveBtn').prop('disabled', true)
+                                .html(
+                                    '<span class="spinner-border spinner-border-sm me-1"></span> Processing...'
+                                );
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                toastr.success(response.message);
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 2000);
+                            } else {
+                                toastr.error(response.message);
+                            }
+                        },
+                        error: function(xhr) {
+                            var msg = xhr.responseJSON?.message || 'Something went wrong!';
+                            toastr.error(msg);
+                        },
+                        complete: function() {
+                            $('#bulkApproveBtn').html('<i class="fas fa-check me-1"></i> Approve')
+                                .prop('disabled', false);
+                        }
+                    });
+                });
+            });
 
-            //     $.ajax({
-            //         url: '{{ route('admin.applications.bulk-approve') }}',
-            //         type: 'POST',
-            //         data: {
-            //             application_ids: ids,
-            //             send_sms: 1
-            //         },
-            //         headers: {
-            //             'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            //         },
-            //         beforeSend: function() {
-            //             $('#bulkApproveBtn').prop('disabled', true)
-            //                 .html(
-            //                     '<span class="spinner-border spinner-border-sm me-1"></span> Processing...'
-            //                 );
-            //         },
-            //         success: function(response) {
-            //             if (response.success) {
-            //                 toastr.success(response.message);
-            //                 setTimeout(function() {
-            //                     location.reload();
-            //                 }, 2000);
-            //             } else {
-            //                 toastr.error(response.message);
-            //             }
-            //         },
-            //         error: function(xhr) {
-            //             var msg = xhr.responseJSON?.message || 'Something went wrong!';
-            //             toastr.error(msg);
-            //         },
-            //         complete: function() {
-            //             $('#bulkApproveBtn').html('<i class="fas fa-check me-1"></i> Approve')
-            //                 .prop('disabled', false);
-            //         }
-            //     });
-            // });
+            // =====================================================
+            // BULK REJECT
+            // =====================================================
+            $('#bulkRejectBtn').click(function() {
+                var ids = getSelectedIds();
+                if (ids.length === 0) return;
+                $('#bulkRejectCount').text(ids.length);
+                $('#bulkRejectForm')[0].reset();
+                $('#bulkRejectModal').modal('show');
+            });
 
+            $('#bulkRejectForm').submit(function(e) {
+                e.preventDefault();
+                var ids = getSelectedIds();
 
-            // $('#bulkRejectBtn').click(function() {
-            //     var ids = getSelectedIds();
-            //     if (ids.length === 0) return;
-            //     $('#bulkRejectCount').text(ids.length);
-            //     $('#bulkRejectModal').modal('show');
-            // });
+                if (ids.length === 0) {
+                    toastr.warning('No applications selected.');
+                    $('#bulkRejectModal').modal('hide');
+                    return;
+                }
 
-            // $('#bulkRejectForm').submit(function(e) {
-            //     e.preventDefault();
-            //     var ids = getSelectedIds();
+                var data = {};
+                $.each($(this).serializeArray(), function(_, field) {
+                    data[field.name] = field.value;
+                });
+                data.application_ids = ids;
 
-            //     var data = {};
-            //     $.each($(this).serializeArray(), function(_, field) {
-            //         data[field.name] = field.value;
-            //     });
-            //     data.application_ids = ids;
+                $.ajax({
+                    url: '{{ route('admin.applications.bulk-reject') }}',
+                    type: 'POST',
+                    data: data,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    beforeSend: function() {
+                        $('#bulkRejectForm button[type="submit"]').prop('disabled', true)
+                            .html(
+                                '<span class="spinner-border spinner-border-sm me-1"></span> Processing...'
+                            );
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            toastr.success(response.message);
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2000);
+                        } else {
+                            toastr.error(response.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422 && xhr.responseJSON?.errors) {
+                            var errors = xhr.responseJSON.errors;
+                            $.each(errors, function(field, messages) {
+                                toastr.error(messages[0]);
+                            });
+                        } else {
+                            var msg = xhr.responseJSON?.message || 'Something went wrong!';
+                            toastr.error(msg);
+                        }
+                    },
+                    complete: function() {
+                        $('#bulkRejectForm button[type="submit"]').prop('disabled', false)
+                            .html('<i class="fas fa-times me-1"></i> Reject All');
+                        $('#bulkRejectModal').modal('hide');
+                    }
+                });
+            });
 
-            //     $.ajax({
-            //         url: '{{ route('admin.applications.bulk-reject') }}',
-            //         type: 'POST',
-            //         data: data,
-            //         headers: {
-            //             'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            //         },
-            //         beforeSend: function() {
-            //             $('#bulkRejectForm button[type="submit"]').prop('disabled', true)
-            //                 .html(
-            //                     '<span class="spinner-border spinner-border-sm me-1"></span> Processing...'
-            //                 );
-            //         },
-            //         success: function(response) {
-            //             if (response.success) {
-            //                 toastr.success(response.message);
-            //                 setTimeout(function() {
-            //                     location.reload();
-            //                 }, 2000);
-            //             } else {
-            //                 toastr.error(response.message);
-            //             }
-            //         },
-            //         error: function(xhr) {
-            //             var msg = xhr.responseJSON?.message || 'Something went wrong!';
-            //             toastr.error(msg);
-            //         },
-            //         complete: function() {
-            //             $('#bulkRejectForm button[type="submit"]').prop('disabled', false)
-            //                 .html('<i class="fas fa-times me-1"></i> Reject All');
-            //             $('#bulkRejectModal').modal('hide');
-            //         }
-            //     });
-            // });
-
-
+            // =====================================================
+            // SINGLE NOTIFY
+            // =====================================================
             $(document).on('click', '.notify-btn', function() {
                 var id = $(this).data('id');
                 $('#notifyApplicationId').val(id);
+                $('#notifyForm')[0].reset();
+                $('#customMessageGroup').hide();
                 $('#notifyModal').modal('show');
             });
 
@@ -868,8 +912,9 @@
                 });
             });
 
-
-            //bulk notify
+            // =====================================================
+            // BULK NOTIFY
+            // =====================================================
             $('#bulkNotifyBtn').click(function() {
                 var ids = getSelectedIds();
                 if (ids.length === 0) return;
@@ -917,16 +962,9 @@
                 });
             });
 
-            //helper function
-            function getSelectedIds() {
-                var ids = [];
-                $('.application-checkbox:checked').each(function() {
-                    ids.push($(this).val());
-                });
-                return ids;
-            }
-
-            // Dynamic district loading
+            // =====================================================
+            // DEPENDENT DISTRICT DROPDOWN (FILTER FORM)
+            // =====================================================
             $('#divisionFilter').change(function() {
                 var divisionId = $(this).val();
                 if (divisionId) {
