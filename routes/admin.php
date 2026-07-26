@@ -113,17 +113,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 ->middleware('menu.permission:applications.list,update')
                 ->name('notify');
 
-            Route::post('/bulk/approve', [ApplicationController::class, 'bulkApprove'])
+            Route::post('/bulk/approve-multiple', [ApplicationController::class, 'bulkApprove'])
                 ->middleware('menu.permission:applications.list,update')
-                ->name('bulk-approve');
+                ->name('bulk-approve-multiple');
 
-            Route::post('/bulk/reject', [ApplicationController::class, 'bulkReject'])
+            Route::post('/bulk/reject-multiple', [ApplicationController::class, 'bulkReject'])
                 ->middleware('menu.permission:applications.list,update')
-                ->name('bulk-reject');
+                ->name('bulk-reject-multiple');
 
-            Route::post('/bulk/notify', [ApplicationController::class, 'bulkNotify'])
+            Route::post('/bulk/notify-multiple', [ApplicationController::class, 'bulkNotify'])
                 ->middleware('menu.permission:applications.list,update')
-                ->name('bulk-notify');
+                ->name('bulk-notify-multiple');
         });
 
 

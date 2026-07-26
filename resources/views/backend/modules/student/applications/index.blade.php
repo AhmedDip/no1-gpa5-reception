@@ -430,16 +430,16 @@
                             <textarea name="remarks" class="form-control" rows="3" placeholder="Please provide reason for rejection..."
                                 required></textarea>
                         </div>
-                        @if(auth()->user()->isAdmin())
-                        <div class="mb-0">
-                            <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input" id="rejectSendSms" name="send_sms"
-                                    value="1" checked>
-                                <label class="form-check-label" for="rejectSendSms">
-                                    <i class="fas fa-sms me-1"></i> Send SMS Notification
-                                </label>
+                        @if (auth()->user()->isAdmin())
+                            <div class="mb-0">
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" id="rejectSendSms" name="send_sms"
+                                        value="1" checked>
+                                    <label class="form-check-label" for="rejectSendSms">
+                                        <i class="fas fa-sms me-1"></i> Send SMS Notification
+                                    </label>
+                                </div>
                             </div>
-                        </div>
                         @endif
                     </div>
                     <div class="modal-footer">
@@ -490,6 +490,45 @@
         </div>
     </div>
 
+    <!-- Bulk Approve Modal -->
+    <div class="modal fade" id="bulkApproveModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-check-circle text-success me-2"></i>Bulk Approve Applications
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="bulkApproveForm">
+                    <div class="modal-body">
+                        <p class="text-muted">You are about to approve <strong id="bulkApproveCount">0</strong>
+                            applications.</p>
+                        <div class="mb-3">
+                            <label class="form-label">Remarks <small class="text-muted">(Optional)</small></label>
+                            <textarea name="remarks" class="form-control" rows="3" placeholder="Add remarks if any..."></textarea>
+                        </div>
+                        <div class="mb-0">
+                            <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-input" id="bulkApproveSendSms" name="send_sms"
+                                    value="1" checked>
+                                <label class="form-check-label" for="bulkApproveSendSms">
+                                    <i class="fas fa-sms me-1"></i> Send SMS Notification
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check me-1"></i> Approve All
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Bulk Reject Modal -->
     <div class="modal fade" id="bulkRejectModal" tabindex="-1">
         <div class="modal-dialog">
@@ -511,8 +550,8 @@
                         </div>
                         <div class="mb-0">
                             <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input" id="bulkRejectSendSms"
-                                    name="send_sms" value="1">
+                                <input type="checkbox" class="form-check-input" id="bulkRejectSendSms" name="send_sms"
+                                    value="1">
                                 <label class="form-check-label" for="bulkRejectSendSms">
                                     <i class="fas fa-sms me-1"></i> Send SMS Notification
                                 </label>
@@ -523,6 +562,48 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-danger">
                             <i class="fas fa-times me-1"></i> Reject All
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk Notify Modal -->
+    <div class="modal fade" id="bulkNotifyModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-sms text-primary me-2"></i>Bulk Send Notification
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="bulkNotifyForm">
+                    <div class="modal-body">
+                        <p class="text-muted">Sending notification to <strong id="bulkNotifyCount">0</strong>
+                            applicants.</p>
+                        <div class="mb-3">
+                            <label class="form-label">Message Type</label>
+                            <select name="message_type" class="form-select" id="bulkMessageType">
+                                <option value="approved">Approved</option>
+                                <option value="rejected">Rejected</option>
+                                <option value="custom">Custom Message</option>
+                            </select>
+                        </div>
+                        <div class="mb-3" id="bulkCustomMessageGroup" style="display:none;">
+                            <label class="form-label">Custom Message</label>
+                            <textarea name="custom_msg" class="form-control" rows="3" placeholder="Enter custom message..."></textarea>
+                        </div>
+                        <div class="mb-0">
+                            <label class="form-label">Remarks <small class="text-muted">(Optional)</small></label>
+                            <textarea name="remarks" class="form-control" rows="2" placeholder="Add remarks for audit log..."></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane me-1"></i> Send to All
                         </button>
                     </div>
                 </form>
@@ -735,57 +816,72 @@
             // BULK APPROVE
             // =====================================================
             $('#bulkApproveBtn').click(function() {
+                console.log('Bulk Approve button clicked');
                 var ids = getSelectedIds();
                 if (ids.length === 0) return;
+                $('#bulkApproveCount').text(ids.length);
+                $('#bulkApproveForm')[0].reset();
+                $('#bulkApproveSendSms').prop('checked', true);
+                $('#bulkApproveModal').modal('show');
+            });
 
-                Swal.fire({
-                    title: 'Approve applications?',
-                    text: 'You are about to approve ' + ids.length + ' application(s).',
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, approve',
-                    cancelButtonText: 'Cancel',
-                    confirmButtonColor: '#71dd37'
-                }).then(function(result) {
-                    if (!result.isConfirmed) return;
+            $('#bulkApproveForm').submit(function(e) {
+                e.preventDefault();
+                var ids = getSelectedIds();
 
-                    $.ajax({
-                        url: '{{ route('admin.applications.bulk-approve') }}',
-                        type: 'POST',
-                        data: {
-                            application_ids: ids,
-                            send_sms: 1
-                        },
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        beforeSend: function() {
-                            $('#bulkApproveBtn').prop('disabled', true)
-                                .html(
-                                    '<span class="spinner-border spinner-border-sm me-1"></span> Processing...'
-                                );
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                toastr.success(response.message);
-                                setTimeout(function() {
-                                    location.reload();
-                                }, 2000);
-                            } else {
-                                toastr.error(response.message);
-                            }
-                        },
-                        error: function(xhr) {
-                            var msg = xhr.responseJSON?.message || 'Something went wrong!';
-                            toastr.error(msg);
-                        },
-                        complete: function() {
-                            $('#bulkApproveBtn').html('<i class="fas fa-check me-1"></i> Approve')
-                                .prop('disabled', false);
+                if (ids.length === 0) {
+                    toastr.warning('No applications selected.');
+                    $('#bulkApproveModal').modal('hide');
+                    return;
+                }
+
+                var data = {};
+                $.each($(this).serializeArray(), function(_, field) {
+                    data[field.name] = field.value;
+                });
+                data.application_ids = ids;
+
+
+                $.ajax({
+                    url: '{{ route('admin.applications.bulk-approve-multiple') }}',
+                    type: 'POST',
+                    data: data,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    beforeSend: function() {
+                        $('#bulkApproveForm button[type="submit"]').prop('disabled', true)
+                            .html(
+                                '<span class="spinner-border spinner-border-sm me-1"></span> Processing...'
+                            );
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            toastr.success(response.message);
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2000);
+                        } else {
+                            toastr.error(response.message);
                         }
-                    });
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422 && xhr.responseJSON?.errors) {
+                            $.each(xhr.responseJSON.errors, function(field, messages) {
+                                toastr.error(messages[0]);
+                            });
+                        } else {
+                            toastr.error(xhr.responseJSON?.message || 'Something went wrong!');
+                        }
+                    },
+                    complete: function() {
+                        $('#bulkApproveForm button[type="submit"]').prop('disabled', false)
+                            .html('<i class="fas fa-check me-1"></i> Approve All');
+                        $('#bulkApproveModal').modal('hide');
+                    }
                 });
             });
+
 
             // =====================================================
             // BULK REJECT
@@ -815,7 +911,7 @@
                 data.application_ids = ids;
 
                 $.ajax({
-                    url: '{{ route('admin.applications.bulk-reject') }}',
+                    url: '{{ route('admin.applications.bulk-reject-multiple') }}',
                     type: 'POST',
                     data: data,
                     headers: {
@@ -918,28 +1014,41 @@
             $('#bulkNotifyBtn').click(function() {
                 var ids = getSelectedIds();
                 if (ids.length === 0) return;
+                $('#bulkNotifyCount').text(ids.length);
+                $('#bulkNotifyForm')[0].reset();
+                $('#bulkCustomMessageGroup').hide();
+                $('#bulkNotifyModal').modal('show');
+            });
 
-                var msg = prompt('Enter custom message to send to ' + ids.length + ' applicants:', '');
-                if (msg === null) return;
+            $('#bulkMessageType').change(function() {
+                $('#bulkCustomMessageGroup').toggle($(this).val() === 'custom');
+            });
 
-                if (msg.trim() === '') {
-                    toastr.warning('Message cannot be empty!');
+            $('#bulkNotifyForm').submit(function(e) {
+                e.preventDefault();
+                var ids = getSelectedIds();
+
+                if (ids.length === 0) {
+                    toastr.warning('No applications selected.');
+                    $('#bulkNotifyModal').modal('hide');
                     return;
                 }
 
+                var data = {};
+                $.each($(this).serializeArray(), function(_, field) {
+                    data[field.name] = field.value;
+                });
+                data.application_ids = ids;
+
                 $.ajax({
-                    url: '{{ route('admin.applications.bulk-notify') }}',
+                    url: '{{ route('admin.applications.bulk-notify-multiple') }}',
                     type: 'POST',
-                    data: {
-                        application_ids: ids,
-                        message_type: 'custom',
-                        custom_msg: msg
-                    },
+                    data: data,
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                     beforeSend: function() {
-                        $('#bulkNotifyBtn').prop('disabled', true)
+                        $('#bulkNotifyForm button[type="submit"]').prop('disabled', true)
                             .html(
                                 '<span class="spinner-border spinner-border-sm me-1"></span> Sending...'
                             );
@@ -947,17 +1056,26 @@
                     success: function(response) {
                         if (response.success) {
                             toastr.success(response.message);
+                            // Prevent accidental double-send to the same batch
+                            $('.application-checkbox, #selectAll').prop('checked', false);
+                            updateBulkButtons();
                         } else {
                             toastr.error(response.message);
                         }
                     },
                     error: function(xhr) {
-                        var msg = xhr.responseJSON?.message || 'Something went wrong!';
-                        toastr.error(msg);
+                        if (xhr.status === 422 && xhr.responseJSON?.errors) {
+                            $.each(xhr.responseJSON.errors, function(field, messages) {
+                                toastr.error(messages[0]);
+                            });
+                        } else {
+                            toastr.error(xhr.responseJSON?.message || 'Something went wrong!');
+                        }
                     },
                     complete: function() {
-                        $('#bulkNotifyBtn').html('<i class="fas fa-sms me-1"></i> Notify')
-                            .prop('disabled', false);
+                        $('#bulkNotifyForm button[type="submit"]').prop('disabled', false)
+                            .html('<i class="fas fa-paper-plane me-1"></i> Send to All');
+                        $('#bulkNotifyModal').modal('hide');
                     }
                 });
             });

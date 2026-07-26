@@ -62,7 +62,7 @@ class ApplicationController extends Controller
             $countsBase->whereIn('upazila_id', $upazilaIds);
         }
 
-      $counts = [
+        $counts = [
             'total'          => (clone $countsBase)->count(),
             'pending'        => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_PENDING))->count(),
             'approved_by_rm' => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_APPROVED_BY_RM))->count(),
@@ -131,8 +131,9 @@ class ApplicationController extends Controller
         );
     }
 
-    public function approve(Request $request, int $id)
+    public function approve(Request $request, $id)
     {
+        // dd($request->all());
         $request->validate(['remarks' => 'nullable|string|max:1000']);
 
         $user = Auth::user();
@@ -222,6 +223,7 @@ class ApplicationController extends Controller
         $request->validate([
             'application_ids'   => 'required|array|min:1|max:200',
             'application_ids.*' => 'integer|exists:student_details,id',
+            'remarks'           => 'nullable|string|max:1000',
             'send_sms'          => 'nullable|boolean',
         ], [
             'application_ids.required' => 'কমপক্ষে একটি আবেদন নির্বাচন করুন।',
@@ -232,6 +234,7 @@ class ApplicationController extends Controller
 
             $approvedStatus = ApplicationStatus::where('slug', 'approved')->value('id') ?? 2;
             $ids            = $request->application_ids;
+            $remarks        = $request->remarks ?: 'বাল্ক অনুমোদন';
 
             $apps = StudentDetail::with('user')
                 ->whereIn('id', $ids)
@@ -241,7 +244,7 @@ class ApplicationController extends Controller
             foreach ($apps as $app) {
                 $previousStatus = $app->application_status_id;
                 $app->update(['application_status_id' => $approvedStatus]);
-                $this->logAction($app->id, 'bulk_approve', 'বাল্ক অনুমোদন', $previousStatus, $approvedStatus, $request->ip());
+                $this->logAction($app->id, 'bulk_approve', $remarks, $previousStatus, $approvedStatus, $request->ip());
             }
 
             DB::commit();
@@ -275,6 +278,62 @@ class ApplicationController extends Controller
         }
     }
 
+
+    public function bulkNotify(Request $request)
+    {
+        abort_unless(Auth::user()->isAdmin(), 403);
+        $request->validate([
+            'application_ids'   => 'required|array|min:1|max:200',
+            'application_ids.*' => 'integer|exists:student_details,id',
+            'message_type'      => 'required|in:approved,rejected,custom',
+            'custom_msg'        => 'required_if:message_type,custom|nullable|string|max:300',
+            'remarks'           => 'nullable|string|max:500',
+        ], [
+            'application_ids.required' => 'কমপক্ষে একটি আবেদন নির্বাচন করুন।',
+            'custom_msg.required_if'   => 'কাস্টম মেসেজ লিখুন।',
+        ]);
+
+        $apps = StudentDetail::with('user')
+            ->whereIn('id', $request->application_ids)
+            ->get();
+
+        if ($apps->isEmpty()) {
+            return response()->json(['success' => false, 'message' => 'কোনো বৈধ আবেদন পাওয়া যায়নি।'], 422);
+        }
+
+        // "rejected" template loop reuses the exact same service method
+        // that single reject / bulkReject already use — keeps SMS body consistent.
+        if ($request->message_type === 'rejected') {
+            $sent = $failed = 0;
+
+            foreach ($apps as $app) {
+                $ok = $this->notificationService->notifyRejected($app, $request->remarks ?? '');
+                $ok ? $sent++ : $failed++;
+                usleep(200000);
+            }
+
+            $result = compact('sent', 'failed');
+        } else {
+            $customMsg = $request->message_type === 'custom' ? $request->custom_msg : '';
+            $result    = $this->notificationService->sendBulk($apps->all(), $customMsg);
+        }
+
+        // Audit trail — previously missing entirely for bulk notify, so a
+        // student's "Activity Timeline" on the show page never reflected it.
+        $logRemarks = 'বাল্ক নোটিফিকেশন (' . $request->message_type . ')'
+            . ($request->remarks ? ' - ' . $request->remarks : '');
+
+        foreach ($apps as $app) {
+            $this->logAction($app->id, 'bulk_notify', $logRemarks, null, null, $request->ip());
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => "{$result['sent']}টি SMS পাঠানো হয়েছে, {$result['failed']}টি ব্যর্থ।",
+            'sent'    => $result['sent'],
+            'failed'  => $result['failed'],
+        ]);
+    }
 
     public function bulkReject(Request $request)
     {
@@ -354,33 +413,6 @@ class ApplicationController extends Controller
         return response()->json([
             'success' => $sent,
             'message' => $sent ? 'SMS সফলভাবে পাঠানো হয়েছে।' : 'SMS পাঠাতে ব্যর্থ হয়েছে।',
-        ]);
-    }
-
-
-    public function bulkNotify(Request $request)
-    {
-        abort_unless(Auth::user()->isAdmin(), 403);
-        $request->validate([
-            'application_ids'   => 'required|array|min:1|max:200',
-            'application_ids.*' => 'integer|exists:student_details,id',
-            'message_type'      => 'required|in:approved,custom',
-            'custom_msg'        => 'required_if:message_type,custom|nullable|string|max:300',
-        ]);
-
-        $apps = StudentDetail::with('user')
-            ->whereIn('id', $request->application_ids)
-            ->get()
-            ->all();
-
-        $customMsg = $request->message_type === 'custom' ? $request->custom_msg : '';
-        $result    = $this->notificationService->sendBulk($apps, $customMsg);
-
-        return response()->json([
-            'success' => true,
-            'message' => "{$result['sent']}টি SMS পাঠানো হয়েছে, {$result['failed']}টি ব্যর্থ।",
-            'sent'    => $result['sent'],
-            'failed'  => $result['failed'],
         ]);
     }
 
