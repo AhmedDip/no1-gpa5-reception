@@ -57,16 +57,16 @@
                             </div>
                             <p class="text-muted mb-1">{{ $application->name_bn }}</p>
                             <small class="text-muted">
-                                <i class="fas fa-phone me-1"></i>{{ $application->user->mobile ?? 'N/A' }}
-                                @if ($application->user->email)
-                                    &nbsp;|&nbsp; <i class="fas fa-envelope me-1"></i>{{ $application->user->email }}
+                                <i class="fas fa-phone me-1"></i>{{ $application?->user?->mobile ?? 'N/A' }}
+                                @if ($application?->user?->email)
+                                    &nbsp;|&nbsp; <i class="fas fa-envelope me-1"></i>{{ $application?->user?->email }}
                                 @endif
                             </small>
                             <br>
                             <small class="text-muted">
                                 <i class="fas fa-calendar-alt me-1"></i>Submitted:
-                                {{ $application->created_at?->format('d M Y, h:i A') }}
-                                ({{ $application->created_at?->diffForHumans() }})
+                                {{ $application?->created_at?->format('d M Y, h:i A') }}
+                                ({{ $application?->created_at?->diffForHumans() }})
                             </small>
                         </div>
                     </div>
@@ -81,23 +81,23 @@
                     <div class="row g-3">
                         <div class="col-md-4">
                             <small class="text-muted d-block">SSC Board</small>
-                            <strong>{{ $application->board->name ?? 'N/A' }}</strong>
+                            <strong>{{ $application?->board?->name ?? 'N/A' }}</strong>
                         </div>
                         <div class="col-md-4">
                             <small class="text-muted d-block">Group</small>
-                            <strong>{{ $application->group->name ?? 'N/A' }}</strong>
+                            <strong>{{ $application?->group?->name ?? 'N/A' }}</strong>
                         </div>
                         <div class="col-md-4">
                             <small class="text-muted d-block">GPA / Result</small>
-                            <strong class="text-success">{{ $application->gpa_result }}</strong>
+                            <strong class="text-success">{{ $application?->gpa_result }}</strong>
                         </div>
                         <div class="col-md-4">
                             <small class="text-muted d-block">Roll Number</small>
-                            <strong style="font-family:monospace;">{{ $application->roll_number }}</strong>
+                            <strong style="font-family:monospace;">{{ $application?->roll_number }}</strong>
                         </div>
                         <div class="col-md-4">
                             <small class="text-muted d-block">Registration Number</small>
-                            <strong style="font-family:monospace;">{{ $application->registration_number }}</strong>
+                            <strong style="font-family:monospace;">{{ $application?->registration_number }}</strong>
                         </div>
                     </div>
                 </div>
@@ -111,15 +111,15 @@
                     <div class="row g-3">
                         <div class="col-md-4">
                             <small class="text-muted d-block">Division</small>
-                            <strong>{{ $application->division->name ?? 'N/A' }}</strong>
+                            <strong>{{ $application?->division?->name ?? 'N/A' }}</strong>
                         </div>
                         <div class="col-md-4">
                             <small class="text-muted d-block">District</small>
-                            <strong>{{ $application->district->name ?? 'N/A' }}</strong>
+                            <strong>{{ $application?->district?->name ?? 'N/A' }}</strong>
                         </div>
                         <div class="col-md-4">
                             <small class="text-muted d-block">Upazila</small>
-                            <strong>{{ $application->upazila->name ?? 'N/A' }}</strong>
+                            <strong>{{ $application?->upazila?->name ?? 'N/A' }}</strong>
                         </div>
                     </div>
                 </div>
@@ -128,37 +128,37 @@
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0"><i class="fas fa-users me-2"></i>Parent Information</h5>
-                    @if (!$application->is_parent_info_provided)
+                    @if (!$application?->is_parent_info_provided)
                         <span class="badge bg-label-warning">Not Provided</span>
                     @endif
                 </div>
-                @if ($application->is_parent_info_provided)
+                @if ($application?->is_parent_info_provided)
                     <div class="card-body">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <small class="text-muted d-block">Father's Name</small>
-                                <strong>{{ $application->father_name }}</strong>
+                                <strong>{{ $application?->father_name }}</strong>
                             </div>
                             <div class="col-md-6">
                                 <small class="text-muted d-block">Mother's Name</small>
-                                <strong>{{ $application->mother_name }}</strong>
+                                <strong>{{ $application?->mother_name }}</strong>
                             </div>
                             <div class="col-md-6">
                                 <small class="text-muted d-block">Parent's Mobile</small>
-                                <strong>{{ $application->parent_mobile }}</strong>
+                                <strong>{{ $application?->parent_mobile }}</strong>
                             </div>
                             <div class="col-md-6">
                                 <small class="text-muted d-block">Tea Stall Name</small>
-                                <strong>{{ $application->tea_stall_name }}</strong>
+                                <strong>{{ $application?->tea_stall_name }}</strong>
                             </div>
                             <div class="col-md-12">
                                 <small class="text-muted d-block">Tea Stall Location</small>
-                                <strong>{{ $application->tea_stall_location }}</strong>
+                                <strong>{{ $application?->tea_stall_location }}</strong>
                             </div>
-                            @if ($application->parent_photo)
+                            @if ($application?->parent_photo)
                                 <div class="col-md-12">
                                     <small class="text-muted d-block mb-1">Parent's Photo</small>
-                                    <img src="{{ $application->parent_photo_url }}" alt="Parent Photo"
+                                    <img src="{{ $application?->parent_photo_url }}" alt="Parent Photo"
                                         class="rounded" width="100" height="100" style="object-fit:cover;">
                                 </div>
                             @endif
@@ -177,7 +177,7 @@
                     <h5 class="mb-0"><i class="fas fa-history me-2"></i>Activity Timeline</h5>
                 </div>
                 <div class="card-body">
-                    @forelse ($application->auditLogs as $log)
+                    @forelse ($application?->auditLogs as $log)
                         <div class="d-flex gap-3 pb-3 mb-3 {{ !$loop->last ? 'border-bottom' : '' }}">
                             <div class="flex-shrink-0">
                                 <span class="badge bg-label-secondary rounded-circle p-2">

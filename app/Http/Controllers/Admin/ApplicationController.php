@@ -40,7 +40,7 @@ class ApplicationController extends Controller
             return $this->managerScope->visibleUpazilaIds($user);
         }
 
-        return []; // unknown role -> sees nothing
+        return []; 
     }
 
 
