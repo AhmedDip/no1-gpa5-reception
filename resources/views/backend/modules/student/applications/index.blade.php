@@ -264,13 +264,13 @@
                                     <td>
                                         @php
                                             $statusColors = [
-                                                'pending' => 'warning',
+                                                'pending'        => 'warning',
                                                 'approved_by_rm' => 'info',
                                                 'rejected_by_rm' => 'danger',
                                                 'approved_by_wm' => 'primary',
                                                 'rejected_by_wm' => 'danger',
-                                                'approved' => 'success',
-                                                'rejected' => 'danger',
+                                                'approved'       => 'success',
+                                                'rejected'       => 'danger',
                                             ];
                                             $statusColor =
                                                 $statusColors[$application->applicationStatus->slug ?? 'pending'] ??
@@ -928,20 +928,19 @@
                             toastr.success(response.message);
                             setTimeout(function() {
                                 location.reload();
-                            }, 2000);
+                            }, 5000);
                         } else {
                             toastr.error(response.message);
                         }
                     },
                     error: function(xhr) {
                         if (xhr.status === 422 && xhr.responseJSON?.errors) {
-                            var errors = xhr.responseJSON.errors;
-                            $.each(errors, function(field, messages) {
+                            $.each(xhr.responseJSON.errors, function(field, messages) {
                                 toastr.error(messages[0]);
+                                $('#'+field+'_error').text(messages[0]);
                             });
                         } else {
-                            var msg = xhr.responseJSON?.message || 'Something went wrong!';
-                            toastr.error(msg);
+                            toastr.error('Something went wrong!');
                         }
                     },
                     complete: function() {

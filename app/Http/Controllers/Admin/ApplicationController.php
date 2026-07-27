@@ -40,7 +40,7 @@ class ApplicationController extends Controller
             return $this->managerScope->visibleUpazilaIds($user);
         }
 
-        return []; 
+        return [];
     }
 
 
@@ -141,7 +141,7 @@ class ApplicationController extends Controller
 
         try {
             if ($user->isAdmin()) {
-                $approvedStatus = ApplicationStatus::where('slug', 'approved')->value('id') ?? 2;
+                $approvedStatus = ApplicationStatus::where('slug', 'approved')->value('id') ?? 6;
 
                 if ($app->application_status_id === $approvedStatus) {
                     return $this->jsonOrRedirect($request, false, 'আবেদনটি ইতিমধ্যে অনুমোদিত।');
@@ -232,7 +232,7 @@ class ApplicationController extends Controller
         try {
             DB::beginTransaction();
 
-            $approvedStatus = ApplicationStatus::where('slug', 'approved')->value('id') ?? 2;
+            $approvedStatus = ApplicationStatus::where('slug', 'approved')->value('id') ?? 6;
             $ids            = $request->application_ids;
             $remarks        = $request->remarks ?: 'বাল্ক অনুমোদন';
 
@@ -351,7 +351,7 @@ class ApplicationController extends Controller
         try {
             DB::beginTransaction();
 
-            $rejectedStatus = ApplicationStatus::where('slug', 'rejected')->value('id') ?? 3;
+            $rejectedStatus = ApplicationStatus::where('slug', 'rejected')->value('id') ?? 7;
             $ids            = $request->application_ids;
 
             $apps = StudentDetail::with('user')
