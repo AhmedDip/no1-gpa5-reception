@@ -19,27 +19,29 @@ class DashboardController extends Controller
     /**
      * Main dashboard overview
      */
-    public function index()
+     public function index()
     {
         $page_content = [
-            'page_title'  => 'Dashboard Overview',
-            'module_name' => 'Dashboard',
-            'module_route' => route('admin.dashboard'),
+            'page_title'      => 'Dashboard Overview',
+            'module_name'     => 'Dashboard',
+            'module_route'    => route('admin.dashboard'),
             'sub_module_name' => 'Overview',
         ];
 
-        // Summary counts
-        $totalApplications   = StudentDetail::count();
-        $pendingApplications = StudentDetail::where('application_status_id', 1)->count();
-        $approvedApplications = StudentDetail::where('application_status_id', 2)->count();
-        $rejectedApplications = StudentDetail::where('application_status_id', 3)->count();
+        $statusCounts = StudentDetail::selectRaw('
+            COUNT(*) as total,
+            SUM(CASE WHEN application_status_id = 1 THEN 1 ELSE 0 END) as pending,
+            SUM(CASE WHEN application_status_id = 6 THEN 1 ELSE 0 END) as approved,
+            SUM(CASE WHEN application_status_id = 7 THEN 1 ELSE 0 END) as rejected
+        ')->first();
 
-        // Applications by board (for chart)
+
         $applicationsByBoard = StudentDetail::select('boards.name_bn as name', DB::raw('count(*) as total'))
             ->join('boards', 'student_details.ssc_board_id', '=', 'boards.id')
             ->groupBy('boards.name_bn')
             ->pluck('total', 'name')
             ->toArray();
+
 
         $applicationsByDivision = Division::select('divisions.name_bn as name', DB::raw('count(student_details.id) as total'))
             ->leftJoin('student_details', 'divisions.id', '=', 'student_details.division_id')
@@ -47,33 +49,36 @@ class DashboardController extends Controller
             ->pluck('total', 'name')
             ->toArray();
 
-        // Applications by Student Group
         $applicationsByStudentGroup = StudentDetail::select('student_groups.name_bn as name', DB::raw('count(*) as total'))
             ->join('student_groups', 'student_details.student_group_id', '=', 'student_groups.id')
             ->groupBy('student_groups.name_bn')
             ->pluck('total', 'name')
             ->toArray();
 
-        // Recent 10 applications
         $recentApplications = StudentDetail::with(['user', 'applicationStatus', 'board', 'division'])
             ->latest()
             ->limit(10)
             ->get();
 
-        // All statuses for filter
+
         $statuses = ApplicationStatus::orderBy('order')->get();
 
-        return view('backend.modules.admin.dashboard.index', compact(
-            'page_content',
-            'totalApplications',
-            'pendingApplications',
-            'approvedApplications',
-            'rejectedApplications',
-            'applicationsByBoard',
-            'applicationsByDivision',
-            'applicationsByStudentGroup',
-            'recentApplications',
-            'statuses'
+
+        $data = [
+            'totalApplications'          => (int) $statusCounts->total,
+            'pendingApplications'        => (int) $statusCounts->pending,
+            'approvedApplications'       => (int) $statusCounts->approved,
+            'rejectedApplications'       => (int) $statusCounts->rejected,
+            'applicationsByBoard'        => $applicationsByBoard,
+            'applicationsByDivision'     => $applicationsByDivision,
+            'applicationsByStudentGroup' => $applicationsByStudentGroup,
+            'recentApplications'         => $recentApplications,
+            'statuses'                   => $statuses,
+        ];
+
+        return view('backend.modules.admin.dashboard.index', array_merge(
+            compact('page_content'),
+            $data
         ));
     }
 
