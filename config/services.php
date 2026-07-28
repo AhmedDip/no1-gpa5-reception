@@ -58,7 +58,7 @@ return [
 
     'sms' => [
         'driver' => env('SMS_DRIVER', 'banglalink'),
-         'show_test_otp' => env('SHOW_TEST_OTP', false),
+        'show_test_otp' => env('SHOW_TEST_OTP', false),
     ],
 
     'banglalink' => [
@@ -67,12 +67,12 @@ return [
         'ecm_url'      => env('BANGLALINK_ECM_URL', 'https://corpsms.banglalink.net/bl/ecmapigw/webresources/ecmapigw.v3'),
         'username'     => env('BANGLALINK_SMS_USERNAME'),
         'password'     => env('BANGLALINK_SMS_PASSWORD'),
-        'cli'          => env('BANGLALINK_SMS_CLI'),
+        'cli' => config('services.banglalink.cli', 'No.1'),
         'country_code' => env('BANGLALINK_SMS_COUNTRY_CODE', '880'),
         'rn_code'      => env('BANGLALINK_SMS_RN_CODE', '91'),
         // apicode 5 = send with delivery receipt, 6 = send without delivery receipt
         'apicode'      => env('BANGLALINK_SMS_APICODE', '5'),
-         'bill_msisdn'  => env('BANGLALINK_SMS_BILL_MSISDN', '8801969917144'),
+        'bill_msisdn'  => env('BANGLALINK_SMS_BILL_MSISDN', '8801969917144'),
     ],
 
 

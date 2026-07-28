@@ -98,7 +98,7 @@
         }
 
         .display-large {
-            font-size: 3.5rem;
+            font-size: 1rem;
             font-weight: 800;
             line-height: 1.2;
         }
@@ -346,7 +346,7 @@
         /* responsive */
         @media (max-width: 768px) {
             .display-large {
-                font-size: 2.2rem;
+                font-size: 1.2rem;
             }
 
             .section-title {
@@ -456,7 +456,7 @@
         }
 
         .second-heading {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #3f3f42de;
             text-align: justify;
         }

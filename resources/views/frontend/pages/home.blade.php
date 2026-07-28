@@ -11,22 +11,30 @@
                     <div class="hero-badge d-inline-flex">
                         {{-- <span>২০২৬ সালের বৃহৎ শিক্ষা উদ্যোগ</span> --}}
                     </div>
-                    <h1 class="display-large fw-bold main-heading">নাম্বার ওয়ান বাবার <span class="text-gradient">কৃতী
+                    <h1 class="fw-bold text-large">নাম্বার ওয়ান বাবার <span class="text-gradient">কৃতী
                             সন্তান</span>
                         সংবর্ধনা - ২০২৬</h1>
                     <p class="second-heading">
-                        প্রতিটি সন্তানের সাফল্যের পেছনে থাকে একজন সংগ্রামী বাবা-মায়ের অক্লান্ত পরিশ্রম, ত্যাগ ও ভালোবাসা।
-                        বাংলাদেশের হাজারো প্রান্তিক চায়ের দোকানি প্রতিদিন কঠোর পরিশ্রম করে তাদের সন্তানদের শিক্ষার স্বপ্ন
-                        পূরণ করে চলেছেন।
+                        প্রতিটি সন্তানের সাফল্যের পেছনে থাকে সংগ্রামী বাবা-মায়ের অক্লান্ত পরিশ্রম, ত্যাগ ও ভালোবাসা। স্বল্প
+                        আয় এবং অপ্রতুল সুযোগ-সুবিধার মাঝেও বাবা-মায়েরা নিজের সর্বত্র চেষ্টার মাধ্যমে সন্তানের সুশিক্ষা
+                        নিশ্চিতে সংগ্রাম করে যান প্রতিদিন। তাদের স্বপ্ন- সন্তানেরা নিজ যোগ্যতায় সমাজে প্রতিষ্ঠিত হবে। নিজেকে
+                        গড়ে তুলবে একজন আত্মনির্ভরশীল নাগরিক হিসেবে। দেশ ও দশের জন্য বয়ে আনবে সুনাম। আর এভাবেই সন্তানেরা
+                        তাদের বাবা-মায়ের সংগ্রামী জীবনকে দিবেন সার্থকতা।
                     </p>
 
                     <p class="second-heading">
-                        সেই সংগ্রামী বাবা-মায়ের অবদানকে সম্মান জানাতে এবং তাদের মেধাবী সন্তানদের অর্জনকে উদযাপন করতে
-                        <strong>নাম্বার ওয়ান</strong> আয়োজন করেছে <strong>"নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা
-                            ২০২৬"</strong>।
+                        দেশের প্রান্তিক পর্যায়ে ছড়িয়ে থাকা হাজারও চা-দোকানি বাবা-মায়েদের স্বপ্নের গল্পটাও একই। প্রিয়
+                        সন্তানের আলোকিত ভবিষ্যতের জন্য কঠোর পরিশ্রম আর ত্যাগের মাধ্যমেই তারা স্বপ্ন বুনে যাচ্ছেন প্রতিদিন।
+                        আর এই মেহনতি মানুষগুলোর স্বপ্নপূরণে তাদের ভালোবাসার ব্র্যান্ড নাম্বার ওয়ান সবসময়ই তাদের পাশে আছে।
+                        যার ধারাবাহিকতায় এ বছরও আয়োজিত হতে যাচ্ছে <strong>‘নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা
+                            ২০২৬’</strong>। এই
+                        উদ্যোগের মাধ্যমে দেশের প্রান্তিক চা-দোকানিদের এসএসসি/সমমান ২০২৬ পরীক্ষায় জিপিএ-৫ প্রাপ্ত কৃতী
+                        সন্তানদের সংবর্ধনা, শিক্ষা বৃত্তি (এককালীন), এইচএসসি অল সাবজেক্ট অনলাইন কোর্স, সনদ, ক্রেস্ট এবং
+                        বিশেষ উপহার প্রদান করা হবে।
                     </p>
                     <div class="d-flex flex-wrap gap-3 mt-4 justify-content-center justify-content-lg-start">
-                        <a href="{{ route('student.register') }}" class="btn btn-primary btn-lg px-4 px-lg-5"> নিবন্ধন করুন
+                        <a href="{{ route('student.register') }}" class="btn btn-primary btn-lg px-4 px-lg-5"> রেজিস্ট্রেশন
+                            করুন
                             <i class="fas fa-chevron-right"></i></a>
                         <a href="#faq" class="btn btn-outline-danger btn-lg px-4 px-lg-5">বিস্তারিত দেখুন
                         </a>
@@ -136,20 +144,21 @@
         <div class="row justify-content-center">
             <div class="col-11 col-lg-8">
                 <h2 class="section-title mx-auto">
-                    <img src="{{ asset('images/no1-logo.png') }}" alt="brand" height="45" class="me-2">
-                    এর পক্ষ থেকে শুভেচ্ছা
+                    {{-- <img src="{{ asset('images/no1-logo.png') }}" alt="brand" height="45" class="me-2"> --}}
+                    নাম্বার ওয়ান এর পক্ষ থেকে শুভেচ্ছা
                 </h2>
 
                 <p class="lead mt-4 fs-5 fs-md-4 fw-medium text-dark-emphasis">
-                    <strong>"সন্তানের সাফল্য, বাবার গর্ব।"</strong>
+                    <strong>"সন্তানের সাফল্য, বাবা-মায়ের গর্ব।"</strong>
                 </p>
                 <p>
-                    প্রান্তিক চা দোকানিদের অক্লান্ত পরিশ্রম ও তাদের সন্তানদের অসাধারণ অর্জনকে সম্মান জানাতে নাম্বার ওয়ান
-                    সবসময় পাশে আছে।
+                    স্বপ্নকে বাস্তবে রূপ দিতে যারা প্রতিদিন প্রতিকূলতার সঙ্গে লড়াই করেন, সন্তানের ভবিষ্যতের জন্য নিজের
+                    সবটুকু উজাড় করে দেন, তারাই নাম্বার ওয়ান।
                 </p>
                 <p>
-                    <strong>নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা ২০২৬</strong>—সংগ্রামের গল্পকে সম্মানের মঞ্চে তুলে ধরার
-                    একটি আন্তরিক উদ্যোগ।
+                    সেই সংগ্রামী মানুষদের প্রতি শ্রদ্ধা ও ভালোবাসা থেকেই <strong>‘নাম্বার ওয়ান বাবার কৃতী সন্তান
+                        সংবর্ধনা-২০২৬’</strong> এর আয়োজন। যেখানে শুধু কৃতী সন্তানই নয়, তার সাফল্যের নেপথ্যের প্রকৃত নায়কেরাও
+                    হন সম্মানিত ও স্বীকৃত।
                 </p>
             </div>
         </div>
@@ -174,7 +183,7 @@
                         <i class="fas fa-award fs-2 text-white"></i>
                     </span>
                     <div>
-                        <h3 class="fw-bold mb-1">নির্বাচিত শিক্ষার্থীরা কী কী সুবিধা পাবে?</h3>
+                        <h3 class="fw-bold mb-1">নির্বাচিত শিক্ষার্থীরা পাবেন—</h3>
                         <p class="text-dark-emphasis mb-0">নির্বাচিত শিক্ষার্থীরা পাবেন—</p>
                     </div>
                 </div>
@@ -188,23 +197,25 @@
                                 style="width: 65px; height: 65px;">
                                 <i class="fas fa-graduation-cap fs-2 text-white"></i>
                             </div>
-                            <h5 class="fw-bold mb-2">শিক্ষা বৃত্তি</h5>
+                            <h5 class="fw-bold mb-2">শিক্ষা বৃত্তি (এককালীন)</h5>
                             <p class="small text-secondary mb-0">নির্বাচিত শিক্ষার্থীদের জন্য আর্থিক সহায়তা</p>
                         </div>
                     </div>
 
-                    <!-- Card 2: Medal -->
+
+
+
+
+                    <!-- Card 5: Educational Materials -->
                     <div class="col-6 col-sm-6 col-lg-4">
                         <div
                             class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100 text-center mega-card">
-                            <div class="fancy-icon-wrapper bg-gradient-warning mx-auto mb-3"
+                            <div class="fancy-icon-wrapper bg-gradient-info mx-auto mb-3"
                                 style="width: 65px; height: 65px;">
-                                <i class="fas fa-medal fs-2 text-white"></i>
+                                <i class="fas fa-book fs-2 text-white"></i>
                             </div>
-                            <h5 class="fw-bold mb-2">সংবর্ধনা মেডেল</h5>
-                            <p class="small text-secondary mb-0">
-                                সংবর্ধনা অনুষ্ঠানে বিশেষ মেডেল প্রদান
-                            </p>
+                            <h5 class="fw-bold mb-2">এইচএসসি অল সাবজেক্ট অনলাইন কোর্স</h5>
+                            <p class="small text-secondary mb-0">প্রয়োজনীয় শিক্ষা সামগ্রী</p>
                         </div>
                     </div>
 
@@ -216,12 +227,14 @@
                                 style="width: 65px; height: 65px;">
                                 <i class="fas fa-certificate fs-2 text-white"></i>
                             </div>
-                            <h5 class="fw-bold mb-2">সার্টিফিকেট</h5>
+                            <h5 class="fw-bold mb-2">সনদ</h5>
                             <p class="small text-secondary mb-0">
-                                নির্বাচিত প্রতিটি কৃতী সন্তানকে সার্টিফিকেট প্রদান করা হবে
+                                নির্বাচিত প্রতিটি কৃতী সন্তানকে সনদ প্রদান করা হবে
                             </p>
                         </div>
                     </div>
+
+
 
                     <!-- Card 4: Crest -->
                     <div class="col-6 col-sm-6 col-lg-4">
@@ -238,16 +251,19 @@
                         </div>
                     </div>
 
-                    <!-- Card 5: Educational Materials -->
+
+                    <!-- Card 2: Medal -->
                     <div class="col-6 col-sm-6 col-lg-4">
                         <div
                             class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100 text-center mega-card">
-                            <div class="fancy-icon-wrapper bg-gradient-info mx-auto mb-3"
+                            <div class="fancy-icon-wrapper bg-gradient-warning mx-auto mb-3"
                                 style="width: 65px; height: 65px;">
-                                <i class="fas fa-book fs-2 text-white"></i>
+                                <i class="fas fa-medal fs-2 text-white"></i>
                             </div>
-                            <h5 class="fw-bold mb-2">শিক্ষা উপকরণ</h5>
-                            <p class="small text-secondary mb-0">প্রয়োজনীয় শিক্ষা সামগ্রী</p>
+                            <h5 class="fw-bold mb-2">সংবর্ধনা মেডেল</h5>
+                            <p class="small text-secondary mb-0">
+                                সংবর্ধনা অনুষ্ঠানে বিশেষ মেডেল প্রদান
+                            </p>
                         </div>
                     </div>
 
@@ -259,7 +275,7 @@
                                 style="width: 65px; height: 65px;">
                                 <i class="fas fa-gift fs-2 text-white"></i>
                             </div>
-                            <h5 class="fw-bold mb-2">বিশেষ উপহার</h5>
+                            <h5 class="fw-bold mb-2">নাম্বার ওয়ান এর পক্ষ থেকে বিশেষ উপহার</h5>
                             <p class="small text-secondary mb-0">নাম্বার ওয়ান থেকে বিশেষ উপহার</p>
                         </div>
                     </div>
@@ -322,27 +338,25 @@
                     style="background: linear-gradient(135deg, #fffdf6 0%, #fff1b9 100%);">
                     <div class="d-flex justify-content-between align-items-start mb-3 mb-md-4">
                         <i class="fa-solid fa-bullhorn fs-2 fs-md-1 text-danger opacity-75"></i>
-                        <span class="badge bg-dark text-white px-3 py-2 rounded-pill small">লিমিটেড আসন</span>
+                        {{-- <span class="badge bg-dark text-white px-3 py-2 rounded-pill small">লিমিটেড আসন</span> --}}
                     </div>
-                    <h3 class="fw-bold fs-2 fs-md-1 text-dark">আজই নিবন্ধন করুন</h3>
+                    <h3 class="fw-bold fs-2 fs-md-1 text-dark">এখনই আবেদন করুন</h3>
                     <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">আপনি যদি <strong
-                            class="text-primary">এসএসসি/সমমান ২০২৬ পরীক্ষায় </strong> কৃতীত্বের সাথে উত্তীর্ণ একজন
-                        শিক্ষার্থী হন এবং আপনার বাবা/অভিভাবক একজন
-                        চায়ের দোকানি হন, তাহলে এখনই নিবন্ধন করুন।
+                            class="text-primary"> <a href="{{ route('student.register') }}">এসএসসি/সমমান ২০২৬ পরীক্ষায় </a></strong> জিপিএ-৫ প্রাপ্ত একজন কৃতী সন্তান হন
+                        এবং আপনার বাবা/মা যেকোন একজন চায়ের দোকানি হন, তাহলে এখনই আবেদন করুন।
                     </p>
 
-                    <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">নিবন্ধন প্রক্রিয়ার জন্য আপনার কাছে থাকা
-                        উচিত:
+                    <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">আবেদনের জন্য প্রয়োজন হবে—
                     <ul class="list-unstyled mt-2">
-                        <li><i class="fas fa-check text-danger me-2"></i>ব্যক্তিগত তথ্য</li>
+                        <li><i class="fas fa-check text-danger me-2"></i>শিক্ষার্থীর ছবি</li>
                         <li><i class="fas fa-check text-danger me-2"></i>এসএসসি পরীক্ষার তথ্য</li>
-                        <li><i class="fas fa-check text-danger me-2"></i>অভিভাবকের তথ্য</li>
-                        <li><i class="fas fa-check text-danger me-2"></i>প্রয়োজনীয় ডকুমেন্ট আপলোড</li>
+                        <li><i class="fas fa-check text-danger me-2"></i>বাবা-মায়ের তথ্য</li>
+                        <li><i class="fas fa-check text-danger me-2"></i>অন্যান্য প্রয়োজনীয় তথ্য</li>
                     </ul>
                     </p>
 
                     <div class="mt-3 mt-md-4 small text-dark-emphasis">
-                        <i class="fas fa-calendar-check"></i> তারিখ: অগাস্ট ০৮, ২০২৬ | স্থান: নির্ধারিত ভেন্যু
+                        <i class="fas fa-calendar-check"></i> আবেদনের শেষ তারিখ : আগস্ট ২০, ২০২৬ | সংবর্ধনার স্থান : ঢাকা
                     </div>
                 </div>
             </div>
@@ -374,8 +388,8 @@
                             style="width: 64px; height: 64px; background: linear-gradient(135deg, #EEF2FF, #E0E7FF); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
                             <i class="fas fa-calendar-plus fs-4 text-primary" style="color: #4F46E5;"></i>
                         </div>
-                        <h5 class="fw-bold fs-6 fs-md-5 mb-1">নিবন্ধন শুরু</h5>
-                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">২১ জুলাই </p>
+                        <h5 class="fw-bold fs-6 fs-md-5 mb-1">আবেদন শুরু </h5>
+                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">১১ আগস্ট </p>
                         <p class="text-secondary small mb-0">২০২৬</p>
                         <span class="badge bg-primary-soft text-primary mt-2 px-3 py-1 rounded-pill small fw-normal"
                             style="background: rgba(79, 70, 229, 0.08);">শুরু</span>
@@ -392,8 +406,8 @@
                             style="width: 64px; height: 64px; background: linear-gradient(135deg, #FEF2F2, #FEE2E2); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
                             <i class="fas fa-calendar-times fs-4" style="color: #EF4444;"></i>
                         </div>
-                        <h5 class="fw-bold fs-6 fs-md-5 mb-1">নিবন্ধন শেষ</h5>
-                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">৩১ জুলাই</p>
+                        <h5 class="fw-bold fs-6 fs-md-5 mb-1">আবেদনের শেষ তারিখ </h5>
+                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">২০ আগস্ট</p>
                         <p class="text-secondary small mb-0">২০২৬</p>
                         <span class="badge bg-danger-soft text-danger mt-2 px-3 py-1 rounded-pill small fw-normal"
                             style="background: rgba(239, 68, 68, 0.08);">শেষ</span>
@@ -411,7 +425,7 @@
                             <i class="fas fa-people-group fs-4" style="color: #f6c55c;"></i>
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-5 mb-1">সংবর্ধনা</h5>
-                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0"> ০৮ আগস্ট </p>
+                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0"> </p>
                         <p class="text-secondary small mb-0">২০২৬</p>
                         <span class="badge bg-warning-soft text-warning mt-2 px-3 py-1 rounded-pill small fw-normal"
                             style="background: rgba(236, 246, 92, 0.08);">আয়োজন</span>
@@ -432,8 +446,20 @@
     <!-- ========== 6. SUCCESS STORIES ========== -->
     <section id="stories" class="container py-4 py-md-5 my-3 my-md-4">
         <div class="text-center mb-4 mb-md-5">
-            <h2 class="section-title mx-auto">আলোকিত গল্প, সফলতার অনুপ্রেরণা</h2>
-            <p class="text-secondary px-2">আগের বছরের কৃতী শিক্ষার্থী ও তাদের অবিভাবকদের অভিজ্ঞতা</p>
+            <h2 class="section-title mx-auto">সফলতার গল্প</h2>
+            <p class="text-secondary px-2">বাংলাদেশের বিভিন্ন অঞ্চলের বহু প্রান্তিক চা-দোকানি কঠোর পরিশ্রম, ত্যাগ ও
+                অক্লান্ত প্রচেষ্টার মাধ্যমে তাদের সন্তানদের শিক্ষাক্ষেত্রে অসাধারণ সাফল্য অর্জনের স্বপ্ন বুনে চলেছেন
+                প্রতিদিন। তাদের প্রতিটি সংগ্রামের গল্প নতুন প্রজন্মকে অনুপ্রাণিত করে, আর সেই স্বপ্নপূরণের যাত্রায় দেশের
+                প্রিয় নাম্বার ওয়ান সবসময়ই থেকেছে তাদের বিশ্বস্ত সঙ্গী।
+            </p>
+
+            <p class="text-secondary px-2">
+                এরকম হাজারও সংগ্রামী বাবা-মায়ের স্বপ্নের সহযাত্রী হিসেবে নাম্বার ওয়ান বিশ্বাস করে- একজন সন্তানের সাফল্যই
+                একটি পরিবারের সবচেয়ে বড় অর্জন। সেই বিশ্বাস থেকেই ‘নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা’ বছরের পর বছর
+                সম্মান জানিয়ে আসছে মেধা, পরিশ্রম ও স্বপ্নকে।
+            </p>
+
+
         </div>
 
         <!-- Stories Grid -->
@@ -491,7 +517,7 @@
     <section id="faq" class="bg-light py-5 py-md-6 mt-3 mt-md-4">
         <div class="container">
             <div class="text-center mb-4 mb-md-5">
-                <h2 class="section-title mx-auto">সাধারণ জিজ্ঞাসা</h2>
+                <h2 class="section-title mx-auto">সচরাচর জিজ্ঞাসা (FAQ)</h2>
                 <p class="text-secondary px-2">আপনার মনে যেকোনো প্রশ্নের উত্তর এখানে</p>
             </div>
             <div class="row justify-content-center">
@@ -500,36 +526,53 @@
                         <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
                             <h2 class="accordion-header"><button
                                     class="accordion-button rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
-                                    data-bs-toggle="collapse" data-bs-target="#faq1">কারা আবেদন করতে পারবে?</button></h2>
+                                    data-bs-toggle="collapse" data-bs-target="#faq1">এটা কি ধরনের প্রোগ্রাম?</button></h2>
                             <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-secondary small">এসএসসি ২০২৬ পরীক্ষায় কৃতীত্বের সাথে
-                                    উত্তীর্ণ প্রান্তিক চায়ের দোকানির সন্তানেরা আবেদন করতে পারবে।</div>
+                                <div class="accordion-body text-secondary small">চায়ের দোকানির মেধাবী সন্তান ও তাদের বাবা-মাকে নিয়ে সংবর্ধনা প্রোগ্রাম। </div>
                             </div>
                         </div>
+
+                        <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
+                            <h2 class="accordion-header"><button
+                                    class="accordion-button rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
+                                    data-bs-toggle="collapse" data-bs-target="#faq2">কারা আবেদন করতে পারবে?</button></h2>
+                            <div id="faq2" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-secondary small">এসএসসি/সমমান ২০২৬ পরীক্ষায় জিপিএ-৫ প্রাপ্ত চায়ের দোকানির সন্তানেরা আবেদন করতে পারবে।</div>
+                            </div>
+                        </div>
+
+                      <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
+                            <h2 class="accordion-header"><button
+                                    class="accordion-button rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
+                                    data-bs-toggle="collapse" data-bs-target="#faq3">একজন শিক্ষার্থী কি একাধিক আবেদন করতে পারবে? </button></h2>
+                            <div id="faq3" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-secondary small">না। একজন শিক্ষার্থী কেবলমাত্র একবারই আবেদন করতে পারবে। একাধিক আবেদন গ্রহণযোগ্য হবে না।</div>
+                            </div>
+                        </div>
+
                         <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
                             <h2 class="accordion-header"><button
                                     class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
-                                    data-bs-toggle="collapse" data-bs-target="#faq2">আবেদন কীভাবে করবো?</button></h2>
-                            <div id="faq2" class="accordion-collapse collapse">
-                                <div class="accordion-body text-secondary small">এই ওয়েবসাইটে নিবন্ধন করে অনলাইন আবেদন
-                                    সম্পন্ন করতে হবে। </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
-                            <h2 class="accordion-header"><button
-                                    class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
-                                    data-bs-toggle="collapse" data-bs-target="#faq3">আবেদন করতে কোনো ফি লাগবে?</button>
-                            </h2>
-                            <div id="faq3" class="accordion-collapse collapse">
-                                <div class="accordion-body text-secondary small">না। আবেদন সম্পূর্ণ বিনামূল্যে।</div>
-                            </div>
-                        </div>
-                        <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
-                            <h2 class="accordion-header"><button
-                                    class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
-                                    data-bs-toggle="collapse" data-bs-target="#faq4">আবেদন করার শেষ তারিখ কত?</button>
-                            </h2>
+                                    data-bs-toggle="collapse" data-bs-target="#faq4">আবেদন কীভাবে করা যাবে?</button></h2>
                             <div id="faq4" class="accordion-collapse collapse">
+                                <div class="accordion-body text-secondary small">শুধুমাত্র এই ওয়েবসাইটে রেজিস্ট্রেশন-এ ক্লিক করে অনলাইন আবেদন সম্পন্ন করতে হবে।</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
+                            <h2 class="accordion-header"><button
+                                    class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
+                                    data-bs-toggle="collapse" data-bs-target="#faq5">আবেদন করতে কোনো ফি লাগবে?</button>
+                            </h2>
+                            <div id="faq5" class="accordion-collapse collapse">
+                                <div class="accordion-body text-secondary small">কোন ফি লাগবে না। </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
+                            <h2 class="accordion-header"><button
+                                    class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
+                                    data-bs-toggle="collapse" data-bs-target="#faq6">আবেদন করার শেষ তারিখ কবে?</button>
+                            </h2>
+                            <div id="faq6" class="accordion-collapse collapse">
                                 <div class="accordion-body text-secondary small">ওয়েবসাইটে প্রকাশিত নির্ধারিত সময়সীমার
                                     মধ্যে আবেদন করতে হবে।</div>
                             </div>
@@ -539,8 +582,7 @@
                                     class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
                                     data-bs-toggle="collapse" data-bs-target="#faq5">কী কী ডকুমেন্ট লাগবে?</button></h2>
                             <div id="faq5" class="accordion-collapse collapse">
-                                <div class="accordion-body text-secondary small">এসএসসি ফলাফল, শিক্ষার্থীর ছবি, অভিভাবকের
-                                    তথ্য এবং প্রয়োজনীয় অন্যান্য ডকুমেন্ট।</div>
+                                <div class="accordion-body text-secondary small">শিক্ষার্থীর ছবি, এসএসসি/সমমান ২০২৬ পরীক্ষার তথ্য, বাবা-মায়ের তথ্য এবং অন্যান্য প্রয়োজনীয় তথ্য।</div>
                             </div>
                         </div>
 
@@ -550,8 +592,7 @@
                                     data-bs-toggle="collapse" data-bs-target="#faq6">নির্বাচিতদের কীভাবে জানানো
                                     হবে?</button></h2>
                             <div id="faq6" class="accordion-collapse collapse">
-                                <div class="accordion-body text-secondary small">SMS এবং ওয়েবসাইটের মাধ্যমে নির্বাচিতদের
-                                    জানানো হবে।</div>
+                                <div class="accordion-body text-secondary small">SMS এর মাধ্যমে জানানো হবে এবং নিজের ইউজার আইডি ও পাসওয়ার্ড ব্যবহার করেও এই ওয়েবসাইট থেকে জানা যাবে। </div>
                             </div>
                         </div>
 
@@ -563,11 +604,11 @@
                             <div id="faq7" class="accordion-collapse collapse">
                                 <div class="accordion-body text-secondary small">
                                     নির্বাচিত শিক্ষার্থীরা পাবেন—
-                                    • সংবর্ধনা মেডেল
-                                    • শিক্ষা সহায়তা (Scholarship)
-                                    • সার্টিফিকেট
+                                    • শিক্ষা বৃত্তি (এককালীন)
+                                    • এইচএসসি অল সাবজেক্ট অনলাইন কোর্স
+                                    • সনদ
                                     • ক্রেস্ট
-                                    • শিক্ষা উপকরণ
+                                    • সংবর্ধনা মেডেল
                                     • নাম্বার ওয়ান এর পক্ষ থেকে বিশেষ উপহার
                                 </div>
                             </div>
@@ -881,18 +922,18 @@
 
         /* Typography responsive */
         .display-large {
-            font-size: 2rem;
+            font-size: 1rem;
         }
 
         @media (min-width: 768px) {
             .display-large {
-                font-size: 3rem;
+                font-size: 2rem;
             }
         }
 
         @media (min-width: 992px) {
             .display-large {
-                font-size: 3.6rem;
+                font-size: 3.0rem;
             }
         }
 
@@ -1007,6 +1048,11 @@
                 transform: scale(1.2);
                 opacity: 1;
             }
+        }
+
+
+        .text-large {
+            font-size: 2.7rem;
         }
     </style>
 @endsection

@@ -17,7 +17,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#stories">সফলতার গল্প</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#gallery">গ্যালারি</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#faq">
-                            সাধারণ জিজ্ঞাসা
+                           সচরাচর জিজ্ঞাসা
                         </a></li>
                     <li class="nav-item">
                         <a class="nav-link position-relative d-inline-flex align-items-center gap-1"
@@ -149,7 +149,7 @@
                             <a class="btn btn-danger text-white px-4 btn-register-glow"
                                 href="{{ route('student.register') }}">
                                 <i class="fas fa-user-plus me-1"></i>
-                                নিবন্ধন
+                                রেজিস্ট্রেশন
                             </a>
                         </li>
 
