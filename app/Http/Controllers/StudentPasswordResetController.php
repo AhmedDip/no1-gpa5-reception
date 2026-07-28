@@ -25,8 +25,7 @@ class StudentPasswordResetController extends Controller
             'mobile.required' => 'মোবাইল নম্বর প্রয়োজন',
         ]);
 
-        // Scoped to student accounts only — this endpoint must never be usable
-        // to trigger an OTP for an admin/WM/RM account.
+
         $user = User::where('mobile', $request->mobile)
             ->where('user_type_id', 1)
             ->first();

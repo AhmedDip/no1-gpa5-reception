@@ -8,14 +8,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
+use App\Services\NotificationService;
 
 class OtpVerificationController extends Controller
 {
     protected $otpService;
+    protected $notificationService;
 
-    public function __construct(OtpService $otpService)
+    public function __construct(OtpService $otpService, NotificationService $notificationService)
     {
         $this->otpService = $otpService;
+        $this->notificationService = $notificationService;
     }
 
     /**
@@ -55,7 +58,7 @@ class OtpVerificationController extends Controller
     public function verifyOtp(Request $request)
     {
         // Log the request for debugging
-        Log::info('OTP Verification Request', $request->all());
+        // Log::info('OTP Verification Request', $request->all());
 
         $validator = Validator::make($request->all(), [
             'otp' => 'required|string|size:6',
@@ -92,6 +95,8 @@ class OtpVerificationController extends Controller
         $result = $this->otpService->verifyOtp($user, $request->otp);
 
         if ($result['success']) {
+            $this->notificationService->notifyRegistrationComplete($user);
+            
             // Check if parent info is provided
             if (!$user->hasParentInfo()) {
                 return response()->json([

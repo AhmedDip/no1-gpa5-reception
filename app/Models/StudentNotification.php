@@ -35,7 +35,7 @@ class StudentNotification extends Model
 
     public function markAsRead(): void
     {
-        if (!$this->is_read) {
+        if (! $this->is_read) {
             $this->update([
                 'is_read' => true,
                 'read_at' => now(),
@@ -46,10 +46,11 @@ class StudentNotification extends Model
     public function getIconAttribute(): string
     {
         return match ($this->type) {
-            'approved' => 'fa-check-circle text-success',
-            'rejected' => 'fa-times-circle text-danger',
-            'custom'   => 'fa-envelope text-primary',
-            default    => 'fa-bell text-warning',
+            'approved'     => 'fa-check-circle text-success',
+            'rejected'     => 'fa-times-circle text-danger',
+            'custom'       => 'fa-envelope text-primary',
+            'registration' => 'fa-user-check text-success',
+            default        => 'fa-bell text-warning',
         };
     }
 }
