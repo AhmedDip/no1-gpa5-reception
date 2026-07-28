@@ -1052,7 +1052,26 @@
 
 
         .text-large {
-            font-size: 2.7rem;
+            font-size: clamp(2.3rem, 1.8vw, 1.4rem);
+        }
+
+        .second-heading {
+            font-size: clamp(0.98rem, 1.55vw, 1.12rem);
+            line-height: 1.85;
+            margin-top: 1.1rem;
+            color: #4b5563;
+        }
+
+        @media (max-width: 767.98px) {
+            .text-large {
+                font-size: clamp(1.3rem, 8vw, 1.1rem);
+            }
+
+            .second-heading {
+                font-size: 0.95rem;
+                line-height: 1.7;
+                margin-top: 0.9rem;
+            }
         }
     </style>
 @endsection

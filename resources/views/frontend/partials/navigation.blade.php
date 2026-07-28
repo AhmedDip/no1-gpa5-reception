@@ -107,7 +107,9 @@
                                         <i class="fas fa-user fa-sm"></i>
                                     </div>
                                 @endif
-                                <span>{{ Auth::user()->name }}</span>
+                                <span>
+                                  {{ strtok(Auth::user()->name, ' ') }}
+                                </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="userDropdown">
                                 <li>
@@ -219,6 +221,7 @@
         </div>
     @endauth
 @endunless
+
 
 @push('scripts')
     <script>
