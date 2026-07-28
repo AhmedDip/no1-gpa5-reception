@@ -50,7 +50,7 @@ class BanglalinkSmsService
             'apicode'       => config('services.banglalink.apicode', '5'),
             'msisdn'        => [$this->normalizeMsisdn($mobile)],
             'countrycode'   => config('services.banglalink.country_code', '880'),
-            'cli'           => config('services.banglalink.cli'),
+            'cli'           => config('services.banglalink.cli', 'No.1'),
             'messagetype'   => $isUnicode ? '3' : '1', // 3 = Unicode(Bangla), 1 = English text
             'message'       => $message,
             'clienttransid' => $this->generateTransId(),

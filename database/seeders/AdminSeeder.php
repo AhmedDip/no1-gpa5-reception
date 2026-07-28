@@ -26,11 +26,17 @@ class AdminSeeder extends Seeder
             'wmng_code' => 'ADMIN',
         ]);
 
-        $superAdmin = User::firstOrCreate(['email' => 'admin@no1.com'], [
+
+        $managerGroup = WebMenuGroup::firstOrCreate(['wmng_code' => 'MANAGER'], [
+            'wmng_name' => 'Manager',
+            'wmng_code' => 'MANAGER',
+        ]);
+
+        $superAdmin = User::firstOrCreate(['email' => 'admin@gmail.com'], [
             'name'                => 'Super Admin',
             'mobile'              => '01700000000',
             'email'               => 'admin@no1.com',
-            'password'            => Hash::make('Admin@1234'),
+            'password'            => Hash::make('123456'),
             'user_type_id'        => $adminType->id,
             'wmng_id'             => $adminGroup->id,
             'is_mobile_verified'  => true,
@@ -131,7 +137,6 @@ class AdminSeeder extends Seeder
                 'wsmn_oseq' => 2,
                 'wsmn_ukey' => 'students.verified',
             ],
-
             // Reports
             [
                 'wmnu_id'   => $reportMenu->id,
@@ -183,7 +188,6 @@ class AdminSeeder extends Seeder
                 'wsmn_oseq' => 4,
                 'wsmn_ukey' => 'settings.permissions',
             ],
-
         ];
 
         $createdSubMenus = [];
@@ -208,11 +212,12 @@ class AdminSeeder extends Seeder
             );
         }
 
+
         $this->command->info('Admin seeder completed!');
         $this->command->table(
             ['Role', 'Email', 'Password'],
             [
-                ['Super Admin', 'admin@no1.com', 'Admin@1234'],
+                ['Super Admin', 'admin@no1.com', '123456'],
             ]
         );
     }

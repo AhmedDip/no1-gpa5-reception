@@ -153,7 +153,7 @@ class ApplicationController extends Controller
                     $this->logAction($app->id, 'approve', $request->remarks ?? '', $previousStatus, $approvedStatus, $request->ip());
                 });
 
-                $message = 'আবেদন সফলভাবে অনুমোদিত হয়েছে।';
+                $message = 'আপনি সংবর্ধনার জন্য মনোনীত হয়েছেন।সংবর্ধনার তারিখ ও স্থান শীঘ্রই আপনাকে জানানো হবে।';
 
                 if ($request->boolean('send_sms', true)) {
                     $this->notificationService->notifyApproved($app->fresh());

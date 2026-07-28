@@ -149,7 +149,7 @@ class WingRegionalManagerSeeder extends Seeder
                 'user_type_id'        => $userTypeId,
                 'aemp_mngr'           => $managerId,
                 'is_mobile_verified'  => true,
-                'wmng_id'             => 1,
+                'wmng_id'             => 2,
                 'mobile_verified_at'  => now(),
             ]
         );
