@@ -103,7 +103,7 @@
 
                                 <img src="{{ asset('images/hero-image.jpeg') }}" alt="hero"
                                     class="img-fluid rounded-4 shadow-lg floating-image"
-                                    style="height: auto; max-height: 480px; width: 100%; object-fit: cover; position: relative; z-index: 1;">
+                                    style="height: auto; max-height: 500px; width: 100%; object-fit: cover; position: relative; z-index: 1;">
 
                                 <!-- Subtle Overlay on Image -->
                                 <div class="position-absolute top-0 start-0 w-100 h-100 rounded-4"
@@ -190,7 +190,7 @@
 
                 <div class="row g-4 mt-2">
                     <!-- Card 1: Scholarship -->
-                    <div class="col-6 col-sm-6 col-lg-4">
+                    <div class="col-12 col-sm-12 col-lg-4">
                         <div
                             class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100 text-center mega-card">
                             <div class="fancy-icon-wrapper bg-gradient-danger mx-auto mb-3"
@@ -198,7 +198,7 @@
                                 <i class="fas fa-graduation-cap fs-2 text-white"></i>
                             </div>
                             <h5 class="fw-bold mb-2">শিক্ষা বৃত্তি (এককালীন)</h5>
-                            <p class="small text-secondary mb-0">নির্বাচিত শিক্ষার্থীদের জন্য আর্থিক সহায়তা</p>
+                            <p class="small text-secondary mb-0">নির্বাচিত শিক্ষার্থীদের জন্য শিক্ষা বৃত্তি  প্রদান করা হবে</p>
                         </div>
                     </div>
 
@@ -207,7 +207,7 @@
 
 
                     <!-- Card 5: Educational Materials -->
-                    <div class="col-6 col-sm-6 col-lg-4">
+                    <div class="col-12 col-sm-12 col-lg-4">
                         <div
                             class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100 text-center mega-card">
                             <div class="fancy-icon-wrapper bg-gradient-info mx-auto mb-3"
@@ -215,12 +215,14 @@
                                 <i class="fas fa-book fs-2 text-white"></i>
                             </div>
                             <h5 class="fw-bold mb-2">এইচএসসি অল সাবজেক্ট অনলাইন কোর্স</h5>
-                            <p class="small text-secondary mb-0">প্রয়োজনীয় শিক্ষা সামগ্রী</p>
+                            <p class="small text-secondary mb-0">
+                                নির্বাচিত শিক্ষার্থীদের জন্য এইচএসসি সকল বিষয় অনলাইন কোর্স প্রদান করা হবে
+                            </p>
                         </div>
                     </div>
 
                     <!-- Card 3: Certificate -->
-                    <div class="col-6 col-sm-6 col-lg-4">
+                    <div class="col-12 col-sm-12 col-lg-4">
                         <div
                             class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100 text-center mega-card">
                             <div class="fancy-icon-wrapper bg-gradient-primary mx-auto mb-3"
@@ -229,7 +231,7 @@
                             </div>
                             <h5 class="fw-bold mb-2">সনদ</h5>
                             <p class="small text-secondary mb-0">
-                                নির্বাচিত প্রতিটি কৃতী সন্তানকে সনদ প্রদান করা হবে
+                                সংবর্ধনা অনুষ্ঠানে নির্বাচিত শিক্ষার্থীদের সনদ প্রদান করা হবে
                             </p>
                         </div>
                     </div>
@@ -237,7 +239,7 @@
 
 
                     <!-- Card 4: Crest -->
-                    <div class="col-6 col-sm-6 col-lg-4">
+                    <div class="col-12 col-sm-12 col-lg-4">
                         <div
                             class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100 text-center mega-card">
                             <div class="fancy-icon-wrapper bg-gradient-success mx-auto mb-3"
@@ -246,14 +248,14 @@
                             </div>
                             <h5 class="fw-bold mb-2">ক্রেস্ট</h5>
                             <p class="small text-secondary mb-0">
-                                সংবর্ধনা অনুষ্ঠানে স্মারক ক্রেস্ট প্রদান করা হবে
+                                নির্বাচিত শিক্ষার্থীদের সংবর্ধনা অনুষ্ঠানে ক্রেস্ট প্রদান করা হবে
                             </p>
                         </div>
                     </div>
 
 
                     <!-- Card 2: Medal -->
-                    <div class="col-6 col-sm-6 col-lg-4">
+                    <div class="col-12 col-sm-12 col-lg-4">
                         <div
                             class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100 text-center mega-card">
                             <div class="fancy-icon-wrapper bg-gradient-warning mx-auto mb-3"
@@ -262,13 +264,13 @@
                             </div>
                             <h5 class="fw-bold mb-2">সংবর্ধনা মেডেল</h5>
                             <p class="small text-secondary mb-0">
-                                সংবর্ধনা অনুষ্ঠানে বিশেষ মেডেল প্রদান
+                                সংবর্ধনা অনুষ্ঠানে নির্বাচিত শিক্ষার্থীদের সংবর্ধনা মেডেল প্রদান করা হবে
                             </p>
                         </div>
                     </div>
 
                     <!-- Card 6: Special Gift -->
-                    <div class="col-6 col-sm-6 col-lg-4">
+                    <div class="col-12 col-sm-12 col-lg-4">
                         <div
                             class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100 text-center mega-card">
                             <div class="fancy-icon-wrapper bg-gradient-danger mx-auto mb-3"
@@ -276,7 +278,9 @@
                                 <i class="fas fa-gift fs-2 text-white"></i>
                             </div>
                             <h5 class="fw-bold mb-2">নাম্বার ওয়ান এর পক্ষ থেকে বিশেষ উপহার</h5>
-                            <p class="small text-secondary mb-0">নাম্বার ওয়ান থেকে বিশেষ উপহার</p>
+                            <p class="small text-secondary mb-0">
+                                নির্বাচিত শিক্ষার্থীদের জন্য নাম্বার ওয়ান এর পক্ষ থেকে বিশেষ উপহার প্রদান করা হবে
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -456,7 +460,7 @@
 
             <p class="text-secondary px-2">
                 এরকম হাজারও সংগ্রামী বাবা-মায়ের স্বপ্নের সহযাত্রী হিসেবে নাম্বার ওয়ান বিশ্বাস করে- একজন সন্তানের সাফল্যই
-                একটি পরিবারের সবচেয়ে বড় অর্জন। সেই বিশ্বাস থেকেই ‘নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা’ বছরের পর বছর
+                একটি পরিবারের সবচেয়ে বড় অর্জন। সেই বিশ্বাস থেকেই <strong>‘নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা’</strong> বছরের পর বছর
                 সম্মান জানিয়ে আসছে মেধা, পরিশ্রম ও স্বপ্নকে।
             </p>
 
@@ -1099,8 +1103,8 @@
         }
 
         .second-heading {
-            font-size: clamp(0.98rem, 1.55vw, 1.12rem);
-            line-height: 1.85;
+            font-size: clamp(0.95rem, 1.45vw, 1.1rem);
+            line-height: 1.65;
             margin-top: 1.1rem;
             color: #4b5563;
         }
@@ -1112,7 +1116,7 @@
 
             .second-heading {
                 font-size: 0.95rem;
-                line-height: 1.7;
+                line-height: 1.5;
                 margin-top: 0.9rem;
             }
         }
