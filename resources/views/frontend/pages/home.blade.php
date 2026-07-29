@@ -341,8 +341,9 @@
                         {{-- <span class="badge bg-dark text-white px-3 py-2 rounded-pill small">লিমিটেড আসন</span> --}}
                     </div>
                     <h3 class="fw-bold fs-2 fs-md-1 text-dark">এখনই আবেদন করুন</h3>
-                    <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">আপনি যদি <strong
-                            class="text-primary"> <a href="{{ route('student.register') }}">এসএসসি/সমমান ২০২৬ পরীক্ষায় </a></strong> জিপিএ-৫ প্রাপ্ত একজন কৃতী সন্তান হন
+                    <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">আপনি যদি <strong class="text-primary"> <a
+                                href="{{ route('student.register') }}">এসএসসি/সমমান ২০২৬ পরীক্ষায় </a></strong> জিপিএ-৫
+                        প্রাপ্ত একজন কৃতী সন্তান হন
                         এবং আপনার বাবা/মা যেকোন একজন চায়ের দোকানি হন, তাহলে এখনই আবেদন করুন।
                     </p>
 
@@ -523,96 +524,139 @@
             <div class="row justify-content-center">
                 <div class="col-11 col-lg-8">
                     <div class="accordion" id="faqAccordion">
+
+                        <!-- FAQ 1 -->
                         <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
-                            <h2 class="accordion-header"><button
-                                    class="accordion-button rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
-                                    data-bs-toggle="collapse" data-bs-target="#faq1">এটা কি ধরনের প্রোগ্রাম?</button></h2>
+                            <h2 class="accordion-header">
+                                <button class="accordion-button rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
+                                    data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    এটা কি ধরনের প্রোগ্রাম?
+                                </button>
+                            </h2>
                             <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-secondary small">চায়ের দোকানির মেধাবী সন্তান ও তাদের বাবা-মাকে নিয়ে সংবর্ধনা প্রোগ্রাম। </div>
+                                <div class="accordion-body text-secondary small">চায়ের দোকানির মেধাবী সন্তান ও তাদের
+                                    বাবা-মাকে নিয়ে সংবর্ধনা প্রোগ্রাম।</div>
                             </div>
                         </div>
 
+                        <!-- FAQ 2 -->
                         <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
-                            <h2 class="accordion-header"><button
-                                    class="accordion-button rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
-                                    data-bs-toggle="collapse" data-bs-target="#faq2">কারা আবেদন করতে পারবে?</button></h2>
-                            <div id="faq2" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-secondary small">এসএসসি/সমমান ২০২৬ পরীক্ষায় জিপিএ-৫ প্রাপ্ত চায়ের দোকানির সন্তানেরা আবেদন করতে পারবে।</div>
-                            </div>
-                        </div>
-
-                      <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
-                            <h2 class="accordion-header"><button
-                                    class="accordion-button rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
-                                    data-bs-toggle="collapse" data-bs-target="#faq3">একজন শিক্ষার্থী কি একাধিক আবেদন করতে পারবে? </button></h2>
-                            <div id="faq3" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-secondary small">না। একজন শিক্ষার্থী কেবলমাত্র একবারই আবেদন করতে পারবে। একাধিক আবেদন গ্রহণযোগ্য হবে না।</div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
-                            <h2 class="accordion-header"><button
-                                    class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
-                                    data-bs-toggle="collapse" data-bs-target="#faq4">আবেদন কীভাবে করা যাবে?</button></h2>
-                            <div id="faq4" class="accordion-collapse collapse">
-                                <div class="accordion-body text-secondary small">শুধুমাত্র এই ওয়েবসাইটে রেজিস্ট্রেশন-এ ক্লিক করে অনলাইন আবেদন সম্পন্ন করতে হবে।</div>
-                            </div>
-                        </div>
-                        <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
-                            <h2 class="accordion-header"><button
-                                    class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
-                                    data-bs-toggle="collapse" data-bs-target="#faq5">আবেদন করতে কোনো ফি লাগবে?</button>
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
+                                    data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    কারা আবেদন করতে পারবে?
+                                </button>
                             </h2>
-                            <div id="faq5" class="accordion-collapse collapse">
-                                <div class="accordion-body text-secondary small">কোন ফি লাগবে না। </div>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-secondary small">এসএসসি/সমমান ২০২৬ পরীক্ষায় জিপিএ-৫
+                                    প্রাপ্ত চায়ের দোকানির সন্তানেরা আবেদন করতে পারবে।</div>
                             </div>
                         </div>
+
+                        <!-- FAQ 3 -->
                         <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
-                            <h2 class="accordion-header"><button
-                                    class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
-                                    data-bs-toggle="collapse" data-bs-target="#faq6">আবেদন করার শেষ তারিখ কবে?</button>
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
+                                    data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    একজন শিক্ষার্থী কি একাধিক আবেদন করতে পারবে?
+                                </button>
                             </h2>
-                            <div id="faq6" class="accordion-collapse collapse">
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-secondary small">না। একজন শিক্ষার্থী কেবলমাত্র একবারই আবেদন
+                                    করতে পারবে। একাধিক আবেদন গ্রহণযোগ্য হবে না।</div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ 4 -->
+                        <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
+                                    data-bs-toggle="collapse" data-bs-target="#faq4">
+                                    আবেদন কীভাবে করা যাবে?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-secondary small">শুধুমাত্র এই ওয়েবসাইটে রেজিস্ট্রেশন-এ
+                                    ক্লিক করে অনলাইন আবেদন সম্পন্ন করতে হবে।</div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ 5 -->
+                        <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
+                                    data-bs-toggle="collapse" data-bs-target="#faq5">
+                                    আবেদন করতে কোনো ফি লাগবে?
+                                </button>
+                            </h2>
+                            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-secondary small">কোন ফি লাগবে না।</div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ 6 -->
+                        <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
+                                    data-bs-toggle="collapse" data-bs-target="#faq6">
+                                    আবেদন করার শেষ তারিখ কবে?
+                                </button>
+                            </h2>
+                            <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                                 <div class="accordion-body text-secondary small">ওয়েবসাইটে প্রকাশিত নির্ধারিত সময়সীমার
                                     মধ্যে আবেদন করতে হবে।</div>
                             </div>
                         </div>
+
+                        <!-- FAQ 7 -->
                         <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
-                            <h2 class="accordion-header"><button
-                                    class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
-                                    data-bs-toggle="collapse" data-bs-target="#faq5">কী কী ডকুমেন্ট লাগবে?</button></h2>
-                            <div id="faq5" class="accordion-collapse collapse">
-                                <div class="accordion-body text-secondary small">শিক্ষার্থীর ছবি, এসএসসি/সমমান ২০২৬ পরীক্ষার তথ্য, বাবা-মায়ের তথ্য এবং অন্যান্য প্রয়োজনীয় তথ্য।</div>
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
+                                    data-bs-toggle="collapse" data-bs-target="#faq7">
+                                    কী কী ডকুমেন্ট লাগবে?
+                                </button>
+                            </h2>
+                            <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-secondary small">শিক্ষার্থীর ছবি, এসএসসি/সমমান ২০২৬
+                                    পরীক্ষার তথ্য, বাবা-মায়ের তথ্য এবং অন্যান্য প্রয়োজনীয় তথ্য।</div>
                             </div>
                         </div>
 
+                        <!-- FAQ 8 -->
                         <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
-                            <h2 class="accordion-header"><button
-                                    class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
-                                    data-bs-toggle="collapse" data-bs-target="#faq6">নির্বাচিতদের কীভাবে জানানো
-                                    হবে?</button></h2>
-                            <div id="faq6" class="accordion-collapse collapse">
-                                <div class="accordion-body text-secondary small">SMS এর মাধ্যমে জানানো হবে এবং নিজের ইউজার আইডি ও পাসওয়ার্ড ব্যবহার করেও এই ওয়েবসাইট থেকে জানা যাবে। </div>
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
+                                    data-bs-toggle="collapse" data-bs-target="#faq8">
+                                    নির্বাচিতদের কীভাবে জানানো হবে?
+                                </button>
+                            </h2>
+                            <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-secondary small">SMS এর মাধ্যমে জানানো হবে এবং নিজের ইউজার
+                                    আইডি ও পাসওয়ার্ড ব্যবহার করেও এই ওয়েবসাইট থেকে জানা যাবে।</div>
                             </div>
                         </div>
 
+                        <!-- FAQ 9 -->
                         <div class="accordion-item border-0 mb-2 mb-md-3 shadow-sm rounded-4 overflow-hidden">
-                            <h2 class="accordion-header"><button
-                                    class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
-                                    data-bs-toggle="collapse" data-bs-target="#faq7">নির্বাচিত শিক্ষার্থীরা কী কী সুবিধা
-                                    পাবে?</button></h2>
-                            <div id="faq7" class="accordion-collapse collapse">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-semibold small fs-6 fs-md-5 py-3"
+                                    data-bs-toggle="collapse" data-bs-target="#faq9">
+                                    নির্বাচিত শিক্ষার্থীরা কী কী সুবিধা পাবে?
+                                </button>
+                            </h2>
+                            <div id="faq9" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                                 <div class="accordion-body text-secondary small">
-                                    নির্বাচিত শিক্ষার্থীরা পাবেন—
-                                    • শিক্ষা বৃত্তি (এককালীন)
-                                    • এইচএসসি অল সাবজেক্ট অনলাইন কোর্স
-                                    • সনদ
-                                    • ক্রেস্ট
-                                    • সংবর্ধনা মেডেল
+                                    নির্বাচিত শিক্ষার্থীরা পাবেন—<br>
+                                    • শিক্ষা বৃত্তি (এককালীন)<br>
+                                    • এইচএসসি অল সাবজেক্ট অনলাইন কোর্স<br>
+                                    • সনদ<br>
+                                    • ক্রেস্ট<br>
+                                    • সংবর্ধনা মেডেল<br>
                                     • নাম্বার ওয়ান এর পক্ষ থেকে বিশেষ উপহার
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -1050,9 +1094,8 @@
             }
         }
 
-
         .text-large {
-            font-size: clamp(2.3rem, 1.8vw, 1.4rem);
+            font-size: clamp(2.7rem, 1.8vw, 1.4rem);
         }
 
         .second-heading {
