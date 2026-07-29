@@ -95,8 +95,6 @@ class OtpVerificationController extends Controller
         $result = $this->otpService->verifyOtp($user, $request->otp);
 
         if ($result['success']) {
-            $this->notificationService->notifyRegistrationComplete($user);
-            
             // Check if parent info is provided
             if (!$user->hasParentInfo()) {
                 return response()->json([

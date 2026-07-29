@@ -12,8 +12,7 @@
                         {{-- <span>২০২৬ সালের বৃহৎ শিক্ষা উদ্যোগ</span> --}}
                     </div>
                     <h1 class="fw-bold text-large">নাম্বার ওয়ান বাবার <span class="text-gradient">কৃতী
-                            সন্তান</span>
-                        সংবর্ধনা - ২০২৬</h1>
+                            সন্তান</span> সংবর্ধনা - ২০২৬</h1>
                     <p class="second-heading">
                         প্রতিটি সন্তানের সাফল্যের পেছনে থাকে সংগ্রামী বাবা-মায়ের অক্লান্ত পরিশ্রম, ত্যাগ ও ভালোবাসা। স্বল্প
                         আয় এবং অপ্রতুল সুযোগ-সুবিধার মাঝেও বাবা-মায়েরা নিজের সর্বত্র চেষ্টার মাধ্যমে সন্তানের সুশিক্ষা
@@ -22,7 +21,7 @@
                         তাদের বাবা-মায়ের সংগ্রামী জীবনকে দিবেন সার্থকতা।
                     </p>
 
-                    <p class="second-heading">
+                    <p class="second-heading others-heading">
                         দেশের প্রান্তিক পর্যায়ে ছড়িয়ে থাকা হাজারও চা-দোকানি বাবা-মায়েদের স্বপ্নের গল্পটাও একই। প্রিয়
                         সন্তানের আলোকিত ভবিষ্যতের জন্য কঠোর পরিশ্রম আর ত্যাগের মাধ্যমেই তারা স্বপ্ন বুনে যাচ্ছেন প্রতিদিন।
                         আর এই মেহনতি মানুষগুলোর স্বপ্নপূরণে তাদের ভালোবাসার ব্র্যান্ড নাম্বার ওয়ান সবসময়ই তাদের পাশে আছে।
@@ -36,7 +35,8 @@
                         <a href="{{ route('student.register') }}" class="btn btn-primary btn-lg px-4 px-lg-5"> রেজিস্ট্রেশন
                             করুন
                             <i class="fas fa-chevron-right"></i></a>
-                        <a href="#faq" class="btn btn-outline-danger btn-lg px-4 px-lg-5">বিস্তারিত দেখুন
+                        <a href="" id="heroMoreToggle" class="btn btn-outline-danger btn-lg px-4 px-lg-5">বিস্তারিত
+                            দেখুন
                         </a>
                     </div>
 
@@ -184,7 +184,6 @@
                     </span>
                     <div>
                         <h3 class="fw-bold mb-1">নির্বাচিত শিক্ষার্থীরা পাবেন—</h3>
-                        <p class="text-dark-emphasis mb-0">নির্বাচিত শিক্ষার্থীরা পাবেন—</p>
                     </div>
                 </div>
 
@@ -198,7 +197,8 @@
                                 <i class="fas fa-graduation-cap fs-2 text-white"></i>
                             </div>
                             <h5 class="fw-bold mb-2">শিক্ষা বৃত্তি (এককালীন)</h5>
-                            <p class="small text-secondary mb-0">নির্বাচিত শিক্ষার্থীদের জন্য শিক্ষা বৃত্তি  প্রদান করা হবে</p>
+                            <p class="small text-secondary mb-0">নির্বাচিত শিক্ষার্থীদের শিক্ষা বৃত্তি প্রদান করা হবে
+                            </p>
                         </div>
                     </div>
 
@@ -216,7 +216,7 @@
                             </div>
                             <h5 class="fw-bold mb-2">এইচএসসি অল সাবজেক্ট অনলাইন কোর্স</h5>
                             <p class="small text-secondary mb-0">
-                                নির্বাচিত শিক্ষার্থীদের জন্য এইচএসসি সকল বিষয় অনলাইন কোর্স প্রদান করা হবে
+                                নির্বাচিত শিক্ষার্থীদের এইচএসসি সকল বিষয় অনলাইন কোর্স প্রদান করা হবে
                             </p>
                         </div>
                     </div>
@@ -225,7 +225,7 @@
                     <div class="col-12 col-sm-12 col-lg-4">
                         <div
                             class="fancy-feature-card bg-white rounded-4 p-3 p-md-4 shadow-sm hover-lift h-100 text-center mega-card">
-                            <div class="fancy-icon-wrapper bg-gradient-primary mx-auto mb-3"
+                            <div class="fancy-icon-wrapper bg-gradient-special mx-auto mb-3"
                                 style="width: 65px; height: 65px;">
                                 <i class="fas fa-certificate fs-2 text-white"></i>
                             </div>
@@ -296,75 +296,103 @@
 
     <!-- ========== 4. ELIGIBILITY CRITERIA + SPECIAL SEMINAR ========== -->
     <section id="eligibility" class="container py-4">
-        <div class="row g-4 g-lg-5 align-items-stretch">
-            <div class="col-12 col-lg-6">
-                <div class="bg-white rounded-4 shadow-sm p-4 p-md-5 h-100 border border-light">
-                    <div class="d-flex align-items-center gap-3 mb-4">
-                        <div
-                            class="fancy-icon-wrapper bg-gradient-primary text-white d-flex align-items-center justify-content-center">
-                            <i class="fas fa-shield-alt fs-2 text-white"></i>
-                        </div>
-                        <h2 class="section-title mb-0 fs-3 fs-md-2">যোগ্যতা ও নিয়মাবলী</h2>
-                    </div>
-                    <div class="mt-3 mt-md-4">
-                        <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
-                            <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
-                            <div><strong class="fs-6 fs-md-5">এসএসসি ২০২৬ পরীক্ষায় কৃতীত্বের সাথে জিপিএ-৫ পেয়ে উত্তীর্ণ
-                                    হতে হবে। </strong></div>
-                        </div>
-                        <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
-                            <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
-                            <div><strong class="fs-6 fs-md-5">আবেদনকারী শিক্ষার্থীর বাবা/অভিভাবক একজন চা দোকানি হতে
-                                    হবে।</strong></div>
-                        </div>
-                        <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
-                            <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
-                            <div><strong class="fs-6 fs-md-5">নির্ধারিত সময়ের মধ্যে অনলাইনে আবেদন সম্পন্ন করতে
-                                    হবে।</strong></div>
-                        </div>
-                        <div class="d-flex gap-3 mb-3 mb-md-4 pb-2 border-bottom">
-                            <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
-                            <div><strong class="fs-6 fs-md-5">প্রয়োজনীয় তথ্য ও ডকুমেন্ট সঠিকভাবে আপলোড করতে হবে।</strong>
+        <div class="row g-3 g-lg-4 align-items-stretch">
+
+            <!-- CARD 1 & 2: column-wise (stacked vertically) -->
+            <div class="col-12 col-md-6">
+                <div class="d-flex flex-column gap-3 h-100">
+                    <!-- CARD 1: যারা আবেদন করতে পারবে -->
+                    <div
+                        class="bg-white rounded-4 shadow-sm p-3 p-md-4 border border-light hover-shadow transition fancy-feature-card">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <div class="bg-success bg-opacity-10 rounded-circle p-2 d-flex align-items-center justify-content-center"
+                                style="width: 44px; height: 44px;">
+                                <i class="fas fa-user-check text-success fs-5"></i>
                             </div>
+                            <h4 class="fw-bold mb-0 text-dark fs-5">যারা আবেদন করতে পারবে</h4>
                         </div>
+                        <ul class="list-unstyled mt-2">
+                            <p class="text-secondary ms-auto">আবেদন করতে একজন কৃতী সন্তানের—</p>
+                            <li class="d-flex gap-3 mb-2 pb-2 border-bottom border-light">
+                                <i class="fas fa-circle-check text-success fs-6 mt-1" style="min-width: 20px;"></i>
+                                <span class="fs-6">এসএসসি/সমমান ২০২৬ পরীক্ষায় জিপিএ-৫ থাকতে হবে</span>
+                            </li>
+                            <li class="d-flex gap-3">
+                                <i class="fas fa-circle-check text-success fs-6 mt-1" style="min-width: 20px;"></i>
+                                <span class="fs-6">আবেদনকারী শিক্ষার্থীর বাবা/মা যেকোন একজন চা-দোকানি হতে হবে</span>
+                            </li>
+                        </ul>
+                    </div>
 
-                        <div class="d-flex gap-3">
-                            <i class="fas fa-solid fa-bullseye text-danger fs-6 fs-md-5 mt-1"></i>
-                            <div><strong class="fs-6 fs-md-5">নাম্বার ওয়ান কর্তৃপক্ষের নির্ধারিত যাচাই প্রক্রিয়ায়
-                                    উত্তীর্ণ হতে হবে।</strong></div>
+                    <!-- CARD 2: আবেদন করার নিয়মাবলি -->
+                    <div
+                        class="bg-white rounded-4 shadow-sm p-3 p-md-4 border border-light hover-shadow transition fancy-feature-card">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <div class="bg-warning bg-opacity-10 rounded-circle p-2 d-flex align-items-center justify-content-center"
+                                style="width: 44px; height: 44px;">
+                                <i class="fas fa-list-check text-warning fs-5"></i>
+                            </div>
+                            <h4 class="fw-bold mb-0 text-dark fs-5">আবেদন করার নিয়মাবলি</h4>
+                        </div>
+                        <ul class="list-unstyled mt-2">
+                            <li class="d-flex gap-3 mb-2 pb-2 border-bottom border-light">
+                                <i class="fas fa-clock text-warning fs-6 mt-1" style="min-width: 20px;"></i>
+                                <span class="fs-6">নির্ধারিত সময়ের মধ্যে অনলাইনে আবেদন সম্পন্ন করতে হবে</span>
+                            </li>
+                            <li class="d-flex gap-3">
+                                <i class="fas fa-file-arrow-up text-warning fs-6 mt-1" style="min-width: 20px;"></i>
+                                <span class="fs-6">প্রয়োজনীয় তথ্য ও ডকুমেন্ট সঠিকভাবে আপলোড করতে হবে</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 3: Special Seminar / CTA -->
+            <div class="col-12 col-md-6">
+                <div class="rounded-4 p-3 p-md-4 h-100 d-flex flex-column justify-content-between mega-card hover-shadow transition shiny-border"
+                    style="background: linear-gradient(145deg, #fffbf0 0%, #ffeaa7 100%);">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div class="bg-danger bg-opacity-10 rounded-circle p-2 d-flex align-items-center justify-content-center"
+                                style="width: 44px; height: 44px;">
+                                <i class="fa-solid fa-bullhorn fs-5 text-danger"></i>
+                            </div>
+                            <span
+                                class="badge bg-danger bg-opacity-10 text-danger px-2 py-1 rounded-pill fw-semibold small">লিমিটেড
+                                আসন</span>
+                        </div>
+                        <h4 class="fw-bold text-dark fs-4 mb-2">এখনই আবেদন করুন</h4>
+                        <p class="text-dark-emphasis" style="font-size: 0.9rem; line-height: 1.5;">
+                            আপনি যদি <strong><a href="{{ route('student.register') }}"
+                                    style="text-decoration: none; color: #dc3545;">এসএসসি/সমমান ২০২৬ পরীক্ষায়</a></strong>
+                            জিপিএ-৫ প্রাপ্ত
+                            একজন কৃতী সন্তান হন এবং আপনার বাবা/মা যেকোনো একজন চায়ের দোকানি হন, তাহলে এখনই আবেদন করুন।
+                        </p>
+                        <div class="bg-white bg-opacity-50 rounded-3 p-2 mt-2">
+                            <p class="fw-semibold mb-1 small text-dark">আবেদনের জন্য প্রয়োজন হবে—</p>
+                            <ul class="list-unstyled small mb-0" style="font-size: 0.8rem;">
+                                <li class="mb-1"><i class="fas fa-check-circle text-success me-1"></i>শিক্ষার্থীর ছবি
+                                </li>
+                                <li class="mb-1"><i class="fas fa-check-circle text-success me-1"></i>এসএসসি/সমমান ২০২৬
+                                    পরীক্ষার তথ্য</li>
+                                <li class="mb-1"><i class="fas fa-check-circle text-success me-1"></i>বাবা-মায়ের তথ্য
+                                </li>
+                                <li><i class="fas fa-check-circle text-success me-1"></i>অন্যান্য প্রয়োজনীয় তথ্য</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-2 pt-2 border-top border-warning border-opacity-25">
+                        <div class="d-flex justify-content-between align-items-center small text-dark-emphasis"
+                            style="font-size: 0.75rem;">
+                            <span><i class="fas fa-calendar-check text-danger me-1"></i>শেষ তারিখ: আগস্ট ২০, ২০২৬</span>
+                            <span><i class="fas fa-location-dot text-danger me-1"></i>সংবর্ধনার স্থান : ঢাকা</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-12 col-lg-6">
-                <div class="rounded-4 p-4 p-md-5 h-100 d-flex flex-column justify-content-between mega-card"
-                    style="background: linear-gradient(135deg, #fffdf6 0%, #fff1b9 100%);">
-                    <div class="d-flex justify-content-between align-items-start mb-3 mb-md-4">
-                        <i class="fa-solid fa-bullhorn fs-2 fs-md-1 text-danger opacity-75"></i>
-                        {{-- <span class="badge bg-dark text-white px-3 py-2 rounded-pill small">লিমিটেড আসন</span> --}}
-                    </div>
-                    <h3 class="fw-bold fs-2 fs-md-1 text-dark">এখনই আবেদন করুন</h3>
-                    <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">আপনি যদি <strong class="text-primary"> <a
-                                href="{{ route('student.register') }}">এসএসসি/সমমান ২০২৬ পরীক্ষায় </a></strong> জিপিএ-৫
-                        প্রাপ্ত একজন কৃতী সন্তান হন
-                        এবং আপনার বাবা/মা যেকোন একজন চায়ের দোকানি হন, তাহলে এখনই আবেদন করুন।
-                    </p>
 
-                    <p class="fs-6 fs-md-5 text-dark-emphasis mt-2 mt-md-3">আবেদনের জন্য প্রয়োজন হবে—
-                    <ul class="list-unstyled mt-2">
-                        <li><i class="fas fa-check text-danger me-2"></i>শিক্ষার্থীর ছবি</li>
-                        <li><i class="fas fa-check text-danger me-2"></i>এসএসসি পরীক্ষার তথ্য</li>
-                        <li><i class="fas fa-check text-danger me-2"></i>বাবা-মায়ের তথ্য</li>
-                        <li><i class="fas fa-check text-danger me-2"></i>অন্যান্য প্রয়োজনীয় তথ্য</li>
-                    </ul>
-                    </p>
-
-                    <div class="mt-3 mt-md-4 small text-dark-emphasis">
-                        <i class="fas fa-calendar-check"></i> আবেদনের শেষ তারিখ : আগস্ট ২০, ২০২৬ | সংবর্ধনার স্থান : ঢাকা
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -460,7 +488,8 @@
 
             <p class="text-secondary px-2">
                 এরকম হাজারও সংগ্রামী বাবা-মায়ের স্বপ্নের সহযাত্রী হিসেবে নাম্বার ওয়ান বিশ্বাস করে- একজন সন্তানের সাফল্যই
-                একটি পরিবারের সবচেয়ে বড় অর্জন। সেই বিশ্বাস থেকেই <strong>‘নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা’</strong> বছরের পর বছর
+                একটি পরিবারের সবচেয়ে বড় অর্জন। সেই বিশ্বাস থেকেই <strong>‘নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা’</strong>
+                বছরের পর বছর
                 সম্মান জানিয়ে আসছে মেধা, পরিশ্রম ও স্বপ্নকে।
             </p>
 
@@ -553,7 +582,7 @@
                             </h2>
                             <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                                 <div class="accordion-body text-secondary small">এসএসসি/সমমান ২০২৬ পরীক্ষায় জিপিএ-৫
-                                    প্রাপ্ত চায়ের দোকানির সন্তানেরা আবেদন করতে পারবে।</div>
+                                    প্রাপ্ত চায়ের দোকানির কৃতী সন্তানেরা আবেদন করতে পারবে।</div>
                             </div>
                         </div>
 
@@ -728,6 +757,34 @@
             .fancy-icon-wrapper {
                 width: 70px;
                 height: 70px;
+            }
+        }
+
+        .shiny-border {
+            border: 2px solid #ffc107;
+            transition: border-color 0.5s ease, box-shadow 0.5s ease;
+            position: relative;
+        }
+
+        .shiny-border:hover {
+            border-color: #e95968;
+            box-shadow: 0 0 20px rgba(220, 53, 69, 0.2);
+        }
+
+        /* For continuous automatic transition without hover */
+        .shiny-border {
+            animation: borderPulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes borderPulse {
+            0% {
+                border-color: #fff4d2;
+                box-shadow: 0 0 0px rgba(65, 49, 1, 0.062);
+            }
+
+            100% {
+                border-color: #f7b8bd;
+                box-shadow: 0 0 20px rgba(112, 13, 23, 0.164);
             }
         }
 
@@ -1099,7 +1156,7 @@
         }
 
         .text-large {
-            font-size: clamp(2.7rem, 1.8vw, 1.4rem);
+            font-size: clamp(2.7rem, 1.8vw, 1.2rem);
         }
 
         .second-heading {
@@ -1109,9 +1166,9 @@
             color: #4b5563;
         }
 
-        @media (max-width: 767.98px) {
+        @media (max-width: 567.98px) {
             .text-large {
-                font-size: clamp(1.3rem, 8vw, 1.1rem);
+                font-size: clamp(1.3rem, 8vw, .8rem);
             }
 
             .second-heading {
@@ -1119,6 +1176,12 @@
                 line-height: 1.5;
                 margin-top: 0.9rem;
             }
+        }
+
+
+        /* initially others-heading will be hidden when click on বিস্তারিত দেখুন it will show and when clic */
+        .others-heading {
+            display: none;
         }
     </style>
 @endsection
@@ -1408,6 +1471,20 @@
                 renderGallery();
             });
         });
+
+        const heroMoreToggle = document.getElementById('heroMoreToggle');
+        const heroMoreText = document.querySelector('.others-heading');
+
+        if (heroMoreToggle && heroMoreText) {
+            heroMoreToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const isHidden = heroMoreText.style.display === 'none' || getComputedStyle(heroMoreText).display ===
+                    'none';
+                heroMoreText.style.display = isHidden ? 'block' : 'none';
+                this.textContent = isHidden ? 'সংক্ষিপ্ত' : 'বিস্তারিত';
+            });
+        }
 
         // Initialize gallery on page load
         renderGallery();

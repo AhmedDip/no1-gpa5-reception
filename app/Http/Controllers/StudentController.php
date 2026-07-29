@@ -14,11 +14,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-
+use App\Services\NotificationService;
 class StudentController extends Controller
 {
     public function __construct(
-        private PhotoUploadService $photoUploadService
+        private PhotoUploadService $photoUploadService,
+        private NotificationService $notificationService
     ) {}
 
     public function home()
@@ -80,6 +81,8 @@ class StudentController extends Controller
             'parent_photo'            => $parentPhotoPath,
             'is_parent_info_provided' => true,
         ]);
+
+        $this->notificationService->notifyRegistrationComplete($user);
 
         return redirect()->route('student.dashboard')->with('success', 'অভিভাবকের তথ্য সফলভাবে সংরক্ষণ করা হয়েছে!');
     }

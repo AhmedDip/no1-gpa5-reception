@@ -179,11 +179,7 @@ class NotificationService
         return $this->sendSms($mobile, $message, $app->id, 'rejected');
     }
 
-    /**
-     * Registration সফলভাবে সম্পন্ন হওয়ার পর (মোবাইল OTP প্রথমবার verify হলে)
-     * একটি ছোট confirmation SMS পাঠায়। এটা fire-and-forget — SMS ব্যর্থ হলেও
-     * রেজিস্ট্রেশন প্রসেস ব্লক হবে না।
-     */
+   
     public function notifyRegistrationComplete(User $user): bool
     {
         $studentDetail = $user->studentDetail;
