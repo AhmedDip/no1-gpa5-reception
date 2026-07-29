@@ -148,16 +148,15 @@
                     নাম্বার ওয়ান এর পক্ষ থেকে শুভেচ্ছা
                 </h2>
 
-                <p class="lead mt-4 fs-5 fs-md-4 fw-medium text-dark-emphasis">
+                <p class="mt-4 fs-5 fs-md-4 fw-medium text-dark-emphasis">
                     <strong>"সন্তানের সাফল্য, বাবা-মায়ের গর্ব।"</strong>
                 </p>
-                <p>
+                <p class="fs-6 fs-md-5 mt-3">
                     স্বপ্নকে বাস্তবে রূপ দিতে যারা প্রতিদিন প্রতিকূলতার সঙ্গে লড়াই করেন, সন্তানের ভবিষ্যতের জন্য নিজের
                     সবটুকু উজাড় করে দেন, তারাই নাম্বার ওয়ান।
                 </p>
-                <p>
-                    সেই সংগ্রামী মানুষদের প্রতি শ্রদ্ধা ও ভালোবাসা থেকেই <strong>‘নাম্বার ওয়ান বাবার কৃতী সন্তান
-                        সংবর্ধনা-২০২৬’</strong> এর আয়োজন। যেখানে শুধু কৃতী সন্তানই নয়, তার সাফল্যের নেপথ্যের প্রকৃত নায়কেরাও
+                <p class="fs-6 fs-md-5 mt-3">
+                    সেই সংগ্রামী মানুষদের প্রতি শ্রদ্ধা ও ভালোবাসা থেকেই <strong>‘নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা-২০২৬’</strong> এর আয়োজন। যেখানে শুধু কৃতী সন্তানই নয়, তার সাফল্যের নেপথ্যের প্রকৃত নায়কেরাও
                     হন সম্মানিত ও স্বীকৃত।
                 </p>
             </div>
@@ -303,44 +302,46 @@
                 <div class="d-flex flex-column gap-3 h-100">
                     <!-- CARD 1: যারা আবেদন করতে পারবে -->
                     <div
-                        class="bg-white rounded-4 shadow-sm p-3 p-md-4 border border-light hover-shadow transition fancy-feature-card">
-                        <div class="d-flex align-items-center gap-2 mb-2">
-                            <div class="bg-success bg-opacity-10 rounded-circle p-2 d-flex align-items-center justify-content-center"
-                                style="width: 44px; height: 44px;">
-                                <i class="fas fa-user-check text-success fs-5"></i>
+                        class="bg-white rounded-4 shadow-sm p-3 p-md-3 border border-light hover-shadow transition fancy-feature-card">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center"
+                                style="width: 70px; height: 70px;">
+                               {{-- <img src="{{ images/student.gif }}" alt="student" class="img-fluid" style="width: 24px; height: 24px;"> --}}
+                               <img src="{{ asset('images/animated-icon/graduation-cap.gif') }}" alt="student" class="img-fluid" style="width: 50px; height: 50px;">
                             </div>
                             <h4 class="fw-bold mb-0 text-dark fs-5">যারা আবেদন করতে পারবে</h4>
                         </div>
                         <ul class="list-unstyled mt-2">
                             <p class="text-secondary ms-auto">আবেদন করতে একজন কৃতী সন্তানের—</p>
-                            <li class="d-flex gap-3 mb-2 pb-2 border-bottom border-light">
-                                <i class="fas fa-circle-check text-success fs-6 mt-1" style="min-width: 20px;"></i>
+                            <li class="d-flex gap-2 mb-1 pb-1 border-bottom border-light">
+                                <img src={{ asset('images/animated-icon/tick.gif') }} alt="tick" class="img-fluid" style="width: 20px; height: 20px;">
                                 <span class="fs-6">এসএসসি/সমমান ২০২৬ পরীক্ষায় জিপিএ-৫ থাকতে হবে</span>
                             </li>
-                            <li class="d-flex gap-3">
-                                <i class="fas fa-circle-check text-success fs-6 mt-1" style="min-width: 20px;"></i>
+                            <li class="d-flex gap-2">
+                                <img src={{ asset('images/animated-icon/tick.gif') }} alt="tick" class="img-fluid" style="width: 20px; height: 20px;">
                                 <span class="fs-6">আবেদনকারী শিক্ষার্থীর বাবা/মা যেকোন একজন চা-দোকানি হতে হবে</span>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- CARD 2: আবেদন করার নিয়মাবলি -->
+                      <!-- CARD 2: যারা আবেদন করতে পারবে -->
                     <div
-                        class="bg-white rounded-4 shadow-sm p-3 p-md-4 border border-light hover-shadow transition fancy-feature-card">
-                        <div class="d-flex align-items-center gap-2 mb-2">
-                            <div class="bg-warning bg-opacity-10 rounded-circle p-2 d-flex align-items-center justify-content-center"
-                                style="width: 44px; height: 44px;">
-                                <i class="fas fa-list-check text-warning fs-5"></i>
+                        class="bg-white rounded-4 shadow-sm p-3 p-md-3 border border-light hover-shadow transition fancy-feature-card">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center"
+                                style="width: 70px; height: 70px;">
+                               {{-- <img src="{{ images/student.gif }}" alt="student" class="img-fluid" style="width: 24px; height: 24px;"> --}}
+                               <img src="{{ asset('images/animated-icon/list.gif') }}" alt="student" class="img-fluid" style="width: 50px; height: 50px;">
                             </div>
                             <h4 class="fw-bold mb-0 text-dark fs-5">আবেদন করার নিয়মাবলি</h4>
                         </div>
                         <ul class="list-unstyled mt-2">
-                            <li class="d-flex gap-3 mb-2 pb-2 border-bottom border-light">
-                                <i class="fas fa-clock text-warning fs-6 mt-1" style="min-width: 20px;"></i>
+                            <li class="d-flex gap-2 mb-1 pb-1 border-bottom border-light">
+                                <img src={{ asset('images/animated-icon/tick.gif') }} alt="tick" class="img-fluid" style="width: 20px; height: 20px;">
                                 <span class="fs-6">নির্ধারিত সময়ের মধ্যে অনলাইনে আবেদন সম্পন্ন করতে হবে</span>
                             </li>
-                            <li class="d-flex gap-3">
-                                <i class="fas fa-file-arrow-up text-warning fs-6 mt-1" style="min-width: 20px;"></i>
+                            <li class="d-flex gap-2">
+                                <img src={{ asset('images/animated-icon/tick.gif') }} alt="tick" class="img-fluid" style="width: 20px; height: 20px;">
                                 <span class="fs-6">প্রয়োজনীয় তথ্য ও ডকুমেন্ট সঠিকভাবে আপলোড করতে হবে</span>
                             </li>
                         </ul>
@@ -403,7 +404,7 @@
             <div class="text-center mb-4 mb-md-5 position-relative">
                 <div
                     class="d-inline-flex align-items-center gap-2 bg-white px-4 py-2 rounded-pill shadow-sm mb-3 mb-md-4 border border-light mt-4">
-                    <i class="fas fa-calendar-alt text-primary" style="font-size: 0.9rem;"></i>
+                    <img src="{{ asset('images/animated-icon/calendar.gif') }}" alt="calendar" class="img-fluid" style="width: 30px; height: 30px;">
                     <span class="fw-semibold small text-uppercase tracking-wide">গুরুত্বপূর্ণ সময়সূচি</span>
                 </div>
                 <h2 class="display-6 display-md-5 fw-bold text-dark">প্রধান সময়সূচি</h2>
@@ -417,9 +418,9 @@
                         <div class="d-none d-md-block position-absolute timeline-dot"
                             style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #4F46E5; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(70, 75, 229, 0.15);">
                         </div>
-                        <div class="timeline-icon-wrapper mb-2 mb-md-3"
-                            style="width: 64px; height: 64px; background: linear-gradient(135deg, #EEF2FF, #E0E7FF); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
-                            <i class="fas fa-calendar-plus fs-4 text-primary" style="color: #4F46E5;"></i>
+                        <div class="timeline-icon-wrapper mb-2 mb-md-3" background: linear-gradient(135deg, #ffffff, #fefeff); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                            {{-- <i class="fas fa-calendar-plus fs-4 text-primary" style="color: #4F46E5;"></i> --}}
+                            <img src="{{ asset('images/animated-icon/start.gif') }}" alt="calendar" class="img-fluid" style="width: 70px; height: 70px;">
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-5 mb-1">আবেদন শুরু </h5>
                         <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">১১ আগস্ট </p>
@@ -435,9 +436,9 @@
                         <div class="d-none d-md-block position-absolute timeline-dot"
                             style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #EF4444; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(235, 43, 43, 0.15);">
                         </div>
-                        <div class="timeline-icon-wrapper mb-2 mb-md-3"
-                            style="width: 64px; height: 64px; background: linear-gradient(135deg, #FEF2F2, #FEE2E2); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
-                            <i class="fas fa-calendar-times fs-4" style="color: #EF4444;"></i>
+                        <div class="timeline-icon-wrapper mb-2 mb-md-3" display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                            {{-- <i class="fas fa-calendar-times fs-4" style="color: #EF4444;"></i> --}}
+                            <img src="{{ asset('images/animated-icon/end.gif') }}" alt="calendar" class="img-fluid" style="width: 70px; height: 70px;">
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-5 mb-1">আবেদনের শেষ তারিখ </h5>
                         <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">২০ আগস্ট</p>
@@ -453,9 +454,8 @@
                         <div class="d-none d-md-block position-absolute timeline-dot"
                             style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #f6e75c; border-radius: 50%; transform: translateY(-50%); border: 3px solid rgb(255, 255, 255); box-shadow: 0 0 0 4px rgba(246, 244, 92, 0.308);">
                         </div>
-                        <div class="timeline-icon-wrapper mb-2 mb-md-3"
-                            style="width: 64px; height: 64px; background: linear-gradient(135deg, #fffef3, #fefce9); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
-                            <i class="fas fa-people-group fs-4" style="color: #f6c55c;"></i>
+                        <div class="timeline-icon-wrapper mb-2 mb-md-3" display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                            <img src="{{ asset('images/animated-icon/people.gif') }}" alt="progress" class="img-fluid" style="width: 70px; height: 70px;">
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-5 mb-1">সংবর্ধনা</h5>
                         <p class="fs-4 fs-md-3 fw-bold text-dark mb-0"> </p>
@@ -1155,31 +1155,36 @@
             }
         }
 
-        .text-large {
-            font-size: clamp(2.7rem, 1.8vw, 1.2rem);
-        }
 
-        .second-heading {
-            font-size: clamp(0.95rem, 1.45vw, 1.1rem);
-            line-height: 1.65;
-            margin-top: 1.1rem;
-            color: #4b5563;
-        }
 
-        @media (max-width: 567.98px) {
+        @media (min-width: 768px) {
             .text-large {
-                font-size: clamp(1.3rem, 8vw, .8rem);
+                font-size: clamp(1.2rem, 2.7vw, 2.7rem);
+                white-space: nowrap;
             }
 
             .second-heading {
-                font-size: 0.95rem;
-                line-height: 1.5;
-                margin-top: 0.9rem;
+                line-height: 1.65;
+                margin-top: 1.1rem;
+                color: #020202dc;
             }
         }
 
 
-        /* initially others-heading will be hidden when click on বিস্তারিত দেখুন it will show and when clic */
+        @media (max-width: 767px) {
+            .text-large {
+                font-size: clamp(1.8rem, 2.3vw, 1.8rem);
+                white-space: normal;
+            }
+
+            .second-heading {
+                font-size: clamp(0.95rem, 1.65vw, 1.4rem);
+                line-height: 1.65;
+                margin-top: 1.1rem;
+                color: #020202dc;
+            }
+        }
+
         .others-heading {
             display: none;
         }
@@ -1482,7 +1487,7 @@
                 const isHidden = heroMoreText.style.display === 'none' || getComputedStyle(heroMoreText).display ===
                     'none';
                 heroMoreText.style.display = isHidden ? 'block' : 'none';
-                this.textContent = isHidden ? 'সংক্ষিপ্ত' : 'বিস্তারিত';
+                this.textContent = isHidden ? 'সংক্ষিপ্ত করুন' : 'বিস্তারিত দেখুন';
             });
         }
 

@@ -408,7 +408,7 @@
         }
 
         .text-dark-emphasis {
-            color: rgba(15, 23, 42, 0.9);
+           color: #020202;
         }
 
         .bg-gradient-special {
