@@ -12,55 +12,55 @@ use Illuminate\Support\Facades\Log;
 
 class NotificationService
 {
-    public function __construct(private BanglalinkSmsService $banglalinkSms)
-    {}
-
-    // public function approvedTemplate(StudentDetail $app): string
-    // {
-    //     $name      = $app->name_bn ?: $app->name_en;
-    //     $roll      = $app->roll_number;
-    //     $stallName = $app->tea_stall_name ?? 'আপনার চায়ের দোকান';
-
-    //     return "অভিনন্দন! প্রিয় {$name},"
-    //         . "আপনার আবেদন (রোল: {$roll}) সফলভাবে অনুমোদিত হয়েছে।"
-    //         . "নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা ২০২৬-এ আপনাকে স্বাগতম।"
-    //         . "সংবর্ধনার তারিখ ও স্থান শীঘ্রই জানানো হবে।";
-    // }
+    public function __construct(private BanglalinkSmsService $banglalinkSms) {}
 
     public function approvedTemplate(StudentDetail $app): string
     {
-        $roll = $app->roll_number;
-        return "অভিনন্দন! আবেদন (রোল: {$roll}) অনুমোদিত হয়েছে। বিস্তারিত পরে জানানো হবে।";
+        // $name      = $app->name_bn ?: $app->name_en;
+        $name      = strtok($app->name_bn ?: $app->name, ' ');
+        $roll      = $app->roll_number;
+
+
+        return "অভিনন্দন! প্রিয় {$name},"
+            . "আপনার আবেদন (রোল: {$roll}) সফলভাবে অনুমোদিত হয়েছে।"
+            . "নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা ২০২৬-এ আপনাকে স্বাগতম।"
+            . "সংবর্ধনার তারিখ ও স্থান শীঘ্রই জানানো হবে।";
     }
 
-    // public function rejectedTemplate(StudentDetail $app, string $remarks = ''): string
+    // public function approvedTemplate(StudentDetail $app): string
     // {
-    //     $name = $app->name_bn ?: $app->name_en;
     //     $roll = $app->roll_number;
-
-    //     $msg = "প্রিয় {$name},\n\n"
-    //         . "দুঃখিত, আপনার আবেদনটি (রোল: {$roll}) গ্রহণ করা সম্ভব হয়নি।";
-
-    //     if ($remarks) {
-    //         $msg .= "\nকারণ: {$remarks}";
-    //     }
-
-    //     $msg .= "\n\nআরও তথ্যের জন্য যোগাযোগ করুন।\n— নাম্বার ওয়ান ব্র্যান্ড";
-
-    //     return $msg;
+    //     return "অভিনন্দন! আবেদন (রোল: {$roll}) অনুমোদিত হয়েছে। বিস্তারিত পরে জানানো হবে।";
     // }
 
-    public function rejectedTemplate(StudentDetail $app): string
+    public function rejectedTemplate(StudentDetail $app, string $remarks = ''): string
     {
+        $name = strtok($app->name_bn ?: $app->name_en, ' ');
         $roll = $app->roll_number;
-        return "দুঃখিত, আপনার আবেদন (রোল: {$roll}) নির্বাচিত হয়নি।";
+
+        $msg = "প্রিয় {$name}," . "দুঃখিত, আপনার আবেদনটি (রোল: {$roll}) গ্রহণ করা সম্ভব হয়নি। — নাম্বার ওয়ান";
+
+        // if ($remarks) {
+        //     $msg .= "\nকারণ: {$remarks}";
+        // }
+
+        // $msg .= "আরও তথ্যের জন্য যোগাযোগ করুন। — নাম্বার ওয়ান";
+
+        return $msg;
     }
+
+    // public function rejectedTemplate(StudentDetail $app): string
+    // {
+    //     $roll = $app->roll_number;
+    //     return "দুঃখিত, আপনার আবেদন (রোল: {$roll}) নির্বাচিত হয়নি।";
+    // }
 
     public function customTemplate(StudentDetail $app, string $message): string
     {
-        $name = $app->name_bn ?: $app->name_en;
+        // $name = $app->name_bn ?: $app->name;
+        $name = strtok($app->name_bn ?: $app->name, ' ');
 
-        return "প্রিয় {$name},\n{$message}\n— নাম্বার ওয়ান";
+        return "প্রিয় {$name}, {$message} — নাম্বার ওয়ান";
     }
 
     private function storeNotification(StudentDetail $app, string $title, string $message, string $type): void
@@ -93,6 +93,7 @@ class NotificationService
                 'status'            => $result['success'] ? 'sent' : 'failed',
                 'driver'            => $driver,
                 'response'          => $result['response'] ?? null,
+                'raw_response'      => $result['raw_response'] ?? null,
             ]);
         } catch (\Exception $e) {
             Log::error('Failed to store SMS log: ' . $e->getMessage());
@@ -120,11 +121,14 @@ class NotificationService
             'mobile'  => $this->maskMobile($mobile),
             'status'  => $result['status_code'],
             'success' => $result['success'],
+            'response' => $result['message'],
+            'result' => $result ?? null,
         ]);
 
         return [
-            'success'  => $result['success'],
-            'response' => trim(($result['status_code'] ?? '') . ' - ' . $result['message']),
+            'success'      => $result['success'],
+            'response'     => trim(($result['status_code'] ?? '') . ' - ' . $result['message']),
+            'raw_response' => $result['raw'] ?? null,
         ];
     }
 
@@ -142,8 +146,11 @@ class NotificationService
         ]);
 
         return [
-            'success'  => true,
-            'response' => 'Logged successfully',
+            'success'           => true,
+            'response'          => 'Logged successfully',
+            'client_trans_id'   => null,
+            'operator_trans_id' => null,
+            'raw_response'      => null,
         ];
     }
 
@@ -179,12 +186,12 @@ class NotificationService
         return $this->sendSms($mobile, $message, $app->id, 'rejected');
     }
 
-   
+
     public function notifyRegistrationComplete(User $user): bool
     {
         $studentDetail = $user->studentDetail;
         $name          = $studentDetail?->name_bn ?: $user->name;
-
+        $name = strtok($name, ' ');
         $message = "অভিনন্দন {$name}, আপনার নিবন্ধন সফলভাবে সম্পন্ন হয়েছে। — নাম্বার ওয়ান";
         if ($studentDetail) {
             $this->storeNotification($studentDetail, 'নিবন্ধন সম্পন্ন হয়েছে', $message, 'registration');
@@ -227,7 +234,7 @@ class NotificationService
                 $failed++;
             }
 
-                            // Brief pause to respect Twilio rate limits
+            // Brief pause to respect Twilio rate limits
             usleep(200000); // 200ms
         }
 

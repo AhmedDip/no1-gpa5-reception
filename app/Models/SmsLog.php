@@ -8,16 +8,23 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SmsLog extends Model
 {
-    protected $fillable = [
-        'student_detail_id',
-        'sent_by',
-        'mobile',
-        'type',
-        'message',
-        'status',
-        'driver',
-        'response',
-    ];
+   protected $fillable = [
+    'student_detail_id',
+    'sent_by',
+    'mobile',
+    'type',
+    'message',
+    'status',
+    'driver',
+    'response',
+    'client_trans_id',
+    'operator_trans_id',
+    'raw_response',
+];
+
+protected $casts = [
+    'raw_response' => 'array',
+];
 
     public function studentDetail(): BelongsTo
     {

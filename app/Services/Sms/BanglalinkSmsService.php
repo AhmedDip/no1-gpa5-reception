@@ -79,7 +79,7 @@ class BanglalinkSmsService
             'username'      => config('services.banglalink.username'),
             'password'      => config('services.banglalink.password'),
             'apicode'       => '2',
-            'cli'           => config('services.banglalink.cli'),
+            'cli'           => config('services.banglalink.cli', 'No.1'),
             'clienttransid' => $this->generateTransId(),
         ]);
     }
@@ -92,7 +92,7 @@ class BanglalinkSmsService
             'apicode'         => '4',
             'msisdn'          => [$this->normalizeMsisdn($mobile)],
             'countrycode'     => config('services.banglalink.country_code', '880'),
-            'cli'             => config('services.banglalink.cli'),
+            'cli'             => config('services.banglalink.cli', 'No.1'),
             'messagetype'     => '1',
             'clienttransid'   => $this->generateTransId(),
             'operatortransid' => $operatorTransId,
