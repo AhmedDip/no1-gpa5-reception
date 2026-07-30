@@ -295,8 +295,8 @@
         .badge-archive-glow {
             font-size: 0.65rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #ffc001 0%, #db7c00 100%);
-            color: #212529;
+            background: linear-gradient(135deg, #ffc001 0%, #ff9100 100%);
+            color: #0e0f0f;
             padding: 2px 5px;
             border-radius: 4px;
             letter-spacing: 0.5px;
@@ -309,11 +309,11 @@
 
         @keyframes badgePulse {
             0% {
-                box-shadow: 0 0 0 0 rgba(255, 143, 0, 0.5);
+                box-shadow: 0 0 0 0 rgba(255, 145, 0, 0.662);
             }
 
             70% {
-                box-shadow: 0 0 0 6px rgba(255, 143, 0, 0);
+                box-shadow: 0 0 0 6px rgba(7, 7, 6, 0);
             }
 
             100% {

@@ -142,20 +142,20 @@
     <!-- ========== 2. MESSAGE FROM NO.1 BRAND ========== -->
     <section class="container py-4 py-md-5 my-2 my-md-4 text-center">
         <div class="row justify-content-center">
-            <div class="col-11 col-lg-8">
+            <div class="col-12 col-lg-10 text-center  mb-md-4">
                 <h2 class="section-title mx-auto">
                     {{-- <img src="{{ asset('images/no1-logo.png') }}" alt="brand" height="45" class="me-2"> --}}
                     নাম্বার ওয়ান এর পক্ষ থেকে শুভেচ্ছা
                 </h2>
 
-                <p class="mt-4 fs-5 fs-md-4 fw-medium text-dark-emphasis">
-                    <strong>"সন্তানের সাফল্য, বাবা-মায়ের গর্ব।"</strong>
+                <p class="mt-3 fs-5 fs-md-4 text-dark-emphasis">
+                   <span class="special-text"><strong>"সন্তানের সাফল্য, বাবা-মায়ের গর্ব।"</strong></span>
                 </p>
-                <p class="fs-6 fs-md-5 mt-3">
+                <p class="fs-6 fs-md-5 mt-1">
                     স্বপ্নকে বাস্তবে রূপ দিতে যারা প্রতিদিন প্রতিকূলতার সঙ্গে লড়াই করেন, সন্তানের ভবিষ্যতের জন্য নিজের
                     সবটুকু উজাড় করে দেন, তারাই নাম্বার ওয়ান।
                 </p>
-                <p class="fs-6 fs-md-5 mt-3">
+                <p class="fs-6 fs-md-5 mt-1">
                     সেই সংগ্রামী মানুষদের প্রতি শ্রদ্ধা ও ভালোবাসা থেকেই <strong>‘নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা-২০২৬’</strong> এর আয়োজন। যেখানে শুধু কৃতী সন্তানই নয়, তার সাফল্যের নেপথ্যের প্রকৃত নায়কেরাও
                     হন সম্মানিত ও স্বীকৃত।
                 </p>
@@ -352,7 +352,7 @@
             <!-- CARD 3: Special Seminar / CTA -->
             <div class="col-12 col-md-6">
                 <div class="rounded-4 p-3 p-md-4 h-100 d-flex flex-column justify-content-between mega-card hover-shadow transition shiny-border"
-                    style="background: linear-gradient(145deg, #fffbf0 0%, #ffeaa7 100%);">
+                    style="background: linear-gradient(145deg, #fffcf5 0%, #f5dc9d 100%);">
                     <div>
                         <div class="d-flex justify-content-between align-items-start mb-2">
                             <div class="bg-danger bg-opacity-10 rounded-circle p-2 d-flex align-items-center justify-content-center"
@@ -373,13 +373,23 @@
                         <div class="bg-white bg-opacity-50 rounded-3 p-2 mt-2">
                             <p class="fw-semibold mb-1 small text-dark">আবেদনের জন্য প্রয়োজন হবে—</p>
                             <ul class="list-unstyled small mb-0" style="font-size: 0.8rem;">
-                                <li class="mb-1"><i class="fas fa-check-circle text-success me-1"></i>শিক্ষার্থীর ছবি
+                                <li class="mb-1">
+                                    <img src="{{ asset('images/animated-icon/tick-2.gif') }}" alt="tick" class="img-fluid" style="width: 20px; height: 20px;">
+                                    শিক্ষার্থীর ছবি
                                 </li>
-                                <li class="mb-1"><i class="fas fa-check-circle text-success me-1"></i>এসএসসি/সমমান ২০২৬
-                                    পরীক্ষার তথ্য</li>
-                                <li class="mb-1"><i class="fas fa-check-circle text-success me-1"></i>বাবা-মায়ের তথ্য
+                                <li class="mb-1">
+                                    <img src="{{ asset('images/animated-icon/tick-2.gif') }}" alt="tick" class="img-fluid" style="width: 20px; height: 20px;">
+                                    এসএসসি/সমমান ২০২৬
+                                    পরীক্ষার তথ্য
                                 </li>
-                                <li><i class="fas fa-check-circle text-success me-1"></i>অন্যান্য প্রয়োজনীয় তথ্য</li>
+                                <li class="mb-1">
+                                    <img src="{{ asset('images/animated-icon/tick-2.gif') }}" alt="tick" class="img-fluid" style="width: 20px; height: 20px;">
+                                    বাবা-মায়ের তথ্য
+                                </li>
+                                <li>
+                                    <img src="{{ asset('images/animated-icon/tick-2.gif') }}" alt="tick" class="img-fluid" style="width: 20px; height: 20px;">
+                                    অন্যান্য প্রয়োজনীয় তথ্য
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -414,19 +424,19 @@
             <div class="row g-4 g-md-5 justify-content-center position-relative">
                 <div class="col-6 col-md-4 position-relative" style="z-index: 2;">
                     <div class="timeline-card-elegant text-center p-3 p-md-4 rounded-4 bg-white shadow-sm border-0 h-100 d-flex flex-column align-items-center transition-all duration-300 position-relative"
-                        style="border-bottom: 4px solid #4F46E5;">
+                        style="border-bottom: 4px solid #46c8e5;">
                         <div class="d-none d-md-block position-absolute timeline-dot"
-                            style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #4F46E5; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(70, 75, 229, 0.15);">
+                            style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #40cfcf; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(70, 75, 229, 0.15);">
                         </div>
                         <div class="timeline-icon-wrapper mb-2 mb-md-3" background: linear-gradient(135deg, #ffffff, #fefeff); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
-                            {{-- <i class="fas fa-calendar-plus fs-4 text-primary" style="color: #4F46E5;"></i> --}}
+                            {{-- <i class="fas fa-calendar-plus fs-4 text-primary" style="color: #46dae5;"></i> --}}
                             <img src="{{ asset('images/animated-icon/start.gif') }}" alt="calendar" class="img-fluid" style="width: 70px; height: 70px;">
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-5 mb-1">আবেদন শুরু </h5>
                         <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">১১ আগস্ট </p>
                         <p class="text-secondary small mb-0">২০২৬</p>
-                        <span class="badge bg-primary-soft text-primary mt-2 px-3 py-1 rounded-pill small fw-normal"
-                            style="background: rgba(79, 70, 229, 0.08);">শুরু</span>
+                        <span class="badge bg-info-soft text-info mt-2 px-3 py-1 rounded-pill small fw-normal"
+                            style="background: #40cfcf28">শুরু</span>
                     </div>
                 </div>
 
@@ -761,30 +771,29 @@
         }
 
         .shiny-border {
-            border: 2px solid #ffc107;
             transition: border-color 0.5s ease, box-shadow 0.5s ease;
+            border: 2px solid #d0aa10;
             position: relative;
         }
 
         .shiny-border:hover {
-            border-color: #e95968;
-            box-shadow: 0 0 20px rgba(220, 53, 69, 0.2);
+            box-shadow: 0 0 20px rgba(9, 8, 7, 0.37);
         }
 
         /* For continuous automatic transition without hover */
         .shiny-border {
-            animation: borderPulse 2s ease-in-out infinite alternate;
+            animation: borderPulse 2.5s ease-in-out infinite alternate;
         }
 
         @keyframes borderPulse {
             0% {
-                border-color: #fff4d2;
-                box-shadow: 0 0 0px rgba(65, 49, 1, 0.062);
+                border-color: #f6e7b7ad;
+                box-shadow: 0 0 0px rgba(223, 214, 184, 0.132);
             }
 
             100% {
-                border-color: #f7b8bd;
-                box-shadow: 0 0 20px rgba(112, 13, 23, 0.164);
+                border-color: #f9bb1d45;
+                box-shadow: 0 0 20px rgba(122, 101, 23, 0.32);
             }
         }
 
@@ -1187,6 +1196,15 @@
 
         .others-heading {
             display: none;
+        }
+
+        .special-text {
+        /* Gradient text effect */
+           background: linear-gradient(90deg, #9d0505, #f8022be6, #cb1f00e5, #bf1809, #8b0000);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            font-weight: 600;
         }
     </style>
 @endsection
