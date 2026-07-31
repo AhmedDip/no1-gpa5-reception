@@ -3,6 +3,7 @@
 use App\Http\Controllers\InvitationLetterController;
 use App\Http\Controllers\OtpVerificationController;
 use App\Http\Controllers\PreviousYearController;
+use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\StudentAuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentNotificationController;
@@ -23,6 +24,8 @@ Route::get('/', [StudentController::class, 'home'])->name('home');
 
 // Previous Year
 Route::get('/previous-year', [PreviousYearController::class, 'index'])->name('previous-year.index');
+
+Route::get('/qr-code', [QrCodeController::class, 'index'])->name('qrcode.index');
 
 Route::prefix('student')->name('student.')->group(function () {
     Route::middleware('guest')->group(function () {
