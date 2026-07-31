@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 
 class QrCodeController extends Controller
 {
-    /**
-     * Show a QR code that encodes a target URL directly.
-     * Because the QR payload IS the URL, any phone camera / QR app
-     * will offer to open it immediately — no redirect route needed.
-     */
     public function index(Request $request)
     {
         $targetUrl = $request->query('url', 'https://no1family.com/');

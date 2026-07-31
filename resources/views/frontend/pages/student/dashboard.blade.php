@@ -15,6 +15,7 @@
             border: none;
             border-radius: 15px;
             overflow: hidden;
+            background: linear-gradient(135deg, #f5f9ff 5%, #fdfdff 100%);
         }
 
         .stat-card:hover {
@@ -84,10 +85,10 @@
         }
 
         .welcome-banner {
-            background: linear-gradient(135deg, #ff9b9b 0%, #940b0b 100%);
+            background: linear-gradient(135deg, #c96a6a 0%, #940b0b 100%);
             border-radius: 15px;
             padding: 30px;
-            color: white;
+            color: rgb(255, 255, 255);
             position: relative;
             overflow: hidden;
         }
@@ -373,42 +374,48 @@
                 <!-- Statistics Cards -->
                 <div class="row g-3 mb-4">
                     <div class="col-md-4">
-                        <div class="card stat-card bg-primary text-white h-100">
+                        <div class="card stat-card text-dark h-100">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        <h6 class="text-white-50 mb-1">আবেদন স্ট্যাটাস</h6>
-                                        <h3 class="text-white mb-0">
+                                        <h6 class="text-dark-50 mb-1">আবেদন স্ট্যাটাস</h6>
+                                        <h3 class="text-dark mb-0">
                                             {{ $studentDetail?->applicationStatus->name ?? 'Pending' }}
                                         </h3>
                                     </div>
-                                    <i class="fas fa-clipboard-list stat-icon text-white"></i>
+                                    {{-- <i class="fas fa-clipboard-list stat-icon text-white"></i> --}}
+                                    <img src="{{ asset('images/animated-icon/status.gif') }}" alt="Application Status" class="img-fluid"
+                                        style="max-width: 40px;">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card stat-card bg-success text-white h-100">
+                        <div class="card stat-card bg-success text-dark h-100">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        <h6 class="text-white-50 mb-1">এসএসসি ফলাফল</h6>
-                                        <h3 class="text-white mb-0">{{ $studentDetail?->gpa_result }}</h3>
+                                        <h6 class="text-dark-50 mb-1">এসএসসি ফলাফল</h6>
+                                        <h3 class="text-dark mb-0">{{ $studentDetail?->gpa_result }}</h3>
                                     </div>
-                                    <i class="fas fa-chart-line stat-icon text-white"></i>
+                                    {{-- <i class="fas fa-chart-line stat-icon text-white"></i> --}}
+                                    <img src="{{ asset('images/animated-icon/result.gif') }}" alt="GPA Result" class="img-fluid"
+                                        style="max-width: 40px;">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card stat-card bg-info text-white h-100">
+                        <div class="card stat-card bg-info text-dark h-100">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        <h6 class="text-white-50 mb-1">নিবন্ধন নম্বর</h6>
-                                        <h6 class="text-white mb-0">{{ $studentDetail?->registration_number }}</h6>
+                                        <h6 class="text-dark-50 mb-1">নিবন্ধন নম্বর</h6>
+                                        <h6 class="text-dark mb-0">{{ $studentDetail?->registration_number }}</h6>
                                     </div>
-                                    <i class="fas fa-id-card stat-icon text-white"></i>
+                                    {{-- <i class="fas fa-id-card stat-icon text-dark"></i> --}}
+                                    <img src="{{ asset('images/animated-icon/registration.gif') }}" alt="Registration Number" class="img-fluid"
+                                        style="max-width: 40px;">
                                 </div>
                             </div>
                         </div>
@@ -429,8 +436,10 @@
                                 <a href="{{ route('student.download.certificate') }}" target="_blank"
                                     class="text-decoration-none">
                                     <div class="menu-btn bg-light">
-                                        <i class="fas fa-download fa-2x text-success"></i>
-                                        <h6 class="mb-0 text-dark mt-1">একনলজমেন্ট সার্টিফিকেট</h6>
+                                        {{-- <i class="fas fa-download fa-2x text-success"></i> --}}
+                                        <img src="{{ asset('images/animated-icon/certificate.gif') }}" alt="Download Certificate" class="img-fluid"
+                                            style="max-width: 40px;">
+                                        <h6 class="mb-0 text-dark mt-1">সার্টিফিকেট</h6>
                                         <small class="text-muted">ডাউনলোড করুন</small>
                                     </div>
                                 </a>
@@ -439,7 +448,9 @@
                                 <a href="{{ route('student.invitation.letter') }}" target="_blank"
                                     class="text-decoration-none">
                                     <div class="menu-btn bg-light">
-                                        <i class="fas fa-envelope fa-2x text-danger"></i>
+                                        {{-- <i class="fas fa-envelope fa-2x text-danger"></i> --}}
+                                        <img src="{{ asset('images/animated-icon/invitation.gif') }}" alt="Invitation Letter" class="img-fluid"
+                                            style="max-width: 40px;">
                                         <h6 class="mb-0 text-dark mt-1">আমন্ত্রণপত্র</h6>
                                         <small class="text-muted">ইভেন্টের আমন্ত্রণপত্র</small>
                                     </div>
@@ -452,7 +463,9 @@
                                             <span class="position-absolute badge bg-danger rounded-pill"
                                                 style="top: 8px; right: 8px; font-size: 0.65rem;">{{ $unreadNotifCount }}</span>
                                         @endif
-                                        <i class="fas fa-bell fa-2x text-warning"></i>
+                                        {{-- <i class="fas fa-bell fa-2x text-warning"></i> --}}
+                                        <img src="{{ asset('images/animated-icon/notification.gif') }}" alt="Notifications" class="img-fluid"
+                                            style="max-width: 40px;">
                                         <h6 class="mb-0 text-dark mt-1">নোটিফিকেশন</h6>
                                         <small class="text-muted">প্রেরিত বার্তা দেখুন</small>
                                     </div>
@@ -532,7 +545,9 @@
                             <div class="event-card p-3 mb-3 bg-light">
                                 <div class="d-flex align-items-start">
                                     <div class="me-3">
-                                        <i class="fas fa-map-marker-alt fa-2x text-danger"></i>
+                                        {{-- <i class="fas fa-map-marker-alt fa-2x text-danger"></i> --}}
+                                        <img src="{{ asset('images/animated-icon/location.gif') }}" alt="Event Location" class="img-fluid"
+                                            style="max-width: 40px;">
                                     </div>
                                     <div>
                                         <h6 class="fw-bold mb-1">স্থান</h6>
@@ -544,7 +559,9 @@
                             <div class="event-card p-3 mb-3 bg-light">
                                 <div class="d-flex align-items-start">
                                     <div class="me-3">
-                                        <i class="fas fa-calendar-day fa-2x text-danger"></i>
+                                        {{-- <i class="fas fa-calendar-day fa-2x text-danger"></i> --}}
+                                        <img src="{{ asset('images/animated-icon/calendar.gif') }}" alt="Event Date" class="img-fluid"
+                                            style="max-width: 40px;">
                                     </div>
                                     <div>
                                         <h6 class="fw-bold mb-1">তারিখ ও সময়</h6>
@@ -556,7 +573,9 @@
                             <div class="event-card p-3 bg-light">
                                 <div class="d-flex align-items-start">
                                     <div class="me-3">
-                                        <i class="fas fa-info-circle fa-2x text-danger"></i>
+                                        {{-- <i class="fas fa-info-circle fa-2x text-danger"></i> --}}
+                                        <img src="{{ asset('images/animated-icon/list.gif') }}" alt="Event Info" class="img-fluid"
+                                            style="max-width: 40px;">
                                     </div>
                                     <div>
                                         <h6 class="fw-bold mb-1">বিশেষ দ্রষ্টব্য</h6>

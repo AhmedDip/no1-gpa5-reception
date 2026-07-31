@@ -149,14 +149,15 @@
                 </h2>
 
                 <p class="mt-3 fs-5 fs-md-4 text-dark-emphasis">
-                   <span class="special-text"><strong>"সন্তানের সাফল্য, বাবা-মায়ের গর্ব।"</strong></span>
+                    <span class="special-text"><strong>"সন্তানের সাফল্য, বাবা-মায়ের গর্ব।"</strong></span>
                 </p>
                 <p class="fs-6 fs-md-5 mt-1">
                     স্বপ্নকে বাস্তবে রূপ দিতে যারা প্রতিদিন প্রতিকূলতার সঙ্গে লড়াই করেন, সন্তানের ভবিষ্যতের জন্য নিজের
                     সবটুকু উজাড় করে দেন, তারাই নাম্বার ওয়ান।
                 </p>
                 <p class="fs-6 fs-md-5 mt-1">
-                    সেই সংগ্রামী মানুষদের প্রতি শ্রদ্ধা ও ভালোবাসা থেকেই <strong>‘নাম্বার ওয়ান বাবার কৃতী সন্তান সংবর্ধনা-২০২৬’</strong> এর আয়োজন। যেখানে শুধু কৃতী সন্তানই নয়, তার সাফল্যের নেপথ্যের প্রকৃত নায়কেরাও
+                    সেই সংগ্রামী মানুষদের প্রতি শ্রদ্ধা ও ভালোবাসা থেকেই <strong>‘নাম্বার ওয়ান বাবার কৃতী সন্তান
+                        সংবর্ধনা-২০২৬’</strong> এর আয়োজন। যেখানে শুধু কৃতী সন্তানই নয়, তার সাফল্যের নেপথ্যের প্রকৃত নায়কেরাও
                     হন সম্মানিত ও স্বীকৃত।
                 </p>
             </div>
@@ -306,42 +307,48 @@
                         <div class="d-flex align-items-center mb-2">
                             <div class="bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center"
                                 style="width: 70px; height: 70px;">
-                               {{-- <img src="{{ images/student.gif }}" alt="student" class="img-fluid" style="width: 24px; height: 24px;"> --}}
-                               <img src="{{ asset('images/animated-icon/graduation-cap.gif') }}" alt="student" class="img-fluid" style="width: 50px; height: 50px;">
+                                {{-- <img src="{{ images/student.gif }}" alt="student" class="img-fluid" style="width: 24px; height: 24px;"> --}}
+                                <img src="{{ asset('images/animated-icon/graduation-cap.gif') }}" alt="student"
+                                    class="img-fluid" style="width: 50px; height: 50px;">
                             </div>
                             <h4 class="fw-bold mb-0 text-dark fs-5">যারা আবেদন করতে পারবে</h4>
                         </div>
                         <ul class="list-unstyled mt-2">
                             <p class="text-secondary ms-auto">আবেদন করতে একজন কৃতী সন্তানের—</p>
                             <li class="d-flex gap-2 mb-1 pb-1 border-bottom border-light">
-                                <img src={{ asset('images/animated-icon/tick.gif') }} alt="tick" class="img-fluid" style="width: 20px; height: 20px;">
+                                <img src={{ asset('images/animated-icon/tick.gif') }} alt="tick" class="img-fluid"
+                                    style="width: 20px; height: 20px;">
                                 <span class="fs-6">এসএসসি/সমমান ২০২৬ পরীক্ষায় জিপিএ-৫ থাকতে হবে</span>
                             </li>
                             <li class="d-flex gap-2">
-                                <img src={{ asset('images/animated-icon/tick.gif') }} alt="tick" class="img-fluid" style="width: 20px; height: 20px;">
+                                <img src={{ asset('images/animated-icon/tick.gif') }} alt="tick" class="img-fluid"
+                                    style="width: 20px; height: 20px;">
                                 <span class="fs-6">আবেদনকারী শিক্ষার্থীর বাবা/মা যেকোন একজন চা-দোকানি হতে হবে</span>
                             </li>
                         </ul>
                     </div>
 
-                      <!-- CARD 2: যারা আবেদন করতে পারবে -->
+                    <!-- CARD 2: যারা আবেদন করতে পারবে -->
                     <div
                         class="bg-white rounded-4 shadow-sm p-3 p-md-3 border border-light hover-shadow transition fancy-feature-card">
                         <div class="d-flex align-items-center mb-2">
                             <div class="bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center"
                                 style="width: 70px; height: 70px;">
-                               {{-- <img src="{{ images/student.gif }}" alt="student" class="img-fluid" style="width: 24px; height: 24px;"> --}}
-                               <img src="{{ asset('images/animated-icon/list.gif') }}" alt="student" class="img-fluid" style="width: 50px; height: 50px;">
+                                {{-- <img src="{{ images/student.gif }}" alt="student" class="img-fluid" style="width: 24px; height: 24px;"> --}}
+                                <img src="{{ asset('images/animated-icon/list.gif') }}" alt="student" class="img-fluid"
+                                    style="width: 50px; height: 50px;">
                             </div>
                             <h4 class="fw-bold mb-0 text-dark fs-5">আবেদন করার নিয়মাবলি</h4>
                         </div>
                         <ul class="list-unstyled mt-2">
                             <li class="d-flex gap-2 mb-1 pb-1 border-bottom border-light">
-                                <img src={{ asset('images/animated-icon/tick.gif') }} alt="tick" class="img-fluid" style="width: 20px; height: 20px;">
+                                <img src={{ asset('images/animated-icon/tick.gif') }} alt="tick" class="img-fluid"
+                                    style="width: 20px; height: 20px;">
                                 <span class="fs-6">নির্ধারিত সময়ের মধ্যে অনলাইনে আবেদন সম্পন্ন করতে হবে</span>
                             </li>
                             <li class="d-flex gap-2">
-                                <img src={{ asset('images/animated-icon/tick.gif') }} alt="tick" class="img-fluid" style="width: 20px; height: 20px;">
+                                <img src={{ asset('images/animated-icon/tick.gif') }} alt="tick" class="img-fluid"
+                                    style="width: 20px; height: 20px;">
                                 <span class="fs-6">প্রয়োজনীয় তথ্য ও ডকুমেন্ট সঠিকভাবে আপলোড করতে হবে</span>
                             </li>
                         </ul>
@@ -374,20 +381,24 @@
                             <p class="fw-semibold mb-1 small text-dark">আবেদনের জন্য প্রয়োজন হবে—</p>
                             <ul class="list-unstyled small mb-0" style="font-size: 0.8rem;">
                                 <li class="mb-1">
-                                    <img src="{{ asset('images/animated-icon/tick-2.gif') }}" alt="tick" class="img-fluid" style="width: 20px; height: 20px;">
+                                    <img src="{{ asset('images/animated-icon/tick-2.gif') }}" alt="tick"
+                                        class="img-fluid" style="width: 20px; height: 20px;">
                                     শিক্ষার্থীর ছবি
                                 </li>
                                 <li class="mb-1">
-                                    <img src="{{ asset('images/animated-icon/tick-2.gif') }}" alt="tick" class="img-fluid" style="width: 20px; height: 20px;">
+                                    <img src="{{ asset('images/animated-icon/tick-2.gif') }}" alt="tick"
+                                        class="img-fluid" style="width: 20px; height: 20px;">
                                     এসএসসি/সমমান ২০২৬
                                     পরীক্ষার তথ্য
                                 </li>
                                 <li class="mb-1">
-                                    <img src="{{ asset('images/animated-icon/tick-2.gif') }}" alt="tick" class="img-fluid" style="width: 20px; height: 20px;">
+                                    <img src="{{ asset('images/animated-icon/tick-2.gif') }}" alt="tick"
+                                        class="img-fluid" style="width: 20px; height: 20px;">
                                     বাবা-মায়ের তথ্য
                                 </li>
                                 <li>
-                                    <img src="{{ asset('images/animated-icon/tick-2.gif') }}" alt="tick" class="img-fluid" style="width: 20px; height: 20px;">
+                                    <img src="{{ asset('images/animated-icon/tick-2.gif') }}" alt="tick"
+                                        class="img-fluid" style="width: 20px; height: 20px;">
                                     অন্যান্য প্রয়োজনীয় তথ্য
                                 </li>
                             </ul>
@@ -414,7 +425,8 @@
             <div class="text-center mb-4 mb-md-5 position-relative">
                 <div
                     class="d-inline-flex align-items-center gap-2 bg-white px-4 py-2 rounded-pill shadow-sm mb-3 mb-md-4 border border-light mt-4">
-                    <img src="{{ asset('images/animated-icon/calendar.gif') }}" alt="calendar" class="img-fluid" style="width: 30px; height: 30px;">
+                    <img src="{{ asset('images/animated-icon/calendar.gif') }}" alt="calendar" class="img-fluid"
+                        style="width: 30px; height: 30px;">
                     <span class="fw-semibold small text-uppercase tracking-wide">গুরুত্বপূর্ণ সময়সূচি</span>
                 </div>
                 <h2 class="display-6 display-md-5 fw-bold text-dark">প্রধান সময়সূচি</h2>
@@ -428,9 +440,12 @@
                         <div class="d-none d-md-block position-absolute timeline-dot"
                             style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #40cfcf; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(70, 75, 229, 0.15);">
                         </div>
-                        <div class="timeline-icon-wrapper mb-2 mb-md-3" background: linear-gradient(135deg, #ffffff, #fefeff); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                        <div class="timeline-icon-wrapper mb-2 mb-md-3" background: linear-gradient(135deg, #ffffff,
+                            #fefeff); border-radius: 50%; display: flex; align-items: center; justify-content: center;
+                            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
                             {{-- <i class="fas fa-calendar-plus fs-4 text-primary" style="color: #46dae5;"></i> --}}
-                            <img src="{{ asset('images/animated-icon/start.gif') }}" alt="calendar" class="img-fluid" style="width: 70px; height: 70px;">
+                            <img src="{{ asset('images/animated-icon/start.gif') }}" alt="calendar" class="img-fluid"
+                                style="width: 70px; height: 70px;">
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-5 mb-1">আবেদন শুরু </h5>
                         <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">১১ আগস্ট </p>
@@ -446,9 +461,11 @@
                         <div class="d-none d-md-block position-absolute timeline-dot"
                             style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #EF4444; border-radius: 50%; transform: translateY(-50%); border: 3px solid white; box-shadow: 0 0 0 4px rgba(235, 43, 43, 0.15);">
                         </div>
-                        <div class="timeline-icon-wrapper mb-2 mb-md-3" display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                        <div class="timeline-icon-wrapper mb-2 mb-md-3" display: flex; align-items: center;
+                            justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
                             {{-- <i class="fas fa-calendar-times fs-4" style="color: #EF4444;"></i> --}}
-                            <img src="{{ asset('images/animated-icon/end.gif') }}" alt="calendar" class="img-fluid" style="width: 70px; height: 70px;">
+                            <img src="{{ asset('images/animated-icon/end.gif') }}" alt="calendar" class="img-fluid"
+                                style="width: 70px; height: 70px;">
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-5 mb-1">আবেদনের শেষ তারিখ </h5>
                         <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">২০ আগস্ট</p>
@@ -464,8 +481,10 @@
                         <div class="d-none d-md-block position-absolute timeline-dot"
                             style="top: 50%; right: -1.2rem; width: 14px; height: 14px; background: #f6e75c; border-radius: 50%; transform: translateY(-50%); border: 3px solid rgb(255, 255, 255); box-shadow: 0 0 0 4px rgba(246, 244, 92, 0.308);">
                         </div>
-                        <div class="timeline-icon-wrapper mb-2 mb-md-3" display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
-                            <img src="{{ asset('images/animated-icon/people.gif') }}" alt="progress" class="img-fluid" style="width: 70px; height: 70px;">
+                        <div class="timeline-icon-wrapper mb-2 mb-md-3" display: flex; align-items: center;
+                            justify-content: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                            <img src="{{ asset('images/animated-icon/people.gif') }}" alt="progress" class="img-fluid"
+                                style="width: 70px; height: 70px;">
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-5 mb-1">সংবর্ধনা</h5>
                         <p class="fs-4 fs-md-3 fw-bold text-dark mb-0"> </p>
@@ -489,7 +508,10 @@
     <!-- ========== 6. SUCCESS STORIES ========== -->
     <section id="stories" class="container py-4 py-md-5 my-3 my-md-4">
         <div class="text-center mb-4 mb-md-5">
-            <h2 class="section-title mx-auto">সফলতার গল্প</h2>
+            <img src="{{ asset('images/animated-icon/success.gif') }}" alt="success" class="img-fluid"
+                style="width: 60px; height: 60px;">
+            <h2 class="section-title mx-auto">
+                সফলতার গল্প</h2>
             <p class="text-secondary px-2">বাংলাদেশের বিভিন্ন অঞ্চলের বহু প্রান্তিক চা-দোকানি কঠোর পরিশ্রম, ত্যাগ ও
                 অক্লান্ত প্রচেষ্টার মাধ্যমে তাদের সন্তানদের শিক্ষাক্ষেত্রে অসাধারণ সাফল্য অর্জনের স্বপ্ন বুনে চলেছেন
                 প্রতিদিন। তাদের প্রতিটি সংগ্রামের গল্প নতুন প্রজন্মকে অনুপ্রাণিত করে, আর সেই স্বপ্নপূরণের যাত্রায় দেশের
@@ -1199,8 +1221,8 @@
         }
 
         .special-text {
-        /* Gradient text effect */
-           background: linear-gradient(90deg, #9d0505, #f8022be6, #cb1f00e5, #bf1809, #8b0000);
+            /* Gradient text effect */
+            background: linear-gradient(90deg, #9d0505, #f8022be6, #cb1f00e5, #bf1809, #8b0000);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
