@@ -461,7 +461,7 @@
                                     <div class="menu-btn bg-light position-relative">
                                         @if (($unreadNotifCount ?? 0) > 0)
                                             <span class="position-absolute badge bg-danger rounded-pill"
-                                                style="top: 8px; right: 8px; font-size: 0.65rem;">{{ $unreadNotifCount }}</span>
+                                                style="top: 8px; margin-left: 2px; font-size: 0.65rem;">{{ $unreadNotifCount }}</span>
                                         @endif
                                         {{-- <i class="fas fa-bell fa-2x text-warning"></i> --}}
                                         <img src="{{ asset('images/animated-icon/notification.gif') }}" alt="Notifications" class="img-fluid"
