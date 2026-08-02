@@ -149,7 +149,7 @@
                 </h2>
 
                 <p class="mt-3 fs-5 fs-md-4 text-dark-emphasis">
-                    <span class="special-text"><strong>"সন্তানের সাফল্য, বাবা-মায়ের গর্ব।"</strong></span>
+                    <span class="special-text"><strong>"সন্তানের সাফল্য, বাবা-মায়ের গর্ব"</strong></span>
                 </p>
                 <p class="fs-6 fs-md-5 mt-1">
                     স্বপ্নকে বাস্তবে রূপ দিতে যারা প্রতিদিন প্রতিকূলতার সঙ্গে লড়াই করেন, সন্তানের ভবিষ্যতের জন্য নিজের
