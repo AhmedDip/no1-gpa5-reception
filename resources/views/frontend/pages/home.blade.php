@@ -1221,13 +1221,15 @@
         }
 
         .special-text {
-            /* Gradient text effect */
-            background: linear-gradient(90deg, #9d0505, #f8022be6, #cb1f00e5, #bf1809, #8b0000);
-            background-clip: text;
+            font-size: clamp(1.5rem, 1.8vw, 2.5rem);
+            font-weight: 700;
+            background: linear-gradient(90deg, #9d0505, #fa274ae6, #cb1f00e5, #bf1809, #8b0000);
             -webkit-background-clip: text;
-            color: transparent;
-            font-weight: 600;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.185);
+            line-height: 1.4;
         }
+
     </style>
 @endsection
 
