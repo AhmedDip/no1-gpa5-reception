@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             WingRegionalManagerSeeder::class,
             UpazilaManagerAssignmentSeeder::class,
+            TmDirgSeeder::class,
+            TmWingSeeder::class,
         ]);
     }
 }
