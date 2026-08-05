@@ -8,18 +8,19 @@ use App\Models\StudentDetail;
 use App\Models\StudentNotification;
 use App\Models\User;
 use App\Services\Sms\BanglalinkSmsService;
+use App\Services\Sms\SslWirelessSmsService;
 use Illuminate\Support\Facades\Log;
 
 class NotificationService
 {
-    public function __construct(private BanglalinkSmsService $banglalinkSms) {}
+    public function __construct(private BanglalinkSmsService $banglalinkSms, private SslWirelessSmsService $sslWirelessSms)
+    {}
 
     public function approvedTemplate(StudentDetail $app): string
     {
         // $name      = $app->name_bn ?: $app->name_en;
-        $name      = strtok($app->name_bn ?: $app->name, ' ');
-        $roll      = $app->roll_number;
-
+        $name = strtok($app->name_bn ?: $app->name, ' ');
+        $roll = $app->roll_number;
 
         return "অভিনন্দন! প্রিয় {$name},"
             . "আপনার আবেদন (রোল: {$roll}) সফলভাবে অনুমোদিত হয়েছে।"
@@ -107,6 +108,8 @@ class NotificationService
         switch ($driver) {
             case 'banglalink':
                 return $this->sendViaBanglalink($mobile, $message);
+            case 'sslwireless':
+                return $this->sendViaSslWireless($mobile, $message);
             case 'log':
             default:
                 return $this->sendViaLog($mobile, $message);
@@ -118,11 +121,30 @@ class NotificationService
         $result = $this->banglalinkSms->send($mobile, $message, $this->containsBangla($message));
 
         Log::info('SMS dispatched via Banglalink', [
-            'mobile'  => $this->maskMobile($mobile),
-            'status'  => $result['status_code'],
-            'success' => $result['success'],
+            'mobile'   => $this->maskMobile($mobile),
+            'status'   => $result['status_code'],
+            'success'  => $result['success'],
             'response' => $result['message'],
-            'result' => $result ?? null,
+            'result'   => $result ?? null,
+        ]);
+
+        return [
+            'success'      => $result['success'],
+            'response'     => trim(($result['status_code'] ?? '') . ' - ' . $result['message']),
+            'raw_response' => $result['raw'] ?? null,
+        ];
+    }
+
+    private function sendViaSslWireless(string $mobile, string $message): array
+    {
+        $result = $this->sslWirelessSms->send($mobile, $message, $this->containsBangla($message));
+
+        Log::info('SMS dispatched via SSL Wireless', [
+            'mobile'   => $this->maskMobile($mobile),
+            'status'   => $result['status_code'],
+            'success'  => $result['success'],
+            'response' => $result['message'],
+            'result'   => $result ?? null,
         ]);
 
         return [
@@ -186,13 +208,12 @@ class NotificationService
         return $this->sendSms($mobile, $message, $app->id, 'rejected');
     }
 
-
     public function notifyRegistrationComplete(User $user): bool
     {
         $studentDetail = $user->studentDetail;
         $name          = $studentDetail?->name_bn ?: $user->name;
-        $name = strtok($name, ' ');
-        $message = "অভিনন্দন {$name}, আপনার নিবন্ধন সফলভাবে সম্পন্ন হয়েছে। — নাম্বার ওয়ান";
+        $name          = strtok($name, ' ');
+        $message       = "অভিনন্দন {$name}, আপনার নিবন্ধন সফলভাবে সম্পন্ন হয়েছে। — নাম্বার ওয়ান";
         if ($studentDetail) {
             $this->storeNotification($studentDetail, 'নিবন্ধন সম্পন্ন হয়েছে', $message, 'registration');
         }
@@ -234,7 +255,7 @@ class NotificationService
                 $failed++;
             }
 
-            // Brief pause to respect Twilio rate limits
+                            // Brief pause to respect Twilio rate limits
             usleep(200000); // 200ms
         }
 

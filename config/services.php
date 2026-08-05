@@ -75,5 +75,11 @@ return [
         'bill_msisdn'  => env('BANGLALINK_SMS_BILL_MSISDN', '8801969917144'),
     ],
 
+    'sslwireless' => [
+        'api_token' => env('SSLWIRELESS_API_TOKEN'),
+        'sid'       => env('SSLWIRELESS_SID'),
+        'domain'    => env('SSLWIRELESS_DOMAIN', 'https://smsplus.sslwireless.com'),
+    ],
+
 
 ];
