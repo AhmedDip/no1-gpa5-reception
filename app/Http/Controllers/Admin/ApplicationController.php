@@ -14,6 +14,7 @@ use App\Services\ApplicationExportService;
 use App\Services\ApplicationWorkflowService;
 use App\Services\ManagerScopeService;
 use App\Services\NotificationService;
+use App\Services\OrgHierarchyService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +27,7 @@ class ApplicationController extends Controller
         private ApplicationExportService $exportService,
         private ManagerScopeService      $managerScope,
         private ApplicationWorkflowService $workflowService,
+        private OrgHierarchyService      $orgHierarchy,
     ) {}
 
     private function scopeUpazilaIds(): ?array
@@ -85,6 +87,11 @@ class ApplicationController extends Controller
         $districts = District::orderBy('name')->get();
         $statuses  = ApplicationStatus::orderBy('order')->get();
 
+         $orgHierarchy = $this->orgHierarchy->resolveForUpazilas(
+        $applications->pluck('upazila_id')->filter()->unique()->values()->all()
+    );
+
+
         return view('backend.modules.student.applications.index', compact(
             'applications',
             'counts',
@@ -93,7 +100,8 @@ class ApplicationController extends Controller
             'districts',
             'statuses',
             'filters',
-            'page_content'
+            'page_content',
+            'orgHierarchy'
         ));
     }
 

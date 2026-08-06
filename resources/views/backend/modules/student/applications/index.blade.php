@@ -211,6 +211,9 @@
                                     @endif
                                 </th>
                                 <th>#</th>
+                                <th>Wing</th>
+                                <th>Region</th>
+                                <th>Territory</th>
                                 <th>Student</th>
                                 <th>Contact</th>
                                 <th>Board</th>
@@ -230,6 +233,10 @@
                                         @endif
                                     </td>
                                     <td>{{ $applications->firstItem() + $index }}</td>
+                                    @php $org = $orgHierarchy[$application->upazila_id] ?? null; @endphp
+                                    <td>{{ $org['wing'] ?? '—' }}</td>
+                                    <td>{{ $org['region'] ?? '—' }}</td>
+                                    <td>{{ $org['territory'] ?? '—' }}</td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="avatar avatar-sm me-2">
@@ -264,13 +271,13 @@
                                     <td>
                                         @php
                                             $statusColors = [
-                                                'pending'        => 'warning',
+                                                'pending' => 'warning',
                                                 'approved_by_rm' => 'info',
                                                 'rejected_by_rm' => 'danger',
                                                 'approved_by_wm' => 'primary',
                                                 'rejected_by_wm' => 'danger',
-                                                'approved'       => 'success',
-                                                'rejected'       => 'danger',
+                                                'approved' => 'success',
+                                                'rejected' => 'danger',
                                             ];
                                             $statusColor =
                                                 $statusColors[$application->applicationStatus->slug ?? 'pending'] ??
@@ -345,7 +352,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="9" class="text-center py-4">
+                                    <td colspan="12" class="text-center py-4">
                                         <div class="d-flex flex-column align-items-center">
                                             <i class="fas fa-inbox fa-3x text-muted mb-2"></i>
                                             <h6 class="mb-0">No applications found</h6>
@@ -937,7 +944,7 @@
                         if (xhr.status === 422 && xhr.responseJSON?.errors) {
                             $.each(xhr.responseJSON.errors, function(field, messages) {
                                 toastr.error(messages[0]);
-                                $('#'+field+'_error').text(messages[0]);
+                                $('#' + field + '_error').text(messages[0]);
                             });
                         } else {
                             toastr.error('Something went wrong!');

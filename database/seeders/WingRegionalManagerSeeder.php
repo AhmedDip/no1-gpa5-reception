@@ -157,6 +157,7 @@ class WingRegionalManagerSeeder extends Seeder
                 'password'            => Hash::make($data['aemp_usnm']),
                 'user_type_id'        => $userTypeId,
                 'aemp_mngr'           => $managerId,
+                'zone_id'             => $data['zone_id'],
                 'is_mobile_verified'  => true,
                 'wmng_id'             => 2,
                 'mobile_verified_at'  => now(),
