@@ -11,7 +11,6 @@ class SslWirelessSmsService
 {
     private const SUCCESS_CODE = 200;
 
-    /** status_code => human-readable message, per SSL Wireless v3 API docs */
     private const ERROR_MESSAGES = [
         200  => 'Success',
         4001 => 'Unauthorized',
@@ -92,10 +91,6 @@ class SslWirelessSmsService
         }
     }
 
-    /**
-     * SSL Wireless expects MSISDN in 880-prefixed form without '+', e.g. 8801XXXXXXXXX —
-     * same normalization pattern already used by BanglalinkSmsService::normalizeMsisdn().
-     */
     private function normalizeMsisdn(string $mobile): string
     {
         $mobile = preg_replace('/[^0-9]/', '', $mobile);
