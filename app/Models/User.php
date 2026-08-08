@@ -22,6 +22,7 @@ class User extends Authenticatable
         'user_type_id',
         'wmng_id',
         'aemp_mngr',
+        'zone_id',
         'is_mobile_verified',
         'mobile_verified_at',
     ];
@@ -88,6 +89,11 @@ class User extends Authenticatable
     public function webMenuGroup(): BelongsTo
     {
         return $this->belongsTo(WebMenuGroup::class, 'wmng_id');
+    }
+
+    public function zone(): BelongsTo
+    {
+        return $this->belongsTo(Zone::class, 'zone_id');
     }
 
     public function studentDetail(): HasOne

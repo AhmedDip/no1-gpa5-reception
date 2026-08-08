@@ -202,8 +202,8 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
+                    <table class="table table-hover table-bordered align-middle">
+                        <thead class="table-light">
                             <tr>
                                 <th width="30">
                                     @if (auth()->user()->isAdmin())
@@ -237,7 +237,7 @@
                                     <td>{{ $org['wing'] ?? '—' }}</td>
                                     <td>{{ $org['region'] ?? '—' }}</td>
                                     <td>{{ $org['territory'] ?? '—' }}</td>
-                                    <td>
+                                    <td class="text-nowrap">
                                         <div class="d-flex align-items-center">
                                             <div class="avatar avatar-sm me-2">
                                                 <span class="avatar-initial rounded-circle bg-label-primary">

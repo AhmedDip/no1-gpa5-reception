@@ -87,9 +87,11 @@ class ApplicationController extends Controller
         $districts = District::orderBy('name')->get();
         $statuses  = ApplicationStatus::orderBy('order')->get();
 
-         $orgHierarchy = $this->orgHierarchy->resolveForUpazilas(
-        $applications->pluck('upazila_id')->filter()->unique()->values()->all()
-    );
+        $orgHierarchy = $this->orgHierarchy->resolveForUpazilas(
+            $applications->pluck('upazila_id')->filter()->unique()->values()->all()
+        );
+
+        // dd($orgHierarchy);
 
 
         return view('backend.modules.student.applications.index', compact(

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\MenuPermissionController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SmsLogController;
 use App\Http\Controllers\Admin\SubMenuController;
+use App\Http\Controllers\Admin\UpazilaManagerAssignmentController;
 use App\Http\Controllers\Admin\UpazilaManagerImportController;
 use App\Http\Controllers\Admin\WebMenuController;
 use App\Http\Controllers\Admin\WebMenuGroupController;
@@ -132,5 +133,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
             ->name('sms-logs.index');
 
         Route::get('/no-permission', [DashboardController::class, 'NoPermission'])->name('no-permission');
+
+        Route::prefix('upazila-manager-assignments')->name('upazila-manager-assignments.')->group(function () {
+            Route::get('/', [UpazilaManagerAssignmentController::class, 'index'])->name('index');
+            Route::post('/', [UpazilaManagerAssignmentController::class, 'store'])->name('store');
+            Route::put('/{assignment}', [UpazilaManagerAssignmentController::class, 'update'])->name('update');
+            Route::delete('/{assignment}', [UpazilaManagerAssignmentController::class, 'destroy'])->name('destroy');
+        });
     });
 });

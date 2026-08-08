@@ -15,6 +15,23 @@ class OrgHierarchyService
     private const MAX_CLIMB = 6;
 
     /**
+     * Resolve Wing / Region / Territory for a list of upazila IDs.
+     *
+     * - Territory (Zone) -> Regional Managers carry `zone_id` directly on the
+     *                       `users` table. We build a `user_id => Zone` map from
+     *                       that column and walk each assignee's manager chain
+     *                       (self, manager, grand-manager, ...) until a match
+     *                       is found.
+     * - Region (Dirg)    -> Preferably derived from the resolved Zone's
+     *                       `dirg_id`. If no Zone was resolved (e.g. zone_id
+     *                       missing or tm_zone not seeded for that row), we
+     *                       fall back to matching the chain directly against
+     *                       `tm_dirg.aemp_id`, so Region can still resolve
+     *                       independently of Territory.
+     * - Wing              -> No direct column on `users`, resolved by climbing
+     *                       the chain until a manager's id matches
+     *                       `tm_wing.aemp_id`.
+     *
      * @param  int[]  $upazilaIds
      * @return array<int, array{wing: ?string, region: ?string, territory: ?string}>
      */
@@ -30,18 +47,36 @@ class OrgHierarchyService
             ->whereNotNull('user_id')
             ->pluck('user_id', 'upazila_id');
 
-
         if ($assignedUsers->isEmpty()) {
             return [];
         }
 
-        $zonesByAemp = Zone::whereNotNull('aemp_id')->get()->keyBy('aemp_id');
-        $dirgsById   = Dirg::get()->keyBy('id');
+        $rootUserIds = $assignedUsers->unique()->values()->all();
+        $chains      = $this->buildManagerChains($rootUserIds);
+
+        // Every user id appearing anywhere in any chain (self + all ancestors)
+        $allChainUserIds = collect($chains)->flatten()->unique()->values()->all();
+
+        // Load those users so we can read their own zone_id
+        $usersById = User::whereIn('id', $allChainUserIds)->get()->keyBy('id');
+
+        // Territory: resolve actual Zone rows for every zone_id found above
+        $zoneIds   = $usersById->pluck('zone_id')->filter()->unique()->values()->all();
+        $zonesById = Zone::whereIn('id', $zoneIds)->get()->keyBy('id');
+
+        // user_id => Zone, sourced from users.zone_id (NOT tm_zone.aemp_id)
+        $zonesByUser = $usersById
+            ->filter(fn (User $user) => $user->zone_id && $zonesById->has($user->zone_id))
+            ->map(fn (User $user) => $zonesById->get($user->zone_id));
+
+        // Region: dirgs referenced by resolved zones, PLUS dirgs matched by aemp_id
+        // (needed for the independent fallback below)
+        $dirgIdsFromZones = $zonesById->pluck('dirg_id')->filter()->unique()->values()->all();
+        $dirgsById  = Dirg::whereIn('id', $dirgIdsFromZones)->get()->keyBy('id');
         $dirgsByAemp = Dirg::whereNotNull('aemp_id')->get()->keyBy('aemp_id');
+
+        // Wing: still matched via tm_wing.aemp_id along the chain
         $wingsByAemp = Wing::whereNotNull('aemp_id')->get()->keyBy('aemp_id');
-
-        $chains = $this->buildManagerChains($assignedUsers->unique()->values()->all());
-
 
         $resolvedByUser = [];
         $result = [];
@@ -50,9 +85,15 @@ class OrgHierarchyService
             if (!isset($resolvedByUser[$userId])) {
                 $chain = $chains[$userId] ?? [$userId];
 
-                $zone   = $this->firstIn($chain, $zonesByAemp);
-                $region = $zone ? $dirgsById->get($zone->dirg_id) : $this->firstIn($chain, $dirgsByAemp);
-                $wing   = $this->firstIn($chain, $wingsByAemp);
+                $zone = $this->firstIn($chain, $zonesByUser);
+
+                // Prefer Region derived from the resolved Zone; otherwise fall
+                // back to matching the chain directly against tm_dirg.aemp_id.
+                $region = $zone
+                    ? $dirgsById->get($zone->dirg_id)
+                    : $this->firstIn($chain, $dirgsByAemp);
+
+                $wing = $this->firstIn($chain, $wingsByAemp);
 
                 $resolvedByUser[$userId] = [
                     'wing'      => $wing?->wing_name,
@@ -109,4 +150,3 @@ class OrgHierarchyService
         return $chains;
     }
 }
-
