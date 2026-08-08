@@ -112,11 +112,31 @@
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="userDropdown">
-                                <li>
+
+                                {{-- <li>
                                     <a class="dropdown-item" href="{{ route('student.dashboard') }}">
                                         <i class="fas fa-tachometer-alt me-2 text-dark"></i> ড্যাশবোর্ড
                                     </a>
-                                </li>
+                                </li> --}}
+                                @if (Auth::user()->user_type_id == 1)
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('student.dashboard') }}">
+                                            <i class="fas fa-file-alt me-2 text-dark"></i> ড্যাশবোর্ড
+                                        </a>
+                                    </li>
+                                @elseif (Auth::user()->user_type_id == 2)
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
+                                            <i class="fas fa-file-alt me-2 text-dark"></i> ড্যাশবোর্ড
+                                        </a>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('admin.applications') }}">
+                                            <i class="fas fa-file-alt me-2 text-dark"></i> ড্যাশবোর্ড
+                                        </a>
+                                    </li>
+                                @endif
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>

@@ -21,6 +21,12 @@ use Illuminate\Support\Facades\Route;
 // Home page
 Route::get('/', [StudentController::class, 'home'])->name('home');
 
+// Route::get('/clear-cache', function () {
+//     Artisan::call('optimize:clear');
+
+//     return 'Laravel cache cleared successfully!';
+// });
+
 
 // Previous Year
 Route::get('/previous-year', [PreviousYearController::class, 'index'])->name('previous-year.index');

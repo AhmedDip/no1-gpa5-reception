@@ -28,9 +28,21 @@ class UpazilaManagerAssignmentController extends Controller
             $query->where('user_id', $request->user_id);
         }
 
-        $perPage = (int) $request->input('per_page', 20);
+        $perPage = (int) $request->input('per_page', 100);
 
-        $assignments = $query->orderBy('upazila_name')->paginate($perPage)->withQueryString();
+        // $assignments = $query->orderBy('upazila_id')->paginate($perPage)->withQueryString();
+        //join with district and division tables to get the names of the district and division for each upazila
+        $assignments = $query->join('upazilas', 'upazila_manager_assignments.upazila_id', '=', 'upazilas.id')
+            ->join('districts', 'upazilas.district_id', '=', 'districts.id')
+            ->join('divisions', 'districts.division_id', '=', 'divisions.id')
+            ->select('upazila_manager_assignments.*', 'upazilas.name as upazila_name', 'districts.name as district_name', 'divisions.name as division_name')
+            ->orderBy('divisions.name')
+            ->orderBy('districts.name')
+            ->orderBy('upazilas.name')
+            ->paginate($perPage)
+            ->withQueryString();
+
+        // dd($assignments->toArray());
 
         // Only Wing Managers / Regional Managers are ever assigned to an upazila.
         $staffUsers = User::whereIn('user_type_id', [3, 4])

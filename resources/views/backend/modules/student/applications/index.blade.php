@@ -5,6 +5,7 @@
     <div class="container-fluid456456">
         <!-- Status Cards -->
         <div class="row mb-4">
+            <!-- Total Applications -->
             <div class="col-sm-6 col-xl-3">
                 <div class="card">
                     <div class="card-body">
@@ -13,7 +14,7 @@
                                 <span>Total Applications</span>
                                 <div class="d-flex align-items-end mt-2">
                                     <h4 class="mb-0 me-2">{{ $counts['total'] ?? 0 }}</h4>
-                                    <small class="text-success">(Total Applications)</small>
+                                    <small class="text-primary">(Total)</small>
                                 </div>
                                 <small>All applications</small>
                             </div>
@@ -24,6 +25,8 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Pending -->
             <div class="col-sm-6 col-xl-3">
                 <div class="card">
                     <div class="card-body">
@@ -37,42 +40,130 @@
                                 <small>Awaiting review</small>
                             </div>
                             <span class="badge bg-label-warning rounded p-2">
-                                <i class="fas fa-clock fa-lg"></i>
+                                <i class="fas fa-hourglass-half fa-lg"></i>
                             </span>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Approved By RM -->
             <div class="col-sm-6 col-xl-3">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-items-start justify-content-between">
                             <div class="content-left">
-                                <span>Approved</span>
+                                <span>Approved By RM</span>
+                                <div class="d-flex align-items-end mt-2">
+                                    <h4 class="mb-0 me-2">{{ $counts['approved_by_rm'] ?? 0 }}</h4>
+                                    <small class="text-info">(RM Approved)</small>
+                                </div>
+                                <small>Approved by Relationship Manager</small>
+                            </div>
+                            <span class="badge bg-label-info rounded p-2">
+                                <i class="fas fa-user-check fa-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rejected By RM -->
+            <div class="col-sm-6 col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start justify-content-between">
+                            <div class="content-left">
+                                <span>Rejected By RM</span>
+                                <div class="d-flex align-items-end mt-2">
+                                    <h4 class="mb-0 me-2">{{ $counts['rejected_by_rm'] ?? 0 }}</h4>
+                                    <small class="text-danger">(RM Rejected)</small>
+                                </div>
+                                <small>Rejected by Relationship Manager</small>
+                            </div>
+                            <span class="badge bg-label-danger rounded p-2">
+                                <i class="fas fa-user-times fa-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Approved By WM -->
+            <div class="col-sm-6 col-xl-3 mt-2">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start justify-content-between">
+                            <div class="content-left">
+                                <span>Approved By WM</span>
+                                <div class="d-flex align-items-end mt-2">
+                                    <h4 class="mb-0 me-2">{{ $counts['approved_by_wm'] ?? 0 }}</h4>
+                                    <small class="text-success">(WM Approved)</small>
+                                </div>
+                                <small>Approved by Wealth Manager</small>
+                            </div>
+                            <span class="badge bg-label-success rounded p-2">
+                                <i class="fas fa-user-check fa-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rejected By WM -->
+            <div class="col-sm-6 col-xl-3 mt-2">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start justify-content-between">
+                            <div class="content-left">
+                                <span>Rejected By WM</span>
+                                <div class="d-flex align-items-end mt-2">
+                                    <h4 class="mb-0 me-2">{{ $counts['rejected_by_wm'] ?? 0 }}</h4>
+                                    <small class="text-danger">(WM Rejected)</small>
+                                </div>
+                                <small>Rejected by Wealth Manager</small>
+                            </div>
+                            <span class="badge bg-label-danger rounded p-2">
+                                <i class="fas fa-user-times fa-lg"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Approved (Final) -->
+            <div class="col-sm-6 col-xl-3 mt-2">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start justify-content-between">
+                            <div class="content-left">
+                                <span>Final Approved</span>
                                 <div class="d-flex align-items-end mt-2">
                                     <h4 class="mb-0 me-2">{{ $counts['approved'] ?? 0 }}</h4>
                                     <small class="text-success">(Approved)</small>
                                 </div>
-                                <small>Approved applications</small>
+                                <small>Fully approved applications</small>
                             </div>
                             <span class="badge bg-label-success rounded p-2">
-                                <i class="fas fa-check-circle fa-lg"></i>
+                                <i class="fas fa-check-double fa-lg"></i>
                             </span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-xl-3">
+
+            <!-- Rejected (Final) -->
+            <div class="col-sm-6 col-xl-3 mt-2">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-items-start justify-content-between">
                             <div class="content-left">
-                                <span>Rejected</span>
+                                <span>Final Rejected</span>
                                 <div class="d-flex align-items-end mt-2">
                                     <h4 class="mb-0 me-2">{{ $counts['rejected'] ?? 0 }}</h4>
                                     <small class="text-danger">(Rejected)</small>
                                 </div>
-                                <small>Rejected applications</small>
+                                <small>Fully rejected applications</small>
                             </div>
                             <span class="badge bg-label-danger rounded p-2">
                                 <i class="fas fa-times-circle fa-lg"></i>

@@ -56,22 +56,17 @@ class AdminSeeder extends Seeder
             'wmnu_oseq' => 2,
         ]);
 
-        $studentMenu = WebMenu::firstOrCreate(['wmnu_name' => 'Students'], [
-            'wmnu_name' => 'Students',
-            'wmnu_icon' => 'bx bx-user-circle',
-            'wmnu_oseq' => 3,
-        ]);
 
         $reportMenu = WebMenu::firstOrCreate(['wmnu_name' => 'Reports'], [
             'wmnu_name' => 'Reports',
             'wmnu_icon' => 'bx bx-bar-chart-alt-2',
-            'wmnu_oseq' => 4,
+            'wmnu_oseq' => 3,
         ]);
 
         $settingsMenu = WebMenu::firstOrCreate(['wmnu_name' => 'Settings'], [
             'wmnu_name' => 'Settings',
             'wmnu_icon' => 'bx bx-cog',
-            'wmnu_oseq' => 5,
+            'wmnu_oseq' => 4,
         ]);
 
 
@@ -83,13 +78,6 @@ class AdminSeeder extends Seeder
                 'wsmn_wurl' => '/admin/dashboard',
                 'wsmn_oseq' => 1,
                 'wsmn_ukey' => 'dashboard.overview',
-            ],
-            [
-                'wmnu_id'   => $dashboardMenu->id,
-                'wsmn_name' => 'Statistics',
-                'wsmn_wurl' => '/admin/dashboard/stats',
-                'wsmn_oseq' => 2,
-                'wsmn_ukey' => 'dashboard.statistics',
             ],
 
             // Applications
@@ -110,83 +98,57 @@ class AdminSeeder extends Seeder
             [
                 'wmnu_id'   => $applicationMenu->id,
                 'wsmn_name' => 'Approved',
-                'wsmn_wurl' => '/admin/applications?status=2',
+                'wsmn_wurl' => '/admin/applications?status=6',
                 'wsmn_oseq' => 3,
                 'wsmn_ukey' => 'applications.approved',
             ],
             [
                 'wmnu_id'   => $applicationMenu->id,
                 'wsmn_name' => 'Rejected',
-                'wsmn_wurl' => '/admin/applications?status=3',
+                'wsmn_wurl' => '/admin/applications?status=7',
                 'wsmn_oseq' => 4,
                 'wsmn_ukey' => 'applications.rejected',
             ],
 
-            // Students
-            [
-                'wmnu_id'   => $studentMenu->id,
-                'wsmn_name' => 'Student List',
-                'wsmn_wurl' => '/admin/students',
-                'wsmn_oseq' => 1,
-                'wsmn_ukey' => 'students.list',
-            ],
-            [
-                'wmnu_id'   => $studentMenu->id,
-                'wsmn_name' => 'Verified Students',
-                'wsmn_wurl' => '/admin/students/verified',
-                'wsmn_oseq' => 2,
-                'wsmn_ukey' => 'students.verified',
-            ],
+
             // Reports
             [
                 'wmnu_id'   => $reportMenu->id,
-                'wsmn_name' => 'Application Report',
-                'wsmn_wurl' => '/admin/reports/applications',
+                'wsmn_name' => 'SMS Logs Report',
+                'wsmn_wurl' => '/admin/sms-logs',
                 'wsmn_oseq' => 1,
-                'wsmn_ukey' => 'reports.applications',
+                'wsmn_ukey' => 'reports.sms-logs',
             ],
-            [
-                'wmnu_id'   => $reportMenu->id,
-                'wsmn_name' => 'Division-wise Report',
-                'wsmn_wurl' => '/admin/reports/division',
-                'wsmn_oseq' => 2,
-                'wsmn_ukey' => 'reports.division',
-            ],
-            [
-                'wmnu_id'   => $reportMenu->id,
-                'wsmn_name' => 'Export Data',
-                'wsmn_wurl' => '/admin/reports/export',
-                'wsmn_oseq' => 3,
-                'wsmn_ukey' => 'reports.export',
-            ],
+
             // Settings — Menu Management module
-            [
-                'wmnu_id'   => $settingsMenu->id,
-                'wsmn_name' => 'User Groups',
-                'wsmn_wurl' => '/admin/menu-management/groups',
-                'wsmn_oseq' => 1,
-                'wsmn_ukey' => 'settings.menu-groups',
-            ],
+
             [
                 'wmnu_id'   => $settingsMenu->id,
                 'wsmn_name' => 'Web Menus',
                 'wsmn_wurl' => '/admin/menu-management/web-menus',
-                'wsmn_oseq' => 2,
+                'wsmn_oseq' => 1,
                 'wsmn_ukey' => 'settings.web-menus',
             ],
             [
                 'wmnu_id'   => $settingsMenu->id,
                 'wsmn_name' => 'Sub Menus',
                 'wsmn_wurl' => '/admin/menu-management/sub-menus',
-                'wsmn_oseq' => 3,
+                'wsmn_oseq' => 2,
                 'wsmn_ukey' => 'settings.sub-menus',
             ],
             [
                 'wmnu_id'   => $settingsMenu->id,
                 'wsmn_name' => 'Permissions',
                 'wsmn_wurl' => '/admin/menu-management/permissions',
-                'wsmn_oseq' => 4,
+                'wsmn_oseq' => 3,
                 'wsmn_ukey' => 'settings.permissions',
+            ],
+            [
+                'wmnu_id'   => $settingsMenu->id,
+                'wsmn_name' => 'Upazila Manager Assignments',
+                'wsmn_wurl' => '/admin/upazila-manager-assignments',
+                'wsmn_oseq' => 4,
+                'wsmn_ukey' => 'settings.upazila-manager-assignments',
             ],
         ];
 

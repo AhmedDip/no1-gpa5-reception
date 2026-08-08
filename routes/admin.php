@@ -129,7 +129,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
         Route::get('/sms-logs', [SmsLogController::class, 'index'])
-            // ->middleware('menu.permission:applications.list,read')
+            ->middleware('menu.permission:settings.upazila-manager-assignments,read')
             ->name('sms-logs.index');
 
         Route::get('/no-permission', [DashboardController::class, 'NoPermission'])->name('no-permission');
