@@ -14,14 +14,18 @@
                 \App\Models\StudentDetail::STATUS_APPROVED_BY_WM,
             ])
             : ($me->isRegionalManager() && $slug === \App\Models\StudentDetail::STATUS_PENDING) ||
-                ($me->isWingManager() && $slug === \App\Models\StudentDetail::STATUS_APPROVED_BY_RM);
+                ($me->isWingManager() &&
+                    in_array($slug, [
+                        \App\Models\StudentDetail::STATUS_APPROVED_BY_RM,
+                        \App\Models\StudentDetail::STATUS_REJECTED_BY_RM,
+                    ]));
 
         $statusColors = [
-            'pending'        => 'warning',
+            'pending' => 'warning',
             'approved_by_rm' => 'info',
             'approved_by_wm' => 'primary',
-            'approved'       => 'success',
-            'rejected'       => 'danger',
+            'approved' => 'success',
+            'rejected' => 'danger',
         ];
         $statusColor = $statusColors[$slug] ?? 'secondary';
     @endphp
@@ -45,8 +49,8 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <div class="d-flex align-items-start gap-3 flex-wrap">
-                        <img src="{{ $application->student_photo_url }}" alt="Student Photo"
-                            class="rounded-circle" width="90" height="90" style="object-fit:cover;">
+                        <img src="{{ $application->student_photo_url }}" alt="Student Photo" class="rounded-circle"
+                            width="90" height="90" style="object-fit:cover;">
 
                         <div class="flex-grow-1">
                             <div class="d-flex align-items-center gap-2 flex-wrap">
@@ -158,8 +162,8 @@
                             @if ($application?->parent_photo)
                                 <div class="col-md-12">
                                     <small class="text-muted d-block mb-1">Parent's Photo</small>
-                                    <img src="{{ $application?->parent_photo_url }}" alt="Parent Photo"
-                                        class="rounded" width="100" height="100" style="object-fit:cover;">
+                                    <img src="{{ $application?->parent_photo_url }}" alt="Parent Photo" class="rounded"
+                                        width="100" height="100" style="object-fit:cover;">
                                 </div>
                             @endif
                         </div>
@@ -291,7 +295,9 @@
                 <div class="card-body">
                     @forelse ($application->smsLogs->take(5) as $log)
                         @php
-                            $typeColor = ['approved' => 'success', 'rejected' => 'danger', 'custom' => 'primary'][$log->type] ?? 'secondary';
+                            $typeColor =
+                                ['approved' => 'success', 'rejected' => 'danger', 'custom' => 'primary'][$log->type] ??
+                                'secondary';
                             $statColor = $log->status === 'sent' ? 'success' : 'danger';
                         @endphp
                         <div class="d-flex justify-content-between align-items-start pb-2 mb-2 border-bottom">
@@ -325,14 +331,16 @@
                             <textarea name="remarks" class="form-control" rows="3" placeholder="Add remarks if any..."></textarea>
                         </div>
                         <div class="mb-0">
-                            <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input" id="approveSendSms" name="send_sms"
-                                    value="1" checked>
-                                <label class="form-check-label" for="approveSendSms">
-                                    <i class="fas fa-sms me-1"></i> Send SMS Notification
-                                </label>
-                            </div>
+                            @if (auth()->user()->isAdmin())
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" id="approveSendSms" name="send_sms"
+                                        value="1" checked>
+                                    <label class="form-check-label" for="approveSendSms">
+                                        <i class="fas fa-sms me-1"></i> Send SMS Notification
+                                    </label>
+                                </div>
                         </div>
+                        @endif
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -408,7 +416,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane me-1"></i> Send</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane me-1"></i>
+                            Send</button>
                     </div>
                 </form>
             </div>
@@ -418,12 +427,35 @@
 
 @push('styles')
     <style>
-        .bg-label-primary { background-color: #e9e7fd; color: #696cff; }
-        .bg-label-success { background-color: #e8fadf; color: #71dd37; }
-        .bg-label-danger  { background-color: #ffe0db; color: #ff3e1d; }
-        .bg-label-warning { background-color: #fff2d6; color: #ffab00; }
-        .bg-label-info    { background-color: #d9f2ff; color: #03c3ec; }
-        .bg-label-secondary { background-color: #e7e7e8; color: #8592a3; }
+        .bg-label-primary {
+            background-color: #e9e7fd;
+            color: #696cff;
+        }
+
+        .bg-label-success {
+            background-color: #e8fadf;
+            color: #71dd37;
+        }
+
+        .bg-label-danger {
+            background-color: #ffe0db;
+            color: #ff3e1d;
+        }
+
+        .bg-label-warning {
+            background-color: #fff2d6;
+            color: #ffab00;
+        }
+
+        .bg-label-info {
+            background-color: #d9f2ff;
+            color: #03c3ec;
+        }
+
+        .bg-label-secondary {
+            background-color: #e7e7e8;
+            color: #8592a3;
+        }
     </style>
 @endpush
 
@@ -444,10 +476,14 @@
                     url: '{{ url('admin/applications') }}/' + id + '/approve',
                     type: 'POST',
                     data: $(this).serialize(),
-                    headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
                     beforeSend: function() {
                         $('#approveForm button[type="submit"]').prop('disabled', true)
-                            .html('<span class="spinner-border spinner-border-sm me-1"></span> Processing...');
+                            .html(
+                                '<span class="spinner-border spinner-border-sm me-1"></span> Processing...'
+                                );
                     },
                     success: function(response) {
                         if (response.success) {
@@ -482,10 +518,14 @@
                     url: '{{ url('admin/applications') }}/' + id + '/reject',
                     type: 'POST',
                     data: $(this).serialize(),
-                    headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
                     beforeSend: function() {
                         $('#rejectForm button[type="submit"]').prop('disabled', true)
-                            .html('<span class="spinner-border spinner-border-sm me-1"></span> Processing...');
+                            .html(
+                                '<span class="spinner-border spinner-border-sm me-1"></span> Processing...'
+                                );
                     },
                     success: function(response) {
                         if (response.success) {
@@ -524,10 +564,14 @@
                     url: '{{ url('admin/applications') }}/' + id + '/notify',
                     type: 'POST',
                     data: $(this).serialize(),
-                    headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
                     beforeSend: function() {
                         $('#notifyForm button[type="submit"]').prop('disabled', true)
-                            .html('<span class="spinner-border spinner-border-sm me-1"></span> Sending...');
+                            .html(
+                                '<span class="spinner-border spinner-border-sm me-1"></span> Sending...'
+                                );
                     },
                     success: function(response) {
                         if (response.success) {

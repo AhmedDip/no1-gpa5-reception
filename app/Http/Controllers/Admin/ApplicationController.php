@@ -429,9 +429,12 @@ class ApplicationController extends Controller
 
     public function export(Request $request)
     {
+        // dd($request->all());
         abort_unless(Auth::user()->isAdmin(), 403);
-        $filters = $request->only(['status', 'board', 'division', 'district', 'search']);
-        return $this->exportService->downloadCsv($filters);
+
+        $filters    = $request->only(['status', 'board', 'division', 'district', 'search']);
+        $upazilaIds = $this->scopeUpazilaIds();
+        return $this->exportService->downloadCsv($filters, $upazilaIds);
     }
 
 

@@ -413,7 +413,6 @@
                                             @php
                                                 $slug = $application->applicationStatus->slug ?? null;
                                                 $me = auth()->user();
-
                                                 $canAct = $me->isAdmin()
                                                     ? in_array($slug, [
                                                         \App\Models\StudentDetail::STATUS_PENDING,
@@ -425,7 +424,10 @@
                                                     : ($me->isRegionalManager() &&
                                                             $slug === \App\Models\StudentDetail::STATUS_PENDING) ||
                                                         ($me->isWingManager() &&
-                                                            $slug === \App\Models\StudentDetail::STATUS_APPROVED_BY_RM);
+                                                            in_array($slug, [
+                                                                \App\Models\StudentDetail::STATUS_APPROVED_BY_RM,
+                                                                \App\Models\StudentDetail::STATUS_REJECTED_BY_RM,
+                                                            ]));
                                             @endphp
 
                                             @if ($canAct)

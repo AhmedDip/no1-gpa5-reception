@@ -93,7 +93,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 ->name('index');
 
             Route::get('/export', [ApplicationController::class, 'export'])
-                ->middleware('menu.permission:reports.export,read')
+                ->middleware('menu.permission:applications.list,read')
                 ->name('export');
 
             Route::get('/{id}', [ApplicationController::class, 'show'])

@@ -64,17 +64,28 @@ class ApplicationWorkflowService
 
     public function wmApprove(StudentDetail $application, User $wm, ?string $remarks = null): StudentDetail
     {
-        if ($application->applicationStatus?->slug !== StudentDetail::STATUS_APPROVED_BY_RM) {
-            throw new \RuntimeException('RM অনুমোদনের আগে WM অনুমোদন করা যাবে না।');
+        $currentSlug = $application->applicationStatus?->slug;
+
+        if (!in_array($currentSlug, [
+            StudentDetail::STATUS_APPROVED_BY_RM,
+            StudentDetail::STATUS_REJECTED_BY_RM,
+        ], true)) {
+            throw new \RuntimeException('RM পর্যালোচনার আগে WM অনুমোদন করা যাবে না।');
         }
 
-        DB::transaction(function () use ($application, $wm, $remarks) {
+        // WM has override authority: approving after an RM rejection is a
+        // deliberate override, so the audit trail should say so explicitly.
+        $defaultRemarks = $currentSlug === StudentDetail::STATUS_REJECTED_BY_RM
+            ? 'উইং ম্যানেজার কর্তৃক অনুমোদিত (RM প্রত্যাখ্যান ওভাররাইড করা হয়েছে)'
+            : 'উইং ম্যানেজার কর্তৃক অনুমোদিত';
+
+        DB::transaction(function () use ($application, $wm, $remarks, $defaultRemarks) {
             $this->changeStatus(
                 application: $application,
                 toSlug: StudentDetail::STATUS_APPROVED_BY_WM,
                 action: 'wm_approve',
                 actor: $wm,
-                remarks: $remarks ?: 'উইং ম্যানেজার কর্তৃক অনুমোদিত',
+                remarks: $remarks ?: $defaultRemarks,
             );
 
             $application->update([
@@ -89,8 +100,11 @@ class ApplicationWorkflowService
 
     public function wmReject(StudentDetail $application, User $wm, string $remarks): StudentDetail
     {
-        if ($application->applicationStatus?->slug !== StudentDetail::STATUS_APPROVED_BY_RM) {
-            throw new \RuntimeException('RM অনুমোদনের আগে WM প্রত্যাখ্যান করা যাবে না।');
+        if (!in_array($application->applicationStatus?->slug, [
+            StudentDetail::STATUS_APPROVED_BY_RM,
+            StudentDetail::STATUS_REJECTED_BY_RM,
+        ], true)) {
+            throw new \RuntimeException('RM পর্যালোচনার আগে WM প্রত্যাখ্যান করা যাবে না।');
         }
 
         DB::transaction(function () use ($application, $wm, $remarks) {

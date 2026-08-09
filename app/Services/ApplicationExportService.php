@@ -4,14 +4,23 @@
 namespace App\Services;
 
 use App\Models\StudentDetail;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ApplicationExportService
 {
+    public function __construct(private OrgHierarchyService $orgHierarchy)
+    {
+    }
+
     /**
-     * Build a filtered query and return as Collection with eager-loaded relations
+     * Build a filtered query with eager-loaded relations.
+     *
+     * @param array         $filters    status, board, division, district, search
+     * @param array|null    $upazilaIds Optional RM/WM scope restriction (null = unrestricted/admin)
      */
-    public function buildQuery(array $filters): \Illuminate\Database\Eloquent\Builder
+    public function buildQuery(array $filters, ?array $upazilaIds = null): Builder
     {
         $query = StudentDetail::with([
             'user',
@@ -21,23 +30,43 @@ class ApplicationExportService
             'district',
             'upazila',
             'applicationStatus',
+            'rmReviewer',
+            'wmReviewer',
         ]);
 
+        $this->applyFilters($query, $filters);
+
+        if ($upazilaIds !== null) {
+            $query->whereIn('upazila_id', $upazilaIds);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Apply the shared set of list/export filters to a query builder.
+     */
+    private function applyFilters(Builder $query, array $filters): void
+    {
         if (!empty($filters['status'])) {
             $query->where('application_status_id', $filters['status']);
         }
+
         if (!empty($filters['board'])) {
             $query->where('ssc_board_id', $filters['board']);
         }
+
         if (!empty($filters['division'])) {
             $query->where('division_id', $filters['division']);
         }
+
         if (!empty($filters['district'])) {
             $query->where('district_id', $filters['district']);
         }
+
         if (!empty($filters['search'])) {
             $s = $filters['search'];
-            $query->where(function ($q) use ($s) {
+            $query->where(function (Builder $q) use ($s) {
                 $q->where('name_en', 'LIKE', "%{$s}%")
                     ->orWhere('name_bn', 'LIKE', "%{$s}%")
                     ->orWhere('roll_number', 'LIKE', "%{$s}%")
@@ -46,14 +75,14 @@ class ApplicationExportService
                     ->orWhere('tea_stall_name', 'LIKE', "%{$s}%");
             });
         }
-
-        return $query->withCount('smsLogs')->orderBy('created_at', 'desc');
     }
 
     /**
-     * Stream CSV download response
+     * Stream a CSV download of the filtered applications, including
+     * Wing / Region / Territory (resolved via OrgHierarchyService) so the
+     * export mirrors exactly what the admin sees in the applications table.
      */
-    public function downloadCsv(array $filters): \Symfony\Component\HttpFoundation\StreamedResponse
+    public function downloadCsv(array $filters, ?array $upazilaIds = null): StreamedResponse
     {
         $fileName = 'applications_' . now()->format('Y_m_d_His') . '.csv';
 
@@ -65,15 +94,38 @@ class ApplicationExportService
             'Expires'             => '0',
         ];
 
-        $response = new \Symfony\Component\HttpFoundation\StreamedResponse(function () use ($filters) {
+        // Resolve Wing/Region/Territory once for every upazila in the result
+        // set, so we never hit the resolver per-row inside the chunk loop.
+        $baseQuery       = $this->buildQuery($filters, $upazilaIds);
+        $distinctUpazilaIds = (clone $baseQuery)
+            ->whereNotNull('upazila_id')
+            ->select('upazila_id')
+            ->distinct()
+            ->pluck('upazila_id')
+            ->all();
+
+        $orgHierarchy = $this->orgHierarchy->resolveForUpazilas($distinctUpazilaIds);
+
+        $exportQuery = $this->buildQuery($filters, $upazilaIds)
+            ->withCount('smsLogs')
+            ->orderBy('created_at', 'desc');
+
+        $response = new StreamedResponse(function () use ($exportQuery, $orgHierarchy) {
             $handle = fopen('php://output', 'w');
 
-            // UTF-8 BOM so Excel opens correctly
+            if ($handle === false) {
+                Log::error('ApplicationExportService: failed to open output stream for CSV export.');
+                return;
+            }
+
+            // UTF-8 BOM so Excel opens Bangla text correctly
             fprintf($handle, chr(0xEF) . chr(0xBB) . chr(0xBF));
 
-            // Header row
             fputcsv($handle, [
                 'SL',
+                'Wing',
+                'Region',
+                'Territory',
                 'Name (EN)',
                 'Name (BN)',
                 'Mobile',
@@ -92,40 +144,56 @@ class ApplicationExportService
                 'Tea Stall Location',
                 'Parent Mobile',
                 'Status',
-                'SMS Sent',
+                'RM Reviewed By',
+                'RM Reviewed At',
+                'WM Reviewed By',
+                'WM Reviewed At',
+                'SMS Sent Count',
                 'Submitted At',
             ]);
 
-            $query = $this->buildQuery($filters);
-            $sl    = 1;
+            $sl = 1;
 
-            $query->chunk(500, function ($records) use ($handle, &$sl) {
-                foreach ($records as $app) {
-                    fputcsv($handle, [
-                        $sl++,
-                        $app->name_en,
-                        $app->name_bn,
-                        $app->user->mobile ?? '',
-                        $app->user->email ?? '',
-                        $app->board->name ?? '',
-                        $app->group->name ?? '',
-                        $app->roll_number,
-                        $app->registration_number,
-                        $app->gpa_result,
-                        $app->division->name ?? '',
-                        $app->district->name ?? '',
-                        $app->upazila->name ?? '',
-                        $app->father_name,
-                        $app->mother_name,
-                        $app->tea_stall_name,
-                        $app->tea_stall_location,
-                        $app->parent_mobile,
-                        $app->applicationStatus->name ?? 'Pending',
-                        $app->notification_sent ? 'Yes' : 'No',
-                        $app->created_at ? $app->created_at->format('Y-m-d H:i') : '',
-                    ]);
-                }
-            });
+            try {
+                $exportQuery->chunk(500, function ($records) use ($handle, &$sl, $orgHierarchy) {
+                    foreach ($records as $app) {
+                        $org = $orgHierarchy[$app->upazila_id] ?? null;
+
+                        fputcsv($handle, [
+                            $sl++,
+                            $org['wing'] ?? '',
+                            $org['region'] ?? '',
+                            $org['territory'] ?? '',
+                            $app->name_en,
+                            $app->name_bn,
+                            $app->user->mobile ?? '',
+                            $app->user->email ?? '',
+                            $app->board->name ?? '',
+                            $app->group->name ?? '',
+                            $app->roll_number,
+                            $app->registration_number,
+                            $app->gpa_result,
+                            $app->division->name ?? '',
+                            $app->district->name ?? '',
+                            $app->upazila->name ?? '',
+                            $app->father_name,
+                            $app->mother_name,
+                            $app->tea_stall_name,
+                            $app->tea_stall_location,
+                            $app->parent_mobile,
+                            $app->applicationStatus->name ?? 'Pending',
+                            $app->rmReviewer->name ?? '',
+                            $app->rm_reviewed_at ? $app->rm_reviewed_at->format('Y-m-d H:i') : '',
+                            $app->wmReviewer->name ?? '',
+                            $app->wm_reviewed_at ? $app->wm_reviewed_at->format('Y-m-d H:i') : '',
+                            $app->sms_logs_count ?? 0,
+                            $app->created_at ? $app->created_at->format('Y-m-d H:i') : '',
+                        ]);
+                    }
+                });
+            } catch (\Throwable $e) {
+                Log::error('ApplicationExportService: CSV export failed mid-stream: ' . $e->getMessage());
+            }
 
             fclose($handle);
         }, 200, $headers);
