@@ -18,8 +18,8 @@ class NotificationService
 
     public function approvedTemplate(StudentDetail $app): string
     {
-        // $name      = $app->name_bn ?: $app->name_en;
-        $name = strtok($app->name_bn ?: $app->name, ' ');
+        $name = $app->name_bn ?: $app->name_en;
+        // $name = strtok($app->name_bn ?: $app->name, ' ');
         $roll = $app->roll_number;
 
         return "অভিনন্দন! প্রিয় {$name},"
@@ -36,7 +36,8 @@ class NotificationService
 
     public function rejectedTemplate(StudentDetail $app, string $remarks = ''): string
     {
-        $name = strtok($app->name_bn ?: $app->name_en, ' ');
+        $name = $app->name_bn ?: $app->name_en;
+        // $name = strtok($app->name_bn ?: $app->name_en, ' ');
         $roll = $app->roll_number;
 
         $msg = "প্রিয় {$name}," . "দুঃখিত, আপনার আবেদনটি (রোল: {$roll}) গ্রহণ করা সম্ভব হয়নি। — নাম্বার ওয়ান";
@@ -58,10 +59,11 @@ class NotificationService
 
     public function customTemplate(StudentDetail $app, string $message): string
     {
-        // $name = $app->name_bn ?: $app->name;
-        $name = strtok($app->name_bn ?: $app->name, ' ');
+        $name = $app->name_bn ?: $app->name_en;
+        // $name = strtok($app->name_bn ?: $app->name, ' ');
+        $roll = $app->roll_number ?: '';
 
-        return "প্রিয় {$name}, {$message} — নাম্বার ওয়ান";
+        return "প্রিয় {$name} (রোল: {$roll}), {$message} — নাম্বার ওয়ান";
     }
 
     private function storeNotification(StudentDetail $app, string $title, string $message, string $type): void
@@ -81,7 +83,7 @@ class NotificationService
 
     public function sendSms(string $mobile, string $message, ?int $studentDetailId = null, string $type = 'custom'): bool
     {
-        $driver = config('services.sms.driver', 'banglalink');
+        $driver = config('services.sms.driver', 'sslwireless');
         $result = $this->dispatch($driver, $mobile, $message);
 
         try {
@@ -212,8 +214,9 @@ class NotificationService
     {
         $studentDetail = $user->studentDetail;
         $name          = $studentDetail?->name_bn ?: $user->name;
-        $name          = strtok($name, ' ');
-        $message       = "অভিনন্দন {$name}, আপনার নিবন্ধন সফলভাবে সম্পন্ন হয়েছে। — নাম্বার ওয়ান";
+        // $name          = strtok($name, ' ');
+        $roll    = $studentDetail?->roll_number ?: '';
+        $message = "অভিনন্দন {$name} (রোল: {$roll}), আপনার নিবন্ধন সফলভাবে সম্পন্ন হয়েছে। — নাম্বার ওয়ান";
         if ($studentDetail) {
             $this->storeNotification($studentDetail, 'নিবন্ধন সম্পন্ন হয়েছে', $message, 'registration');
         }
