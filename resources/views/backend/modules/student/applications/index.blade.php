@@ -16,7 +16,7 @@
                                     <h4 class="mb-0 me-2">{{ $counts['total'] ?? 0 }}</h4>
                                     <small class="text-primary">(Total)</small>
                                 </div>
-                                <small>All applications</small>
+                                <small>All Applications</small>
                             </div>
                             <span class="badge bg-label-primary rounded p-2">
                                 <i class="fas fa-file-alt fa-lg"></i>
@@ -37,7 +37,7 @@
                                     <h4 class="mb-0 me-2">{{ $counts['pending'] ?? 0 }}</h4>
                                     <small class="text-warning">(Pending)</small>
                                 </div>
-                                <small>Awaiting review</small>
+                                <small>Awaiting Review</small>
                             </div>
                             <span class="badge bg-label-warning rounded p-2">
                                 <i class="fas fa-hourglass-half fa-lg"></i>
@@ -58,7 +58,7 @@
                                     <h4 class="mb-0 me-2">{{ $counts['approved_by_rm'] ?? 0 }}</h4>
                                     <small class="text-info">(RM Approved)</small>
                                 </div>
-                                <small>Approved by Relationship Manager</small>
+                                <small>Approved by Regional Manager</small>
                             </div>
                             <span class="badge bg-label-info rounded p-2">
                                 <i class="fas fa-user-check fa-lg"></i>
@@ -79,7 +79,7 @@
                                     <h4 class="mb-0 me-2">{{ $counts['rejected_by_rm'] ?? 0 }}</h4>
                                     <small class="text-danger">(RM Rejected)</small>
                                 </div>
-                                <small>Rejected by Relationship Manager</small>
+                                <small>Rejected by Regional Manager</small>
                             </div>
                             <span class="badge bg-label-danger rounded p-2">
                                 <i class="fas fa-user-times fa-lg"></i>
@@ -100,7 +100,7 @@
                                     <h4 class="mb-0 me-2">{{ $counts['approved_by_wm'] ?? 0 }}</h4>
                                     <small class="text-success">(WM Approved)</small>
                                 </div>
-                                <small>Approved by Wealth Manager</small>
+                                <small>Approved by Wing Manager</small>
                             </div>
                             <span class="badge bg-label-success rounded p-2">
                                 <i class="fas fa-user-check fa-lg"></i>
@@ -121,7 +121,7 @@
                                     <h4 class="mb-0 me-2">{{ $counts['rejected_by_wm'] ?? 0 }}</h4>
                                     <small class="text-danger">(WM Rejected)</small>
                                 </div>
-                                <small>Rejected by Wealth Manager</small>
+                                <small>Rejected by Wing Manager</small>
                             </div>
                             <span class="badge bg-label-danger rounded p-2">
                                 <i class="fas fa-user-times fa-lg"></i>
