@@ -213,6 +213,20 @@
         .menu-btn small {
             line-height: 1.2;
         }
+
+        /* Modal error styles */
+        .required:after {
+            content: " *";
+            color: red;
+        }
+
+        .modal-backdrop {
+            z-index: 1040 !important;
+        }
+
+        #parentModal {
+            z-index: 1050 !important;
+        }
     </style>
 
     <div class="container py-4 mb-5">
@@ -383,9 +397,8 @@
                                             {{ $studentDetail?->applicationStatus->name ?? 'Pending' }}
                                         </h3>
                                     </div>
-                                    {{-- <i class="fas fa-clipboard-list stat-icon text-white"></i> --}}
-                                    <img src="{{ asset('images/animated-icon/status.gif') }}" alt="Application Status" class="img-fluid"
-                                        style="max-width: 40px;">
+                                    <img src="{{ asset('images/animated-icon/status.gif') }}" alt="Application Status"
+                                        class="img-fluid" style="max-width: 40px;">
                                 </div>
                             </div>
                         </div>
@@ -398,9 +411,8 @@
                                         <h6 class="text-dark-50 mb-1">এসএসসি ফলাফল</h6>
                                         <h3 class="text-dark mb-0">{{ $studentDetail?->gpa_result }}</h3>
                                     </div>
-                                    {{-- <i class="fas fa-chart-line stat-icon text-white"></i> --}}
-                                    <img src="{{ asset('images/animated-icon/result.gif') }}" alt="GPA Result" class="img-fluid"
-                                        style="max-width: 40px;">
+                                    <img src="{{ asset('images/animated-icon/result.gif') }}" alt="GPA Result"
+                                        class="img-fluid" style="max-width: 40px;">
                                 </div>
                             </div>
                         </div>
@@ -413,14 +425,14 @@
                                         <h6 class="text-dark-50 mb-1">নিবন্ধন নম্বর</h6>
                                         <h6 class="text-dark mb-0">{{ $studentDetail?->registration_number }}</h6>
                                     </div>
-                                    {{-- <i class="fas fa-id-card stat-icon text-dark"></i> --}}
-                                    <img src="{{ asset('images/animated-icon/registration.gif') }}" alt="Registration Number" class="img-fluid"
-                                        style="max-width: 40px;">
+                                    <img src="{{ asset('images/animated-icon/registration.gif') }}"
+                                        alt="Registration Number" class="img-fluid" style="max-width: 40px;">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
 
                 <!-- Quick Actions -->
                 <div class="card info-card shadow-sm mb-4">
@@ -433,26 +445,26 @@
                     <div class="card-body">
                         <div class="row g-3">
                             <div class="col-md-4">
-                                <a href="{{ route('student.download.certificate') }}" target="_blank"
-                                    class="text-decoration-none">
-                                    <div class="menu-btn bg-light">
-                                        {{-- <i class="fas fa-download fa-2x text-success"></i> --}}
-                                        <img src="{{ asset('images/animated-icon/certificate.gif') }}" alt="Download Certificate" class="img-fluid"
-                                            style="max-width: 40px;">
+                                <a href="#" class="text-decoration-none disabled-link"
+                                    style="pointer-events: none; cursor: default;">
+                                    <div class="menu-btn bg-light opacity-50">
+                                        <img src="{{ asset('images/animated-icon/certificate.gif') }}"
+                                            alt="Download Certificate" class="img-fluid" style="max-width: 40px;">
                                         <h6 class="mb-0 text-dark mt-1">সার্টিফিকেট</h6>
                                         <small class="text-muted">ডাউনলোড করুন</small>
+                                        <span class="badge bg-secondary mt-1">শীঘ্রই আসছে</span>
                                     </div>
                                 </a>
                             </div>
                             <div class="col-md-4">
-                                <a href="{{ route('student.invitation.letter') }}" target="_blank"
-                                    class="text-decoration-none">
-                                    <div class="menu-btn bg-light">
-                                        {{-- <i class="fas fa-envelope fa-2x text-danger"></i> --}}
-                                        <img src="{{ asset('images/animated-icon/invitation.gif') }}" alt="Invitation Letter" class="img-fluid"
-                                            style="max-width: 40px;">
+                                <a href="#" class="text-decoration-none disabled-link"
+                                    style="pointer-events: none; cursor: default;">
+                                    <div class="menu-btn bg-light opacity-50">
+                                        <img src="{{ asset('images/animated-icon/invitation.gif') }}"
+                                            alt="Invitation Letter" class="img-fluid" style="max-width: 40px;">
                                         <h6 class="mb-0 text-dark mt-1">আমন্ত্রণপত্র</h6>
                                         <small class="text-muted">ইভেন্টের আমন্ত্রণপত্র</small>
+                                        <span class="badge bg-secondary mt-1">শীঘ্রই আসছে</span>
                                     </div>
                                 </a>
                             </div>
@@ -463,9 +475,8 @@
                                             <span class="position-absolute badge bg-danger rounded-pill"
                                                 style="top: 8px; margin-left: 2px; font-size: 0.65rem;">{{ $unreadNotifCount }}</span>
                                         @endif
-                                        {{-- <i class="fas fa-bell fa-2x text-warning"></i> --}}
-                                        <img src="{{ asset('images/animated-icon/notification.gif') }}" alt="Notifications" class="img-fluid"
-                                            style="max-width: 40px;">
+                                        <img src="{{ asset('images/animated-icon/notification.gif') }}" alt="Notifications"
+                                            class="img-fluid" style="max-width: 40px;">
                                         <h6 class="mb-0 text-dark mt-1">নোটিফিকেশন</h6>
                                         <small class="text-muted">প্রেরিত বার্তা দেখুন</small>
                                     </div>
@@ -522,8 +533,7 @@
                                     @if ($studentDetail->parent_photo)
                                         <div class="mt-2 parent-photo-container">
                                             <small class="text-muted">অভিভাবকের ছবি:</small>
-                                            <img src="{{ $studentDetail->parent_photo_url }}" alt="Parent Photo"
-                                                class="mt-1">
+                                            <img src="{{ $studentDetail->parent_photo_url }}" alt="Parent Photo" class="mt-1">
                                         </div>
                                     @endif
                                 </div>
@@ -533,80 +543,92 @@
                 @endif
 
                 <!-- Event Information Card -->
-                {{-- @if($studentDetail->application_status_id == 2) --}}
-                    <div class="card info-card shadow-sm">
-                        <div class="card-header card-header-custom">
-                            <h5 class="fw-bold mt-4">
-                                <i class="fas fa-calendar-alt text-danger me-2"></i>
-                                ইভেন্ট তথ্য
-                            </h5>
+                <div class="card info-card shadow-sm">
+                    <div class="card-header card-header-custom">
+                        <h5 class="fw-bold mt-4">
+                            <i class="fas fa-calendar-alt text-danger me-2"></i>
+                            ইভেন্ট তথ্য
+                        </h5>
+                    </div>
+                    <div class="card-body p-3">
+                        <div class="event-card p-3 mb-3 bg-light">
+                            <div class="d-flex align-items-start">
+                                <div class="me-3">
+                                    <img src="{{ asset('images/animated-icon/location.gif') }}" alt="Event Location"
+                                        class="img-fluid" style="max-width: 40px;">
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">স্থান</h6>
+                                    <p class="mb-0 text-muted">শীঘ্রই ঘোষণা করা হবে</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body p-3">
-                            <div class="event-card p-3 mb-3 bg-light">
-                                <div class="d-flex align-items-start">
-                                    <div class="me-3">
-                                        {{-- <i class="fas fa-map-marker-alt fa-2x text-danger"></i> --}}
-                                        <img src="{{ asset('images/animated-icon/location.gif') }}" alt="Event Location" class="img-fluid"
-                                            style="max-width: 40px;">
-                                    </div>
-                                    <div>
-                                        <h6 class="fw-bold mb-1">স্থান</h6>
-                                        <p class="mb-0 text-muted">শীঘ্রই ঘোষণা করা হবে</p>
-                                    </div>
+
+                        <div class="event-card p-3 mb-3 bg-light">
+                            <div class="d-flex align-items-start">
+                                <div class="me-3">
+                                    <img src="{{ asset('images/animated-icon/calendar.gif') }}" alt="Event Date"
+                                        class="img-fluid" style="max-width: 40px;">
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">তারিখ ও সময়</h6>
+                                    <p class="mb-0 text-muted">শীঘ্রই ঘোষণা করা হবে</p>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="event-card p-3 mb-3 bg-light">
-                                <div class="d-flex align-items-start">
-                                    <div class="me-3">
-                                        {{-- <i class="fas fa-calendar-day fa-2x text-danger"></i> --}}
-                                        <img src="{{ asset('images/animated-icon/calendar.gif') }}" alt="Event Date" class="img-fluid"
-                                            style="max-width: 40px;">
-                                    </div>
-                                    <div>
-                                        <h6 class="fw-bold mb-1">তারিখ ও সময়</h6>
-                                        <p class="mb-0 text-muted">শীঘ্রই ঘোষণা করা হবে</p>
-                                    </div>
+                        <div class="event-card p-3 bg-light">
+                            <div class="d-flex align-items-start">
+                                <div class="me-3">
+                                    <img src="{{ asset('images/animated-icon/list.gif') }}" alt="Event Info"
+                                        class="img-fluid" style="max-width: 40px;">
                                 </div>
-                            </div>
-
-                            <div class="event-card p-3 bg-light">
-                                <div class="d-flex align-items-start">
-                                    <div class="me-3">
-                                        {{-- <i class="fas fa-info-circle fa-2x text-danger"></i> --}}
-                                        <img src="{{ asset('images/animated-icon/list.gif') }}" alt="Event Info" class="img-fluid"
-                                            style="max-width: 40px;">
-                                    </div>
-                                    <div>
-                                        <h6 class="fw-bold mb-1">বিশেষ দ্রষ্টব্য</h6>
-                                        <p class="mb-0 text-muted small">
-                                            সকল আপডেট এই ড্যাশবোর্ডে জানানো হবে। নিয়মিত ভিজিট করার জন্য ধন্যবাদ।
-                                        </p>
-                                    </div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">বিশেষ দ্রষ্টব্য</h6>
+                                    <p class="mb-0 text-muted small">
+                                        সকল আপডেট এই ড্যাশবোর্ডে জানানো হবে। নিয়মিত ভিজিট করার জন্য ধন্যবাদ।
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                {{-- @endif --}}
-
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Parent Information Modal (if not provided) -->
-    @if ($showParentModal)
-        <div class="modal fade" id="parentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <!-- Parent Information Modal (if not provided or has errors) -->
+    @if ($showParentModal || $errors->any())
+        <div class="modal fade" id="parentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            style="@if($errors->any()) display:block; background: rgba(0,0,0,0.5); @endif">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header bg-danger text-white">
                         <h5 class="modal-title">
                             <i class="fas fa-users me-2"></i>অভিভাবকের তথ্য প্রদান করুন
                         </h5>
+                        @if(!$errors->any())
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        @endif
                     </div>
                     <form action="{{ route('student.update.parent') }}" method="POST" enctype="multipart/form-data"
-                        id="parentForm">
+                        id="parentForm" novalidate>
                         @csrf
                         <div class="modal-body">
+                            @if ($errors->any())
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <i class="fas fa-exclamation-circle me-2"></i>
+                                    <strong>দয়া করে নিচের ত্রুটিগুলো ঠিক করুন:</strong>
+                                    <ul class="mb-0 mt-2">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+
                             <div class="alert alert-info">
                                 <i class="fas fa-info-circle me-2"></i>
                                 আপনার ড্যাশবোর্ড সম্পূর্ণভাবে দেখার জন্য অভিভাবকের তথ্য প্রদান করা আবশ্যক।
@@ -615,14 +637,16 @@
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label required">পিতার নাম</label>
-                                    <input type="text" class="form-control" name="father_name" required>
+                                    <input type="text" class="form-control @error('father_name') is-invalid @enderror"
+                                        name="father_name" placeholder="পিতার নাম" value="{{ old('father_name') }}" required>
                                     @error('father_name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label required">মাতার নাম</label>
-                                    <input type="text" class="form-control" name="mother_name" required>
+                                    <input type="text" class="form-control @error('mother_name') is-invalid @enderror"
+                                        name="mother_name" placeholder="মাতার নাম" value="{{ old('mother_name') }}" required>
                                     @error('mother_name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -632,14 +656,18 @@
                             <div class="row g-3 mt-1">
                                 <div class="col-md-6">
                                     <label class="form-label required">চায়ের দোকানের নাম</label>
-                                    <input type="text" class="form-control" name="tea_stall_name" required>
+                                    <input type="text" class="form-control @error('tea_stall_name') is-invalid @enderror"
+                                        name="tea_stall_name" placeholder="চায়ের দোকানের নাম"
+                                        value="{{ old('tea_stall_name') }}" required>
                                     @error('tea_stall_name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label required">চায়ের দোকানের অবস্থান</label>
-                                    <input type="text" class="form-control" name="tea_stall_location" required>
+                                    <input type="text" class="form-control @error('tea_stall_location') is-invalid @enderror"
+                                        name="tea_stall_location" placeholder="চায়ের দোকানের অবস্থান"
+                                        value="{{ old('tea_stall_location') }}" required>
                                     @error('tea_stall_location')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -649,15 +677,17 @@
                             <div class="row g-3 mt-1">
                                 <div class="col-md-6">
                                     <label class="form-label required">অভিভাবকের মোবাইল নম্বর</label>
-                                    <input type="tel" class="form-control" name="parent_mobile" required>
+                                    <input type="tel" class="form-control @error('parent_mobile') is-invalid @enderror"
+                                        name="parent_mobile" required placeholder="01XXXXXXXXX"
+                                        value="{{ old('parent_mobile') }}" maxlength="11">
                                     @error('parent_mobile')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">অভিভাবকের ছবি</label>
-                                    <input type="file" class="form-control" name="parent_photo" accept="image/*"
-                                        id="parentPhoto">
+                                    <input type="file" class="form-control @error('parent_photo') is-invalid @enderror"
+                                        name="parent_photo" accept="image/*" id="parentPhoto">
                                     <small class="text-muted">জেপিইজি বা পিএনজি ফরম্যাটে (সর্বোচ্চ ২এমবি)</small>
                                     <div id="parentPhotoPreview" class="mt-2"></div>
                                     @error('parent_photo')
@@ -675,35 +705,61 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal backdrop for when showing errors -->
+        @if($errors->any())
+            <div class="modal-backdrop fade show"></div>
+        @endif
     @endif
 
     @push('scripts')
         <script>
-            @if ($showParentModal)
-                document.addEventListener('DOMContentLoaded', function() {
-                    var modal = new bootstrap.Modal(document.getElementById('parentModal'));
-                    modal.show();
-
-                    document.getElementById('parentPhoto').addEventListener('change', function(e) {
-                        const preview = document.getElementById('parentPhotoPreview');
-                        preview.innerHTML = '';
-
-                        if (this.files && this.files[0]) {
-                            const reader = new FileReader();
-                            reader.onload = function(e) {
-                                const img = document.createElement('img');
-                                img.src = e.target.result;
-                                img.style.maxWidth = '200px';
-                                img.style.maxHeight = '200px';
-                                img.style.marginTop = '10px';
-                                img.style.borderRadius = '10px';
-                                preview.appendChild(img);
-                            }
-                            reader.readAsDataURL(this.files[0]);
-                        }
+            document.addEventListener('DOMContentLoaded', function () {
+                // Show modal if needed
+                @if($showParentModal || $errors->any())
+                    var parentModal = new bootstrap.Modal(document.getElementById('parentModal'), {
+                        backdrop: 'static',
+                        keyboard: false
                     });
-                });
-            @endif
+                    parentModal.show();
+
+                    // Handle file input preview
+                    const photoInput = document.getElementById('parentPhoto');
+                    if (photoInput) {
+                        photoInput.addEventListener('change', function (e) {
+                            const preview = document.getElementById('parentPhotoPreview');
+                            preview.innerHTML = '';
+
+                            if (this.files && this.files[0]) {
+                                const reader = new FileReader();
+                                reader.onload = function (e) {
+                                    const img = document.createElement('img');
+                                    img.src = e.target.result;
+                                    img.style.maxWidth = '200px';
+                                    img.style.maxHeight = '200px';
+                                    img.style.marginTop = '10px';
+                                    img.style.borderRadius = '10px';
+                                    img.style.border = '1px solid #ddd';
+                                    img.style.padding = '5px';
+                                    preview.appendChild(img);
+                                }
+                                reader.readAsDataURL(this.files[0]);
+                            }
+                        });
+                    }
+
+                    // Auto-scroll to first error field
+                    @if($errors->any())
+                        setTimeout(function () {
+                            const firstError = document.querySelector('.is-invalid');
+                            if (firstError) {
+                                firstError.focus();
+                                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }
+                        }, 500);
+                    @endif
+                @endif
+                                            });
         </script>
     @endpush
 @endsection

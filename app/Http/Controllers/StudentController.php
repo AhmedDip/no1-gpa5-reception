@@ -44,12 +44,13 @@ class StudentController extends Controller
 
     public function updateParentInfo(Request $request)
     {
+
         $request->validate([
             'father_name'        => 'required|string|max:255',
             'mother_name'        => 'required|string|max:255',
             'tea_stall_name'     => 'required|string|max:255',
             'tea_stall_location' => 'required|string',
-            'parent_mobile'      => 'required|string|max:15',
+            'parent_mobile'      => ['required', 'regex:/^01\d{9}$/'],
             'parent_photo'       => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ], [
             'father_name.required'        => 'পিতার নাম প্রয়োজন',
@@ -57,6 +58,7 @@ class StudentController extends Controller
             'tea_stall_name.required'     => 'চায়ের দোকানের নাম প্রয়োজন',
             'tea_stall_location.required' => 'চায়ের দোকানের অবস্থান প্রয়োজন',
             'parent_mobile.required'      => 'অভিভাবকের মোবাইল নম্বর প্রয়োজন',
+            'parent_mobile.regex'         => 'অভিভাবকের মোবাইল নম্বর অবশ্যই ১১ সংখ্যার হতে হবে এবং 01 দিয়ে শুরু হতে হবে।',
         ]);
 
         $user = Auth::user();

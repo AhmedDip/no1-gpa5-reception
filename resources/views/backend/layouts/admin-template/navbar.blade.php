@@ -39,7 +39,7 @@
                     <li>
                         <div class="dropdown-divider my-1"></div>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a class="dropdown-item" href="#">
                             <i class="bx bx-user bx-md me-3"></i><span>My Profile</span>
                         </a>
@@ -47,7 +47,7 @@
                     <li>
                         <a class="dropdown-item" href="#"> <i
                                 class="bx bx-cog bx-md me-3"></i><span>Settings</span> </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal"
                             data-bs-target="#adminPasswordModal">
