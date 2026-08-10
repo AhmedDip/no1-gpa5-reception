@@ -14,17 +14,19 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    public function __construct(private MenuService $menuService) {}
+    public function __construct(private MenuService $menuService)
+    {
+    }
 
     /**
      * Main dashboard overview
      */
-     public function index()
+    public function index()
     {
         $page_content = [
-            'page_title'      => 'Dashboard Overview',
-            'module_name'     => 'Dashboard',
-            'module_route'    => route('admin.dashboard'),
+            'page_title' => 'Dashboard Overview',
+            'module_name' => 'Dashboard',
+            'module_route' => route('admin.dashboard'),
             'sub_module_name' => 'Overview',
         ];
 
@@ -33,29 +35,43 @@ class DashboardController extends Controller
             SUM(CASE WHEN application_status_id = 1 THEN 1 ELSE 0 END) as pending,
             SUM(CASE WHEN application_status_id = 6 THEN 1 ELSE 0 END) as approved,
             SUM(CASE WHEN application_status_id = 7 THEN 1 ELSE 0 END) as rejected
-        ')->first();
+        ')
+            ->whereHas('user', function ($query) {
+                $query->where('lfcl_id', 1);
+            })
+            ->first();
+
 
 
         $applicationsByBoard = StudentDetail::select('boards.name_bn as name', DB::raw('count(*) as total'))
             ->join('boards', 'student_details.ssc_board_id', '=', 'boards.id')
+            ->whereHas('user', function ($query) {
+                $query->where('lfcl_id', 1);
+            })
             ->groupBy('boards.name_bn')
             ->pluck('total', 'name')
             ->toArray();
 
 
         $applicationsByDivision = Division::select('divisions.name_bn as name', DB::raw('count(student_details.id) as total'))
-            ->leftJoin('student_details', 'divisions.id', '=', 'student_details.division_id')
+            ->leftJoin('student_details', function ($join) {
+                $join->on('divisions.id', '=', 'student_details.division_id')
+                    ->whereExists(function ($query) {
+                        $query->select(DB::raw(1))
+                            ->from('users')
+                            ->whereColumn('users.id', '=', 'student_details.user_id')
+                            ->where('users.lfcl_id', 1);
+                    });
+            })
             ->groupBy('divisions.name_bn')
             ->pluck('total', 'name')
             ->toArray();
 
-        $applicationsByStudentGroup = StudentDetail::select('student_groups.name_bn as name', DB::raw('count(*) as total'))
-            ->join('student_groups', 'student_details.student_group_id', '=', 'student_groups.id')
-            ->groupBy('student_groups.name_bn')
-            ->pluck('total', 'name')
-            ->toArray();
 
         $recentApplications = StudentDetail::with(['user', 'applicationStatus', 'board', 'division'])
+            ->whereHas('user', function ($query) {
+                $query->where('lfcl_id', 1);
+            })
             ->latest()
             ->limit(10)
             ->get();
@@ -65,15 +81,15 @@ class DashboardController extends Controller
 
 
         $data = [
-            'totalApplications'          => (int) $statusCounts->total,
-            'pendingApplications'        => (int) $statusCounts->pending,
-            'approvedApplications'       => (int) $statusCounts->approved,
-            'rejectedApplications'       => (int) $statusCounts->rejected,
-            'applicationsByBoard'        => $applicationsByBoard,
-            'applicationsByDivision'     => $applicationsByDivision,
-            'applicationsByStudentGroup' => $applicationsByStudentGroup,
-            'recentApplications'         => $recentApplications,
-            'statuses'                   => $statuses,
+            'totalApplications' => (int) $statusCounts->total,
+            'pendingApplications' => (int) $statusCounts->pending,
+            'approvedApplications' => (int) $statusCounts->approved,
+            'rejectedApplications' => (int) $statusCounts->rejected,
+            'applicationsByBoard' => $applicationsByBoard,
+            'applicationsByDivision' => $applicationsByDivision,
+            // 'applicationsByStudentGroup' => $applicationsByStudentGroup,
+            'recentApplications' => $recentApplications,
+            'statuses' => $statuses,
         ];
 
         return view('backend.modules.admin.dashboard.index', array_merge(
@@ -88,7 +104,7 @@ class DashboardController extends Controller
     public function stats()
     {
         $page_content = [
-            'page_title'  => 'Statistics',
+            'page_title' => 'Statistics',
             'module_name' => 'Dashboard',
             'module_route' => route('admin.dashboard'),
             'sub_module_name' => 'Statistics',
@@ -130,7 +146,7 @@ class DashboardController extends Controller
     public function NoPermission()
     {
         $page_content = [
-            'page_title'  => 'Access Denied',
+            'page_title' => 'Access Denied',
             'module_name' => 'Dashboard',
             'module_route' => route('admin.dashboard'),
             'sub_module_name' => 'No Permission',

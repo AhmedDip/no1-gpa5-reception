@@ -6,8 +6,13 @@
     <style>
         /* Stats Card Animations */
         @keyframes shine {
-            0% { transform: translateX(-100%) rotate(45deg); }
-            100% { transform: translateX(200%) rotate(45deg); }
+            0% {
+                transform: translateX(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(200%) rotate(45deg);
+            }
         }
 
         .stat-card {
@@ -21,12 +26,12 @@
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08) !important;
         }
 
-        .stat-card:hover .stat-icon-wrapper > div {
+        .stat-card:hover .stat-icon-wrapper>div {
             transform: scale(1.05);
             transition: transform 0.3s ease;
         }
 
-        .stat-card .stat-icon-wrapper > div {
+        .stat-card .stat-icon-wrapper>div {
             transition: transform 0.3s ease;
         }
 
@@ -238,12 +243,12 @@
                 font-size: 1.6rem !important;
             }
 
-            .stat-icon-wrapper > div {
+            .stat-icon-wrapper>div {
                 width: 44px !important;
                 height: 44px !important;
             }
 
-            .stat-icon-wrapper > div i {
+            .stat-icon-wrapper>div i {
                 font-size: 1.4rem !important;
             }
         }
@@ -327,41 +332,53 @@
 
         @foreach($stats as $stat)
             <div class="col-6 col-lg-3">
-                <div class="card stat-card h-100" style="background: #ffffff; box-shadow: 0 4px 20px {{ $stat['shadowColor'] }};">
+                <div class="card stat-card h-100"
+                    style="background: #ffffff; box-shadow: 0 4px 20px {{ $stat['shadowColor'] }};">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-start justify-content-between">
                             <div class="flex-grow-1 me-3">
                                 <div class="d-flex align-items-center gap-2 mb-2">
-                                    <span class="badge" style="background: {{ $stat['bgGradient'] }}; color: white; padding: 4px 12px; border-radius: 50px; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase;">
+                                    <span class="badge"
+                                        style="background: {{ $stat['bgGradient'] }}; color: white; padding: 4px 12px; border-radius: 50px; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase;">
                                         {{ $stat['label'] }}
                                     </span>
                                 </div>
 
                                 <div class="d-flex align-items-baseline gap-2">
-                                    <h2 class="mb-0" style="font-size: 2.2rem; font-weight: 700; color: #1f1a2e; line-height: 1.2; letter-spacing: -0.02em;">
+                                    <h2 class="mb-0"
+                                        style="font-size: 2.2rem; font-weight: 700; color: #1f1a2e; line-height: 1.2; letter-spacing: -0.02em;">
                                         {{ number_format($stat['value']) }}
                                     </h2>
                                     <span class="text-muted" style="font-size: 0.75rem; font-weight: 500;">টি</span>
                                 </div>
 
                                 <div class="mt-2 d-flex align-items-center gap-2">
-                                    <span class="badge {{ $stat['trendClass'] }}" style="background: {{ $stat['trendClass'] == 'text-success' ? 'rgba(30, 158, 122, 0.1)' : ($stat['trendClass'] == 'text-warning' ? 'rgba(202, 148, 48, 0.1)' : 'rgba(195, 74, 60, 0.1)') }}; color: {{ $stat['trendClass'] == 'text-success' ? '#1e9e7a' : ($stat['trendClass'] == 'text-warning' ? '#b58a2a' : '#b54a3c') }}; border-radius: 50px; padding: 4px 10px; font-size: 0.6rem; font-weight: 600;">
+                                    <span class="badge {{ $stat['trendClass'] }}"
+                                        style="background: {{ $stat['trendClass'] == 'text-success' ? 'rgba(30, 158, 122, 0.1)' : ($stat['trendClass'] == 'text-warning' ? 'rgba(202, 148, 48, 0.1)' : 'rgba(195, 74, 60, 0.1)') }}; color: {{ $stat['trendClass'] == 'text-success' ? '#1e9e7a' : ($stat['trendClass'] == 'text-warning' ? '#b58a2a' : '#b54a3c') }}; border-radius: 50px; padding: 4px 10px; font-size: 0.6rem; font-weight: 600;">
                                         <i class="bx bx-trending-up"></i> {{ $stat['trend'] }}
                                     </span>
                                 </div>
                             </div>
 
                             <div class="stat-icon-wrapper" style="position: relative; flex-shrink: 0;">
-                                <div style="width: 56px; height: 56px; border-radius: 16px; background: {{ $stat['bgGradient'] }}; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px {{ $stat['shadowColor'] }}; position: relative; overflow: hidden;">
-                                    <div style="position: absolute; top: -50%; right: -50%; width: 100%; height: 100%; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent); transform: rotate(45deg); animation: shine 3s infinite;"></div>
-                                    <i class="bx {{ $stat['icon'] }}" style="font-size: 1.8rem; color: white; position: relative; z-index: 1;"></i>
+                                <div
+                                    style="width: 56px; height: 56px; border-radius: 16px; background: {{ $stat['bgGradient'] }}; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px {{ $stat['shadowColor'] }}; position: relative; overflow: hidden;">
+                                    <div
+                                        style="position: absolute; top: -50%; right: -50%; width: 100%; height: 100%; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent); transform: rotate(45deg); animation: shine 3s infinite;">
+                                    </div>
+                                    <i class="bx {{ $stat['icon'] }}"
+                                        style="font-size: 1.8rem; color: white; position: relative; z-index: 1;"></i>
                                 </div>
-                                <div style="position: absolute; top: -4px; right: -4px; width: 64px; height: 64px; border-radius: 20px; border: 2px solid {{ $stat['shadowColor'] }}; opacity: 0.3; pointer-events: none;"></div>
+                                <div
+                                    style="position: absolute; top: -4px; right: -4px; width: 64px; height: 64px; border-radius: 20px; border: 2px solid {{ $stat['shadowColor'] }}; opacity: 0.3; pointer-events: none;">
+                                </div>
                             </div>
                         </div>
 
                         <div class="mt-3" style="height: 3px; background: #f0edf8; border-radius: 10px; overflow: hidden;">
-                            <div class="progress-bar-animated" style="height: 100%; width: {{ $totalApplications > 0 ? round(($stat['value'] / $totalApplications) * 100) : 0 }}%; background: {{ $stat['bgGradient'] }}; border-radius: 10px;"></div>
+                            <div class="progress-bar-animated"
+                                style="height: 100%; width: {{ $totalApplications > 0 ? round(($stat['value'] / $totalApplications) * 100) : 0 }}%; background: {{ $stat['bgGradient'] }}; border-radius: 10px;">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -394,10 +411,10 @@
                                 <div class="col-4 text-center">
                                     <div class="progress-ring position-relative d-inline-block">
                                         <svg width="100" height="100" viewBox="0 0 120 120">
-                                            <circle cx="60" cy="60" r="50" fill="none" stroke="#f0edf8" stroke-width="10"/>
-                                            <circle cx="60" cy="60" r="50" fill="none" stroke="{{ $ring['color'] }}" stroke-width="10"
-                                                stroke-dasharray="{{ $ring['pct'] * 3.14 }} 314" stroke-dashoffset="0"
-                                                stroke-linecap="round" transform="rotate(-90 60 60)"/>
+                                            <circle cx="60" cy="60" r="50" fill="none" stroke="#f0edf8" stroke-width="10" />
+                                            <circle cx="60" cy="60" r="50" fill="none" stroke="{{ $ring['color'] }}"
+                                                stroke-width="10" stroke-dasharray="{{ $ring['pct'] * 3.14 }} 314"
+                                                stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 60 60)" />
                                         </svg>
                                         <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">
                                             <div style="font-size:1.3rem;font-weight:700;color:#1f1a2e;">{{ $ring['pct'] }}%</div>
@@ -483,8 +500,27 @@
                                     <tr>
                                         <td class="ps-3 text-muted fw-semibold small">{{ $i + 1 }}</td>
                                         <td>
-                                            <div class="td-name-en">{{ $app->name_en }}</div>
-                                            <div class="td-name-bn">{{ $app->name_bn }}</div>
+                                            <div class="d-flex align-items-center gap-2">
+                                                {{-- Avatar --}}
+                                                @if ($app->student_photo)
+                                                    <img src="{{ $app->student_photo_url }}" alt="Student Photo"
+                                                        class="rounded-circle" width="32" height="32" loading="lazy">
+                                                @else
+                                                    <span
+                                                        class="d-inline-flex align-items-center justify-content-center rounded-circle bg-light"
+                                                        style="width:32px; height:32px; font-weight:600; font-size:14px; color:#6c757d;">
+                                                        {{ strtoupper(substr($app->name_en ?? 'N/A', 0, 1)) }}
+                                                    </span>
+                                                @endif
+
+                                                {{-- Names --}}
+                                                <div>
+                                                    <div class="td-name-en">{{ $app->name_en ?? 'N/A' }}</div>
+                                                    @if($app->name_bn)
+                                                        <div class="td-name-bn small text-muted">{{ $app->name_bn }}</div>
+                                                    @endif
+                                                </div>
+                                            </div>
                                         </td>
                                         <td class="text-muted small font-monospace">{{ $app?->user?->mobile ?? '—' }}</td>
                                         <td class="fw-medium">{{ $app->board->name_bn ?? '—' }}</td>
@@ -497,7 +533,8 @@
                                 @empty
                                     <tr>
                                         <td colspan="9" class="text-center py-5 text-muted">
-                                            <i class="bx bx-inbox" style="font-size:2rem;display:block;margin-bottom:0.4rem;opacity:0.4;"></i>
+                                            <i class="bx bx-inbox"
+                                                style="font-size:2rem;display:block;margin-bottom:0.4rem;opacity:0.4;"></i>
                                             কোনো আবেদন পাওয়া যায়নি
                                         </td>
                                     </tr>
@@ -513,7 +550,7 @@
 
 @push('script')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Function to safely render charts
             function renderChart(selector, options) {
                 const element = document.querySelector(selector);
@@ -521,7 +558,7 @@
 
                 // Check if there's data to display
                 const hasData = options.series && options.series.length > 0 &&
-                               options.series.some(s => s.data && s.data.some(v => v > 0));
+                    options.series.some(s => s.data && s.data.some(v => v > 0));
 
                 if (!hasData) {
                     element.innerHTML = '<div class="text-center text-muted py-4">কোনো ডেটা নেই</div>';

@@ -57,9 +57,19 @@ class ApplicationController extends Controller
         }
 
         $perPage      = $filters['per_page'] ?? 20;
-        $applications = $query->paginate($perPage)->withQueryString();
+        // $applications = $query->paginate($perPage)->withQueryString();
+        $applications = $query->orderBy('id', 'desc')->paginate($perPage)->withQueryString();
 
-        $countsBase = StudentDetail::query();
+        // $countsBase = StudentDetail::query();
+        // if ($upazilaIds !== null) {
+        //     $countsBase->whereIn('upazila_id', $upazilaIds);
+        // }
+
+        //check if users table lfcl_id == 1
+        $countsBase = StudentDetail::whereHas('user', function ($q) {
+            $q->where('lfcl_id', 1);
+        });
+
         if ($upazilaIds !== null) {
             $countsBase->whereIn('upazila_id', $upazilaIds);
         }

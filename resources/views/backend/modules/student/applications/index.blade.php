@@ -306,7 +306,7 @@
                                 <th>Region</th>
                                 <th>Territory</th>
                                 <th>Student</th>
-                                <th>Contact</th>
+                                <th>Phone</th>
                                 <th>Board</th>
                                 <th>Division</th>
                                 <th>Status</th>
@@ -342,23 +342,17 @@
                                                 </span>
                                             </div>
                                             <div>
-                                                <h6 class="mb-0">{{ $application->name_bn ?? 'N/A' }}</h6>
-                                                <small class="text-muted">Result:
-                                                    {{ $application?->gpa_result ?? 'N/A' }}</small>
+                                                <h6 class="mb-0">{{ $application->name_bn ?? '-' }}</h6>
+                                                <small class="text-success">GPA:
+                                                    {{ $application?->gpa_result ?? '-' }}</small>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <div>
-                                            <small><i
-                                                    class="fas fa-phone me-1"></i>{{ $application?->user?->mobile ?? 'N/A' }}</small>
-                                            <br>
-                                            <small><i
-                                                    class="fas fa-envelope me-1"></i>{{ $application?->user?->email ?? 'N/A' }}</small>
-                                        </div>
+                                          {{ $application?->user?->mobile ?? '-' }}
                                     </td>
-                                    <td>{{ $application->board->name ?? 'N/A' }}</td>
-                                    <td>{{ $application->division->name ?? 'N/A' }}</td>
+                                    <td>{{ $application->board->name ?? '-' }}</td>
+                                    <td>{{ $application->division->name ?? '-' }}</td>
                                     <td>
                                         @php
                                             $statusColors = [
@@ -378,7 +372,7 @@
                                             {{ $application->applicationStatus->name ?? 'Pending' }}
                                         </span>
                                     </td>
-                                    <td>
+                                    <td class="text-nowrap">
                                         {{ $application->created_at ? $application->created_at->format('d M, Y') : 'N/A' }}
                                         <br>
                                         <small
@@ -460,13 +454,11 @@
             </div>
             <div class="card-footer d-flex justify-content-between align-items-center">
                 <div>
-                    <small class="text-muted">
-                        Showing {{ $applications->firstItem() ?? 0 }} to {{ $applications->lastItem() ?? 0 }}
-                        of {{ $applications->total() }} entries
-                    </small>
+                    Showing {{ $applications->firstItem() ?? 0 }} to {{ $applications->lastItem() ?? 0 }} of
+                    {{ $applications->total() }} applications
                 </div>
                 <div>
-                    {{ $applications->links() }}
+                    {{ $applications->links('pagination::bootstrap-5') }}
                 </div>
             </div>
         </div>

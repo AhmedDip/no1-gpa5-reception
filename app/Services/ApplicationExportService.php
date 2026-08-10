@@ -34,6 +34,10 @@ class ApplicationExportService
             'wmReviewer',
         ]);
 
+        $query->whereHas('user', function (Builder $q) {
+            $q->where('lfcl_id', 1);
+        });
+
         $this->applyFilters($query, $filters);
 
         if ($upazilaIds !== null) {
