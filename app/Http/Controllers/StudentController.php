@@ -51,7 +51,7 @@ class StudentController extends Controller
             'tea_stall_name'     => 'required|string|max:255',
             'tea_stall_location' => 'required|string',
             'parent_mobile'      => ['required', 'regex:/^01\d{9}$/'],
-            'parent_photo'       => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'parent_photo'       => 'required|image|mimes:jpeg,png,jpg|max:5120',
         ], [
             'father_name.required'        => 'পিতার নাম প্রয়োজন',
             'mother_name.required'        => 'মাতার নাম প্রয়োজন',
@@ -59,6 +59,10 @@ class StudentController extends Controller
             'tea_stall_location.required' => 'চায়ের দোকানের অবস্থান প্রয়োজন',
             'parent_mobile.required'      => 'অভিভাবকের মোবাইল নম্বর প্রয়োজন',
             'parent_mobile.regex'         => 'অভিভাবকের মোবাইল নম্বর অবশ্যই ১১ সংখ্যার হতে হবে এবং 01 দিয়ে শুরু হতে হবে।',
+            'parent_photo.required'       => 'অভিভাবকের ছবি প্রয়োজন',
+            'parent_photo.image'          => 'অভিভাবকের ছবি অবশ্যই একটি ইমেজ ফাইল হতে হবে',
+            'parent_photo.mimes'          => 'অভিভাবকের ছবি অবশ্যই jpeg, png, jpg ফরম্যাটে হতে হবে',
+            'parent_photo.max'            => 'অভিভাবকের ছবির আকার 5MB এর বেশি হতে পারবে না',
         ]);
 
         $user = Auth::user();

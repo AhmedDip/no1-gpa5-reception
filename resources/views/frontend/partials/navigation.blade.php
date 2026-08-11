@@ -132,7 +132,7 @@
                                     </li>
                                 @else
                                     <li>
-                                        <a class="dropdown-item" href="{{ route('admin.applications') }}">
+                                        <a class="dropdown-item" href="{{ route('admin.applications.index') }}">
                                             <i class="fas fa-file-alt me-2 text-dark"></i> ড্যাশবোর্ড
                                         </a>
                                     </li>

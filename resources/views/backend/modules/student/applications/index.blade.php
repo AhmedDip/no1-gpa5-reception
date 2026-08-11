@@ -309,6 +309,8 @@
                                 <th>Phone</th>
                                 <th>Board</th>
                                 <th>Division</th>
+                                <th>District</th>
+                                <th>Upazila</th>
                                 <th>Status</th>
                                 <th>Date</th>
                                 <th class="text-center">Actions</th>
@@ -351,8 +353,10 @@
                                     <td>
                                           {{ $application?->user?->mobile ?? '-' }}
                                     </td>
-                                    <td>{{ $application->board->name ?? '-' }}</td>
-                                    <td>{{ $application->division->name ?? '-' }}</td>
+                                    <td>{{ $application?->board?->name ?? '-' }}</td>
+                                    <td>{{ $application?->division?->name ?? '-' }}</td>
+                                    <td>{{ $application?->district?->name ?? '-' }}</td>
+                                    <td>{{ $application?->upazila?->name ?? '-' }}</td>
                                     <td>
                                         @php
                                             $statusColors = [
@@ -439,7 +443,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="12" class="text-center py-4">
+                                    <td colspan="14" class="text-center py-4">
                                         <div class="d-flex flex-column align-items-center">
                                             <i class="fas fa-inbox fa-3x text-muted mb-2"></i>
                                             <h6 class="mb-0">No applications found</h6>

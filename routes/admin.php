@@ -136,6 +136,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::prefix('upazila-manager-assignments')->name('upazila-manager-assignments.')->group(function () {
             Route::get('/', [UpazilaManagerAssignmentController::class, 'index'])->name('index');
+            Route::get('/export', [UpazilaManagerAssignmentController::class, 'export'])->name('export');
             Route::post('/', [UpazilaManagerAssignmentController::class, 'store'])->name('store');
             Route::put('/{assignment}', [UpazilaManagerAssignmentController::class, 'update'])->name('update');
             Route::delete('/{assignment}', [UpazilaManagerAssignmentController::class, 'destroy'])->name('destroy');

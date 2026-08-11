@@ -221,7 +221,7 @@
                             <div class="form-section">
                                 <div class="section-title-icon">
                                     <i class="fas fa-camera"></i>
-                                    <h5>শিক্ষার্থীর ছবি</h5>
+                                    <h5>শিক্ষার্থীর ছবি <span class="text-danger">*</span></h5>
                                 </div>
 
                                 <div class="photo-upload-container">
@@ -229,7 +229,7 @@
                                         <div class="photo-placeholder" id="photoPlaceholder">
                                             <i class="fas fa-image" style="font-size: 4rem; color: #C7D2FE;"></i>
                                             <p class="text-muted mt-2 mb-0">ছবি নির্বাচন করুন</p>
-                                            <small class="text-muted">JPG, PNG (2MB)</small>
+                                            <small class="text-muted">JPG, PNG (Max: 5MB)</small>
                                         </div>
                                         <div class="photo-image-preview" id="photoImagePreview" style="display: none;">
                                             <img id="previewImg" src="" alt="প্রিভিউ">
@@ -247,10 +247,9 @@
                                             <i class="fas fa-folder-open"></i> ছবি নির্বাচন করুন
                                         </button>
                                         <small class="text-muted d-block mt-2">
-                                            <i class="fas fa-info-circle"></i> ছবি না দিলেও রেজিস্ট্রেশন করা যাবে
-                                            (পরবর্তীতে
-                                            দেওয়া যাবে)
+                                            <i class="fas fa-info-circle"></i> শিক্ষার্থীর ছবি দেওয়া বাধ্যতামূলক
                                         </small>
+                                        <div class="invalid-feedback d-block text-center" id="photoError"></div>
                                     </div>
 
                                     @error('student_photo')
@@ -420,6 +419,11 @@
             .photo-preview-area:hover {
                 border-color: #aa1b1d;
                 background: #F3F4F6;
+            }
+
+            .photo-preview-area.is-invalid {
+                border-color: #EF4444 !important;
+                background: #FFF5F5;
             }
 
             .photo-placeholder {
@@ -593,6 +597,23 @@
                     return isValid;
                 }
 
+                // Validate student photo (required)
+                function validatePhoto() {
+                    const photoPreviewArea = document.getElementById('photoPreviewArea');
+                    const photoError = document.getElementById('photoError');
+                    const hasFile = photoInput.files && photoInput.files.length > 0;
+
+                    if (!hasFile) {
+                        photoPreviewArea.classList.add('is-invalid');
+                        photoError.textContent = 'শিক্ষার্থীর ছবি আবশ্যক';
+                        return false;
+                    }
+
+                    photoPreviewArea.classList.remove('is-invalid');
+                    photoError.textContent = '';
+                    return true;
+                }
+
                 // Validate all fields
                 function validateAllFields() {
                     let allValid = true;
@@ -614,6 +635,11 @@
                         if (feedback) {
                             feedback.textContent = 'পাসওয়ার্ড মিলছে না';
                         }
+                        allValid = false;
+                    }
+
+                    // Student photo is required
+                    if (!validatePhoto()) {
                         allValid = false;
                     }
 
@@ -783,12 +809,12 @@
                         return;
                     }
 
-                    // Validate file size (max 2MB)
-                    const maxSize = 2 * 1024 * 1024;
+                    // Validate file size (max 5MB)
+                    const maxSize = 5 * 1024 * 1024;
                     if (file.size > maxSize) {
                         Swal.fire({
                             title: 'ত্রুটি!',
-                            text: 'ছবির সাইজ 2MB এর কম হতে হবে',
+                            text: 'ছবির সাইজ 5MB এর কম হতে হবে',
                             icon: 'error',
                             confirmButtonColor: '#4F46E5'
                         });
@@ -803,6 +829,9 @@
                         photoImagePreview.style.display = 'block';
                     };
                     reader.readAsDataURL(file);
+
+                    // Clear any prior "photo required" error now that a valid file is selected
+                    validatePhoto();
                 });
 
                 removePhotoBtn.addEventListener('click', function(e) {
@@ -811,6 +840,7 @@
                     photoPlaceholder.style.display = 'flex';
                     photoImagePreview.style.display = 'none';
                     previewImg.src = '';
+                    validatePhoto(); // re-flag as required since the file was removed
                 });
 
                 // ============== FORM SUBMIT ==============
@@ -862,7 +892,7 @@
                         if (result.isConfirmed) {
                             submitBtn.disabled = true;
                             submitBtn.innerHTML =
-                                '<i class="bi bi-hourglass-split"></i> জমা দেওয়া হচ্ছে...';
+                                '<i class="bi bi-hourglass-split"></i> জমা দেওয়া হচ্ছে...';
                             form.submit();
                         }
                     });

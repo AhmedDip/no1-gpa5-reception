@@ -9,6 +9,9 @@ use App\Models\Upazila;
 use App\Models\UpazilaManagerAssignment;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class UpazilaManagerAssignmentController extends Controller
 {
@@ -92,5 +95,108 @@ class UpazilaManagerAssignmentController extends Controller
         $assignment->delete();
 
         return response()->json(['success' => true, 'message' => 'অ্যাসাইনমেন্ট সফলভাবে মুছে ফেলা হয়েছে।']);
+    }
+
+    public function export(Request $request): StreamedResponse
+    {
+        $fileName = 'upazila_manager_assignments_' . now()->format('Y_m_d_His') . '.csv';
+
+        $headers = [
+            'Content-Type'        => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+            'Pragma'              => 'no-cache',
+            'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires'             => '0',
+        ];
+
+        $query = $this->buildFilteredQuery($request);
+
+        return new StreamedResponse(function () use ($query) {
+            $handle = fopen('php://output', 'w');
+
+            if ($handle === false) {
+                Log::error('UpazilaManagerAssignmentController: failed to open output stream for CSV export.');
+                return;
+            }
+
+            // UTF-8 BOM so Excel opens Bangla text correctly
+            fprintf($handle, chr(0xEF) . chr(0xBB) . chr(0xBF));
+
+            fputcsv($handle, [
+                'SL',
+                'Division',
+                'District',
+                'Upazila',
+                'Upazila ID',
+                'Staff ID',
+                'Staff Name',
+                'Role',
+                'Supervisor',
+                'Staff ID of Supervisor',
+            ]);
+
+            $sl = 1;
+
+            try {
+                $query->chunk(200, function ($rows) use ($handle, &$sl) {
+                    foreach ($rows as $row) {
+                        fputcsv($handle, [
+                            $sl++,
+                            $row->division_name,
+                            $row->district_name,
+                            $row->upazila_name,
+                            $row->upazila_id,
+                            $row->staff_id,
+                            $row->manager->name ?? '',
+                            $row->manager
+                                ? ($row->manager->isRegionalManager() ? 'Regional Manager' : 'Wing Manager')
+                                : '',
+                            $row->manager?->manager?->name ?? '',
+                            $row->manager?->manager?->email ?? '',
+                        ]);
+                    }
+                });
+            } catch (\Throwable $e) {
+                Log::error('UpazilaManagerAssignmentController: CSV export failed mid-stream: ' . $e->getMessage());
+            }
+
+            fclose($handle);
+        }, 200, $headers);
+    }
+
+    /**
+     * Shared filter + join logic for both the paginated list and the export,
+     * so the two never drift out of sync.
+     */
+    private function buildFilteredQuery(Request $request): Builder
+    {
+        $query = UpazilaManagerAssignment::query()->with(['manager.manager']);
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('upazila_name', 'LIKE', "%{$search}%")
+                    ->orWhere('staff_id', 'LIKE', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('user_id')) {
+            $query->where('user_id', $request->user_id);
+        }
+
+    
+
+        return $query->join('upazilas', 'upazila_manager_assignments.upazila_id', '=', 'upazilas.id')
+            ->join('districts', 'upazilas.district_id', '=', 'districts.id')
+            ->join('divisions', 'districts.division_id', '=', 'divisions.id')
+            ->select(
+                'upazila_manager_assignments.*',
+                'upazilas.name as upazila_name',
+                'districts.name as district_name',
+                'divisions.name as division_name'
+            )
+            ->orderBy('divisions.name')
+            ->orderBy('districts.name')
+            ->orderBy('upazilas.name');
     }
 }

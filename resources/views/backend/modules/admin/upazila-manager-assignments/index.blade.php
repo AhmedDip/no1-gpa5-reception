@@ -60,8 +60,14 @@
 
     {{-- Table --}}
     <div class="card">
-        <div class="card-header">
-            <h5 class="mb-0"><i class="fas fa-users me-2"></i>Assignments</h5>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="m-4 p-4"><i class="bx bx-map-pin me-1"></i> Upazila Manager Assignments</h5>
+            <div class="d-flex gap-2 p-4">
+                <a href="{{ route('admin.upazila-manager-assignments.export', request()->query()) }}"
+                    class="btn btn-success btn-sm">
+                    <i class="fas fa-file-excel me-1"></i> Export to Excel
+                </a>
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -73,8 +79,8 @@
                             <th>District</th>
                             <th>Upazila</th>
                             <th>Staff ID</th>
-                            <th>Assigned Manager</th>
-                            <th>Reports To</th>
+                            <th>Staff Name</th>
+                            <th>Supervisor</th>
                             <th width="120" class="text-center">Actions</th>
                         </tr>
                     </thead>
@@ -94,8 +100,7 @@
                                     @if ($row->manager)
                                         {{ $row->manager->name }}
                                         <br>
-                                        <span
-                                            class="badge bg-label-{{ $row->manager->isRegionalManager() ? 'info' : 'primary' }}">
+                                        <span class="badge bg-label-{{ $row->manager->isRegionalManager() ? 'info' : 'primary' }}">
                                             {{ $row->manager->isRegionalManager() ? 'Regional Manager' : 'Wing Manager' }}
                                         </span>
                                     @else
@@ -107,15 +112,12 @@
                                     {{ $row->manager?->manager?->name }} ({{ $row->manager?->manager?->email ?? '—' }})
                                 </td>
                                 <td class="text-center">
-                                    <button type="button"
-                                        class="btn btn-icon btn-outline-warning btn-sm btn-edit-assignment"
+                                    <button type="button" class="btn btn-icon btn-outline-warning btn-sm btn-edit-assignment"
                                         data-id="{{ $row->id }}" data-upazila-id="{{ $row->upazila_id }}"
-                                        data-user-id="{{ $row->user_id }}" data-staff-id="{{ $row->staff_id }}"
-                                        title="Edit">
+                                        data-user-id="{{ $row->user_id }}" data-staff-id="{{ $row->staff_id }}" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button type="button"
-                                        class="btn btn-icon btn-outline-danger btn-sm btn-delete-assignment"
+                                    <button type="button" class="btn btn-icon btn-outline-danger btn-sm btn-delete-assignment"
                                         data-id="{{ $row->id }}" title="Delete">
                                         <i class="fas fa-trash"></i>
                                     </button>
@@ -234,7 +236,7 @@
 
 @push('script')
     <script>
-        $(function() {
+        $(function () {
             const assignmentModalEl = document.getElementById('assignmentModal');
             const assignmentModal = new bootstrap.Modal(assignmentModalEl);
 
@@ -255,14 +257,14 @@
             }
 
             function showErrors(errors) {
-                $.each(errors, function(field, messages) {
+                $.each(errors, function (field, messages) {
                     $('#' + field).addClass('is-invalid');
                     $('[data-error="' + field + '"]').text(messages[0]);
                 });
             }
 
             // Auto-fill staff_id from the selected manager's email/username
-            $('#user_id').on('change', function() {
+            $('#user_id').on('change', function () {
                 const staffEmail = $(this).find(':selected').data('staff-email');
                 if (staffEmail) {
                     $('#staff_id').val(staffEmail);
@@ -270,7 +272,7 @@
             });
 
             // ===================== ADD =====================
-            $('#btnAddAssignment').click(function() {
+            $('#btnAddAssignment').click(function () {
                 $('#assignmentForm')[0].reset();
                 clearErrors();
                 $('#assignmentMethod').val('POST');
@@ -282,7 +284,7 @@
             });
 
             // ===================== EDIT =====================
-            $(document).on('click', '.btn-edit-assignment', function() {
+            $(document).on('click', '.btn-edit-assignment', function () {
                 $('#assignmentForm')[0].reset();
                 clearErrors();
                 $('#assignmentMethod').val('PUT');
@@ -295,7 +297,7 @@
             });
 
             // ===================== SAVE (CREATE/UPDATE) =====================
-            $('#assignmentForm').submit(function(e) {
+            $('#assignmentForm').submit(function (e) {
                 e.preventDefault();
                 clearErrors();
 
@@ -312,13 +314,13 @@
                     beforeSend: () => $('#assignmentSubmitBtn').prop('disabled', true)
                         .html(
                             '<span class="spinner-border spinner-border-sm me-1"></span> Saving...'
-                            ),
-                    success: function(res) {
+                        ),
+                    success: function (res) {
                         toastr.success(res.message);
                         assignmentModal.hide();
                         setTimeout(() => location.reload(), 1000);
                     },
-                    error: function(xhr) {
+                    error: function (xhr) {
                         if (xhr.status === 422 && xhr.responseJSON?.errors) {
                             showErrors(xhr.responseJSON.errors);
                         } else {
@@ -330,7 +332,7 @@
             });
 
             // ===================== DELETE =====================
-            $(document).on('click', '.btn-delete-assignment', function() {
+            $(document).on('click', '.btn-delete-assignment', function () {
                 const id = $(this).data('id');
                 if (!confirm('Are you sure you want to delete this assignment?')) return;
 
@@ -341,11 +343,11 @@
                         _token: '{{ csrf_token() }}',
                         _method: 'DELETE'
                     },
-                    success: function(res) {
+                    success: function (res) {
                         toastr.success(res.message);
                         setTimeout(() => location.reload(), 1000);
                     },
-                    error: function(xhr) {
+                    error: function (xhr) {
                         toastr.error(xhr.responseJSON?.message || 'Could not delete.');
                     }
                 });

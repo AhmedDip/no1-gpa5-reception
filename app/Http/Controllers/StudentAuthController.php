@@ -49,7 +49,7 @@ class StudentAuthController extends Controller
             'division_id' => 'required|exists:divisions,id',
             'district_id' => 'required|exists:districts,id',
             'upazila_id' => 'required|exists:upazilas,id',
-            'student_photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'student_photo' => 'required|image|mimes:jpeg,png,jpg|max:5120',
         ], [
             'name_en.required' => 'ইংরেজিতে নাম প্রয়োজন',
             'name_bn.required' => 'বাংলায় নাম প্রয়োজন',
@@ -63,6 +63,10 @@ class StudentAuthController extends Controller
             'division_id.required' => 'বিভাগ নির্বাচন করুন',
             'district_id.required' => 'জেলা নির্বাচন করুন',
             'upazila_id.required' => 'উপজেলা নির্বাচন করুন',
+            'student_photo.required' => 'ছবি আপলোড করুন',
+            'student_photo.image' => 'ছবি অবশ্যই একটি ইমেজ ফাইল হতে হবে',
+            'student_photo.mimes' => 'ছবি অবশ্যই jpeg, png, jpg ফরম্যাটে হতে হবে',
+            'student_photo.max' => 'ছবির আকার 5MB এর বেশি হতে পারবে না',
         ]);
 
         DB::beginTransaction();

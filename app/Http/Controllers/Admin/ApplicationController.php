@@ -65,7 +65,6 @@ class ApplicationController extends Controller
         //     $countsBase->whereIn('upazila_id', $upazilaIds);
         // }
 
-        //check if users table lfcl_id == 1
         $countsBase = StudentDetail::whereHas('user', function ($q) {
             $q->where('lfcl_id', 1);
         });
@@ -102,6 +101,8 @@ class ApplicationController extends Controller
         );
 
         // dd($orgHierarchy);
+
+        // dd($applications);
 
 
         return view('backend.modules.student.applications.index', compact(

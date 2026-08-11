@@ -631,7 +631,7 @@
 
                             <div class="alert alert-info">
                                 <i class="fas fa-info-circle me-2"></i>
-                                আপনার ড্যাশবোর্ড সম্পূর্ণভাবে দেখার জন্য অভিভাবকের তথ্য প্রদান করা আবশ্যক।
+                                রেজিস্ট্রেশন সম্পূর্ণ করতে এবং পূর্ণাঙ্গ তথ্য পেতে অভিভাবকের তথ্য প্রদান করুন।
                             </div>
 
                             <div class="row g-3">
@@ -685,7 +685,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label">অভিভাবকের ছবি</label>
+                                    <label class="form-label required">অভিভাবকের ছবি</label>
                                     <input type="file" class="form-control @error('parent_photo') is-invalid @enderror"
                                         name="parent_photo" accept="image/*" id="parentPhoto">
                                     <small class="text-muted">জেপিইজি বা পিএনজি ফরম্যাটে (সর্বোচ্চ ২এমবি)</small>
