@@ -23,15 +23,15 @@ class ApplicationExportService
     public function buildQuery(array $filters, ?array $upazilaIds = null): Builder
     {
         $query = StudentDetail::with([
-            'user',
-            'board',
-            'group',
-            'division',
-            'district',
-            'upazila',
-            'applicationStatus',
-            'rmReviewer',
-            'wmReviewer',
+            'user:id,mobile,email,is_mobile_verified',
+            'board:id,name,name_bn',
+            'group:id,name,name_bn',
+            'division:id,name,name_bn',
+            'district:id,name,name_bn',
+            'upazila:id,name,name_bn',
+            'applicationStatus:id,name',
+            'rmReviewer:id,name',
+            'wmReviewer:id,name',
         ]);
 
         $query->whereHas('user', function (Builder $q) {
@@ -91,16 +91,16 @@ class ApplicationExportService
         $fileName = 'applications_' . now()->format('Y_m_d_His') . '.csv';
 
         $headers = [
-            'Content-Type'        => 'text/csv; charset=UTF-8',
+            'Content-Type' => 'text/csv; charset=UTF-8',
             'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
-            'Pragma'              => 'no-cache',
-            'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0',
-            'Expires'             => '0',
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
         ];
 
         // Resolve Wing/Region/Territory once for every upazila in the result
         // set, so we never hit the resolver per-row inside the chunk loop.
-        $baseQuery       = $this->buildQuery($filters, $upazilaIds);
+        $baseQuery = $this->buildQuery($filters, $upazilaIds);
         $distinctUpazilaIds = (clone $baseQuery)
             ->whereNotNull('upazila_id')
             ->select('upazila_id')

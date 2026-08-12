@@ -306,7 +306,9 @@
                                 <th>Region</th>
                                 <th>Territory</th>
                                 <th>Student</th>
-                                <th>Phone</th>
+                                <th>Mobile</th>
+                                <th>Mobile Verified</th>
+                                <th>Parent Info.</th>
                                 <th>Board</th>
                                 <th>Division</th>
                                 <th>District</th>
@@ -352,6 +354,20 @@
                                     </td>
                                     <td>
                                           {{ $application?->user?->mobile ?? '-' }}
+                                    </td>
+                                    <td>
+                                        @if ($application?->user?->is_mobile_verified)
+                                            <span class="badge bg-label-success">YES</span>
+                                        @else
+                                            <span class="badge bg-label-danger">NO</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($application?->is_parent_info_provided)
+                                            <span class="badge bg-label-success">YES</span>
+                                        @else
+                                            <span class="badge bg-label-danger">NO</span>
+                                        @endif
                                     </td>
                                     <td>{{ $application?->board?->name ?? '-' }}</td>
                                     <td>{{ $application?->division?->name ?? '-' }}</td>
@@ -443,7 +459,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="14" class="text-center py-4">
+                                    <td colspan="16" class="text-center py-4">
                                         <div class="d-flex flex-column align-items-center">
                                             <i class="fas fa-inbox fa-3x text-muted mb-2"></i>
                                             <h6 class="mb-0">No applications found</h6>

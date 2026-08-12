@@ -608,8 +608,8 @@
                             <i class="fas fa-users me-2"></i>অভিভাবকের তথ্য প্রদান করুন
                         </h5>
                         @if(!$errors->any())
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                            <!--<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"-->
+                            <!--    aria-label="Close"></button>-->
                         @endif
                     </div>
                     <form action="{{ route('student.update.parent') }}" method="POST" enctype="multipart/form-data"
@@ -631,7 +631,7 @@
 
                             <div class="alert alert-info">
                                 <i class="fas fa-info-circle me-2"></i>
-                                রেজিস্ট্রেশন সম্পূর্ণ করতে এবং পূর্ণাঙ্গ তথ্য পেতে অভিভাবকের তথ্য প্রদান করুন।
+                             রেজিস্ট্রেশন সম্পূর্ণ করতে এবং পূর্ণাঙ্গ তথ্য পেতে অভিভাবকের তথ্য প্রদান করুন।
                             </div>
 
                             <div class="row g-3">
@@ -655,18 +655,18 @@
 
                             <div class="row g-3 mt-1">
                                 <div class="col-md-6">
-                                    <label class="form-label required">চায়ের দোকানের নাম</label>
+                                    <label class="form-label required">দোকানের নাম</label>
                                     <input type="text" class="form-control @error('tea_stall_name') is-invalid @enderror"
-                                        name="tea_stall_name" placeholder="চায়ের দোকানের নাম"
+                                        name="tea_stall_name" placeholder=" দোকানের নাম"
                                         value="{{ old('tea_stall_name') }}" required>
                                     @error('tea_stall_name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label required">চায়ের দোকানের অবস্থান</label>
+                                    <label class="form-label required">দোকানের অবস্থান</label>
                                     <input type="text" class="form-control @error('tea_stall_location') is-invalid @enderror"
-                                        name="tea_stall_location" placeholder="চায়ের দোকানের অবস্থান"
+                                        name="tea_stall_location" placeholder=" দোকানের অবস্থান"
                                         value="{{ old('tea_stall_location') }}" required>
                                     @error('tea_stall_location')
                                         <div class="invalid-feedback">{{ $message }}</div>

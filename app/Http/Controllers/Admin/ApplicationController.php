@@ -60,6 +60,8 @@ class ApplicationController extends Controller
         // $applications = $query->paginate($perPage)->withQueryString();
         $applications = $query->orderBy('id', 'desc')->paginate($perPage)->withQueryString();
 
+        // dd($applications);
+
         // $countsBase = StudentDetail::query();
         // if ($upazilaIds !== null) {
         //     $countsBase->whereIn('upazila_id', $upazilaIds);
