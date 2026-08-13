@@ -59,7 +59,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label">ইমেইল (ঐচ্ছিক)</label>
+                                        <label class="form-label">ইমেইল </label>
                                         <input type="email" class="form-control @error('email') is-invalid @enderror"
                                             name="email" value="{{ old('email') }}" placeholder="your@email.com">
                                         <div class="invalid-feedback">সঠিক ইমেইল ঠিকানা দিন</div>

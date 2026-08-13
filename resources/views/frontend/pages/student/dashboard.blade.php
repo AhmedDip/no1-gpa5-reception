@@ -526,7 +526,7 @@
                                     </div>
                                     <div class="detail-row">
                                         <div class="row g-0">
-                                            <div class="col-5 detail-label">দোকানের অবস্থান:</div>
+                                            <div class="col-5 detail-label">চায়ের দোকানের অবস্থান:</div>
                                             <div class="col-7 detail-value">{{ $studentDetail->tea_stall_location }}</div>
                                         </div>
                                     </div>
@@ -685,7 +685,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label required">অভিভাবকের ছবি</label>
+                                    <label class="form-label required">অভিভাবকের ছবি / অভিভাবকের সাথে ছবি</label>
                                     <input type="file" class="form-control @error('parent_photo') is-invalid @enderror"
                                         name="parent_photo" accept="image/*" id="parentPhoto">
                                     <small class="text-muted">জেপিইজি বা পিএনজি ফরম্যাটে (সর্বোচ্চ ২এমবি)</small>

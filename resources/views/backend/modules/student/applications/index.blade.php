@@ -293,7 +293,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover table-bordered align-middle">
+                    <table class="table table-hover table-bordered align-middle" style="font-size: 0.75rem;">
                         <thead class="table-light">
                             <tr>
                                 <th width="30">
@@ -790,6 +790,7 @@
         .gap-2 {
             gap: 0.5rem;
         }
+
     </style>
 @endpush
 

@@ -29,7 +29,7 @@ class ApplicationExportService
             'division:id,name,name_bn',
             'district:id,name,name_bn',
             'upazila:id,name,name_bn',
-            'applicationStatus:id,name',
+            'applicationStatus:id,name,slug',
             'rmReviewer:id,name',
             'wmReviewer:id,name',
         ]);

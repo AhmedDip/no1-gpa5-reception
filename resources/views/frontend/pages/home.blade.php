@@ -407,7 +407,7 @@
                     <div class="mt-2 pt-2 border-top border-warning border-opacity-25">
                         <div class="d-flex justify-content-between align-items-center small text-dark-emphasis"
                             style="font-size: 0.75rem;">
-                            <span><i class="fas fa-calendar-check text-danger me-1"></i>শেষ তারিখ: আগস্ট ২০, ২০২৬</span>
+                            <span><i class="fas fa-calendar-check text-danger me-1"></i>শেষ তারিখ: আগস্ট ২৫, ২০২৬</span>
                             <span><i class="fas fa-location-dot text-danger me-1"></i>সংবর্ধনার স্থান : ঢাকা</span>
                         </div>
                     </div>
@@ -468,7 +468,7 @@
                                 style="width: 70px; height: 70px;">
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-5 mb-1">আবেদনের শেষ তারিখ </h5>
-                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">২০ আগস্ট</p>
+                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">২৫ আগস্ট</p>
                         <p class="text-secondary small mb-0">২০২৬</p>
                         <span class="badge bg-danger-soft text-danger mt-2 px-3 py-1 rounded-pill small fw-normal"
                             style="background: rgba(239, 68, 68, 0.08);">শেষ</span>
@@ -487,7 +487,7 @@
                                 style="width: 70px; height: 70px;">
                         </div>
                         <h5 class="fw-bold fs-6 fs-md-5 mb-1">সংবর্ধনা</h5>
-                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0"> </p>
+                        <p class="fs-4 fs-md-3 fw-bold text-dark mb-0">৫ সেপ্টেম্বর  </p>
                         <p class="text-secondary small mb-0">২০২৬</p>
                         <span class="badge bg-warning-soft text-warning mt-2 px-3 py-1 rounded-pill small fw-normal"
                             style="background: rgba(236, 246, 92, 0.08);">আয়োজন</span>
