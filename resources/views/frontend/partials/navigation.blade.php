@@ -17,7 +17,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#stories">সফলতার গল্প</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#gallery">গ্যালারি</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}#faq">
-                           সচরাচর জিজ্ঞাসা
+                            সচরাচর জিজ্ঞাসা
                         </a></li>
                     <li class="nav-item">
                         <a class="nav-link position-relative d-inline-flex align-items-center gap-1"
@@ -70,9 +70,11 @@
                                                     <div class="flex-grow-1">
                                                         <div class="fw-semibold small">{{ $notif->title }}</div>
                                                         <div class="text-muted small notif-msg">
-                                                            {{ \Illuminate\Support\Str::limit($notif->message, 60) }}</div>
+                                                            {{ \Illuminate\Support\Str::limit($notif->message, 60) }}
+                                                        </div>
                                                         <div class="text-muted" style="font-size: 0.7rem;">
-                                                            {{ $notif->created_at->diffForHumans() }}</div>
+                                                            {{ $notif->created_at->diffForHumans() }}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </a>
@@ -99,8 +101,8 @@
                                     $studentDetail = Auth::user()->studentDetail;
                                 @endphp
                                 @if ($studentDetail && $studentDetail->student_photo)
-                                    <img src="{{ $studentDetail->student_photo_url }}" class="rounded-circle" width="32"
-                                        height="32" style="object-fit: cover;">
+                                    <img src="{{ $studentDetail->student_photo_url }}" class="rounded-circle" width="32" height="32"
+                                        style="object-fit: cover;">
                                 @else
                                     <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white"
                                         style="width: 32px; height: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;">
@@ -108,7 +110,7 @@
                                     </div>
                                 @endif
                                 <span>
-                                  {{ strtok(Auth::user()->name, ' ') }}
+                                    {{ strtok(Auth::user()->name, ' ') }}
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="userDropdown">
@@ -124,6 +126,16 @@
                                             <i class="fas fa-file-alt me-2 text-dark"></i> ড্যাশবোর্ড
                                         </a>
                                     </li>
+                                    @if ($studentDetail && $studentDetail->application_status_id == 1)
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('student.edit.application') }}">
+                                                <i class="fas fa-edit me-2 text-dark"></i> আবেদন সম্পাদনা করুন
+                                            </a>
+                                        </li>
+                                    @endif
                                 @elseif (Auth::user()->user_type_id == 2)
                                     <li>
                                         <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
@@ -168,8 +180,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="btn btn-danger text-white px-4 btn-register-glow"
-                                href="{{ route('student.register') }}">
+                            <a class="btn btn-danger text-white px-4 btn-register-glow" href="{{ route('student.register') }}">
                                 <i class="fas fa-user-plus me-1"></i>
                                 রেজিস্ট্রেশন
                             </a>
@@ -196,8 +207,7 @@
                             <div class="mb-3">
                                 <label class="form-label required">বর্তমান পাসওয়ার্ড</label>
                                 <div class="input-group">
-                                    <input type="password"
-                                        class="form-control @error('current_password') is-invalid @enderror"
+                                    <input type="password" class="form-control @error('current_password') is-invalid @enderror"
                                         name="current_password" id="current_password" required>
                                     <button class="btn btn-outline-secondary toggle-pass" type="button"
                                         data-target="current_password"><i class="fas fa-eye"></i></button>
@@ -246,7 +256,7 @@
 @push('scripts')
     <script>
         // Change navbar style on scroll
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             const navbar = document.querySelector('.navbar');
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
@@ -284,33 +294,33 @@
 
         // Handle logout with SweetAlert
         @auth
-        const logoutBtn = document.getElementById('logoutBtn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                Swal.fire({
-                    title: 'লগআউট করুন',
-                    text: "আপনি কি নিশ্চিত যে লগআউট করতে চান?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d32f2f',
-                    cancelButtonColor: '#6c757d',
-                    confirmButtonText: 'হ্যাঁ, লগআউট',
-                    cancelButtonText: 'বাতিল করুন',
-                    background: '#fff',
-                    iconColor: '#d32f2f'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        document.getElementById('logout-form').submit();
-                    }
+                        const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    Swal.fire({
+                        title: 'লগআউট করুন',
+                        text: "আপনি কি নিশ্চিত যে লগআউট করতে চান?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d32f2f',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'হ্যাঁ, লগআউট',
+                        cancelButtonText: 'বাতিল করুন',
+                        background: '#fff',
+                        iconColor: '#d32f2f'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            document.getElementById('logout-form').submit();
+                        }
+                    });
                 });
-            });
-        }
+            }
         @endauth
 
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
                 if (href !== '#' && href !== '' && href !== '#userDropdown') {
                     e.preventDefault();
@@ -329,7 +339,7 @@
     @auth
         @if (Auth::user()->user_type_id == 1)
             <script>
-                document.addEventListener('DOMContentLoaded', function() {
+                document.addEventListener('DOMContentLoaded', function () {
                     const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
                     function updateBadge(delta) {
@@ -344,8 +354,8 @@
                         }
                     }
 
-                    document.querySelectorAll('.notif-item[data-id]').forEach(function(item) {
-                        item.addEventListener('click', function(e) {
+                    document.querySelectorAll('.notif-item[data-id]').forEach(function (item) {
+                        item.addEventListener('click', function (e) {
                             e.preventDefault();
                             const title = this.dataset.title;
                             const message = this.dataset.message;
@@ -368,14 +378,14 @@
                                         'X-CSRF-TOKEN': csrfToken,
                                         'Content-Type': 'application/json'
                                     }
-                                }).catch(() => {});
+                                }).catch(() => { });
                             }
                         });
                     });
 
                     const markAllBtn = document.getElementById('markAllReadBtn');
                     if (markAllBtn) {
-                        markAllBtn.addEventListener('click', function(e) {
+                        markAllBtn.addEventListener('click', function (e) {
                             e.preventDefault();
                             fetch('{{ route('student.notifications.read-all') }}', {
                                 method: 'POST',
@@ -399,13 +409,13 @@
 
     @auth
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function () {
                 @if ($errors->has('current_password') || $errors->has('new_password'))
                     new bootstrap.Modal(document.getElementById('passwordModal')).show();
                 @endif
 
-                document.querySelectorAll('#passwordModal .toggle-pass').forEach(function(btn) {
-                    btn.addEventListener('click', function() {
+                document.querySelectorAll('#passwordModal .toggle-pass').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
                         const target = document.getElementById(this.dataset.target);
                         const icon = this.querySelector('i');
                         const isHidden = target.type === 'password';
@@ -417,7 +427,7 @@
 
                 const passwordForm = document.getElementById('passwordForm');
                 if (passwordForm) {
-                    passwordForm.addEventListener('submit', function(e) {
+                    passwordForm.addEventListener('submit', function (e) {
                         const newPass = document.getElementById('new_password').value;
                         const confirmPass = document.getElementById('new_password_confirmation').value;
                         if (newPass !== confirmPass) {
