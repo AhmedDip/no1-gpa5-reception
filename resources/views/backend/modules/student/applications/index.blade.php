@@ -480,7 +480,6 @@
                                                         ($me->isWingManager() &&
                                                             in_array($slug, [
                                                                 \App\Models\StudentDetail::STATUS_APPROVED_BY_RM,
-                                                                \App\Models\StudentDetail::STATUS_REJECTED_BY_RM,
                                                             ]));
                                             @endphp
 
