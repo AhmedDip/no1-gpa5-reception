@@ -336,26 +336,26 @@
                     <table class="table table-hover table-bordered align-middle" style="font-size: 0.75rem; margin-bottom: 0;">
                         <thead class="table-light sticky-header">
                             <tr>
-                                <th width="30" style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">
+                                <th width="30" style="position: sticky; top: 0; background: #e7fffffd; z-index: 10;">
                                     @if (auth()->user()->isAdmin())
                                         <input type="checkbox" id="selectAll" class="form-check-input">
                                     @endif
                                 </th>
-                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">#</th>
-                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Wing</th>
-                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Region</th>
-                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Territory</th>
-                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Student</th>
-                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Mobile</th>
-                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Mobile Verified</th>
-                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Parent Info.</th>
-                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Board</th>
-                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Division</th>
-                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">District</th>
-                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Upazila</th>
-                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Status</th>
-                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Date</th>
-                                <th class="text-center" style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Actions</th>
+                                <th style="position: sticky; top: 0; background: #e7fffffd; z-index: 10;">#</th>
+                                <th style="position: sticky; top: 0; background: #e7fffffd; z-index: 10;">Wing</th>
+                                <th style="position: sticky; top: 0; background: #e7fffffd; z-index: 10;">Region</th>
+                                <th style="position: sticky; top: 0; background: #e7fffffd; z-index: 10;">Territory</th>
+                                <th style="position: sticky; top: 0; background: #e7fffffd; z-index: 10;">Student</th>
+                                <th style="position: sticky; top: 0; background: #e7fffffd; z-index: 10;">Mobile</th>
+                                <th style="position: sticky; top: 0; background: #e7fffffd; z-index: 10;">Mobile Verified</th>
+                                <th style="position: sticky; top: 0; background: #e7fffffd; z-index: 10;">Parent Info.</th>
+                                <th style="position: sticky; top: 0; background: #e7fffffd; z-index: 10;">Board</th>
+                                <th style="position: sticky; top: 0; background: #e7fffffd; z-index: 10;">Division</th>
+                                <th style="position: sticky; top: 0; background: #e7fffffd; z-index: 10;">District</th>
+                                <th style="position: sticky; top: 0; background: #e7fffffd; z-index: 10;">Upazila</th>
+                                <th style="position: sticky; top: 0; background: #e7fffffd; z-index: 10;">Status</th>
+                                <th style="position: sticky; top: 0; background: #e7fffffd; z-index: 10;">Date</th>
+                                <th class="text-center" style="position: sticky; top: 0; background: #e7fffffd; z-index: 10;">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
