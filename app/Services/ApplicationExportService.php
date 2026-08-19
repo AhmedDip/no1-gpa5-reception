@@ -19,8 +19,9 @@ class ApplicationExportService
      *
      * @param array         $filters    status, board, division, district, search
      * @param array|null    $upazilaIds Optional RM/WM scope restriction (null = unrestricted/admin)
+     * @param string[]|null $visibleStatuses Optional role-based status visibility
      */
-    public function buildQuery(array $filters, ?array $upazilaIds = null): Builder
+    public function buildQuery(array $filters, ?array $upazilaIds = null, ?array $visibleStatuses = null): Builder
     {
         $query = StudentDetail::with([
             'user:id,mobile,email,is_mobile_verified',
@@ -39,6 +40,14 @@ class ApplicationExportService
         });
 
         $this->applyFilters($query, $filters);
+
+        if ($visibleStatuses !== null) {
+            $query->whereHas(
+                'applicationStatus',
+                fn(Builder $statusQuery) =>
+                $statusQuery->whereIn('slug', $visibleStatuses)
+            );
+        }
 
         if (!empty($filters['wing'])) {
             $query->whereIn(
@@ -104,7 +113,7 @@ class ApplicationExportService
      * Wing / Region / Territory (resolved via OrgHierarchyService) so the
      * export mirrors exactly what the admin sees in the applications table.
      */
-    public function downloadCsv(array $filters, ?array $upazilaIds = null): StreamedResponse
+    public function downloadCsv(array $filters, ?array $upazilaIds = null, ?array $visibleStatuses = null): StreamedResponse
     {
         $fileName = 'applications_' . now()->format('Y_m_d_His') . '.csv';
 
@@ -118,7 +127,7 @@ class ApplicationExportService
 
         // Resolve Wing/Region/Territory once for every upazila in the result
         // set, so we never hit the resolver per-row inside the chunk loop.
-        $baseQuery = $this->buildQuery($filters, $upazilaIds);
+        $baseQuery = $this->buildQuery($filters, $upazilaIds, $visibleStatuses);
         $distinctUpazilaIds = (clone $baseQuery)
             ->whereNotNull('upazila_id')
             ->select('upazila_id')
@@ -128,7 +137,7 @@ class ApplicationExportService
 
         $orgHierarchy = $this->orgHierarchy->resolveForUpazilas($distinctUpazilaIds);
 
-        $exportQuery = $this->buildQuery($filters, $upazilaIds)
+        $exportQuery = $this->buildQuery($filters, $upazilaIds, $visibleStatuses)
             ->withCount('smsLogs')
             ->orderBy('created_at', 'desc');
 

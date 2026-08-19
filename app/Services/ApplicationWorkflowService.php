@@ -66,18 +66,11 @@ class ApplicationWorkflowService
     {
         $currentSlug = $application->applicationStatus?->slug;
 
-        if (!in_array($currentSlug, [
-            StudentDetail::STATUS_APPROVED_BY_RM,
-            StudentDetail::STATUS_REJECTED_BY_RM,
-        ], true)) {
+        if ($currentSlug !== StudentDetail::STATUS_APPROVED_BY_RM) {
             throw new \RuntimeException('RM পর্যালোচনার আগে WM অনুমোদন করা যাবে না।');
         }
 
-        // WM has override authority: approving after an RM rejection is a
-        // deliberate override, so the audit trail should say so explicitly.
-        $defaultRemarks = $currentSlug === StudentDetail::STATUS_REJECTED_BY_RM
-            ? 'উইং ম্যানেজার কর্তৃক অনুমোদিত (RM প্রত্যাখ্যান ওভাররাইড করা হয়েছে)'
-            : 'উইং ম্যানেজার কর্তৃক অনুমোদিত';
+        $defaultRemarks = 'উইং ম্যানেজার কর্তৃক অনুমোদিত';
 
         DB::transaction(function () use ($application, $wm, $remarks, $defaultRemarks) {
             $this->changeStatus(
@@ -100,10 +93,7 @@ class ApplicationWorkflowService
 
     public function wmReject(StudentDetail $application, User $wm, string $remarks): StudentDetail
     {
-        if (!in_array($application->applicationStatus?->slug, [
-            StudentDetail::STATUS_APPROVED_BY_RM,
-            StudentDetail::STATUS_REJECTED_BY_RM,
-        ], true)) {
+        if ($application->applicationStatus?->slug !== StudentDetail::STATUS_APPROVED_BY_RM) {
             throw new \RuntimeException('RM পর্যালোচনার আগে WM প্রত্যাখ্যান করা যাবে না।');
         }
 
@@ -134,18 +124,18 @@ class ApplicationWorkflowService
         string $remarks,
     ): void {
         $previousStatusId = $application->application_status_id;
-        $newStatusId       = ApplicationStatus::where('slug', $toSlug)->value('id');
+        $newStatusId = ApplicationStatus::where('slug', $toSlug)->value('id');
 
         $application->update(['application_status_id' => $newStatusId]);
 
         ApplicationAuditLog::create([
-            'student_detail_id'  => $application->id,
-            'performed_by'       => $actor->id,
-            'action'             => $action,
-            'remarks'            => $remarks,
+            'student_detail_id' => $application->id,
+            'performed_by' => $actor->id,
+            'action' => $action,
+            'remarks' => $remarks,
             'previous_status_id' => $previousStatusId,
-            'new_status_id'      => $newStatusId,
-            'ip_address'         => request()->ip(),
+            'new_status_id' => $newStatusId,
+            'ip_address' => request()->ip(),
         ]);
     }
 }

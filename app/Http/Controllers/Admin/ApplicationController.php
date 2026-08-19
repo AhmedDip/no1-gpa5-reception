@@ -18,6 +18,7 @@ use App\Services\ManagerScopeService;
 use App\Services\NotificationService;
 use App\Services\OrgHierarchyService;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -55,6 +56,7 @@ class ApplicationController extends Controller
         $upazilaIds = $this->scopeUpazilaIds();
 
         $query = $this->exportService->buildQuery($filters);
+        $this->applyRoleVisibility($query);
         if ($upazilaIds !== null) {
             $query->whereIn('upazila_id', $upazilaIds);
         }
@@ -244,6 +246,15 @@ class ApplicationController extends Controller
 
     public function reject(Request $request, int $id)
     {
+        $request->validate([
+            'remarks' => 'required|string|min:5|max:1000',
+            'send_sms' => 'nullable|boolean',
+        ], [
+            'remarks.required' => 'প্রত্যাখ্যানের কারণ লিখুন।',
+            'remarks.min' => 'প্রত্যাখ্যানের কারণ কমপক্ষে ৫ অক্ষরের হতে হবে।',
+        ]);
+
+        $remarks = $request->input('remarks');
         $user = Auth::user();
         $app = $this->findScoped($id, ['user']);
 
@@ -255,19 +266,19 @@ class ApplicationController extends Controller
                     return $this->jsonOrRedirect($request, false, 'আবেদনটি ইতিমধ্যে প্রত্যাখ্যাত।');
                 }
 
-                DB::transaction(function () use ($app, $rejectedStatus, $request) {
+                DB::transaction(function () use ($app, $rejectedStatus, $remarks, $request) {
                     $previousStatus = $app->application_status_id;
                     $app->update(['application_status_id' => $rejectedStatus]);
-                    $this->logAction($app->id, 'reject', $request->remarks, $previousStatus, $rejectedStatus, $request->ip());
+                    $this->logAction($app->id, 'reject', $remarks, $previousStatus, $rejectedStatus, $request->ip());
                 });
 
                 if ($request->boolean('send_sms', true)) {
-                    $this->notificationService->notifyRejected($app->fresh(), $request->remarks);
+                    $this->notificationService->notifyRejected($app->fresh(), $remarks);
                 }
             } elseif ($user->isRegionalManager()) {
-                $this->workflowService->rmReject($app, $user, $request->remarks);
+                $this->workflowService->rmReject($app, $user, $remarks);
             } elseif ($user->isWingManager()) {
-                $this->workflowService->wmReject($app, $user, $request->remarks);
+                $this->workflowService->wmReject($app, $user, $remarks);
             } else {
                 return $this->jsonOrRedirect($request, false, 'আপনার অনুমতি নেই।', 403);
             }
@@ -489,7 +500,7 @@ class ApplicationController extends Controller
 
         $filters = $request->only(['status', 'wing', 'region', 'board', 'division', 'district', 'search']);
         $upazilaIds = $this->scopeUpazilaIds();
-        return $this->exportService->downloadCsv($filters, $upazilaIds);
+        return $this->exportService->downloadCsv($filters, $upazilaIds, $this->roleVisibleStatuses());
     }
 
 
@@ -497,12 +508,51 @@ class ApplicationController extends Controller
     {
         $upazilaIds = $this->scopeUpazilaIds();
         $query = StudentDetail::with($with);
+        $this->applyRoleVisibility($query);
 
         if ($upazilaIds !== null) {
             $query->whereIn('upazila_id', $upazilaIds);
         }
 
         return $query->findOrFail($id);
+    }
+
+    private function applyRoleVisibility(Builder $query): void
+    {
+        $query->whereHas('applicationStatus', function (Builder $statusQuery) {
+            $statusQuery->whereIn('slug', $this->roleVisibleStatuses());
+        });
+    }
+
+    private function roleVisibleStatuses(): array
+    {
+        $user = Auth::user();
+
+        if ($user->isRegionalManager()) {
+            return [
+                StudentDetail::STATUS_PENDING,
+                StudentDetail::STATUS_APPROVED_BY_RM,
+                StudentDetail::STATUS_REJECTED_BY_RM,
+            ];
+        }
+
+        if ($user->isWingManager()) {
+            return [
+                StudentDetail::STATUS_APPROVED_BY_RM,
+                StudentDetail::STATUS_APPROVED_BY_WM,
+                StudentDetail::STATUS_REJECTED_BY_WM,
+            ];
+        }
+
+        if ($user->isAdmin()) {
+            return [
+                StudentDetail::STATUS_APPROVED_BY_WM,
+                StudentDetail::STATUS_APPROVED,
+                StudentDetail::STATUS_REJECTED,
+            ];
+        }
+
+        return [];
     }
 
     private function logAction(
