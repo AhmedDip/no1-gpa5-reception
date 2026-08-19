@@ -40,6 +40,20 @@ class ApplicationExportService
 
         $this->applyFilters($query, $filters);
 
+        if (!empty($filters['wing'])) {
+            $query->whereIn(
+                'upazila_id',
+                $this->orgHierarchy->upazilaIdsForWing((int) $filters['wing'])
+            );
+        }
+
+        if (!empty($filters['region'])) {
+            $query->whereIn(
+                'upazila_id',
+                $this->orgHierarchy->upazilaIdsForRegion((int) $filters['region'])
+            );
+        }
+
         if ($upazilaIds !== null) {
             $query->whereIn('upazila_id', $upazilaIds);
         }
@@ -76,7 +90,11 @@ class ApplicationExportService
                     ->orWhere('roll_number', 'LIKE', "%{$s}%")
                     ->orWhere('registration_number', 'LIKE', "%{$s}%")
                     ->orWhere('father_name', 'LIKE', "%{$s}%")
-                    ->orWhere('tea_stall_name', 'LIKE', "%{$s}%");
+                    ->orWhere('tea_stall_name', 'LIKE', "%{$s}%")
+                    ->orWhereHas('user', function ($subQuery) use ($s) {
+                        $subQuery->where('mobile', 'LIKE', "%{$s}%")
+                            ->orWhere('email', 'LIKE', "%{$s}%");
+                    });
             });
         }
     }

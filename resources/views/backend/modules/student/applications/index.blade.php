@@ -3,174 +3,190 @@
 @section('title', 'Student Applications')
 @section('main-content')
     <div class="container-fluid456456">
-        <!-- Status Cards -->
+       <!-- Status Cards -->
         <div class="row mb-4">
             <!-- Total Applications -->
             <div class="col-sm-6 col-xl-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-start justify-content-between">
-                            <div class="content-left">
-                                <span>Total Applications</span>
-                                <div class="d-flex align-items-end mt-2">
-                                    <h4 class="mb-0 me-2">{{ $counts['total'] ?? 0 }}</h4>
-                                    <small class="text-primary">(Total)</small>
+                <a href="{{ route('admin.applications.index') }}" class="text-decoration-none">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start justify-content-between">
+                                <div class="content-left">
+                                    <span>Total Applications</span>
+                                    <div class="d-flex align-items-end mt-2">
+                                        <h4 class="mb-0 me-2">{{ $counts['total'] ?? 0 }}</h4>
+                                        <small class="text-primary">(Total)</small>
+                                    </div>
+                                    <small>All Applications</small>
                                 </div>
-                                <small>All Applications</small>
+                                <span class="badge bg-label-primary rounded p-2">
+                                    <i class="fas fa-file-alt fa-lg"></i>
+                                </span>
                             </div>
-                            <span class="badge bg-label-primary rounded p-2">
-                                <i class="fas fa-file-alt fa-lg"></i>
-                            </span>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <!-- Pending -->
             <div class="col-sm-6 col-xl-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-start justify-content-between">
-                            <div class="content-left">
-                                <span>Pending</span>
-                                <div class="d-flex align-items-end mt-2">
-                                    <h4 class="mb-0 me-2">{{ $counts['pending'] ?? 0 }}</h4>
-                                    <small class="text-warning">(Pending)</small>
+                <a href="{{ route('admin.applications.index', ['status' => 1]) }}" class="text-decoration-none">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start justify-content-between">
+                                <div class="content-left">
+                                    <span>Pending</span>
+                                    <div class="d-flex align-items-end mt-2">
+                                        <h4 class="mb-0 me-2">{{ $counts['pending'] ?? 0 }}</h4>
+                                        <small class="text-warning">(Pending)</small>
+                                    </div>
+                                    <small>Awaiting Review</small>
                                 </div>
-                                <small>Awaiting Review</small>
+                                <span class="badge bg-label-warning rounded p-2">
+                                    <i class="fas fa-hourglass-half fa-lg"></i>
+                                </span>
                             </div>
-                            <span class="badge bg-label-warning rounded p-2">
-                                <i class="fas fa-hourglass-half fa-lg"></i>
-                            </span>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <!-- Approved By RM -->
             <div class="col-sm-6 col-xl-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-start justify-content-between">
-                            <div class="content-left">
-                                <span>Approved By RM</span>
-                                <div class="d-flex align-items-end mt-2">
-                                    <h4 class="mb-0 me-2">{{ $counts['approved_by_rm'] ?? 0 }}</h4>
-                                    <small class="text-info">(RM Approved)</small>
+                <a href="{{ route('admin.applications.index', ['status' => 2]) }}" class="text-decoration-none">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start justify-content-between">
+                                <div class="content-left">
+                                    <span>Approved By RM</span>
+                                    <div class="d-flex align-items-end mt-2">
+                                        <h4 class="mb-0 me-2">{{ $counts['approved_by_rm'] ?? 0 }}</h4>
+                                        <small class="text-info">(RM Approved)</small>
+                                    </div>
+                                    <small>Approved by Regional Manager</small>
                                 </div>
-                                <small>Approved by Regional Manager</small>
+                                <span class="badge bg-label-info rounded p-2">
+                                    <i class="fas fa-user-check fa-lg"></i>
+                                </span>
                             </div>
-                            <span class="badge bg-label-info rounded p-2">
-                                <i class="fas fa-user-check fa-lg"></i>
-                            </span>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <!-- Rejected By RM -->
             <div class="col-sm-6 col-xl-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-start justify-content-between">
-                            <div class="content-left">
-                                <span>Rejected By RM</span>
-                                <div class="d-flex align-items-end mt-2">
-                                    <h4 class="mb-0 me-2">{{ $counts['rejected_by_rm'] ?? 0 }}</h4>
-                                    <small class="text-danger">(RM Rejected)</small>
+                <a href="{{ route('admin.applications.index', ['status' => 3]) }}" class="text-decoration-none">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start justify-content-between">
+                                <div class="content-left">
+                                    <span>Rejected By RM</span>
+                                    <div class="d-flex align-items-end mt-2">
+                                        <h4 class="mb-0 me-2">{{ $counts['rejected_by_rm'] ?? 0 }}</h4>
+                                        <small class="text-danger">(RM Rejected)</small>
+                                    </div>
+                                    <small>Rejected by Regional Manager</small>
                                 </div>
-                                <small>Rejected by Regional Manager</small>
+                                <span class="badge bg-label-danger rounded p-2">
+                                    <i class="fas fa-user-times fa-lg"></i>
+                                </span>
                             </div>
-                            <span class="badge bg-label-danger rounded p-2">
-                                <i class="fas fa-user-times fa-lg"></i>
-                            </span>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <!-- Approved By WM -->
             <div class="col-sm-6 col-xl-3 mt-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-start justify-content-between">
-                            <div class="content-left">
-                                <span>Approved By WM</span>
-                                <div class="d-flex align-items-end mt-2">
-                                    <h4 class="mb-0 me-2">{{ $counts['approved_by_wm'] ?? 0 }}</h4>
-                                    <small class="text-success">(WM Approved)</small>
+                <a href="{{ route('admin.applications.index', ['status' => 4]) }}" class="text-decoration-none">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start justify-content-between">
+                                <div class="content-left">
+                                    <span>Approved By WM</span>
+                                    <div class="d-flex align-items-end mt-2">
+                                        <h4 class="mb-0 me-2">{{ $counts['approved_by_wm'] ?? 0 }}</h4>
+                                        <small class="text-success">(WM Approved)</small>
+                                    </div>
+                                    <small>Approved by Wing Manager</small>
                                 </div>
-                                <small>Approved by Wing Manager</small>
+                                <span class="badge bg-label-success rounded p-2">
+                                    <i class="fas fa-user-check fa-lg"></i>
+                                </span>
                             </div>
-                            <span class="badge bg-label-success rounded p-2">
-                                <i class="fas fa-user-check fa-lg"></i>
-                            </span>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <!-- Rejected By WM -->
             <div class="col-sm-6 col-xl-3 mt-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-start justify-content-between">
-                            <div class="content-left">
-                                <span>Rejected By WM</span>
-                                <div class="d-flex align-items-end mt-2">
-                                    <h4 class="mb-0 me-2">{{ $counts['rejected_by_wm'] ?? 0 }}</h4>
-                                    <small class="text-danger">(WM Rejected)</small>
+                <a href="{{ route('admin.applications.index', ['status' => 5]) }}" class="text-decoration-none">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start justify-content-between">
+                                <div class="content-left">
+                                    <span>Rejected By WM</span>
+                                    <div class="d-flex align-items-end mt-2">
+                                        <h4 class="mb-0 me-2">{{ $counts['rejected_by_wm'] ?? 0 }}</h4>
+                                        <small class="text-danger">(WM Rejected)</small>
+                                    </div>
+                                    <small>Rejected by Wing Manager</small>
                                 </div>
-                                <small>Rejected by Wing Manager</small>
+                                <span class="badge bg-label-danger rounded p-2">
+                                    <i class="fas fa-user-times fa-lg"></i>
+                                </span>
                             </div>
-                            <span class="badge bg-label-danger rounded p-2">
-                                <i class="fas fa-user-times fa-lg"></i>
-                            </span>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <!-- Approved (Final) -->
             <div class="col-sm-6 col-xl-3 mt-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-start justify-content-between">
-                            <div class="content-left">
-                                <span>Final Approved</span>
-                                <div class="d-flex align-items-end mt-2">
-                                    <h4 class="mb-0 me-2">{{ $counts['approved'] ?? 0 }}</h4>
-                                    <small class="text-success">(Approved)</small>
+                <a href="{{ route('admin.applications.index', ['status' => 6]) }}" class="text-decoration-none">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start justify-content-between">
+                                <div class="content-left">
+                                    <span>Final Approved</span>
+                                    <div class="d-flex align-items-end mt-2">
+                                        <h4 class="mb-0 me-2">{{ $counts['approved'] ?? 0 }}</h4>
+                                        <small class="text-success">(Approved)</small>
+                                    </div>
+                                    <small>Fully approved applications</small>
                                 </div>
-                                <small>Fully approved applications</small>
+                                <span class="badge bg-label-success rounded p-2">
+                                    <i class="fas fa-check-double fa-lg"></i>
+                                </span>
                             </div>
-                            <span class="badge bg-label-success rounded p-2">
-                                <i class="fas fa-check-double fa-lg"></i>
-                            </span>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <!-- Rejected (Final) -->
             <div class="col-sm-6 col-xl-3 mt-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-start justify-content-between">
-                            <div class="content-left">
-                                <span>Final Rejected</span>
-                                <div class="d-flex align-items-end mt-2">
-                                    <h4 class="mb-0 me-2">{{ $counts['rejected'] ?? 0 }}</h4>
-                                    <small class="text-danger">(Rejected)</small>
+                <a href="{{ route('admin.applications.index', ['status' => 7]) }}" class="text-decoration-none">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start justify-content-between">
+                                <div class="content-left">
+                                    <span>Final Rejected</span>
+                                    <div class="d-flex align-items-end mt-2">
+                                        <h4 class="mb-0 me-2">{{ $counts['rejected'] ?? 0 }}</h4>
+                                        <small class="text-danger">(Rejected)</small>
+                                    </div>
+                                    <small>Fully rejected applications</small>
                                 </div>
-                                <small>Fully rejected applications</small>
+                                <span class="badge bg-label-danger rounded p-2">
+                                    <i class="fas fa-times-circle fa-lg"></i>
+                                </span>
                             </div>
-                            <span class="badge bg-label-danger rounded p-2">
-                                <i class="fas fa-times-circle fa-lg"></i>
-                            </span>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
 
@@ -197,7 +213,7 @@
                                     placeholder="Name, email, phone..." value="{{ $filters['search'] ?? '' }}">
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <label class="form-label">Status</label>
                             <select name="status" class="form-select">
                                 <option value="">All Status</option>
@@ -209,7 +225,31 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
+                            <label class="form-label">Wing</label>
+                            <select name="wing" class="form-select select2">
+                                <option value="">All Wings</option>
+                                @foreach ($wings as $wing)
+                                    <option value="{{ $wing->id }}"
+                                        {{ isset($filters['wing']) && $filters['wing'] == $wing->id ? 'selected' : '' }}>
+                                        {{ $wing->wing_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Region</label>
+                            <select name="region" class="form-select select2">
+                                <option value="">All Regions</option>
+                                @foreach ($regions as $region)
+                                    <option value="{{ $region->id }}"
+                                        {{ isset($filters['region']) && $ilters['region'] == $region->id ? 'selected' : '' }}>
+                                        {{ $region->dirg_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-3">
                             <label class="form-label">Board</label>
                             <select name="board" class="form-select">
                                 <option value="">All Boards</option>
@@ -221,7 +261,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <label class="form-label">Division</label>
                             <select name="division" class="form-select" id="divisionFilter">
                                 <option value="">All Divisions</option>
@@ -233,7 +273,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <label class="form-label">District</label>
                             <select name="district" class="form-select select2" id="districtFilter">
                                 <option value="">All Districts</option>
@@ -245,7 +285,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-3">
                             <label class="form-label">Per Page</label>
                             <select name="per_page" class="form-select">
                                 @foreach ([10, 20, 50, 100] as $count)
@@ -291,31 +331,31 @@
                     </div>
                 @endif
             </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-hover table-bordered align-middle" style="font-size: 0.75rem;">
-                        <thead class="table-light">
+            <div class="card-body p-0">
+                <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+                    <table class="table table-hover table-bordered align-middle" style="font-size: 0.75rem; margin-bottom: 0;">
+                        <thead class="table-light sticky-header">
                             <tr>
-                                <th width="30">
+                                <th width="30" style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">
                                     @if (auth()->user()->isAdmin())
                                         <input type="checkbox" id="selectAll" class="form-check-input">
                                     @endif
                                 </th>
-                                <th>#</th>
-                                <th>Wing</th>
-                                <th>Region</th>
-                                <th>Territory</th>
-                                <th>Student</th>
-                                <th>Mobile</th>
-                                <th>Mobile Verified</th>
-                                <th>Parent Info.</th>
-                                <th>Board</th>
-                                <th>Division</th>
-                                <th>District</th>
-                                <th>Upazila</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th class="text-center">Actions</th>
+                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">#</th>
+                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Wing</th>
+                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Region</th>
+                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Territory</th>
+                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Student</th>
+                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Mobile</th>
+                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Mobile Verified</th>
+                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Parent Info.</th>
+                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Board</th>
+                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Division</th>
+                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">District</th>
+                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Upazila</th>
+                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Status</th>
+                                <th style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Date</th>
+                                <th class="text-center" style="position: sticky; top: 0; background: #f1fcfc9a; z-index: 10;">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -774,6 +814,11 @@
             color: #8592a3;
         }
 
+        .bg-label-info {
+            background-color: #d0f0fd;
+            color: #03c3ec;
+        }
+
         .btn-icon {
             width: 32px;
             height: 32px;
@@ -791,6 +836,44 @@
             gap: 0.5rem;
         }
 
+        /* Sticky Table Header */
+        .table-responsive {
+            max-height: 600px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .table-responsive .table thead th {
+            position: sticky;
+            top: 0;
+            background: #151616;
+            z-index: 10;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Ensure table header stays above table body when scrolling */
+        .table-responsive .table thead {
+            z-index: 10;
+        }
+
+        .table-responsive .table tbody tr td {
+            vertical-align: middle;
+        }
+
+        /* Fix for border overlap with sticky header */
+        .table-responsive .table thead th {
+            border-bottom: 2px solid #080808;
+        }
+
+        /* Optional: Add a subtle shadow to the sticky header */
+        .sticky-header th {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Fix for card-body padding when table is sticky */
+        .card-body.p-0 .table-responsive {
+            border-radius: 0;
+        }
     </style>
 @endpush
 

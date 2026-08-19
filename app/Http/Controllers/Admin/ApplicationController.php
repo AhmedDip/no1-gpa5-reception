@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Models\ApplicationAuditLog;
 use App\Models\ApplicationStatus;
 use App\Models\Board;
+use App\Models\Dirg;
 use App\Models\District;
 use App\Models\Division;
 use App\Models\StudentDetail;
+use App\Models\Wing;
 use App\Services\ApplicationExportService;
 use App\Services\ApplicationWorkflowService;
 use App\Services\ManagerScopeService;
@@ -23,12 +25,13 @@ use Illuminate\Support\Facades\Log;
 class ApplicationController extends Controller
 {
     public function __construct(
-        private NotificationService      $notificationService,
+        private NotificationService $notificationService,
         private ApplicationExportService $exportService,
-        private ManagerScopeService      $managerScope,
+        private ManagerScopeService $managerScope,
         private ApplicationWorkflowService $workflowService,
-        private OrgHierarchyService      $orgHierarchy,
-    ) {}
+        private OrgHierarchyService $orgHierarchy,
+    ) {
+    }
 
     private function scopeUpazilaIds(): ?array
     {
@@ -48,7 +51,7 @@ class ApplicationController extends Controller
 
     public function index(Request $request)
     {
-        $filters    = $request->only(['status', 'board', 'division', 'district', 'search', 'per_page']);
+        $filters = $request->only(['status', 'wing', 'region', 'board', 'division', 'district', 'search', 'per_page']);
         $upazilaIds = $this->scopeUpazilaIds();
 
         $query = $this->exportService->buildQuery($filters);
@@ -56,7 +59,7 @@ class ApplicationController extends Controller
             $query->whereIn('upazila_id', $upazilaIds);
         }
 
-        $perPage      = $filters['per_page'] ?? 20;
+        $perPage = $filters['per_page'] ?? 20;
         // $applications = $query->paginate($perPage)->withQueryString();
         $applications = $query->orderBy('id', 'desc')->paginate($perPage)->withQueryString();
 
@@ -75,28 +78,65 @@ class ApplicationController extends Controller
             $countsBase->whereIn('upazila_id', $upazilaIds);
         }
 
+        $statusIds = ApplicationStatus::whereIn('slug', [
+            StudentDetail::STATUS_APPROVED_BY_RM,
+            StudentDetail::STATUS_REJECTED_BY_RM,
+            StudentDetail::STATUS_APPROVED_BY_WM,
+            StudentDetail::STATUS_REJECTED_BY_WM,
+            StudentDetail::STATUS_APPROVED,
+            StudentDetail::STATUS_REJECTED,
+        ])->pluck('id', 'slug');
+
+        $auditCountsBase = ApplicationAuditLog::whereHas('studentDetail', function ($query) use ($upazilaIds) {
+            $query->whereHas('user', fn($userQuery) => $userQuery->where('lfcl_id', 1));
+
+            if ($upazilaIds !== null) {
+                $query->whereIn('upazila_id', $upazilaIds);
+            }
+        });
+
+        $auditCount = function (string $statusSlug, array $actions = []) use ($auditCountsBase, $statusIds): int {
+            $statusId = $statusIds->get($statusSlug);
+
+            if (!$statusId) {
+                return 0;
+            }
+
+            $query = (clone $auditCountsBase)->where('new_status_id', $statusId);
+
+            if ($actions) {
+                $query->whereIn('action', $actions);
+            }
+
+            return $query->distinct()->count('student_detail_id');
+        };
+
         $counts = [
-            'total'          => (clone $countsBase)->count(),
-            'pending'        => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_PENDING))->count(),
-            'approved_by_rm' => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_APPROVED_BY_RM))->count(),
-            'rejected_by_rm' => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_REJECTED_BY_RM))->count(),
-            'approved_by_wm' => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_APPROVED_BY_WM))->count(),
-            'rejected_by_wm' => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_REJECTED_BY_WM))->count(),
-            'approved'       => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_APPROVED))->count(),
-            'rejected'       => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_REJECTED))->count(),
+            'total' => (clone $countsBase)->count(),
+            'pending' => (clone $countsBase)->whereHas('applicationStatus', fn($q) => $q->where('slug', StudentDetail::STATUS_PENDING))->count(),
+            'approved_by_rm' => $auditCount(StudentDetail::STATUS_APPROVED_BY_RM, ['rm_approve']),
+            'rejected_by_rm' => $auditCount(StudentDetail::STATUS_REJECTED_BY_RM, ['rm_reject']),
+            'approved_by_wm' => $auditCount(StudentDetail::STATUS_APPROVED_BY_WM, ['wm_approve']),
+            'rejected_by_wm' => $auditCount(StudentDetail::STATUS_REJECTED_BY_WM, ['wm_reject']),
+            'approved' => $auditCount(StudentDetail::STATUS_APPROVED, ['approve', 'bulk_approve']),
+            'rejected' => $auditCount(StudentDetail::STATUS_REJECTED, ['reject', 'bulk_reject']),
         ];
 
+
         $page_content = [
-            'page_title'      => 'Applications',
-            'module_name'     => 'Applications',
-            'module_route'    => route('admin.applications.index'),
+            'page_title' => 'Applications',
+            'module_name' => 'Applications',
+            'module_route' => route('admin.applications.index'),
             'sub_module_name' => Auth::user()->isAdmin() ? 'All Applications' : 'My Region Applications',
         ];
 
-        $boards    = Board::orderBy('name')->get();
+        $boards = Board::orderBy('name')->get();
+        $wings = Wing::query()->where('slgp_id', 3)->orderBy('wing_name')->get();
+
+        $regions = Dirg::query()->whereBetween('id', [86, 130])->orderBy('dirg_name')->get();
         $divisions = Division::orderBy('name')->get();
         $districts = District::orderBy('name')->get();
-        $statuses  = ApplicationStatus::orderBy('order')->get();
+        $statuses = ApplicationStatus::orderBy('order')->get();
 
         $orgHierarchy = $this->orgHierarchy->resolveForUpazilas(
             $applications->pluck('upazila_id')->filter()->unique()->values()->all()
@@ -111,6 +151,8 @@ class ApplicationController extends Controller
             'applications',
             'counts',
             'boards',
+            'wings',
+            'regions',
             'divisions',
             'districts',
             'statuses',
@@ -142,9 +184,9 @@ class ApplicationController extends Controller
         $statuses = ApplicationStatus::orderBy('order')->get();
 
         $page_content = [
-            'page_title'      => 'Application Detail',
-            'module_name'     => 'Applications',
-            'module_route'    => route('admin.applications.index'),
+            'page_title' => 'Application Detail',
+            'module_name' => 'Applications',
+            'module_route' => route('admin.applications.index'),
             'sub_module_name' => 'Detail',
         ];
 
@@ -160,7 +202,7 @@ class ApplicationController extends Controller
         $request->validate(['remarks' => 'nullable|string|max:1000']);
 
         $user = Auth::user();
-        $app  = $this->findScoped($id, ['user']);
+        $app = $this->findScoped($id, ['user']);
 
         try {
             if ($user->isAdmin()) {
@@ -203,7 +245,7 @@ class ApplicationController extends Controller
     public function reject(Request $request, int $id)
     {
         $user = Auth::user();
-        $app  = $this->findScoped($id, ['user']);
+        $app = $this->findScoped($id, ['user']);
 
         try {
             if ($user->isAdmin()) {
@@ -244,10 +286,10 @@ class ApplicationController extends Controller
     {
         abort_unless(Auth::user()->isAdmin(), 403);
         $request->validate([
-            'application_ids'   => 'required|array|min:1|max:200',
+            'application_ids' => 'required|array|min:1|max:200',
             'application_ids.*' => 'integer|exists:student_details,id',
-            'remarks'           => 'nullable|string|max:1000',
-            'send_sms'          => 'nullable|boolean',
+            'remarks' => 'nullable|string|max:1000',
+            'send_sms' => 'nullable|boolean',
         ], [
             'application_ids.required' => 'কমপক্ষে একটি আবেদন নির্বাচন করুন।',
         ]);
@@ -256,8 +298,8 @@ class ApplicationController extends Controller
             DB::beginTransaction();
 
             $approvedStatus = ApplicationStatus::where('slug', 'approved')->value('id') ?? 6;
-            $ids            = $request->application_ids;
-            $remarks        = $request->remarks ?: 'বাল্ক অনুমোদন';
+            $ids = $request->application_ids;
+            $remarks = $request->remarks ?: 'বাল্ক অনুমোদন';
 
             $apps = StudentDetail::with('user')
                 ->whereIn('id', $ids)
@@ -272,26 +314,26 @@ class ApplicationController extends Controller
 
             DB::commit();
 
-            $smsSent   = 0;
+            $smsSent = 0;
             $smsFailed = 0;
 
             if ($request->boolean('send_sms', true) && $apps->isNotEmpty()) {
-                $result    = $this->notificationService->sendBulk($apps->fresh()->all());
-                $smsSent   = $result['sent'];
+                $result = $this->notificationService->sendBulk($apps->fresh()->all());
+                $smsSent = $result['sent'];
                 $smsFailed = $result['failed'];
             }
 
-            $total   = $apps->count();
+            $total = $apps->count();
             $message = "{$total}টি আবেদন অনুমোদিত হয়েছে।";
             if ($smsSent > 0) {
                 $message .= " {$smsSent}টি SMS পাঠানো হয়েছে।";
             }
 
             return response()->json([
-                'success'    => true,
-                'message'    => $message,
-                'approved'   => $total,
-                'sms_sent'   => $smsSent,
+                'success' => true,
+                'message' => $message,
+                'approved' => $total,
+                'sms_sent' => $smsSent,
                 'sms_failed' => $smsFailed,
             ]);
         } catch (\Exception $e) {
@@ -306,14 +348,14 @@ class ApplicationController extends Controller
     {
         abort_unless(Auth::user()->isAdmin(), 403);
         $request->validate([
-            'application_ids'   => 'required|array|min:1|max:200',
+            'application_ids' => 'required|array|min:1|max:200',
             'application_ids.*' => 'integer|exists:student_details,id',
-            'message_type'      => 'required|in:approved,rejected,custom',
-            'custom_msg'        => 'required_if:message_type,custom|nullable|string|max:300',
-            'remarks'           => 'nullable|string|max:500',
+            'message_type' => 'required|in:approved,rejected,custom',
+            'custom_msg' => 'required_if:message_type,custom|nullable|string|max:300',
+            'remarks' => 'nullable|string|max:500',
         ], [
             'application_ids.required' => 'কমপক্ষে একটি আবেদন নির্বাচন করুন।',
-            'custom_msg.required_if'   => 'কাস্টম মেসেজ লিখুন।',
+            'custom_msg.required_if' => 'কাস্টম মেসেজ লিখুন।',
         ]);
 
         $apps = StudentDetail::with('user')
@@ -338,7 +380,7 @@ class ApplicationController extends Controller
             $result = compact('sent', 'failed');
         } else {
             $customMsg = $request->message_type === 'custom' ? $request->custom_msg : '';
-            $result    = $this->notificationService->sendBulk($apps->all(), $customMsg);
+            $result = $this->notificationService->sendBulk($apps->all(), $customMsg);
         }
 
         // Audit trail — previously missing entirely for bulk notify, so a
@@ -353,8 +395,8 @@ class ApplicationController extends Controller
         return response()->json([
             'success' => true,
             'message' => "{$result['sent']}টি SMS পাঠানো হয়েছে, {$result['failed']}টি ব্যর্থ।",
-            'sent'    => $result['sent'],
-            'failed'  => $result['failed'],
+            'sent' => $result['sent'],
+            'failed' => $result['failed'],
         ]);
     }
 
@@ -362,20 +404,20 @@ class ApplicationController extends Controller
     {
         abort_unless(Auth::user()->isAdmin(), 403);
         $request->validate([
-            'application_ids'   => 'required|array|min:1|max:200',
+            'application_ids' => 'required|array|min:1|max:200',
             'application_ids.*' => 'integer|exists:student_details,id',
-            'remarks'           => 'required|string|min:5|max:1000',
-            'send_sms'          => 'nullable|boolean',
+            'remarks' => 'required|string|min:5|max:1000',
+            'send_sms' => 'nullable|boolean',
         ], [
             'application_ids.required' => 'কমপক্ষে একটি আবেদন নির্বাচন করুন।',
-            'remarks.required'         => 'প্রত্যাখ্যানের কারণ লিখুন।',
+            'remarks.required' => 'প্রত্যাখ্যানের কারণ লিখুন।',
         ]);
 
         try {
             DB::beginTransaction();
 
             $rejectedStatus = ApplicationStatus::where('slug', 'rejected')->value('id') ?? 7;
-            $ids            = $request->application_ids;
+            $ids = $request->application_ids;
 
             $apps = StudentDetail::with('user')
                 ->whereIn('id', $ids)
@@ -399,8 +441,8 @@ class ApplicationController extends Controller
             }
 
             return response()->json([
-                'success'  => true,
-                'message'  => $apps->count() . 'টি আবেদন প্রত্যাখ্যাত হয়েছে।',
+                'success' => true,
+                'message' => $apps->count() . 'টি আবেদন প্রত্যাখ্যাত হয়েছে।',
                 'rejected' => $apps->count(),
             ]);
         } catch (\Exception $e) {
@@ -416,8 +458,8 @@ class ApplicationController extends Controller
         abort_unless(Auth::user()->isAdmin(), 403);
         $request->validate([
             'message_type' => 'required|in:approved,rejected,custom',
-            'custom_msg'   => 'required_if:message_type,custom|nullable|string|max:300',
-            'remarks'      => 'nullable|string|max:500',
+            'custom_msg' => 'required_if:message_type,custom|nullable|string|max:300',
+            'remarks' => 'nullable|string|max:500',
         ]);
 
         $app = StudentDetail::with('user')->findOrFail($id);
@@ -425,8 +467,8 @@ class ApplicationController extends Controller
         $sent = match ($request->message_type) {
             'approved' => $this->notificationService->notifyApproved($app),
             'rejected' => $this->notificationService->notifyRejected($app, $request->remarks ?? ''),
-            'custom'   => $this->notificationService->sendBulk([$app], $request->custom_msg)['sent'] > 0,
-            default    => false,
+            'custom' => $this->notificationService->sendBulk([$app], $request->custom_msg)['sent'] > 0,
+            default => false,
         };
 
         if ($sent) {
@@ -445,7 +487,7 @@ class ApplicationController extends Controller
         // dd($request->all());
         abort_unless(Auth::user()->isAdmin(), 403);
 
-        $filters    = $request->only(['status', 'board', 'division', 'district', 'search']);
+        $filters = $request->only(['status', 'wing', 'region', 'board', 'division', 'district', 'search']);
         $upazilaIds = $this->scopeUpazilaIds();
         return $this->exportService->downloadCsv($filters, $upazilaIds);
     }
@@ -454,7 +496,7 @@ class ApplicationController extends Controller
     private function findScoped(int $id, array $with = []): StudentDetail
     {
         $upazilaIds = $this->scopeUpazilaIds();
-        $query      = StudentDetail::with($with);
+        $query = StudentDetail::with($with);
 
         if ($upazilaIds !== null) {
             $query->whereIn('upazila_id', $upazilaIds);
@@ -472,13 +514,13 @@ class ApplicationController extends Controller
         ?string $ip
     ): void {
         ApplicationAuditLog::create([
-            'student_detail_id'  => $studentDetailId,
-            'performed_by'       => auth()->id(),
-            'action'             => $action,
-            'remarks'            => $remarks,
+            'student_detail_id' => $studentDetailId,
+            'performed_by' => auth()->id(),
+            'action' => $action,
+            'remarks' => $remarks,
             'previous_status_id' => $previousStatus,
-            'new_status_id'      => $newStatus,
-            'ip_address'         => $ip,
+            'new_status_id' => $newStatus,
+            'ip_address' => $ip,
         ]);
     }
 
