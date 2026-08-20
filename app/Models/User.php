@@ -170,4 +170,9 @@ class User extends Authenticatable
     {
         return $this->user_type_id == 4;
     }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->user_type_id == 10;
+    }
 }

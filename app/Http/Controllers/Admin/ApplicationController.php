@@ -38,7 +38,7 @@ class ApplicationController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->isAdmin()) {
+        if ($user->isAdmin() || $user->isSuperAdmin()) {
             return null;
         }
 
@@ -551,6 +551,8 @@ private function latestActionExpr(array $actions): string
                 StudentDetail::STATUS_PENDING,
                 StudentDetail::STATUS_APPROVED_BY_RM,
                 StudentDetail::STATUS_REJECTED_BY_RM,
+                StudentDetail::STATUS_APPROVED_BY_WM,
+                StudentDetail::STATUS_REJECTED_BY_WM,
             ];
         }
 
@@ -565,6 +567,18 @@ private function latestActionExpr(array $actions): string
         if ($user->isAdmin()) {
             return [
                 StudentDetail::STATUS_APPROVED_BY_WM,
+                StudentDetail::STATUS_APPROVED,
+                StudentDetail::STATUS_REJECTED,
+            ];
+        }
+
+        if ($user->isSuperAdmin()) {
+            return [
+                StudentDetail::STATUS_PENDING,
+                StudentDetail::STATUS_APPROVED_BY_RM,
+                StudentDetail::STATUS_REJECTED_BY_RM,
+                StudentDetail::STATUS_APPROVED_BY_WM,
+                StudentDetail::STATUS_REJECTED_BY_WM,
                 StudentDetail::STATUS_APPROVED,
                 StudentDetail::STATUS_REJECTED,
             ];

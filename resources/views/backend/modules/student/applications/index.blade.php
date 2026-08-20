@@ -243,7 +243,7 @@
                                 <option value="">All Regions</option>
                                 @foreach ($regions as $region)
                                     <option value="{{ $region->id }}"
-                                        {{ isset($filters['region']) && $ilters['region'] == $region->id ? 'selected' : '' }}>
+                                        {{ isset($filters['region']) && $filters['region'] == $region->id ? 'selected' : '' }}>
                                         {{ $region->dirg_name }}
                                     </option>
                                 @endforeach
