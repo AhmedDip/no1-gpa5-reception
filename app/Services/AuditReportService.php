@@ -12,8 +12,20 @@ class AuditReportService
 {
     private const UPLOADS_BASE_URL = 'https://no1family.com/uploads/';
 
+    public function __construct(private OrgHierarchyService $orgHierarchy)
+    {
+    }
+
     /**
      * Base query for RM-approved audit rows (action = rm_approve).
+     *
+     * Every join here is a plain belongsTo-style FK join (t1 -> t2 -> t4/t5/t6/t7/t8/t9/t10/t12),
+     * so each application_audit_logs row produces exactly one result row.
+     * Wing/Region/Territory are intentionally NOT joined here — they are
+     * resolved afterwards via OrgHierarchyService::resolveForUpazilas(),
+     * the same pattern used by ApplicationController / ApplicationExportService.
+     * (Previously this joined tm_wing/tm_zone directly; since tm_wing.aemp_id
+     * is not unique, that join multiplied rows and produced duplicates.)
      */
     public function rmApprovedQuery(array $filters): Builder
     {
@@ -27,54 +39,18 @@ class AuditReportService
             ->join('upazilas as t8', 't2.upazila_id', '=', 't8.id')
             ->join('application_statuses as t9', 't2.application_status_id', '=', 't9.id')
             ->join('users as t10', 't2.rm_reviewed_by', '=', 't10.id')
-            ->leftJoin('tm_zone as t11', 't10.zone_id', '=', 't11.id')
             ->where('t1.action', 'rm_approve')
             ->where('t10.lfcl_id', 1)
             ->where('t12.lfcl_id', 1);
 
         $this->applyCommonFilters($query, $filters);
 
-        // Group by all non-aggregated columns to avoid ONLY_FULL_GROUP_BY error
-        $query->groupBy(
-            't12.mobile',
-            't11.zone_name',
-            't11.dirg_id',
-            't10.aemp_mngr',
-            't1.ip_address',
-            't1.remarks',
-            't1.created_at',
-            't2.name_en',
-            't2.name_bn',
-            't2.roll_number',
-            't2.registration_number',
-            't2.gpa_result',
-            't2.student_photo',
-            't2.father_name',
-            't2.mother_name',
-            't2.tea_stall_name',
-            't2.tea_stall_location',
-            't2.parent_mobile',
-            't2.parent_photo',
-            't4.name',
-            't4.name_bn',
-            't5.name',
-            't5.name_bn',
-            't6.name',
-            't6.name_bn',
-            't7.name',
-            't7.name_bn',
-            't8.name',
-            't8.name_bn',
-            't10.email',
-            't10.name',
-            't12.name'
-        );
-
         return $query;
     }
 
     /**
      * Base query for WM-approved audit rows (action = wm_approve).
+     * See rmApprovedQuery() docblock — same no-duplicate-join principle applies.
      */
     public function wmApprovedQuery(array $filters): Builder
     {
@@ -88,52 +64,11 @@ class AuditReportService
             ->join('upazilas as t8', 't2.upazila_id', '=', 't8.id')
             ->join('application_statuses as t9', 't2.application_status_id', '=', 't9.id')
             ->join('users as t10', 't2.wm_reviewed_by', '=', 't10.id')
-            ->leftJoin('tm_zone as t11', 't10.zone_id', '=', 't11.id')
-            ->leftJoin('tm_wing as t13', 't10.aemp_mngr', '=', 't13.aemp_id')
-            ->leftJoin('tm_wing as t14', 't10.id', '=', 't14.aemp_id')
             ->where('t1.action', 'wm_approve')
             ->where('t10.lfcl_id', 1)
             ->where('t12.lfcl_id', 1);
 
         $this->applyCommonFilters($query, $filters);
-
-        // Group by all non-aggregated columns to avoid ONLY_FULL_GROUP_BY error
-        $query->groupBy(
-            't12.mobile',
-            't11.zone_name',
-            't11.dirg_id',
-            't10.aemp_mngr',
-            't1.ip_address',
-            't1.remarks',
-            't1.created_at',
-            't2.name_en',
-            't2.name_bn',
-            't2.roll_number',
-            't2.registration_number',
-            't2.gpa_result',
-            't2.student_photo',
-            't2.father_name',
-            't2.mother_name',
-            't2.tea_stall_name',
-            't2.tea_stall_location',
-            't2.parent_mobile',
-            't2.parent_photo',
-            't4.name',
-            't4.name_bn',
-            't5.name',
-            't5.name_bn',
-            't6.name',
-            't6.name_bn',
-            't7.name',
-            't7.name_bn',
-            't8.name',
-            't8.name_bn',
-            't10.email',
-            't10.name',
-            't12.name',
-            't13.wing_name',
-            't14.wing_name'
-        );
 
         return $query;
     }
@@ -172,27 +107,13 @@ class AuditReportService
     }
 
     /**
-     * Columns shown on-screen (grouped by user mobile).
+     * Columns shown on-screen. Includes t2.upazila_id so the controller can
+     * resolve Wing/Region/Territory via OrgHierarchyService after fetching.
      */
     public function selectListColumns(Builder $query, string $type): Builder
     {
-        $staffCols = $type === 'rm'
-            ? ['t10.email as staff_id', 't10.name as staff_name']
-            : ['t10.email as staff_id', 't10.name as staff_name'];
-
-        $wingExpr = $type === 'rm'
-            ? DB::raw("(SELECT wing_name FROM tm_wing WHERE aemp_id = t10.aemp_mngr LIMIT 1) as wing_name")
-            : DB::raw("COALESCE(t13.wing_name, t14.wing_name, 'No Wing Assigned') as wing_name");
-
-        $regionExpr = DB::raw("COALESCE(
-                (SELECT dirg_name FROM tm_dirg WHERE id = t11.dirg_id LIMIT 1),
-                (SELECT dirg_name FROM tm_dirg WHERE aemp_id = t10.aemp_mngr LIMIT 1)
-            ) as region_name");
-
-        return $query->select(array_merge([
-            't11.zone_name as territory_name',
-            $regionExpr,
-            $wingExpr,
+        return $query->select([
+            't2.upazila_id',
             't2.name_en as student_name',
             't2.name_bn as student_name_bangla',
             't2.roll_number',
@@ -217,63 +138,80 @@ class AuditReportService
             't7.name_bn as district_name_bn',
             't8.name as upazila_name',
             't8.name_bn as upazila_name_bn',
-            DB::raw("COUNT(t2.id) as total_applications"),
+            't10.email as staff_id',
+            't10.name as staff_name',
             't12.mobile as user_mobile',
             't12.name as user_name',
             't1.remarks',
-        ], $staffCols));
+        ]);
+    }
+
+    /**
+     * Resolve Wing/Region/Territory for a paginated/collected result set,
+     * keyed by upazila_id — mirrors ApplicationController::index().
+     *
+     * @param  iterable  $records  Rows containing an `upazila_id` property.
+     * @return array<int, array{wing: ?string, region: ?string, territory: ?string}>
+     */
+    public function resolveOrgHierarchy(iterable $records): array
+    {
+        $upazilaIds = collect($records)->pluck('upazila_id')->filter()->unique()->values()->all();
+
+        return $this->orgHierarchy->resolveForUpazilas($upazilaIds);
     }
 
     public function downloadCsv(array $filters, string $type): StreamedResponse
     {
-        $query = $type === 'rm' ? $this->rmApprovedQuery($filters) : $this->wmApprovedQuery($filters);
+        $baseQuery = $type === 'rm' ? $this->rmApprovedQuery($filters) : $this->wmApprovedQuery($filters);
+
+        // Resolve Wing/Region/Territory once for every upazila in the result
+        // set (same pattern as ApplicationExportService::downloadCsv), instead
+        // of joining tm_wing/tm_zone directly, which previously duplicated rows.
+        $distinctUpazilaIds = (clone $baseQuery)
+            ->whereNotNull('t2.upazila_id')
+            ->select('t2.upazila_id as upazila_id')
+            ->distinct()
+            ->pluck('upazila_id')
+            ->all();
+
+        $orgHierarchy = $this->orgHierarchy->resolveForUpazilas($distinctUpazilaIds);
 
         $staffLabel = $type === 'rm' ? 'RM' : 'WM';
 
-        $wingExpr = $type === 'rm'
-            ? "(SELECT wing_name FROM tm_wing WHERE aemp_id = t10.aemp_mngr LIMIT 1) AS WING"
-            : "COALESCE(t13.wing_name, t14.wing_name, 'No Wing Assigned') AS WING";
+        $query = $baseQuery->select([
+            't2.upazila_id',
+            't2.name_en as STUDENT_NAME',
+            't2.name_bn as STUDENT_NAME_BANGLA',
+            't2.roll_number as ROLL_NUMBER',
+            't2.registration_number as REGISTRATION_NUMBER',
+            't2.gpa_result as GPA_RESULT',
+            DB::raw("CONCAT('" . self::UPLOADS_BASE_URL . "', t2.student_photo) as STUDENT_PHOTO"),
+            't2.father_name as FATHER_NAME',
+            't2.mother_name as MOTHER_NAME',
+            't2.tea_stall_name as TEA_STALL_NAME',
+            't2.tea_stall_location as TEA_STALL_LOCATION',
+            't2.parent_mobile as PARENT_MOBILE',
+            DB::raw("CONCAT('" . self::UPLOADS_BASE_URL . "', t2.parent_photo) as PARENT_PHOTO"),
+            't1.ip_address as IP_ADDRESS',
+            't1.created_at as CREATED_AT',
+            't4.name as BOARD_NAME',
+            't4.name_bn as BOARD_NAME_BN',
+            't5.name as GROUP_NAME',
+            't5.name_bn as GROUP_NAME_BN',
+            't6.name as DIVISION_NAME',
+            't6.name_bn as DIVISION_NAME_BN',
+            't7.name as DISTRICT_NAME',
+            't7.name_bn as DISTRICT_NAME_BN',
+            't8.name as UPAZILA_NAME',
+            't8.name_bn as UPAZILA_NAME_BN',
+            DB::raw("t10.email as {$staffLabel}_STAFF_ID"),
+            DB::raw("t10.name as {$staffLabel}_STAFF_NAME"),
+            't12.mobile as USER_MOBILE',
+            't12.name as USER_NAME',
+            't1.remarks as REMARKS',
+        ])->orderBy('t1.created_at', 'desc');
 
-        $query->selectRaw("
-            t11.zone_name AS TERRITORY,
-            COALESCE(
-                (SELECT dirg_name FROM tm_dirg WHERE id = t11.dirg_id LIMIT 1),
-                (SELECT dirg_name FROM tm_dirg WHERE aemp_id = t10.aemp_mngr LIMIT 1)
-            ) AS REGION,
-            {$wingExpr},
-            t2.name_en AS STUDENT_NAME,
-            t2.name_bn AS STUDENT_NAME_BANGLA,
-            t2.roll_number AS ROLL_NUMBER,
-            t2.registration_number AS REGISTRATION_NUMBER,
-            t2.gpa_result AS GPA_RESULT,
-            CONCAT('" . self::UPLOADS_BASE_URL . "', t2.student_photo) AS STUDENT_PHOTO,
-            t2.father_name AS FATHER_NAME,
-            t2.mother_name AS MOTHER_NAME,
-            t2.tea_stall_name AS TEA_STALL_NAME,
-            t2.tea_stall_location AS TEA_STALL_LOCATION,
-            t2.parent_mobile AS PARENT_MOBILE,
-            CONCAT('" . self::UPLOADS_BASE_URL . "', t2.parent_photo) AS PARENT_PHOTO,
-            t1.ip_address AS IP_ADDRESS,
-            t1.created_at AS CREATED_AT,
-            t4.name AS BOARD_NAME,
-            t4.name_bn AS BOARD_NAME_BN,
-            t5.name AS GROUP_NAME,
-            t5.name_bn AS GROUP_NAME_BN,
-            t6.name AS DIVISION_NAME,
-            t6.name_bn AS DIVISION_NAME_BN,
-            t7.name AS DISTRICT_NAME,
-            t7.name_bn AS DISTRICT_NAME_BN,
-            t8.name AS UPAZILA_NAME,
-            t8.name_bn AS UPAZILA_NAME_BN,
-            t10.email AS {$staffLabel}_STAFF_ID,
-            t10.name AS {$staffLabel}_STAFF_NAME,
-            t12.mobile AS USER_MOBILE,
-            t12.name AS USER_NAME,
-            COUNT(t2.id) AS TOTAL_APPLICATIONS,
-            t1.remarks AS REMARKS
-        ")->orderBy('t1.created_at', 'desc');
-
-        $fileName = ($type === 'rm' ? 'rm_approved_grouped_' : 'wm_approved_grouped_') . now()->format('Y_m_d_His') . '.csv';
+        $fileName = ($type === 'rm' ? 'rm_approved_' : 'wm_approved_') . now()->format('Y_m_d_His') . '.csv';
 
         $headers = [
             'Content-Type' => 'text/csv; charset=UTF-8',
@@ -283,7 +221,7 @@ class AuditReportService
             'Expires' => '0',
         ];
 
-        return new StreamedResponse(function () use ($query, $type) {
+        return new StreamedResponse(function () use ($query, $staffLabel, $orgHierarchy) {
             $handle = fopen('php://output', 'w');
 
             if ($handle === false) {
@@ -294,9 +232,6 @@ class AuditReportService
             // UTF-8 BOM so Excel opens Bangla text correctly
             fprintf($handle, chr(0xEF) . chr(0xBB) . chr(0xBF));
 
-            $staffLabel = $type === 'rm' ? 'RM' : 'WM';
-
-            // CSV Header row with all columns
             fputcsv($handle, [
                 'TERRITORY',
                 'REGION',
@@ -329,14 +264,48 @@ class AuditReportService
                 "{$staffLabel}_STAFF_NAME",
                 'USER_MOBILE',
                 'USER_NAME',
-                'TOTAL_APPLICATIONS',
-                'REMARKS'
+                'REMARKS',
             ]);
 
             try {
-                $query->orderBy('t1.created_at')->chunk(500, function ($rows) use ($handle) {
+                $query->chunk(500, function ($rows) use ($handle, $orgHierarchy) {
                     foreach ($rows as $row) {
-                        fputcsv($handle, (array) $row);
+                        $org = $orgHierarchy[$row->upazila_id] ?? null;
+
+                        fputcsv($handle, [
+                            $org['territory'] ?? '',
+                            $org['region'] ?? '',
+                            $org['wing'] ?? '',
+                            $row->STUDENT_NAME,
+                            $row->STUDENT_NAME_BANGLA,
+                            $row->ROLL_NUMBER,
+                            $row->REGISTRATION_NUMBER,
+                            $row->GPA_RESULT,
+                            $row->STUDENT_PHOTO,
+                            $row->FATHER_NAME,
+                            $row->MOTHER_NAME,
+                            $row->TEA_STALL_NAME,
+                            $row->TEA_STALL_LOCATION,
+                            $row->PARENT_MOBILE,
+                            $row->PARENT_PHOTO,
+                            $row->IP_ADDRESS,
+                            $row->CREATED_AT,
+                            $row->BOARD_NAME,
+                            $row->BOARD_NAME_BN,
+                            $row->GROUP_NAME,
+                            $row->GROUP_NAME_BN,
+                            $row->DIVISION_NAME,
+                            $row->DIVISION_NAME_BN,
+                            $row->DISTRICT_NAME,
+                            $row->DISTRICT_NAME_BN,
+                            $row->UPAZILA_NAME,
+                            $row->UPAZILA_NAME_BN,
+                            $row->{"{$staffLabel}_STAFF_ID"},
+                            $row->{"{$staffLabel}_STAFF_NAME"},
+                            $row->USER_MOBILE,
+                            $row->USER_NAME,
+                            $row->REMARKS,
+                        ]);
                     }
                 });
             } catch (\Throwable $e) {
