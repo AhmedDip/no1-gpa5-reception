@@ -33,6 +33,8 @@ Route::get('/previous-year', [PreviousYearController::class, 'index'])->name('pr
 
 Route::get('/qr-code', [QrCodeController::class, 'index'])->name('qrcode.index');
 
+Route::get('/ceremony', [QrCodeController::class, 'index'])->name('ceremony.display');
+
 Route::prefix('student')->name('student.')->group(function () {
     Route::middleware('guest')->group(function () {
         // Registration
@@ -69,7 +71,12 @@ Route::prefix('student')->name('student.')->group(function () {
         Route::get('/invitation-letter', [InvitationLetterController::class, 'index'])->name('invitation.letter');
 
         //Professional Certificate
-        Route::get('/acknowledgment-certificate', [StudentController::class, 'certificate'])->name('certificate');
+         Route::get('/certificate', [StudentController::class, 'certificate'])
+        ->name('certificate.index');
+
+    // Download certificate PDF
+    Route::get('/certificate/download', [StudentController::class, 'downloadCertificate'])
+        ->name('certificate.download');
 
         Route::middleware(['check.mobile.verified'])->group(function () {
 
@@ -96,6 +103,9 @@ Route::prefix('student')->name('student.')->group(function () {
             Route::get('/notifications', [StudentNotificationController::class, 'index'])->name('notifications.index');
             Route::post('/notifications/{id}/read', [StudentNotificationController::class, 'markRead'])->name('notifications.read');
             Route::post('/notifications/mark-all-read', [StudentNotificationController::class, 'markAllRead'])->name('notifications.read-all');
+
+            Route::get('/ceremony/verify', [QrCodeController::class, 'verify'])->name('ceremony.verify');
+    Route::get('/ceremony/history', [QrCodeController::class, 'history'])->name('ceremony.history');
         });
 
 

@@ -178,4 +178,16 @@ class StudentDetail extends Model
             default                     => 'অজানা',
         };
     }
+
+    // app/Models/StudentDetail.php
+
+public function ceremonyEntries()
+{
+    return $this->hasMany(CeremonyEntry::class);
+}
+
+public function applicationStatus()
+{
+    return $this->belongsTo(ApplicationStatus::class);
+}
 }

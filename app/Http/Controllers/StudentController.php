@@ -9,12 +9,14 @@ use App\Models\Division;
 use App\Models\StudentGroup;
 use App\Models\StudentNotification;
 use App\Models\Upazila;
+use App\Services\CertificateService;
+use App\Services\NotificationService;
 use App\Services\PhotoUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use App\Services\NotificationService;
+
 class StudentController extends Controller
 {
     public function __construct(
@@ -221,6 +223,17 @@ class StudentController extends Controller
         $name = Auth::user()->studentDetail->name_bn ?? Auth::user()->name;
         return view('frontend.pages.certificate.index', compact('name'));
     }
+
+    public function downloadCertificate()
+{
+    $user = Auth::user();
+
+    if (!$user->studentDetail) {
+        return back()->with('error', 'Student details not found');
+    }
+
+    return (new CertificateService())->downloadCertificate();
+}
 
     public function changePassword(Request $request)
     {

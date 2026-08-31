@@ -175,4 +175,9 @@ class User extends Authenticatable
     {
         return $this->user_type_id == 10;
     }
+
+    public function ceremonyEntries()
+    {
+        return $this->hasMany(CeremonyEntry::class, 'student_id');
+    }
 }
