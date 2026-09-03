@@ -14,15 +14,9 @@ class QrCodeController extends Controller
         $this->ceremonyService = $ceremonyService;
     }
 
-    /**
-     * Show QR code at entrance
-     */
     public function index()
     {
-        // Generate QR code URL that points to verify endpoint
         $verifyUrl = route('student.ceremony.verify');
-
-        // dd($verifyUrl);
 
         $qrImageUrl = 'https://api.qrserver.com/v1/create-qr-code/?' . http_build_query([
             'size'   => '400x400',
@@ -33,27 +27,26 @@ class QrCodeController extends Controller
         return view('frontend.pages.qrcode.index', compact('qrImageUrl'));
     }
 
-    /**
-     * Verify entry when QR code is scanned
-     */
+
     public function verify(Request $request)
     {
-        // User must be authenticated
         if (!auth()->check()) {
+            session(['url.intended' => $request->url()]);
+
             return redirect()->route('student.login')
-                ->with('error', 'Please login first to verify your entry.');
+                ->with('error', 'প্রবেশ যাচাই করতে দয়া করে প্রথমে লগইন করুন।');
         }
 
         $studentId = auth()->id();
-
-        // Process the verification
         $result = $this->ceremonyService->verifyEntry($studentId);
 
-        if ($result['success']) {
-            return view('frontend.pages.qrcode.approved', $result);
-        } else {
-            return view('frontend.pages.qrcode.denied', $result);
-        }
+        // dd($result);
+
+        return match ($result['type'] ?? null) {
+            'approved'        => view('frontend.pages.qrcode.approved', $result),
+            'already_scanned' => view('frontend.pages.qrcode.already-scanned', $result),
+            default           => view('frontend.pages.qrcode.denied', $result),
+        };
     }
 
     /**

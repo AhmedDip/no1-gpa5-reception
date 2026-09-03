@@ -32,6 +32,7 @@ class CeremonyEntry extends Model
     public function scopeScannedToday($query, $studentId)
     {
         return $query->where('student_id', $studentId)
+            ->where('status', 'approved')
             ->whereDate('scanned_at', today());
     }
 }

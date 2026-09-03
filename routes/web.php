@@ -33,7 +33,6 @@ Route::get('/previous-year', [PreviousYearController::class, 'index'])->name('pr
 
 Route::get('/qr-code', [QrCodeController::class, 'index'])->name('qrcode.index');
 
-Route::get('/ceremony', [QrCodeController::class, 'index'])->name('ceremony.display');
 
 Route::prefix('student')->name('student.')->group(function () {
     Route::middleware('guest')->group(function () {

@@ -2,10 +2,10 @@
 
 @extends('frontend.layouts.app')
 
-@section('title', 'Ceremony Entry History')
+@section('title', 'সংবর্ধনায় প্রবেশের ইতিহাস')
 
 @section('content')
-<div class="container my-5">
+<div class="container" style="margin-top: 100px; margin-bottom: 100px;">
     <div class="row justify-content-center">
         <div class="col-lg-8">
 
@@ -13,12 +13,12 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <h3 class="mb-1">
-                        <i class="fas fa-history"></i> Ceremony Entry History
+                        <i class="fas fa-history"></i> সংবর্ধনায় প্রবেশের ইতিহাস
                     </h3>
-                    <p class="text-muted mb-0">Your attendance record</p>
+                    <p class="text-muted mb-0">আপনার উপস্থিতির রেকর্ড</p>
                 </div>
-                <a href="{{ route('ceremony.display') }}" class="btn btn-primary btn-sm">
-                    <i class="fas fa-qrcode"></i> Scan Again
+                <a href="{{ route('qrcode.index') }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-qrcode"></i> আবার স্ক্যান করুন
                 </a>
             </div>
 
@@ -29,26 +29,26 @@
                         <table class="table table-hover mb-0">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Date & Time</th>
-                                    <th>Status</th>
+                                    <th>তারিখ ও সময়</th>
+                                    <th>স্ট্যাটাস</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($entries as $entry)
                                     <tr>
                                         <td>
-                                            <strong>{{ $entry->scanned_at->format('M d, Y') }}</strong>
+                                            <strong>{{ $entry->scanned_at->format('d M, Y') }}</strong>
                                             <br>
                                             <small class="text-muted">{{ $entry->scanned_at->format('h:i A') }}</small>
                                         </td>
                                         <td>
                                             @if($entry->status === 'approved')
                                                 <span class="badge bg-success">
-                                                    <i class="fas fa-check-circle"></i> Approved
+                                                    <i class="fas fa-check-circle"></i> অনুমোদিত
                                                 </span>
                                             @else
                                                 <span class="badge bg-danger">
-                                                    <i class="fas fa-times-circle"></i> Denied
+                                                    <i class="fas fa-times-circle"></i> প্রত্যাখ্যাত
                                                 </span>
                                             @endif
                                         </td>
@@ -69,7 +69,7 @@
                 <div class="alert alert-info text-center py-5">
                     <i class="fas fa-inbox" style="font-size: 2rem;"></i>
                     <p class="mt-3 mb-0">
-                        No entries yet. <a href="{{ route('ceremony.display') }}">Scan the QR code</a>
+                        এখনো কোনো এন্ট্রি নেই। <a href="{{ route('ceremony.display') }}">QR কোড স্ক্যান করুন</a>
                     </p>
                 </div>
             @endif
