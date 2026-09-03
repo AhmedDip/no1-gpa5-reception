@@ -67,16 +67,7 @@ Route::prefix('student')->name('student.')->group(function () {
 
         Route::post('/update-parent-info', [StudentController::class, 'updateParentInfo'])->name('update.parent');
 
-        //Invitation Letter
-        Route::get('/invitation-letter', [InvitationLetterController::class, 'index'])->name('invitation.letter');
 
-        //Professional Certificate
-         Route::get('/certificate', [StudentController::class, 'certificate'])
-        ->name('certificate.index');
-
-    // Download certificate PDF
-    Route::get('/certificate/download', [StudentController::class, 'downloadCertificate'])
-        ->name('certificate.download');
 
         Route::middleware(['check.mobile.verified'])->group(function () {
 
@@ -92,8 +83,16 @@ Route::prefix('student')->name('student.')->group(function () {
             Route::get('/download-acknowledgement', [StudentController::class, 'downloadAcknowledgement'])->name('download.acknowledgement');
 
             // Download Invitation Letter and Certificate
-            Route::get('/invitation', [StudentController::class, 'downloadInvitation'])->name('download.invitation');
-            Route::get('/certificate', [StudentController::class, 'certificate'])->name('download.certificate');
+            //Invitation Letter
+            Route::get('/invitation-letter', [InvitationLetterController::class, 'index'])->name('invitation.index');
+            Route::get('/invitation/download', [StudentController::class, 'downloadInvitation'])->name('invitation.download');
+
+            //Professional Certificate
+            Route::get('/certificate', [StudentController::class, 'certificate'])->name('certificate.index');
+
+            // Download certificate PDF
+            Route::get('/certificate/download', [StudentController::class, 'downloadCertificate'])
+                ->name('certificate.download');
 
             // Profile Settings
             Route::get('/profile', [StudentController::class, 'profile'])->name('profile');
@@ -105,7 +104,7 @@ Route::prefix('student')->name('student.')->group(function () {
             Route::post('/notifications/mark-all-read', [StudentNotificationController::class, 'markAllRead'])->name('notifications.read-all');
 
             Route::get('/ceremony/verify', [QrCodeController::class, 'verify'])->name('ceremony.verify');
-    Route::get('/ceremony/history', [QrCodeController::class, 'history'])->name('ceremony.history');
+            Route::get('/ceremony/history', [QrCodeController::class, 'history'])->name('ceremony.history');
         });
 
 

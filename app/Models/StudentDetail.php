@@ -179,15 +179,10 @@ class StudentDetail extends Model
         };
     }
 
-    // app/Models/StudentDetail.php
 
-public function ceremonyEntries()
-{
-    return $this->hasMany(CeremonyEntry::class);
-}
+    public function ceremonyEntries()
+    {
+        return $this->hasMany(CeremonyEntry::class);
+    }
 
-public function applicationStatus()
-{
-    return $this->belongsTo(ApplicationStatus::class);
-}
 }

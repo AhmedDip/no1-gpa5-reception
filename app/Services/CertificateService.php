@@ -5,6 +5,7 @@ namespace App\Services;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 
+
 class CertificateService
 {
     public function downloadCertificate()
@@ -13,17 +14,13 @@ class CertificateService
         $name = $user->studentDetail->name ?? $user->name;
         $year = now()->year;
 
-        // Convert image to base64
-        $imagePath = public_path('images/certificate_background.png');
+        // Use asset() to get the URL
+        $imageUrl = asset('images/certificate_background.png');
 
-        if (!file_exists($imagePath)) {
-            throw new \Exception('Certificate background image not found at: ' . $imagePath);
-        }
-
-        $imageData = base64_encode(file_get_contents($imagePath));
+        // Get the content using HTTP
+        $imageData = base64_encode(file_get_contents($imageUrl));
         $imageSrc = 'data:image/png;base64,' . $imageData;
 
-        // Pass data to view
         $html = view('frontend.pages.certificate.template', compact('name', 'year', 'imageSrc'))->render();
 
         $pdf = Pdf::loadHTML($html);

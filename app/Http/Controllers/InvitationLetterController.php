@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InvitationLetterController extends Controller
 {
     public function index()
     {
-        return view('frontend.pages.invitation-letter.index');
+        $name = Auth::user()?->studentDetail?->name_bn ?? Auth::user()?->name ?? 'Student';
+
+        return view('frontend.pages.invitation-letter.index', compact('name'));
     }
 }

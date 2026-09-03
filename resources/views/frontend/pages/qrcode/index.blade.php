@@ -65,7 +65,7 @@
             <div class="mt-4 text-center">
                 @auth
                     <p class="text-muted small mb-2">
-                        Already logged in? <a href="{{ route('ceremony.history') }}">View your entry history</a>
+                        Already logged in? <a href="{{ route('student.ceremony.history') }}">View your entry history</a>
                     </p>
                 @endauth
                 @guest

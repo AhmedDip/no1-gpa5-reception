@@ -12,7 +12,6 @@ class QrCodeController extends Controller
     public function __construct(CeremonyEntryService $ceremonyService)
     {
         $this->ceremonyService = $ceremonyService;
-        // $this->middleware('auth')->only(['verify', 'history']); // Use default auth
     }
 
     /**
@@ -22,6 +21,8 @@ class QrCodeController extends Controller
     {
         // Generate QR code URL that points to verify endpoint
         $verifyUrl = route('student.ceremony.verify');
+
+        // dd($verifyUrl);
 
         $qrImageUrl = 'https://api.qrserver.com/v1/create-qr-code/?' . http_build_query([
             'size'   => '400x400',

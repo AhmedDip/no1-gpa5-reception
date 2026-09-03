@@ -31,7 +31,7 @@
                     <div class="alert alert-warning">
                         <p class="mb-0">
                             <strong>Current Status:</strong><br>
-                            <span class="badge bg-warning text-dark">{{ $current_status }}</span>
+                            <span class="badge bg-warning text-dark">{{ $current_status ?? 'Unknown' }}</span>
                         </p>
                     </div>
 

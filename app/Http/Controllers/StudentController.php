@@ -10,6 +10,7 @@ use App\Models\StudentGroup;
 use App\Models\StudentNotification;
 use App\Models\Upazila;
 use App\Services\CertificateService;
+use App\Services\InvitationLetterService;
 use App\Services\NotificationService;
 use App\Services\PhotoUploadService;
 use Illuminate\Http\Request;
@@ -220,20 +221,36 @@ class StudentController extends Controller
 
     public function certificate()
     {
-        $name = Auth::user()->studentDetail->name_bn ?? Auth::user()->name;
+        $user = Auth::user();
+
+        if ($user?->studentDetail?->application_status_id == 7) {
+            return back()->with('error', 'আপনি এখনও সার্টিফিকেট ডাউনলোডের জন্য যোগ্য নন।');
+        }
+        $name = Auth::user()->studentDetail->name ?? Auth::user()->name;
         return view('frontend.pages.certificate.index', compact('name'));
     }
 
     public function downloadCertificate()
-{
-    $user = Auth::user();
+    {
+        $user = Auth::user();
 
-    if (!$user->studentDetail) {
-        return back()->with('error', 'Student details not found');
+        // if ($user->studentDetail->application_status_id == 7) {
+        //     return back()->with('error', 'আপনি এখনও সার্টিফিকেট ডাউনলোডের জন্য যোগ্য নন।');
+        // }
+
+        return (new CertificateService())->downloadCertificate();
     }
 
-    return (new CertificateService())->downloadCertificate();
-}
+    public function downloadInvitation()
+    {
+        $user = Auth::user();
+
+        if (!$user?->studentDetail) {
+            return back()->with('error', 'Student details not found');
+        }
+
+        return (new InvitationLetterService())->downloadInvitation();
+    }
 
     public function changePassword(Request $request)
     {

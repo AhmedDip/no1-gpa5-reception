@@ -1,17 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Certificate</title>
-
-    <!-- Load Google Fonts with display=swap for better rendering -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
-        rel="stylesheet">
-
     <style>
         * {
             margin: 0;
@@ -20,10 +11,10 @@
         }
 
         body {
+            font-family: 'DejaVu Sans', 'Noto Serif Bengali', serif;
             margin: 0;
             padding: 0;
             background: #fff;
-            font-family: 'DejaVu Sans', 'Noto Serif Bengali', sans-serif;
         }
 
         .page {
@@ -48,10 +39,10 @@
             object-fit: cover;
         }
 
-        /* Student Name Container */
+        /* Exact positioning for student name */
         .student-name-container {
             position: absolute;
-            top: 38%;
+            top: 42%; /* Adjust this percentage to match your image */
             left: 50%;
             transform: translateX(-50%);
             z-index: 2;
@@ -59,18 +50,14 @@
             text-align: center;
         }
 
-        /* FIXED: Proper font styling with !important and fallbacks */
         .student-name-pdf {
-            font-family: 'Great Vibes', 'Dancing Script', cursive !important;
-            font-size: 90px;
-            font-weight: 400;
+            font-size: 48px;
+            font-weight: 700;
             color: #1a1a1a;
+            font-family: 'DejaVu Sans', 'Noto Serif Bengali', serif;
             line-height: 1.3;
             padding: 5px 20px;
             display: inline-block;
-            text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Certificate ID */
@@ -84,38 +71,17 @@
             font-family: 'DejaVu Sans', sans-serif;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .student-name-container {
                 top: 40%;
                 width: 80%;
             }
-
             .student-name-pdf {
                 font-size: 32px;
             }
         }
-
-        /* Print/PDF specific styles */
-        @media print {
-            body {
-                background: #fff;
-            }
-
-            .page {
-                height: 100vh;
-                page-break-after: avoid;
-            }
-        }
-
-        /* PDF generation specific - for DomPDF/other PDF generators */
-        @page {
-            margin: 0;
-            padding: 0;
-        }
     </style>
 </head>
-
 <body>
     <div class="page">
         <!-- Background Image -->
@@ -123,9 +89,9 @@
             <img src="{{ $imageSrc }}" alt="Certificate Background">
         </div>
 
-        <!-- Student Name Overlay - FIXED with inline font declaration -->
+        <!-- Student Name Overlay -->
         <div class="student-name-container">
-            <div class="student-name-pdf" style="font-family: 'Great Vibes', cursive !important;">
+            <div class="student-name-pdf">
                 {{ $name }}
             </div>
         </div>
@@ -136,5 +102,4 @@
         </div>
     </div>
 </body>
-
 </html>

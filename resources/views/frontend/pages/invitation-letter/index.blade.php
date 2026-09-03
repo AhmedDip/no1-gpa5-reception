@@ -1,325 +1,130 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'আমন্ত্রণ পত্র | No.1 Babar Kriti Santan Songbordhona’26')
+@section('title', 'সার্টিফিকেট | No.1 Babar Kriti Santan Songbordhona’26')
 
 @section('content')
-    <style>
-        /* Base page reset */
-        .invitation-body-wrapper {
-            background-color: #f8fafc;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 3rem 1rem;
+
+<style>
+    .certificate-wrapper {
+        width: 100%;
+        max-width: 1400px;
+        margin: 40px auto;
+        position: relative;
+        background: #fff;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .certificate-container {
+        width: 100%;
+        position: relative;
+    }
+
+    .certificate-image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Student Name Overlay - Web Version */
+    .student-name-web {
+        position: absolute;
+        top: 12%; /* Match this with PDF position */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70%;
+        text-align: center;
+        font-family: 'Noto Serif Bengali', 'Georgia', serif;
+        font-size: clamp(28px, 4vw, 48px);
+        font-weight: 700;
+        color: #1a1a1a;
+        line-height: 1.3;
+        padding: 5px 20px;
+    }
+
+    .download-section {
+        padding: 30px;
+        text-align: center;
+        background: #f8f9fa;
+        border-top: 1px solid #e9ecef;
+    }
+
+    .btn-download {
+        display: inline-block;
+        padding: 15px 40px;
+        background: #3498db;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .btn-download:hover {
+        background: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+    }
+
+    .btn-download i {
+        margin-right: 10px;
+    }
+
+    @media (max-width: 768px) {
+        .certificate-wrapper {
+            margin: 20px auto;
+            border-radius: 5px;
         }
-
-        .invitation-card {
-            max-width: 950px;
-            width: 100%;
-            aspect-ratio: 4 / 3;
-            background-image: url('{{ asset('images/invitation-bg.png') }}');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            border-radius: 12px;
-            box-shadow: 0 20px 45px rgba(15, 46, 71, 0.12);
-            position: relative;
-            box-sizing: border-box;
-            overflow: hidden;
+        .student-name-web {
+            font-size: clamp(12px, 5vw, 22px);
+            top: 8%;
+            width: 80%;
         }
-
-
-        .invitation-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding: 9% 12% 5% 12%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-sizing: border-box;
+        .btn-download {
+            padding: 12px 25px;
+            font-size: 16px;
         }
+    }
 
-        /* Typography & Element Styling resets */
-        .bangla {
-            font-family: 'Hind Siliguri', sans-serif;
+    @media print {
+        .download-section {
+            display: none;
         }
-
-        .header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
+        .certificate-wrapper {
+            box-shadow: none;
+            margin: 0;
+            border-radius: 0;
         }
+    }
+</style>
 
-        .logo-group {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
+<div class="container-fluid px-3" style="margin-top: 120px; margin-bottom: 20px;">
+    <div class="certificate-wrapper">
+        <div class="certificate-container">
+            <!-- Certificate Background Image (with all text) -->
+            <img
+                src="{{ asset('images/invitation-bg.jpg') }}"
+                alt="Certificate"
+                class="certificate-image"
+            >
 
-        .logo-placeholder {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            border: 2px solid #2c4a5e;
-        }
-
-        .brand-text {
-            font-weight: 700;
-            color: #0f2e47;
-            font-size: 1.15rem;
-            line-height: 1.2;
-        }
-
-        .brand-text small {
-            font-weight: 500;
-            font-size: 0.8rem;
-            display: block;
-            color: #475569;
-        }
-
-        /* Main Invitation Letter Heading */
-        .invitation-heading {
-            font-family: 'Cinzel', serif;
-            color: #0d233a;
-            font-weight: 800;
-            letter-spacing: 3px;
-            margin: 0.5rem 0 0.2rem 0;
-            text-align: center;
-            font-size: 2rem;
-        }
-
-        .invitation-content-area {
-            margin-top: 0.5rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .salutation {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #0f2e47;
-            margin-bottom: 0.5rem;
-            text-align: left;
-        }
-
-        .invitation-text {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            color: #1e293b;
-            font-weight: 400;
-            text-align: left;
-            max-width: 720px;
-        }
-
-        .invitation-text strong {
-            color: #0f2e47;
-            font-weight: 700;
-        }
-
-        .invitation-text .highlight {
-            color: #b45309;
-            font-weight: 700;
-        }
-
-        .event-details {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.8rem;
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(5px);
-            border-radius: 12px;
-            padding: 1rem 1.5rem;
-            margin: 1rem 0;
-            border: 1px solid rgba(203, 213, 225, 0.6);
-            max-width: 660px;
-        }
-
-        .detail-item {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            color: #334155;
-            font-size: 0.95rem;
-        }
-
-        .detail-item i {
-            font-size: 1.2rem;
-            color: #2c4a5e;
-            width: 1.5rem;
-            text-align: center;
-        }
-
-        .detail-item span {
-            font-weight: 700;
-            color: #0f2e47;
-        }
-
-        .detail-item small {
-            font-weight: 500;
-            color: #475569;
-        }
-
-        .bottom-action-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-top: 0.5rem;
-            max-width: 660px;
-        }
-
-        .footer-note {
-            font-size: 0.85rem;
-            color: #475569;
-            text-align: left;
-        }
-
-        .footer-note .social {
-            margin-top: 0.4rem;
-        }
-
-        .footer-note .social i {
-            margin-right: 0.6rem;
-            color: #2c4a5e;
-            font-size: 1.1rem;
-        }
-
-        .signature-box {
-            text-align: center;
-            border-top: 1px solid #cbd5e1;
-            padding-top: 0.4rem;
-            min-width: 180px;
-        }
-
-        .signature-box p {
-            font-weight: 600;
-            color: #0f2e47;
-            font-size: 0.95rem;
-            margin-bottom: 0px;
-        }
-
-        .signature-box .org {
-            font-weight: 500;
-            color: #64748b;
-            font-size: 0.85rem;
-        }
-
-        @media (max-width: 992px) {
-            .invitation-card {
-                aspect-ratio: auto;
-                height: auto;
-            }
-
-            .invitation-overlay {
-                position: relative;
-                padding: 2.5rem 1.5rem;
-            }
-
-            .invitation-text,
-            .event-details,
-            .bottom-action-row {
-                max-width: 100%;
-            }
-
-            .event-details {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-
-    <div class="invitation-body-wrapper bangla py-5 mt-5">
-        <div class="invitation-card">
-            <div class="invitation-overlay">
-
-                <div class="header-row">
-                    <div class="logo-group">
-                        <img src="{{ asset('images/no1-logo.png') }}" alt="No.1 Logo" class="logo-placeholder">
-                        <div class="brand-text">
-                            No.1 Brand
-                            <small>নং ১ ব্র্যান্ড</small>
-                        </div>
-                    </div>
-                    <div>
-                        <h1 class="invitation-heading">INVITATION</h1>
-                    </div>
-                </div>
-
-                <div class="invitation-content-area">
-                    <div class="salutation">
-                        <i class="fas fa-envelope-open-text" style="color: #2c4a5e; margin-right: 8px;"></i> প্রিয় অভিভাবক
-                        ও কৃতি সন্তান,
-                    </div>
-
-                    <div class="invitation-text">
-                        <p class="mb-2">
-                            <strong>No.1 Brand</strong> -এর পক্ষ থেকে আন্তরিক অভিনন্দন ও আমন্ত্রণ।
-                            <span class="highlight">“নং ১ বাবার কৃতি সন্তান সম্বর্ধনা’২৬”</span>
-                            অনুষ্ঠানে আপনার সন্তানের অসাধারণ অর্জন উদযাপন করতে আমরা গর্বিত। চায়ের দোকানের মালিকদের মেধাবী
-                            সন্তানদের এই বিশেষ সম্মাননা তাদের পড়াশোনার পাশাপাশি অভিভাবকদের ত্যাগকেও শ্রদ্ধা জানায়।
-                        </p>
-                        <p class="mb-2">
-                            Your child has made us all proud by achieving <strong>GPA-5</strong>। আমরা তাকে <strong>“নং ১
-                                বাবারের কৃতি সন্তান”</strong> হিসেবে সম্মানিত করতে চাই। অনুগ্রহ করে নির্ধারিত সময়ে উপস্থিত
-                            থেকে অনুষ্ঠানটিকে প্রাণবন্ত করুন।
-                        </p>
-                        <div style="font-weight: 600; color: #0f2e47; font-size: 0.95rem;">
-                            <i class="fas fa-hand-holding-heart" style="color: #2c4a5e; margin-right: 4px;"></i> আয়োজনে
-                            থাকছে: সার্টিফিকেট, ক্রেস্ট, শিক্ষা উপকরণ ও বিশেষ উপহার।
-                        </div>
-                    </div>
-                </div>
-
-                <div class="event-details">
-                    <div class="detail-item">
-                        <i class="fas fa-calendar-alt"></i>
-                        <div><span>তারিখ:</span> <small>২৬ জুন ২০২৬, শুক্রবার</small></div>
-                    </div>
-                    <div class="detail-item">
-                        <i class="fas fa-clock"></i>
-                        <div><span>সময়:</span> <small>সকাল ১০:৩০ – বিকাল ০১:০০</small></div>
-                    </div>
-                    <div class="detail-item">
-                        <i class="fas fa-map-pin"></i>
-                        <div><span>স্থান:</span> <small>মিরপুর শহীদ বুদ্ধিজীবী মিলনায়তন, ঢাকা</small></div>
-                    </div>
-                    <div class="detail-item">
-                        <i class="fas fa-user-check"></i>
-                        <div><span>নিবন্ধন:</span> <small>অনলাইন নিবন্ধন বাধ্যতামূলক।</small></div>
-                    </div>
-                </div>
-
-                <div class="bottom-action-row">
-                    <div class="footer-note">
-                        <div>
-                            <i class="fas fa-globe-asia" style="color: #2c4a5e; margin-right: 4px;"></i>
-                            বিস্তারিত ও নিবন্ধন: <strong>www.no1babarkriti.com</strong>
-                        </div>
-                        <div class="social">
-                            <i class="fab fa-facebook-f"></i>
-                            <i class="fab fa-instagram"></i>
-                            <i class="fab fa-youtube"></i>
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                    </div>
-
-                    <div class="signature-box">
-                        <p>শুভেচ্ছা সহ,</p>
-                        <p style="font-weight: 700; font-size: 1.05rem; color: #0f2e47;">No.1 Brand</p>
-                        <p class="org mb-1">আয়োজক কমিটি</p>
-                        <p style="font-size: 0.8rem; color: #475569;">
-                            <i class="fas fa-phone-alt" style="color: #2c4a5e;"></i> +৮৮০ ১৭১২-৩৪৫৬৭৮
-                        </p>
-                    </div>
-                </div>
-
+            <!-- Dynamic Student Name Only -->
+            <div class="student-name-web">
+                {{ $name }}
             </div>
         </div>
+
+        <!-- Download Button -->
+        <div class="download-section">
+            <a href="{{ route('student.certificate.download') }}" class="btn-download">
+                <i class="fas fa-download"></i> Download PDF Certificate
+            </a>
+        </div>
     </div>
+</div>
+
 @endsection

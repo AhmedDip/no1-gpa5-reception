@@ -1,5 +1,3 @@
-// app/Models/CeremonyEntry.php
-
 <?php
 
 namespace App\Models;

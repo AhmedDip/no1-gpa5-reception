@@ -445,21 +445,19 @@
                     <div class="card-body">
                         <div class="row g-3">
                             <div class="col-md-4">
-                                <a href="#" class="text-decoration-none disabled-link"
-                                    style="pointer-events: none; cursor: default;">
-                                    <div class="menu-btn bg-light opacity-50">
+                                <a href="{{ route('student.certificate.index') }}" class="text-decoration-none">
+                                    <div class="menu-btn bg-light">
                                         <img src="{{ asset('images/animated-icon/certificate.gif') }}"
                                             alt="Download Certificate" class="img-fluid" style="max-width: 40px;">
                                         <h6 class="mb-0 text-dark mt-1">সার্টিফিকেট</h6>
                                         <small class="text-muted">ডাউনলোড করুন</small>
-                                        <span class="badge bg-secondary mt-1">শীঘ্রই আসছে</span>
+                                        {{-- <span class="badge bg-secondary mt-1">শীঘ্রই আসছে</span> --}}
                                     </div>
                                 </a>
                             </div>
                             <div class="col-md-4">
-                                <a href="#" class="text-decoration-none disabled-link"
-                                    style="pointer-events: none; cursor: default;">
-                                    <div class="menu-btn bg-light opacity-50">
+                                <a href="{{ route('student.invitation.index') }}" class="text-decoration-none">
+                                    <div class="menu-btn bg-light">
                                         <img src="{{ asset('images/animated-icon/invitation.gif') }}"
                                             alt="Invitation Letter" class="img-fluid" style="max-width: 40px;">
                                         <h6 class="mb-0 text-dark mt-1">আমন্ত্রণপত্র</h6>
