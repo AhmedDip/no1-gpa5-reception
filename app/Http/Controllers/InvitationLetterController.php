@@ -9,7 +9,7 @@ class InvitationLetterController extends Controller
 {
     public function index()
     {
-        $name = Auth::user()?->studentDetail?->name_bn ?? Auth::user()?->name ?? 'Student';
+        $name = Auth::user()?->studentDetail?->name ?? Auth::user()?->name ?? 'Student';
 
         return view('frontend.pages.invitation-letter.index', compact('name'));
     }
