@@ -108,9 +108,11 @@
     <div class="container-fluid px-3" style="margin-top: 120px; margin-bottom: 20px;">
         <div class="certificate-wrapper">
             <div class="certificate-container">
-                <!-- Certificate Background Image (with all text) -->
-                <img src="{{ asset('images/certificate_background.png') }}" alt="Certificate" class="certificate-image">
-
+                @if($user->studentDetail && $user->studentDetail->gender == 2)
+                    <img src="{{ asset('images/certificate_female.png') }}" alt="Certificate" class="certificate-image">
+                @else
+                    <img src="{{ asset('images/certificate_male.png') }}" alt="Certificate" class="certificate-image">
+                @endif
                 <!-- Dynamic Student Name Only -->
                 <div class="student-name-web">
                     {{ $name }}

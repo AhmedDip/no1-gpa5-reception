@@ -115,7 +115,7 @@
 
 <body>
     <div class="page">
-
+        <!-- Background Image -->
         <div class="background-image">
             <img src="{{ $imageSrc }}" alt="Certificate Background">
         </div>

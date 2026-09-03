@@ -22,7 +22,8 @@ class StudentController extends Controller
 {
     public function __construct(
         private PhotoUploadService $photoUploadService,
-        private NotificationService $notificationService
+        private NotificationService $notificationService,
+        private InvitationLetterService $invitationLetterService
     ) {
     }
 
