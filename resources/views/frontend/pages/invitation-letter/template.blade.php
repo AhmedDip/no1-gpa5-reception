@@ -1,9 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <title>Certificate</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Invitation Letter</title>
+
     <style>
+        @font-face {
+            font-family: 'SolaimanLipi';
+            src: url("{{ storage_path('fonts/SolaimanLipi-Normal.ttf') }}") format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -11,10 +20,10 @@
         }
 
         body {
-            font-family: 'DejaVu Sans', 'Noto Serif Bengali', serif;
             margin: 0;
             padding: 0;
             background: #fff;
+            font-family: 'SolaimanLipi', 'Noto Sans Bengali', sans-serif;
         }
 
         .page {
@@ -39,66 +48,44 @@
             object-fit: cover;
         }
 
-        /* Exact positioning for student name */
         .student-name-container {
             position: absolute;
-            top: 42%; /* Adjust this percentage to match your image */
+            top: 14%;
             left: 50%;
             transform: translateX(-50%);
             z-index: 2;
-            width: 70%;
+            width: 80%;
             text-align: center;
         }
 
         .student-name-pdf {
-            font-size: 48px;
-            font-weight: 700;
+            font-family: 'SolaimanLipi', 'Noto Sans Bengali', sans-serif;
+            font-size: clamp(28px, 4.5vw, 52px);
+            font-weight: 600;
             color: #1a1a1a;
-            font-family: 'DejaVu Sans', 'Noto Serif Bengali', serif;
-            line-height: 1.3;
-            padding: 5px 20px;
-            display: inline-block;
+            line-height: 1.6;
+            padding: 10px 20px;
+            letter-spacing: 1px;
+            word-break: break-word;
+            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.6);
         }
 
-        /* Certificate ID */
-        .certificate-id {
-            position: absolute;
-            bottom: 8%;
-            right: 10%;
-            z-index: 2;
-            font-size: 12px;
-            color: #666;
-            font-family: 'DejaVu Sans', sans-serif;
-        }
-
-        @media (max-width: 768px) {
-            .student-name-container {
-                top: 40%;
-                width: 80%;
-            }
-            .student-name-pdf {
-                font-size: 32px;
-            }
+        /* For debugging - shows if font loaded */
+        .font-test {
+            font-family: 'SolaimanLipi', sans-serif;
         }
     </style>
 </head>
 <body>
     <div class="page">
-        <!-- Background Image -->
         <div class="background-image">
-            <img src="{{ $imageSrc }}" alt="Certificate Background">
+            <img src="{{ $imageSrc }}" alt="Invitation Letter Background">
         </div>
 
-        <!-- Student Name Overlay -->
         <div class="student-name-container">
             <div class="student-name-pdf">
-                {{ $name }}
+                {!! $processed_name !!}
             </div>
-        </div>
-
-        <!-- Certificate ID -->
-        <div class="certificate-id">
-            Certificate No: CERT-{{ str_pad(Auth::id() ?? 1, 6, '0', STR_PAD_LEFT) }}
         </div>
     </div>
 </body>

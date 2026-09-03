@@ -59,7 +59,6 @@
             text-align: center;
         }
 
-        /* FIXED: Proper font styling with !important and fallbacks */
         .student-name-pdf {
             font-family: 'Great Vibes', 'Dancing Script', cursive !important;
             font-size: 90px;
@@ -73,7 +72,6 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Certificate ID */
         .certificate-id {
             position: absolute;
             bottom: 8%;
@@ -108,7 +106,6 @@
             }
         }
 
-        /* PDF generation specific - for DomPDF/other PDF generators */
         @page {
             margin: 0;
             padding: 0;
@@ -118,12 +115,12 @@
 
 <body>
     <div class="page">
-        <!-- Background Image -->
+
         <div class="background-image">
             <img src="{{ $imageSrc }}" alt="Certificate Background">
         </div>
 
-        <!-- Student Name Overlay - FIXED with inline font declaration -->
+        <!-- Student Name Overlay  -->
         <div class="student-name-container">
             <div class="student-name-pdf" style="font-family: 'Great Vibes', cursive !important;">
                 {{ $name }}

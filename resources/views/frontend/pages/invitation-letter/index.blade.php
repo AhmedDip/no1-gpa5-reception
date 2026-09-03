@@ -30,14 +30,17 @@
     /* Student Name Overlay - Web Version */
     .student-name-web {
         position: absolute;
-        top: 12%; /* Match this with PDF position */
+        top: 14%; /* Match this with PDF position */
         left: 50%;
         transform: translateX(-50%);
         width: 70%;
         text-align: center;
-        font-family: 'Noto Serif Bengali', 'Georgia', serif;
-        font-size: clamp(28px, 4vw, 48px);
-        font-weight: 700;
+        /* font-family: 'Noto Serif Bengali', 'Georgia', serif; */
+        /*font-family should be english*/
+        font-family:'Courier New', Courier, monospace;
+
+        font-size: clamp(25px, 4vw, 15px);
+        font-weight: 600;
         color: #1a1a1a;
         line-height: 1.3;
         padding: 5px 20px;
@@ -76,12 +79,12 @@
 
     @media (max-width: 768px) {
         .certificate-wrapper {
-            margin: 20px auto;
+            margin: 30px auto;
             border-radius: 5px;
         }
         .student-name-web {
-            font-size: clamp(12px, 5vw, 22px);
-            top: 8%;
+            font-size: clamp(12px, 5vw, 10px);
+            top: 12%;
             width: 80%;
         }
         .btn-download {
@@ -120,7 +123,7 @@
 
         <!-- Download Button -->
         <div class="download-section">
-            <a href="{{ route('student.certificate.download') }}" class="btn-download">
+            <a href="{{ route('student.invitation.download') }}" class="btn-download" target="_blank">
                 <i class="fas fa-download"></i> Download PDF Certificate
             </a>
         </div>

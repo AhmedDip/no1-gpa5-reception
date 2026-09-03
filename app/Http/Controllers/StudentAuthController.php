@@ -131,7 +131,7 @@ class StudentAuthController extends Controller
         return view('frontend.pages.student.login');
     }
 
-       public function login(Request $request)
+    public function login(Request $request)
     {
         $request->validate([
             'mobile' => 'required|string',
@@ -152,11 +152,6 @@ class StudentAuthController extends Controller
             $request->session()->regenerate();
 
             $user = Auth::user();
-
-       
-            if ($intended = session()->pull('url.intended')) {
-                return redirect()->to($intended)->with('success', 'স্বাগতম! আপনি সফলভাবে লগইন করেছেন।');
-            }
 
             if (!$user->hasParentInfo()) {
                 return redirect()->route('student.dashboard')->with('warning', 'অনুগ্রহ করে আপনার অভিভাবকের তথ্য প্রদান করুন।');
