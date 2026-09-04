@@ -228,7 +228,7 @@ class StudentController extends Controller
             return back()->with('error', 'আপনি এখনও সার্টিফিকেট ডাউনলোডের জন্য যোগ্য নন।');
         }
         $name = Auth::user()->studentDetail->name ?? Auth::user()->name;
-        return view('frontend.pages.certificate.index', compact('name'));
+        return view('frontend.pages.certificate.index', compact('name', 'user'));
     }
 
     public function downloadCertificate()
