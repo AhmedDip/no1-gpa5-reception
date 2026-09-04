@@ -10,7 +10,7 @@ class InvitationLetterService
     public function downloadInvitation()
     {
         $user = Auth::user();
-        $name = $user?->studentDetail?->name ?? $user?->name ?? 'Student';
+        $name = $user?->studentDetail?->name_bn ?? $user?->name ?? 'Student';
 
         $imagePath = public_path('images/invitation-bg.jpg');
 
