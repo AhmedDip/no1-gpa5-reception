@@ -20,13 +20,21 @@ class InvitationLetterService
             throw new \Exception('Invitation background image not found');
         }
 
+        $fontPath = public_path('fonts/kalpurush.ttf');
+
+        if (!file_exists($fontPath)) {
+            throw new \Exception('Bengali font not found');
+        }
+
         $imageData = base64_encode(file_get_contents($imagePath));
         $imageSrc = 'data:image/jpeg;base64,' . $imageData;
+        $fontData = base64_encode(file_get_contents($fontPath));
+        $fontSrc = 'data:font/truetype;base64,' . $fontData;
 
-        $html = view('frontend.pages.invitation-letter.template', compact('name', 'imageSrc'))->render();
+        $html = view('frontend.pages.invitation-letter.template', compact('name', 'imageSrc', 'fontSrc'))->render();
 
         $pdf = Pdf::loadHTML($html);
-        $pdf->setPaper('a4', 'landscape');
+        $pdf->setPaper([0, 0, 841.89, 533.86], 'landscape');
 
         // THIS IS KEY - Use kalpurush font
         $pdf->setOptions([

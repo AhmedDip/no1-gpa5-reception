@@ -44,12 +44,11 @@ return [
     'pdfBackend'            => env('DOMPDF_PDF_BACKEND', 'CPDF'),
     'pdflibLicense'         => env('DOMPDF_PDFLIB_LICENSE', ''),
 
-    // ⬇️ IMPORTANT - BENGALI FONT CONFIGURATION
     'custom_font_dir'       => base_path('resources/fonts/'),
     'custom_font_data'      => [
         'kalpurush' => [
-            'normal' => base_path('resources/fonts/Kalpurush.ttf'),
-            'bold'   => base_path('resources/fonts/Kalpurush.ttf'),
+            'normal' => base_path('resources/fonts/kalpurush.ttf'),
+            'bold'   => base_path('resources/fonts/kalpurush.ttf'),
         ],
     ],
 ];

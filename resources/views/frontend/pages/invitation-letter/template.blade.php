@@ -4,7 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Invitation Letter</title>
+
     <style>
+        @font-face {
+            font-family: 'kalpurush';
+            src: url('{{ asset('fonts/kalpurush.ttf') }}') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,22 +21,20 @@
         }
 
         html, body {
+            width: 297mm;
+            height: 188.067mm;
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            font-family: kalpurush, sans-serif;
-            background: #fff;
         }
 
-        .page {
-            width: 100%;
-            height: 100vh;
+        .invitation {
+            width: 297mm;
+            height: 188.067mm;
             position: relative;
-            page-break-after: avoid;
+            overflow: hidden;
         }
 
-        .background-image {
+        .invitation-image {
             position: absolute;
             top: 0;
             left: 0;
@@ -36,41 +43,36 @@
             z-index: 1;
         }
 
-        .background-image img {
+        .invitation-image {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            display: block;
         }
 
-        .student-name-container {
+        .student-name {
             position: absolute;
             top: 14%;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
+            left: 15%;
             width: 70%;
+            margin: 0;
             text-align: center;
         }
 
-        .student-name-pdf {
-            font-family: kalpurush, sans-serif;
+        .student-name {
+            font-family: 'kalpurush', sans-serif;
             font-size: 28px;
-            font-weight: normal;
-            color: #000;
-            line-height: 1.4;
-            word-wrap: break-word;
-        }
-    </style>
-</head>
-<body>
-    <div class="page">
+                aspect-ratio: 297 / 210;
+            }
+            .student-name-pdf {
+        <div class="invitation">
+            <img class="invitation-image" src="{{ $imageSrc }}" alt="">
+            <p class="student-name">{{ $name }}</p>
         <div class="background-image">
-            <img src="{{ $imageSrc }}" alt="Invitation Letter Background">
-        </div>
+            } finally {
+                button.disabled = false;
+            }
+        }
+    </script>
 
-        <div class="student-name-container">
-            <div class="student-name-pdf">{{ $name }}</div>
-        </div>
-    </div>
 </body>
 </html>
