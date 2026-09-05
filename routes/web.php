@@ -84,7 +84,7 @@ Route::prefix('student')->name('student.')->group(function () {
             // Download Invitation Letter and Certificate
             //Invitation Letter
             Route::get('/invitation-letter', [InvitationLetterController::class, 'index'])->name('invitation.index');
-            Route::get('/invitation/download', [StudentController::class, 'downloadInvitation'])->name('invitation.download');
+            // Route::get('/invitation/download', [StudentController::class, 'downloadInvitation'])->name('invitation.download');
 
             //Professional Certificate
             Route::get('/certificate', [StudentController::class, 'certificate'])->name('certificate.index');

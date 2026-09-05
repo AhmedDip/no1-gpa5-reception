@@ -52,14 +52,14 @@
 
         .student-name {
             position: absolute;
-            top: 14%;
+            top: 15%;
             left: 15%;
             width: 70%;
             margin: 0;
             text-align: center;
             font-family: 'Kalpurush', sans-serif;
-            font-size: clamp(18px, 2.2vw, 42px);
-            font-weight: 400;
+            font-size: clamp(10px, 1.8vw, 20px);
+            font-weight: 600;
             color: #1a1a1a;
             line-height: 1.3;
             overflow-wrap: anywhere;
@@ -109,9 +109,9 @@
             }
 
             .student-name {
-                font-size: clamp(28px, 3.2vw, 56px);
+                font-size: clamp(20px, 2.2vw, 20px);
                 /* slightly larger for print */
-                top: 14%;
+                top: 15%;
                 left: 15%;
                 width: 70%;
                 color: #1a1a1a;
@@ -133,10 +133,10 @@
         /* ----- PRINT BUTTON (screen only) ----- */
         .print-button {
             position: fixed;
-            top: 10px;
-            right: 10px;
+            top: 550px;
+            /* right: 10px; */
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #e93b75;
             color: #fff;
             border: none;
             border-radius: 5px;

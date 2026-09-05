@@ -10,7 +10,6 @@ use App\Models\StudentGroup;
 use App\Models\StudentNotification;
 use App\Models\Upazila;
 use App\Services\CertificateService;
-use App\Services\InvitationLetterService;
 use App\Services\NotificationService;
 use App\Services\PhotoUploadService;
 use Illuminate\Http\Request;
@@ -23,7 +22,6 @@ class StudentController extends Controller
     public function __construct(
         private PhotoUploadService $photoUploadService,
         private NotificationService $notificationService,
-        private InvitationLetterService $invitationLetterService
     ) {
     }
 
@@ -238,6 +236,10 @@ class StudentController extends Controller
         // if ($user->studentDetail->application_status_id == 7) {
         //     return back()->with('error', 'আপনি এখনও সার্টিফিকেট ডাউনলোডের জন্য যোগ্য নন।');
         // }
+
+         if ($user?->studentDetail?->application_status_id != 7) {
+            return back()->with('error', 'আপনি এখনও সার্টিফিকেট ডাউনলোডের জন্য যোগ্য নন।');
+        }
 
         return (new CertificateService())->downloadCertificate();
     }

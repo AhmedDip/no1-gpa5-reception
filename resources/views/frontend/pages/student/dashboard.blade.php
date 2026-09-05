@@ -462,7 +462,7 @@
                                             alt="Invitation Letter" class="img-fluid" style="max-width: 40px;">
                                         <h6 class="mb-0 text-dark mt-1">আমন্ত্রণপত্র</h6>
                                         <small class="text-muted">ইভেন্টের আমন্ত্রণপত্র</small>
-                                        <span class="badge bg-secondary mt-1">শীঘ্রই আসছে</span>
+                                        {{-- <span class="badge bg-secondary mt-1">শীঘ্রই আসছে</span> --}}
                                     </div>
                                 </a>
                             </div>
