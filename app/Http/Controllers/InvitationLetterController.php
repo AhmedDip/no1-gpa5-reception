@@ -11,7 +11,7 @@ class InvitationLetterController extends Controller
     {
         $name = Auth::user()?->studentDetail?->name_bn ?? Auth::user()?->name ?? 'Student';
 
-          if (Auth::user()?->studentDetail?->application_status_id != 7) {
+          if (Auth::user()?->studentDetail?->application_status_id != 6) {
             return back()->with('error', 'আপনি এখনও ইনভিটেশন কার্ড ডাউনলোডের জন্য যোগ্য নন।');
         }
 

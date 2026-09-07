@@ -5,13 +5,6 @@
     <meta charset="UTF-8">
     <title>Certificate</title>
 
-    <!-- Load Google Fonts with display=swap for better rendering -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
-        rel="stylesheet">
-
     <style>
         * {
             margin: 0;
@@ -19,11 +12,17 @@
             box-sizing: border-box;
         }
 
+        @font-face {
+            font-family: 'Solistaria Script';
+            src: url('{{ $fontPath }}') format('truetype');
+            font-weight: normal;
+            font-style: italic;
+        }
+
         body {
             margin: 0;
             padding: 0;
             background: #fff;
-            font-family: 'DejaVu Sans', 'Noto Serif Bengali', sans-serif;
         }
 
         .page {
@@ -60,7 +59,8 @@
         }
 
         .student-name-pdf {
-            font-family: 'Great Vibes', 'Dancing Script', cursive !important;
+            font-family: 'Solistaria Script', cursive !important;
+            font-style: italic;
             font-size: 90px;
             font-weight: 400;
             color: #1a1a1a;
@@ -122,7 +122,7 @@
 
         <!-- Student Name Overlay  -->
         <div class="student-name-container">
-            <div class="student-name-pdf" style="font-family: 'Great Vibes', cursive !important;">
+            <div class="student-name-pdf">
                 {{ $name }}
             </div>
         </div>

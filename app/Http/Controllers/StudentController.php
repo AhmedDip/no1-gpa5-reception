@@ -222,7 +222,7 @@ class StudentController extends Controller
     {
         $user = Auth::user();
 
-        if ($user?->studentDetail?->application_status_id == 7) {
+       if ($user?->studentDetail?->application_status_id != 6) {
             return back()->with('error', 'আপনি এখনও সার্টিফিকেট ডাউনলোডের জন্য যোগ্য নন।');
         }
         $name = Auth::user()->studentDetail->name ?? Auth::user()->name;
@@ -233,11 +233,8 @@ class StudentController extends Controller
     {
         $user = Auth::user();
 
-        // if ($user->studentDetail->application_status_id == 7) {
-        //     return back()->with('error', 'আপনি এখনও সার্টিফিকেট ডাউনলোডের জন্য যোগ্য নন।');
-        // }
 
-         if ($user?->studentDetail?->application_status_id != 7) {
+         if ($user?->studentDetail?->application_status_id != 6) {
             return back()->with('error', 'আপনি এখনও সার্টিফিকেট ডাউনলোডের জন্য যোগ্য নন।');
         }
 
