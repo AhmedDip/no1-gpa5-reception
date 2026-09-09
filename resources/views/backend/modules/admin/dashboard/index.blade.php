@@ -386,8 +386,34 @@
         @endforeach
     </div>
 
+        <!-- Charts -->
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <i class="bx bx-pie-chart-alt-2 fs-5" style="color:#7c6bb0;"></i>
+                        <h6 class="card-title mb-0">বোর্ড অনুযায়ী আবেদন</h6>
+                    </div>
+                    <div id="boardChart" class="chart-container"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <i class="bx bx-map fs-5" style="color:#44c9a0;"></i>
+                        <h6 class="card-title mb-0">বিভাগ অনুযায়ী আবেদন</h6>
+                    </div>
+                    <div id="divisionChart" class="chart-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Progress Rings -->
-    @if($totalApplications > 0)
+    {{-- @if($totalApplications > 0)
         @php
             $approvedPct = round(($approvedApplications / $totalApplications) * 100);
             $pendingPct = round(($pendingApplications / $totalApplications) * 100);
@@ -431,33 +457,9 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endif --}}
 
-    <!-- Charts -->
-    <div class="row g-3 mb-4">
-        <div class="col-12 col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <i class="bx bx-pie-chart-alt-2 fs-5" style="color:#7c6bb0;"></i>
-                        <h6 class="card-title mb-0">বোর্ড অনুযায়ী আবেদন</h6>
-                    </div>
-                    <div id="boardChart" class="chart-container"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <i class="bx bx-map fs-5" style="color:#44c9a0;"></i>
-                        <h6 class="card-title mb-0">বিভাগ অনুযায়ী আবেদন</h6>
-                    </div>
-                    <div id="divisionChart" class="chart-container"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Recent Applications Table -->
     <div class="row">
@@ -492,8 +494,12 @@
                                     @php
                                         $statusMap = [
                                             1 => ['label' => 'অপেক্ষমাণ', 'class' => 'st-pending'],
-                                            2 => ['label' => 'অনুমোদিত', 'class' => 'st-approved'],
-                                            3 => ['label' => 'প্রত্যাখ্যাত', 'class' => 'st-rejected'],
+                                            2 => ['label' => 'রিজিওনাল ম্যানেজার কর্তৃক অনুমোদিত ', 'class' => 'st-approved'],
+                                            3 => ['label' => 'রিজিওনাল ম্যানেজার কর্তৃক প্রত্যাখ্যাত', 'class' => 'st-rejected'],
+                                            4 => ['label' => 'উইং ম্যানেজার কর্তৃক অনুমোদিত ', 'class' => 'st-approved'],
+                                            5 => ['label' => 'উইং ম্যানেজার কর্তৃক প্রত্যাখ্যাত', 'class' => 'st-rejected'],
+                                            6 => ['label' => 'অনুমোদিত', 'class' => 'st-approved'],
+                                            7 => ['label' => 'প্রত্যাখ্যাত', 'class' => 'st-rejected'],
                                         ];
                                         $st = $statusMap[$app->application_status_id] ?? ['label' => $app->applicationStatus->name ?? 'N/A', 'class' => 'st-pending'];
                                     @endphp
@@ -528,7 +534,7 @@
                                         <td><span class="gpa-badge">{{ $app->gpa_result }}</span></td>
                                         <td class="text-muted">{{ $app->division->name_bn ?? '—' }}</td>
                                         <td><span class="st-pill {{ $st['class'] }}">{{ $st['label'] }}</span></td>
-                                        <td class="text-muted small">{{ $app->created_at->format('d M Y') }}</td>
+                                        <td class="text-muted small">{{ $app->created_at->format('d M Y, h:i A') }}</td>
                                     </tr>
                                 @empty
                                     <tr>

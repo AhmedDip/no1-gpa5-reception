@@ -12,7 +12,7 @@
 
             </div>
             <div class="d-none d-lg-inline-block">
-               Developed with ❤️ by MGI IT Team
+               Developed with ❤️ by MGI IT SPARK Team
             </div>
         </div>
     </div>

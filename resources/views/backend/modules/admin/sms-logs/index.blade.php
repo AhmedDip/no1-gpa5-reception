@@ -179,12 +179,15 @@
             </table>
         </div>
     </div>
-    <div class="card-footer d-flex justify-content-between align-items-center">
-        <small class="text-muted">
-            Showing {{ $logs->firstItem() ?? 0 }} to {{ $logs->lastItem() ?? 0 }} of {{ $logs->total() }} entries
-        </small>
-        {{ $logs->links() }}
-    </div>
+     <div class="card-footer d-flex justify-content-between align-items-center">
+            <div>
+                Showing {{ $logs->firstItem() ?? 0 }} to {{ $logs->lastItem() ?? 0 }} of
+                {{ $logs->total() }} entries
+            </div>
+            <div>
+                {{ $logs->withQueryString()->links('pagination::bootstrap-5') }}
+            </div>
+        </div>
 </div>
 
 <!-- Full Message Modal -->
