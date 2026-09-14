@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CeremonyEntry;
 use App\Services\CeremonyEntryService;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class QrCodeController extends Controller
 {
     protected $ceremonyService;
+
+    /** How many recent scans to show in the live feed. */
+    private const RECENT_LIMIT = 10;
 
     public function __construct(CeremonyEntryService $ceremonyService)
     {
@@ -24,9 +29,27 @@ class QrCodeController extends Controller
             'margin' => 10,
         ]);
 
-        return view('frontend.pages.qrcode.index', compact('qrImageUrl'));
+        $entries = $this->recentApprovedEntriesQuery()->get();
+        $latestEntry = $entries->first();
+
+        return view('frontend.pages.qrcode.index', compact('qrImageUrl', 'entries', 'latestEntry'));
     }
 
+    /**
+     * JSON feed polled by the display page every few seconds.
+     * Public (same as index) — this page is meant to run on an
+     * unattended screen at the venue entrance.
+     */
+    public function latestScans(): JsonResponse
+    {
+        $entries = $this->recentApprovedEntriesQuery()->get();
+
+        return response()->json([
+            'success' => true,
+            'latest'  => $entries->isNotEmpty() ? $this->formatEntry($entries->first()) : null,
+            'recent'  => $entries->map(fn (CeremonyEntry $entry) => $this->formatEntry($entry))->values(),
+        ]);
+    }
 
     public function verify(Request $request)
     {
@@ -41,7 +64,6 @@ class QrCodeController extends Controller
         $result = $this->ceremonyService->verifyEntry($studentId);
 
         $studnetBname = auth()->user()->studentDetail?->name_bn ?? '';
-
 
         return match ($result['type'] ?? null) {
             'approved'        => view('frontend.pages.qrcode.approved', $result)->with('studnetBname', $studnetBname),
@@ -62,5 +84,33 @@ class QrCodeController extends Controller
             ->paginate(10);
 
         return view('frontend.pages.qrcode.history', compact('entries'));
+    }
+
+    /**
+     * Shared base query for the live display: only successful check-ins,
+     * newest first, with everything the card/list needs eager loaded.
+     */
+    private function recentApprovedEntriesQuery()
+    {
+        return CeremonyEntry::query()
+            ->with(['studentDetail.board', 'student'])
+            ->where('status', 'approved')
+            ->latest('scanned_at')
+            ->limit(self::RECENT_LIMIT);
+    }
+
+    private function formatEntry(CeremonyEntry $entry): array
+    {
+        $detail = $entry->studentDetail;
+
+        return [
+            'id'           => $entry->id,
+            'name_en'      => $detail->name_en ?? $entry->student->name ?? '',
+            'name_bn'      => $detail->name_bn ?? '',
+            'roll_number'  => $detail->roll_number ?? '',
+            'board'        => $detail->board->name_bn ?? $detail->board->name ?? '',
+            'photo_url'    => $detail->student_photo_url ?? asset('images/default-user.png'),
+            'scanned_at'   => $entry->scanned_at->format('h:i A'),
+        ];
     }
 }

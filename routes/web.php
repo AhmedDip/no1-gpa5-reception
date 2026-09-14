@@ -32,7 +32,7 @@ Route::get('/', [StudentController::class, 'home'])->name('home');
 Route::get('/previous-year', [PreviousYearController::class, 'index'])->name('previous-year.index');
 
 Route::get('/qr-code', [QrCodeController::class, 'index'])->name('qrcode.index');
-
+Route::get('/qr-code/latest-scans', [QrCodeController::class, 'latestScans'])->name('qrcode.latest-scans');
 
 Route::prefix('student')->name('student.')->group(function () {
     Route::middleware('guest')->group(function () {
