@@ -40,10 +40,11 @@ class QrCodeController extends Controller
         $studentId = auth()->id();
         $result = $this->ceremonyService->verifyEntry($studentId);
 
-        // dd($result);
+        $studnetBname = auth()->user()->studentDetail?->name_bn ?? '';
+
 
         return match ($result['type'] ?? null) {
-            'approved'        => view('frontend.pages.qrcode.approved', $result),
+            'approved'        => view('frontend.pages.qrcode.approved', $result)->with('studnetBname', $studnetBname),
             'already_scanned' => view('frontend.pages.qrcode.already-scanned', $result),
             default           => view('frontend.pages.qrcode.denied', $result),
         };
