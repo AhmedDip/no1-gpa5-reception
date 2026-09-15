@@ -14,15 +14,12 @@
                         <h5 class="mb-0"><i class="fas fa-id-card"></i> শিক্ষার্থীর প্রবেশ QR কোড</h5>
                     </div>
                     <div class="card-body text-center p-4">
-                        <img src="{{ $user->studentDetail->student_photo_url }}"
-                             class="rounded-circle mb-3"
-                             style="width:90px;height:90px;object-fit:cover;border:3px solid #f1f1f1;"
-                             alt="{{ $user->name }}">
+                     <img src="{{ $qrDataUri }}" alt="QR Code" class="img-fluid border rounded mb-3" style="max-width: 260px;">
 
                         <h5 class="fw-bold mb-0">{{ $user->studentDetail->name_bn ?? $user->name }}</h5>
                         <p class="text-muted mb-3">{{ $user->studentDetail->name_en ?? '' }}</p>
 
-                        <img src="{{ $qrImageUrl }}" alt="QR Code" class="img-fluid border rounded mb-3" style="max-width: 260px;">
+                        {{-- <img src="{{ $qrDataUri }}" alt="QR Code" class="img-fluid border rounded mb-3" style="max-width: 260px;"> --}}
 
                         <div class="bg-light rounded p-3 text-start small">
                             <div class="d-flex justify-content-between border-bottom py-1">

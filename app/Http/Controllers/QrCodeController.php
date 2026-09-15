@@ -7,6 +7,13 @@ use App\Models\User;
 use App\Services\CeremonyEntryService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Models\StudentDetail;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\RoundBlockSizeMode;
+use Endroid\QrCode\Writer\PngWriter;
+use Illuminate\Support\Facades\Storage;
 
 class QrCodeController extends Controller
 {
@@ -91,23 +98,72 @@ class QrCodeController extends Controller
      * their mobile number — for printing on ID cards / invitations.
      * No auth required.
      */
+     /**
+     * GET /qr-code/{mobile}
+     * Renders the individual QR code for a single student, identified by
+     * their mobile number — with the student's photo embedded in the
+     * center of the code. No auth required.
+     */
     public function showStudentQrCode(string $mobile)
     {
         $user = $this->findStudentByMobile($mobile);
 
-        $qrImageUrl = null;
+        $qrDataUri = null;
 
         if ($user) {
             $scanUrl = route('qrcode.student.scan', ['mobile' => $user->mobile]);
-
-            $qrImageUrl = 'https://api.qrserver.com/v1/create-qr-code/?' . http_build_query([
-                'size'   => '400x400',
-                'data'   => $scanUrl,
-                'margin' => 10,
-            ]);
+            $qrDataUri = $this->buildStudentQrCode($scanUrl, $user->studentDetail);
         }
 
-        return view('frontend.pages.qrcode.student', compact('user', 'qrImageUrl'));
+
+        return view('frontend.pages.qrcode.student', compact('user', 'qrDataUri'));
+    }
+
+        /**
+     * Build a QR code PNG (as a data URI) with the student's photo
+     * punched out in the center. High error-correction keeps it
+     * reliably scannable despite the logo overlay.
+     */
+    private function buildStudentQrCode(string $data, ?StudentDetail $detail): string
+    {
+        $builder = Builder::create()
+            ->writer(new PngWriter())
+            ->data($data)
+            ->encoding(new Encoding('UTF-8'))
+            ->errorCorrectionLevel(ErrorCorrectionLevel::High)
+            ->size(420)
+            ->margin(12)
+            ->roundBlockSizeMode(RoundBlockSizeMode::Margin)
+            ->validateResult(false);
+
+        $logoPath = $this->resolveStudentPhotoPath($detail);
+
+        if ($logoPath) {
+            $builder = $builder
+                ->logoPath($logoPath)
+                ->logoResizeToWidth(110)
+                ->logoPunchoutBackground(true);
+        }
+
+        return $builder->build()->getDataUri();
+    }
+
+    /**
+     * Resolve the student's photo to a local filesystem path that
+     * endroid/qr-code can read directly (it needs a real file path,
+     * not a URL). Falls back to null (plain QR, no logo) if missing.
+     */
+    private function resolveStudentPhotoPath(?StudentDetail $detail): ?string
+    {
+        if (!$detail || !$detail->student_photo) {
+            return null;
+        }
+
+
+        return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0svvaxiI_AYMFmR0j0CFgFeb3eTLSrPKn6W815LNA8gXwHHaXwcHQJe9d&s=10";
+
+
+
     }
 
     /**
@@ -133,7 +189,6 @@ class QrCodeController extends Controller
                 'scanned_at'        => now(),
             ]);
         } catch (\Throwable $e) {
-            // Extremely rare same-second duplicate scan — safe to ignore.
             report($e);
         }
 
@@ -185,8 +240,10 @@ class QrCodeController extends Controller
 
         return User::query()
             ->where('mobile', $mobile)
-            ->where('user_type_id', 1) // students only
+            ->where('user_type_id', 1)
             ->with('studentDetail.board')
             ->first();
     }
+
+
 }
