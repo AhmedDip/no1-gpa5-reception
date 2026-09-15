@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CeremonyEntry;
+use App\Models\User;
 use App\Services\CeremonyEntryService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -37,8 +38,6 @@ class QrCodeController extends Controller
 
     /**
      * JSON feed polled by the display page every few seconds.
-     * Public (same as index) — this page is meant to run on an
-     * unattended screen at the venue entrance.
      */
     public function latestScans(): JsonResponse
     {
@@ -87,6 +86,64 @@ class QrCodeController extends Controller
     }
 
     /**
+     * GET /qr-code/{mobile}
+     * Renders the individual QR code for a single student, identified by
+     * their mobile number — for printing on ID cards / invitations.
+     * No auth required.
+     */
+    public function showStudentQrCode(string $mobile)
+    {
+        $user = $this->findStudentByMobile($mobile);
+
+        $qrImageUrl = null;
+
+        if ($user) {
+            $scanUrl = route('qrcode.student.scan', ['mobile' => $user->mobile]);
+
+            $qrImageUrl = 'https://api.qrserver.com/v1/create-qr-code/?' . http_build_query([
+                'size'   => '400x400',
+                'data'   => $scanUrl,
+                'margin' => 10,
+            ]);
+        }
+
+        return view('frontend.pages.qrcode.student', compact('user', 'qrImageUrl'));
+    }
+
+    /**
+     * GET /qr-code/scan/{mobile}
+     * The URL encoded inside the individual student's QR image.
+     * Records a scan (visible on the /qr-code live feed) and shows the
+     * student's info back to whoever scanned it. No auth required.
+     */
+    public function scanStudentQrCode(string $mobile)
+    {
+        $user = $this->findStudentByMobile($mobile);
+
+        if (!$user || !$user->studentDetail) {
+            return view('frontend.pages.qrcode.student-invalid');
+        }
+
+        try {
+            CeremonyEntry::create([
+                'student_id'        => $user->id,
+                'student_detail_id' => $user->studentDetail->id,
+                'status'            => 'approved',
+                'remarks'           => 'ব্যক্তিগত QR কোড স্ক্যান (মোবাইল ভিত্তিক প্রবেশ)',
+                'scanned_at'        => now(),
+            ]);
+        } catch (\Throwable $e) {
+            // Extremely rare same-second duplicate scan — safe to ignore.
+            report($e);
+        }
+
+        return view('frontend.pages.qrcode.student-scanned', [
+            'user'   => $user,
+            'detail' => $user->studentDetail,
+        ]);
+    }
+
+    /**
      * Shared base query for the live display: only successful check-ins,
      * newest first, with everything the card/list needs eager loaded.
      */
@@ -104,13 +161,32 @@ class QrCodeController extends Controller
         $detail = $entry->studentDetail;
 
         return [
-            'id'           => $entry->id,
-            'name_en'      => $detail->name_en ?? $entry->student->name ?? '',
-            'name_bn'      => $detail->name_bn ?? '',
-            'roll_number'  => $detail->roll_number ?? '',
-            'board'        => $detail->board->name_bn ?? $detail->board->name ?? '',
-            'photo_url'    => $detail->student_photo_url ?? asset('images/default-user.png'),
-            'scanned_at'   => $entry->scanned_at->format('h:i A'),
+            'id'          => $entry->id,
+            'name_en'     => $detail->name_en ?? $entry->student->name ?? '',
+            'name_bn'     => $detail->name_bn ?? '',
+            'roll_number' => $detail->roll_number ?? '',
+            'board'       => $detail->board->name_bn ?? $detail->board->name ?? '',
+            'photo_url'   => $detail->student_photo_url ?? asset('images/default-user.png'),
+            'scanned_at'  => $entry->scanned_at->format('h:i A'),
         ];
+    }
+
+    /**
+     * Look up a registered student (user_type_id = 1) by mobile number.
+     * Digits-only match; returns null when not found.
+     */
+    private function findStudentByMobile(string $mobile): ?User
+    {
+        $mobile = preg_replace('/[^0-9]/', '', $mobile);
+
+        if ($mobile === '') {
+            return null;
+        }
+
+        return User::query()
+            ->where('mobile', $mobile)
+            ->where('user_type_id', 1) // students only
+            ->with('studentDetail.board')
+            ->first();
     }
 }

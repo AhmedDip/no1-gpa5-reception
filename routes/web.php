@@ -34,6 +34,14 @@ Route::get('/previous-year', [PreviousYearController::class, 'index'])->name('pr
 Route::get('/qr-code', [QrCodeController::class, 'index'])->name('qrcode.index');
 Route::get('/qr-code/latest-scans', [QrCodeController::class, 'latestScans'])->name('qrcode.latest-scans');
 
+// Individual student QR code — mobile-number based, no login required.
+// "/scan/{mobile}" is defined before "/{mobile}" so it never gets swallowed by it.
+Route::get('/qr-code/scan/{mobile}', [QrCodeController::class, 'scanStudentQrCode'])
+    ->name('qrcode.student.scan');
+
+Route::get('/qr-code/{mobile}', [QrCodeController::class, 'showStudentQrCode'])
+    ->name('qrcode.student.show');
+
 Route::prefix('student')->name('student.')->group(function () {
     Route::middleware('guest')->group(function () {
         // Registration
