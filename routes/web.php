@@ -31,15 +31,15 @@ Route::get('/', [StudentController::class, 'home'])->name('home');
 // Previous Year
 Route::get('/previous-year', [PreviousYearController::class, 'index'])->name('previous-year.index');
 
-Route::get('/qr-code', [QrCodeController::class, 'index'])->name('qrcode.index');
-Route::get('/qr-code/latest-scans', [QrCodeController::class, 'latestScans'])->name('qrcode.latest-scans');
+Route::get('/qr-code', [QrCodeController::class, 'index'])->name('qrcode.index')->middleware('auth', 'admin.auth');
+Route::get('/qr-code/latest-scans', [QrCodeController::class, 'latestScans'])->name('qrcode.latest-scans')->middleware('auth', 'admin.auth');
 
 
 Route::get('/qr-code/scan/{mobile}', [QrCodeController::class, 'scanStudentQrCode'])
-    ->name('qrcode.student.scan');
+    ->name('qrcode.student.scan')->middleware('auth', 'admin.auth');
 
 Route::get('/qr-code/{mobile}', [QrCodeController::class, 'showStudentQrCode'])
-    ->name('qrcode.student.show');
+    ->name('qrcode.student.show')->middleware('auth', 'admin.auth');
 
 Route::prefix('student')->name('student.')->group(function () {
     Route::middleware('guest')->group(function () {

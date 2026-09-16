@@ -29,18 +29,12 @@ class QrCodeController extends Controller
 
     public function index()
     {
-        $verifyUrl = route('student.ceremony.verify');
-
-        $qrImageUrl = 'https://api.qrserver.com/v1/create-qr-code/?' . http_build_query([
-            'size'   => '400x400',
-            'data'   => $verifyUrl,
-            'margin' => 10,
-        ]);
-
         $entries = $this->recentApprovedEntriesQuery()->get();
         $latestEntry = $entries->first();
 
-        return view('frontend.pages.qrcode.index', compact('qrImageUrl', 'entries', 'latestEntry'));
+        $latestQrDataUri = $latestEntry ? $this->qrCodeForEntry($latestEntry) : null;
+
+        return view('frontend.pages.qrcode.index', compact('entries', 'latestEntry', 'latestQrDataUri'));
     }
 
     /**
@@ -49,11 +43,20 @@ class QrCodeController extends Controller
     public function latestScans(): JsonResponse
     {
         $entries = $this->recentApprovedEntriesQuery()->get();
+        $latestEntry = $entries->first();
+
+        $latestData = null;
+        if ($latestEntry) {
+            $latestData = array_merge(
+                $this->formatEntry($latestEntry),
+                ['qr_data_uri' => $this->qrCodeForEntry($latestEntry)]
+            );
+        }
 
         return response()->json([
             'success' => true,
-            'latest'  => $entries->isNotEmpty() ? $this->formatEntry($entries->first()) : null,
-            'recent'  => $entries->map(fn (CeremonyEntry $entry) => $this->formatEntry($entry))->values(),
+            'latest' => $latestData,
+            'recent' => $entries->map(fn(CeremonyEntry $entry) => $this->formatEntry($entry))->values(),
         ]);
     }
 
@@ -72,9 +75,9 @@ class QrCodeController extends Controller
         $studnetBname = auth()->user()->studentDetail?->name_bn ?? '';
 
         return match ($result['type'] ?? null) {
-            'approved'        => view('frontend.pages.qrcode.approved', $result)->with('studnetBname', $studnetBname),
+            'approved' => view('frontend.pages.qrcode.approved', $result)->with('studnetBname', $studnetBname),
             'already_scanned' => view('frontend.pages.qrcode.already-scanned', $result),
-            default           => view('frontend.pages.qrcode.denied', $result),
+            default => view('frontend.pages.qrcode.denied', $result),
         };
     }
 
@@ -92,18 +95,7 @@ class QrCodeController extends Controller
         return view('frontend.pages.qrcode.history', compact('entries'));
     }
 
-    /**
-     * GET /qr-code/{mobile}
-     * Renders the individual QR code for a single student, identified by
-     * their mobile number — for printing on ID cards / invitations.
-     * No auth required.
-     */
-     /**
-     * GET /qr-code/{mobile}
-     * Renders the individual QR code for a single student, identified by
-     * their mobile number — with the student's photo embedded in the
-     * center of the code. No auth required.
-     */
+
     public function showStudentQrCode(string $mobile)
     {
 
@@ -123,11 +115,6 @@ class QrCodeController extends Controller
         return view('frontend.pages.qrcode.student', compact('user', 'qrDataUri'));
     }
 
-        /**
-     * Build a QR code PNG (as a data URI) with the student's photo
-     * punched out in the center. High error-correction keeps it
-     * reliably scannable despite the logo overlay.
-     */
     private function buildStudentQrCode(string $data, ?StudentDetail $detail): string
     {
         $builder = Builder::create()
@@ -145,6 +132,7 @@ class QrCodeController extends Controller
         if ($logoPath) {
             $builder = $builder
                 ->logoPath($logoPath)
+                ->logoResizeToHeight(150)
                 ->logoResizeToWidth(150)
                 ->logoPunchoutBackground(true);
         }
@@ -153,23 +141,27 @@ class QrCodeController extends Controller
     }
 
 
+
+
     private function resolveStudentPhotoPath(?StudentDetail $detail): ?string
     {
-        if (!$detail || !$detail->student_photo_url) {
-            return "https://cdn-icons-png.flaticon.com/512/219/219988.png";
+        if (!$detail || empty($detail->student_photo)) {
+            return null;
         }
 
-        $photoPath = 'uploads/' . $detail->student_photo_url;
+        $photoPath = ltrim(str_replace('\\', '/', $detail->student_photo), '/');
+        $uploadsDisk = Storage::disk('uploads');
 
-        return file_exists($photoPath) ? $photoPath : "https://cdn-icons-png.flaticon.com/512/219/219988.png";
+        if (!$uploadsDisk->exists($photoPath)) {
+            return null;
+        }
+
+        return $uploadsDisk->path($photoPath);
     }
 
-    /**
-     * GET /qr-code/scan/{mobile}
-     * The URL encoded inside the individual student's QR image.
-     * Records a scan (visible on the /qr-code live feed) and shows the
-     * student's info back to whoever scanned it. No auth required.
-     */
+
+
+
     public function scanStudentQrCode(string $mobile)
     {
         $user = $this->findApprovedStudent($mobile);
@@ -180,26 +172,22 @@ class QrCodeController extends Controller
 
         try {
             CeremonyEntry::create([
-                'student_id'        => $user->id,
+                'student_id' => $user->id,
                 'student_detail_id' => $user->studentDetail->id,
-                'status'            => 'approved',
-                'remarks'           => 'ব্যক্তিগত QR কোড স্ক্যান (মোবাইল ভিত্তিক প্রবেশ)',
-                'scanned_at'        => now(),
+                'status' => 'approved',
+                'remarks' => 'ব্যক্তিগত QR কোড স্ক্যান (মোবাইল ভিত্তিক প্রবেশ)',
+                'scanned_at' => now(),
             ]);
         } catch (\Throwable $e) {
             report($e);
         }
 
         return view('frontend.pages.qrcode.student-scanned', [
-            'user'   => $user,
+            'user' => $user,
             'detail' => $user->studentDetail,
         ]);
     }
 
-    /**
-     * Shared base query for the live display: only successful check-ins,
-     * newest first, with everything the card/list needs eager loaded.
-     */
     private function recentApprovedEntriesQuery()
     {
         return CeremonyEntry::query()
@@ -214,20 +202,17 @@ class QrCodeController extends Controller
         $detail = $entry->studentDetail;
 
         return [
-            'id'          => $entry->id,
-            'name_en'     => $detail->name_en ?? $entry->student->name ?? '',
-            'name_bn'     => $detail->name_bn ?? '',
+            'id' => $entry->id,
+            'name_en' => $detail->name_en ?? $entry->student->name ?? '',
+            'name_bn' => $detail->name_bn ?? '',
             'roll_number' => $detail->roll_number ?? '',
-            'board'       => $detail->board->name_bn ?? $detail->board->name ?? '',
-            'photo_url'   => $detail->student_photo_url ?? asset('images/default-user.png'),
-            'scanned_at'  => $entry->scanned_at->format('h:i A'),
+            'board' => $detail->board->name_bn ?? $detail->board->name ?? '',
+            'photo_url' => $detail->student_photo_url ?? asset('images/default-user.png'),
+            'scanned_at' => $entry->scanned_at->format('h:i A'),
         ];
     }
 
-    /**
-     * Look up a registered student (user_type_id = 1) by mobile number.
-     * Digits-only match; returns null when not found.
-     */
+
     private function findApprovedStudent(string $mobile): ?User
     {
         $mobile = preg_replace('/[^0-9]/', '', $mobile);
@@ -241,9 +226,27 @@ class QrCodeController extends Controller
             ->where('mobile', $mobile)
             ->where('user_type_id', 1)
             ->whereHas('studentDetail', function ($query) {
-                $query->where('application_status_id', 6);
+                $query->whereIn('application_status_id', [4, 6]);
             })
             ->first();
+    }
+
+    /**
+     * Build the individual student QR (with embedded photo) for a given
+     * ceremony entry, reusing the same builder used on /qr-code/{mobile}.
+     * Returns null if the entry's user relation is missing.
+     */
+    private function qrCodeForEntry(CeremonyEntry $entry): ?string
+    {
+        $mobile = $entry->student->mobile ?? null;
+
+        if (!$mobile) {
+            return null;
+        }
+
+        $scanUrl = route('qrcode.student.scan', ['mobile' => $mobile]);
+
+        return $this->buildStudentQrCode($scanUrl, $entry->studentDetail);
     }
 
 

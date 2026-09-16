@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\UpazilaManagerAssignmentController;
 use App\Http\Controllers\Admin\UpazilaManagerImportController;
 use App\Http\Controllers\Admin\WebMenuController;
 use App\Http\Controllers\Admin\WebMenuGroupController;
+use App\Http\Controllers\QrCodeController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -152,5 +153,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/export/wm', [AuditReportController::class, 'exportWmApproved'])
                 ->name('export.wm');
         });
-        });
     });
+
+});
+
+
+
+
