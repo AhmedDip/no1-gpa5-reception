@@ -105,7 +105,7 @@ class QrCodeController extends Controller
         $qrDataUri = null;
 
         if ($user) {
-            $scanUrl = route('qrcode.student.scan', ['mobile' => $user->mobile]);
+            $scanUrl = route('admin.qrcode.student.scan', ['mobile' => $user->mobile]);
             $qrDataUri = $this->buildStudentQrCode($scanUrl, $user->studentDetail);
         }
 
@@ -244,7 +244,7 @@ class QrCodeController extends Controller
             return null;
         }
 
-        $scanUrl = route('qrcode.student.scan', ['mobile' => $mobile]);
+        $scanUrl = route('admin.qrcode.student.scan', ['mobile' => $mobile]);
 
         return $this->buildStudentQrCode($scanUrl, $entry->studentDetail);
     }

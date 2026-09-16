@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function refreshFeed() {
-        fetch('{{ route('qrcode.latest-scans') }}', {
+        fetch('{{ route('admin.qrcode.latest-scans') }}', {
             headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
         })
             .then(res => res.json())

@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\UpazilaManagerAssignmentController;
 use App\Http\Controllers\Admin\UpazilaManagerImportController;
 use App\Http\Controllers\Admin\WebMenuController;
 use App\Http\Controllers\Admin\WebMenuGroupController;
+use App\Http\Controllers\PreviousYearController;
 use App\Http\Controllers\QrCodeController;
 use Illuminate\Support\Facades\Route;
 
@@ -153,6 +154,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/export/wm', [AuditReportController::class, 'exportWmApproved'])
                 ->name('export.wm');
         });
+
+        Route::get('/previous-year', [PreviousYearController::class, 'index'])->name('previous-year.index');
+
+        Route::get('/qr-code', [QrCodeController::class, 'index'])->name('qrcode.index');
+        Route::get('/qr-code/latest-scans', [QrCodeController::class, 'latestScans'])->name('qrcode.latest-scans');
+
+
+        Route::get('/qr-code/scan/{mobile}', [QrCodeController::class, 'scanStudentQrCode'])
+            ->name('qrcode.student.scan');
+
+        Route::get('/qr-code/{mobile}', [QrCodeController::class, 'showStudentQrCode'])
+            ->name('qrcode.student.show');
     });
 
 });
