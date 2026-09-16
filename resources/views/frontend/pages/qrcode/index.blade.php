@@ -1,6 +1,6 @@
 {{-- resources/views/frontend/pages/qrcode/index.blade.php --}}
 
-@extends('frontend.layouts.app')
+@extends('frontend.layouts.default')
 
 @section('title', 'সংবর্ধনায় প্রবেশের QR কোড')
 

@@ -106,7 +106,9 @@ class QrCodeController extends Controller
      */
     public function showStudentQrCode(string $mobile)
     {
-        $user = $this->findStudentByMobile($mobile);
+
+        $user = $this->findApprovedStudent($mobile);
+
 
         $qrDataUri = null;
 
@@ -114,6 +116,8 @@ class QrCodeController extends Controller
             $scanUrl = route('qrcode.student.scan', ['mobile' => $user->mobile]);
             $qrDataUri = $this->buildStudentQrCode($scanUrl, $user->studentDetail);
         }
+
+        // dd($user, $qrDataUri, $scanUrl );
 
 
         return view('frontend.pages.qrcode.student', compact('user', 'qrDataUri'));
@@ -141,29 +145,23 @@ class QrCodeController extends Controller
         if ($logoPath) {
             $builder = $builder
                 ->logoPath($logoPath)
-                ->logoResizeToWidth(110)
+                ->logoResizeToWidth(150)
                 ->logoPunchoutBackground(true);
         }
 
         return $builder->build()->getDataUri();
     }
 
-    /**
-     * Resolve the student's photo to a local filesystem path that
-     * endroid/qr-code can read directly (it needs a real file path,
-     * not a URL). Falls back to null (plain QR, no logo) if missing.
-     */
+
     private function resolveStudentPhotoPath(?StudentDetail $detail): ?string
     {
-        if (!$detail || !$detail->student_photo) {
-            return null;
+        if (!$detail || !$detail->student_photo_url) {
+            return "https://cdn-icons-png.flaticon.com/512/219/219988.png";
         }
 
+        $photoPath = 'uploads/' . $detail->student_photo_url;
 
-        return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0svvaxiI_AYMFmR0j0CFgFeb3eTLSrPKn6W815LNA8gXwHHaXwcHQJe9d&s=10";
-
-
-
+        return file_exists($photoPath) ? $photoPath : "https://cdn-icons-png.flaticon.com/512/219/219988.png";
     }
 
     /**
@@ -174,7 +172,7 @@ class QrCodeController extends Controller
      */
     public function scanStudentQrCode(string $mobile)
     {
-        $user = $this->findStudentByMobile($mobile);
+        $user = $this->findApprovedStudent($mobile);
 
         if (!$user || !$user->studentDetail) {
             return view('frontend.pages.qrcode.student-invalid');
@@ -230,7 +228,7 @@ class QrCodeController extends Controller
      * Look up a registered student (user_type_id = 1) by mobile number.
      * Digits-only match; returns null when not found.
      */
-    private function findStudentByMobile(string $mobile): ?User
+    private function findApprovedStudent(string $mobile): ?User
     {
         $mobile = preg_replace('/[^0-9]/', '', $mobile);
 
@@ -238,10 +236,13 @@ class QrCodeController extends Controller
             return null;
         }
 
+
         return User::query()
             ->where('mobile', $mobile)
             ->where('user_type_id', 1)
-            ->with('studentDetail.board')
+            ->whereHas('studentDetail', function ($query) {
+                $query->where('application_status_id', 6);
+            })
             ->first();
     }
 

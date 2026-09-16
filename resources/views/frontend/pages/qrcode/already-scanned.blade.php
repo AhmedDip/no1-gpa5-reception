@@ -1,6 +1,6 @@
 {{-- resources/views/frontend/pages/qrcode/already-scanned.blade.php --}}
 
-@extends('frontend.layouts.app')
+@extends('frontend.layouts.default')
 
 @section('title', 'ইতিমধ্যে স্ক্যান করা হয়েছে')
 

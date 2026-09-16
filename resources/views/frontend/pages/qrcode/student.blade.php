@@ -1,6 +1,6 @@
 {{-- resources/views/frontend/pages/qrcode/student.blade.php --}}
 
-@extends('frontend.layouts.app')
+@extends('frontend.layouts.default')
 
 @section('title', $user ? 'QR কোড - ' . ($user->studentDetail->name_bn ?? $user->name) : 'Invalid QR Code')
 
@@ -50,7 +50,7 @@
                     <div class="card-body text-center py-5">
                         <i class="fas fa-times-circle text-danger mb-3" style="font-size: 3.5rem;"></i>
                         <h4 class="text-danger mb-2">Invalid or Unregistered QR Code.</h4>
-                        <p class="text-muted mb-0">এই মোবাইল নম্বরে কোনো নিবন্ধিত শিক্ষার্থী পাওয়া যায়নি।</p>
+                        <p class="text-muted mb-0">এই মোবাইল নম্বরে কোনো নিবন্ধিত অনুমোদিত শিক্ষার্থী পাওয়া যায়নি।</p>
                     </div>
                 </div>
             @endif

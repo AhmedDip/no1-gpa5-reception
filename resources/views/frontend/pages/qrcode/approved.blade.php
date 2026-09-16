@@ -1,6 +1,6 @@
 {{-- resources/views/frontend/pages/qrcode/approved.blade.php --}}
 
-@extends('frontend.layouts.app')
+@extends('frontend.layouts.default')
 
 @section('title', 'প্রবেশ অনুমোদিত')
 
