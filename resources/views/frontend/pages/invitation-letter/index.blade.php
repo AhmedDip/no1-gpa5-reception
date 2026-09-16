@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,7 @@
         @font-face {
             font-family: 'Kalpurush';
             src: url('{{ asset('fonts/kalpurush.woff2') }}') format('woff2'),
-                 url('{{ asset('fonts/kalpurush.ttf') }}') format('truetype');
+                url('{{ asset('fonts/kalpurush.ttf') }}') format('truetype');
             font-style: normal;
             font-weight: 400;
             font-display: swap;
@@ -19,6 +20,7 @@
         * {
             box-sizing: border-box;
         }
+
         html,
         body {
             width: 100%;
@@ -27,6 +29,7 @@
             padding: 0;
             background: #fff;
         }
+
         body {
             display: grid;
             place-items: center;
@@ -47,7 +50,8 @@
             height: 100%;
             display: block;
             object-fit: fill;
-            /* stretches to fill the container */;
+            /* stretches to fill the container */
+            ;
         }
 
         .student-name {
@@ -64,7 +68,19 @@
             line-height: 1.3;
             overflow-wrap: anywhere;
             pointer-events: none;
-            /* so it doesn't block clicks */;
+            /* so it doesn't block clicks */
+            ;
+        }
+
+        .student-qr {
+            position: absolute;
+            top: 55%;
+            left: 76%;
+            width: 18%;
+            height: auto;
+            z-index: 2;
+            background: #fff;
+            padding: 6px;
         }
 
         /* ----- PRINT STYLES (landscape PDF) ----- */
@@ -105,7 +121,8 @@
                 width: 100%;
                 height: 100%;
                 object-fit: fill;
-                /* keep the same as screen – stretches */;
+                /* keep the same as screen – stretches */
+                ;
             }
 
             .student-name {
@@ -115,6 +132,13 @@
                 left: 15%;
                 width: 70%;
                 color: #1a1a1a;
+            }
+
+            .student-qr {
+                top: 55%;
+                left: 76%;
+                width: 18%;
+                padding: 6px;
             }
 
             /* hide the print button */
@@ -147,19 +171,23 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
             transition: background-color 0.2s;
         }
+
         .print-button:hover {
             background-color: #0056b3;
         }
+
         .print-button:active {
             transform: scale(0.96);
         }
     </style>
 </head>
+
 <body>
 
     <main class="invitation" aria-label="নিমন্ত্রণপত্র">
         <img class="invitation-image" src="{{ asset('images/invitation-bg.jpg') }}" alt="নিমন্ত্রণপত্র">
         <p class="student-name">{{ $name }}</p>
+        <img class="student-qr" src="{{ $qrDataUri }}" alt="Student QR code">
     </main>
 
     <button class="print-button" id="printBtn">📄 Download PDF</button>
@@ -171,4 +199,5 @@
     </script>
 
 </body>
+
 </html>

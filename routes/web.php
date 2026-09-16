@@ -29,6 +29,9 @@ Route::get('/', [StudentController::class, 'home'])->name('home');
 
 
 // Previous Year
+Route::get('/previous-year', [PreviousYearController::class, 'index'])->name('previous-year.index');
+
+
 
 Route::prefix('student')->name('student.')->group(function () {
     Route::middleware('guest')->group(function () {
