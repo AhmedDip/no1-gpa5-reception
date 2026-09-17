@@ -492,6 +492,12 @@
                                                     data-id="{{ $application->id }}" title="Reject">
                                                     <i class="fas fa-times"></i>
                                                 </button>
+
+                                                <a href="{{ route('admin.qrcode.student.show', ['mobile' => $application?->user?->mobile]) }}"
+                                                    target="_blank"
+                                                    class="btn btn-icon btn-outline-dark btn-sm" title="QR Code">
+                                                    <i class="fas fa-qrcode"></i>
+                                                </a>
                                             @endif
                                         </div>
                                     </td>

@@ -231,11 +231,7 @@ class QrCodeController extends Controller
             ->first();
     }
 
-    /**
-     * Build the individual student QR (with embedded photo) for a given
-     * ceremony entry, reusing the same builder used on /qr-code/{mobile}.
-     * Returns null if the entry's user relation is missing.
-     */
+
     private function qrCodeForEntry(CeremonyEntry $entry): ?string
     {
         $mobile = $entry->student->mobile ?? null;

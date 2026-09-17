@@ -161,14 +161,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/qr-code/latest-scans', [QrCodeController::class, 'latestScans'])->name('qrcode.latest-scans');
 
 
-        Route::get('/qr-code/scan/{mobile}', [QrCodeController::class, 'scanStudentQrCode'])
-            ->name('qrcode.student.scan');
+        // Route::get('/qr-code/scan/{mobile}', [QrCodeController::class, 'scanStudentQrCode'])
+        //     ->name('qrcode.student.scan')->middleware('auth', 'admin.auth');
 
         Route::get('/qr-code/{mobile}', [QrCodeController::class, 'showStudentQrCode'])
-            ->name('qrcode.student.show');
+            ->name('qrcode.student.show')->middleware('auth', 'admin.auth');
     });
 
 });
+
+    Route::get('admin/qr-code/scan/{mobile}', [QrCodeController::class, 'scanStudentQrCode'])
+        ->name('admin.qrcode.student.scan');
 
 
 
