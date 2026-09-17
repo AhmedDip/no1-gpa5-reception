@@ -139,37 +139,26 @@
                 </div>
             </div>
         </div>
-
-        {{-- Quick Links --}}
-        <div class="mt-4 text-center">
-            @auth
-                <p class="text-muted small mb-2">
-                    ইতিমধ্যে লগইন করা আছে?
-                    <a href="{{ route('student.ceremony.history') }}">আপনার প্রবেশের ইতিহাস দেখুন</a>
-                </p>
-            @endauth
-            @guest
-                <p class="text-muted small mb-0">
-                    প্রবেশ যাচাই করতে <a href="{{ route('student.login') }}">এখানে লগইন করুন</a>
-                </p>
-            @endguest
-        </div>
     </div>
 @endsection
 
 @push('scripts')
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const POLL_INTERVAL_MS = 10000;
-    const lastScannedBody  = document.getElementById('lastScannedBody');
-    const latestQrBody     = document.getElementById('latestQrBody');
-    const recentScansList  = document.getElementById('recentScansList');
+$(document).ready(function () {
+
+    const REFRESH_EVERY_MS = 5000; // 10 seconds
+
+    // Cache jQuery selectors
+    const $lastScannedBox = $('#lastScannedBody');
+    const $latestQrBox    = $('#latestQrBody');
+    const $recentList     = $('#recentScansList');
 
     let lastEntryId = @json($latestEntry?->id);
 
-    function escapeHtml(str) {
-        if (str == null) return '';
-        return String(str)
+    // Simple text sanitizer (prevents HTML injection)
+    function clean(text) {
+        if (text == null) return '';
+        return String(text)
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
@@ -177,91 +166,117 @@ document.addEventListener('DOMContentLoaded', function () {
             .replace(/'/g, '&#039;');
     }
 
-    function renderLastScanned(entry) {
+    // Build HTML for "Latest Entry" card
+    function buildLastScannedHtml(entry) {
         if (!entry) {
-            lastScannedBody.innerHTML = `
+            return `
                 <div class="text-muted py-5">
                     <i class="fas fa-user-clock fa-3x mb-3 d-block"></i>
                     এখনো কোনো প্রবেশ রেকর্ড হয়নি
                 </div>`;
-            return;
         }
 
-        lastScannedBody.innerHTML = `
-            <img src="${escapeHtml(entry.photo_url)}" alt="${escapeHtml(entry.name_en)}"
+        const rollBadge  = entry.roll_number
+            ? `<span class="badge bg-primary">রোল: ${clean(entry.roll_number)}</span>` : '';
+        const boardBadge = entry.board
+            ? `<span class="badge bg-info text-dark">${clean(entry.board)}</span>` : '';
+
+        return `
+            <img src="${clean(entry.photo_url)}" alt="${clean(entry.name_en)}"
                  class="rounded-circle mx-auto mb-3"
                  style="width:130px;height:130px;object-fit:cover;border:4px solid #e8f5e9;">
-            <h5 class="fw-bold mb-1">${escapeHtml(entry.name_bn || entry.name_en)}</h5>
-            <p class="text-muted mb-2">${escapeHtml(entry.name_en)}</p>
+            <h5 class="fw-bold mb-1">${clean(entry.name_bn || entry.name_en)}</h5>
+            <p class="text-muted mb-2">${clean(entry.name_en)}</p>
             <div class="d-flex justify-content-center gap-2 flex-wrap mb-2">
-                ${entry.roll_number ? `<span class="badge bg-primary">রোল: ${escapeHtml(entry.roll_number)}</span>` : ''}
-                ${entry.board ? `<span class="badge bg-info text-dark">${escapeHtml(entry.board)}</span>` : ''}
+                ${rollBadge}${boardBadge}
             </div>
             <small class="text-success fw-semibold">
-                <i class="fas fa-check-circle"></i> ${escapeHtml(entry.scanned_at)}
+                <i class="fas fa-check-circle"></i> ${clean(entry.scanned_at)}
             </small>`;
     }
 
-    function renderLatestQr(entry) {
+    // Build HTML for "Latest QR" card
+    function buildLatestQrHtml(entry) {
         if (!entry || !entry.qr_data_uri) {
-            latestQrBody.innerHTML = `
+            return `
                 <div class="text-muted py-5">
                     <i class="fas fa-qrcode fa-3x mb-3 d-block"></i>
                     এখনো কোনো QR কোড স্ক্যান হয়নি
                 </div>`;
-            return;
         }
 
-        latestQrBody.innerHTML = `
-            <img src="${escapeHtml(entry.qr_data_uri)}" alt="${escapeHtml(entry.name_en)}"
+        return `
+            <img src="${clean(entry.qr_data_uri)}" alt="${clean(entry.name_en)}"
                  class="img-fluid border rounded mb-3" style="max-width: 260px;">
-            <h6 class="fw-bold mb-1">${escapeHtml(entry.name_bn || entry.name_en)}</h6>
-            <p class="text-muted small mb-0">রোল: ${escapeHtml(entry.roll_number || '—')}</p>`;
+            <h6 class="fw-bold mb-1">${clean(entry.name_bn || entry.name_en)}</h6>
+            <p class="text-muted small mb-0">রোল: ${clean(entry.roll_number || '—')}</p>`;
     }
 
-    function renderRecentItem(entry) {
+    // Build HTML for one row in the recent list
+    function buildRecentItemHtml(entry) {
         return `
             <li class="list-group-item d-flex align-items-center gap-2">
-                <img src="${escapeHtml(entry.photo_url)}" class="rounded-circle"
+                <img src="${clean(entry.photo_url)}" class="rounded-circle"
                      width="40" height="40" style="object-fit:cover;">
                 <div class="flex-grow-1">
-                    <div class="fw-semibold small">${escapeHtml(entry.name_bn || entry.name_en)}</div>
+                    <div class="fw-semibold small">${clean(entry.name_bn || entry.name_en)}</div>
                     <div class="text-muted" style="font-size:0.75rem;">
-                        রোল: ${escapeHtml(entry.roll_number || '—')}
+                        রোল: ${clean(entry.roll_number || '—')}
                     </div>
                 </div>
-                <span class="text-muted" style="font-size:0.7rem;">${escapeHtml(entry.scanned_at)}</span>
+                <span class="text-muted" style="font-size:0.7rem;">${clean(entry.scanned_at)}</span>
             </li>`;
     }
 
-    function refreshFeed() {
-        fetch('{{ route('admin.qrcode.latest-scans') }}', {
-            headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (!data.success) return;
-
-                if (data.latest && data.latest.id !== lastEntryId) {
-                    lastEntryId = data.latest.id;
-                    renderLastScanned(data.latest);
-                    renderLatestQr(data.latest);
-                } else if (!data.latest) {
-                    lastEntryId = null;
-                    renderLastScanned(null);
-                    renderLatestQr(null);
-                }
-
-                if (recentScansList) {
-                    recentScansList.innerHTML = data.recent.length
-                        ? data.recent.map(renderRecentItem).join('')
-                        : '<li class="list-group-item text-center text-muted py-4">কোনো তথ্য পাওয়া যায়নি</li>';
-                }
-            })
-            .catch(err => console.error('Failed to refresh scan feed:', err));
+    // Apply a new "latest" entry to both the photo card and the QR card
+    function updateLatestCards(entry) {
+        $lastScannedBox.html(buildLastScannedHtml(entry));
+        $latestQrBox.html(buildLatestQrHtml(entry));
     }
 
-    setInterval(refreshFeed, POLL_INTERVAL_MS);
+    // Update only the recent scans list
+    function updateRecentList(items) {
+        if (!items.length) {
+            $recentList.html(`
+                <li class="list-group-item text-center text-muted py-4">
+                    কোনো তথ্য পাওয়া যায়নি
+                </li>`);
+            return;
+        }
+        $recentList.html(items.map(buildRecentItemHtml).join(''));
+    }
+
+    // Fetch new data with jQuery AJAX and update the page
+    function refreshFeed() {
+        $.ajax({
+            url: '{{ route('admin.qrcode.latest-scans') }}',
+            type: 'GET',
+            dataType: 'json',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            success: function (data) {
+                if (!data.success) return;
+
+                const entry   = data.latest;
+                const entryId = entry ? entry.id : null;
+
+                // Only rebuild the big cards if the latest entry changed
+                if (entryId !== lastEntryId) {
+                    lastEntryId = entryId;
+                    updateLatestCards(entry);
+                }
+
+                updateRecentList(data.recent || []);
+            },
+            error: function (xhr, status, err) {
+                console.error('Failed to refresh scan feed:', status, err);
+            }
+        });
+    }
+
+    // Poll every 10 seconds
+    setInterval(refreshFeed, REFRESH_EVERY_MS);
 });
 </script>
 @endpush

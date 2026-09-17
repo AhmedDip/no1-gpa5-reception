@@ -29,9 +29,8 @@ class QrCodeController extends Controller
 
     public function index()
     {
-        $entries = $this->recentApprovedEntriesQuery()->get();
-        $latestEntry = $entries->first();
-
+        $entries         = $this->recentApprovedEntriesQuery()->get();
+        $latestEntry     = $entries->first();
         $latestQrDataUri = $latestEntry ? $this->qrCodeForEntry($latestEntry) : null;
 
         return view('frontend.pages.qrcode.index', compact('entries', 'latestEntry', 'latestQrDataUri'));
@@ -55,8 +54,8 @@ class QrCodeController extends Controller
 
         return response()->json([
             'success' => true,
-            'latest' => $latestData,
-            'recent' => $entries->map(fn(CeremonyEntry $entry) => $this->formatEntry($entry))->values(),
+            'latest'  => $latestData,
+            'recent'  => $entries->map(fn(CeremonyEntry $entry) => $this->formatEntry($entry))->values(),
         ]);
     }
 
@@ -69,15 +68,14 @@ class QrCodeController extends Controller
                 ->with('error', 'প্রবেশ যাচাই করতে দয়া করে প্রথমে লগইন করুন।');
         }
 
-        $studentId = auth()->id();
-        $result = $this->ceremonyService->verifyEntry($studentId);
-
+        $studentId    = auth()->id();
+        $result       = $this->ceremonyService->verifyEntry($studentId);
         $studnetBname = auth()->user()->studentDetail?->name_bn ?? '';
 
         return match ($result['type'] ?? null) {
-            'approved' => view('frontend.pages.qrcode.approved', $result)->with('studnetBname', $studnetBname),
+            'approved'        => view('frontend.pages.qrcode.approved', $result)->with('studnetBname', $studnetBname),
             'already_scanned' => view('frontend.pages.qrcode.already-scanned', $result),
-            default => view('frontend.pages.qrcode.denied', $result),
+            default           => view('frontend.pages.qrcode.denied', $result),
         };
     }
 
@@ -105,7 +103,7 @@ class QrCodeController extends Controller
         $qrDataUri = null;
 
         if ($user) {
-            $scanUrl = route('admin.qrcode.student.scan', ['mobile' => $user->mobile]);
+            $scanUrl   = route('admin.qrcode.student.scan', ['mobile' => $user->mobile]);
             $qrDataUri = $this->buildStudentQrCode($scanUrl, $user->studentDetail);
         }
 
@@ -149,7 +147,8 @@ class QrCodeController extends Controller
             return null;
         }
 
-        $photoPath = ltrim(str_replace('\\', '/', $detail->student_photo), '/');
+        $photoPath = $detail->student_photo;
+
         $uploadsDisk = Storage::disk('uploads');
 
         if (!$uploadsDisk->exists($photoPath)) {
@@ -172,11 +171,11 @@ class QrCodeController extends Controller
 
         try {
             CeremonyEntry::create([
-                'student_id' => $user->id,
+                'student_id'        => $user->id,
                 'student_detail_id' => $user->studentDetail->id,
-                'status' => 'approved',
-                'remarks' => 'ব্যক্তিগত QR কোড স্ক্যান (মোবাইল ভিত্তিক প্রবেশ)',
-                'scanned_at' => now(),
+                'status'            => 'approved',
+                'remarks'           => 'ব্যক্তিগত QR কোড স্ক্যান (মোবাইল ভিত্তিক প্রবেশ)',
+                'scanned_at'        => now(),
             ]);
         } catch (\Throwable $e) {
             report($e);
@@ -202,13 +201,13 @@ class QrCodeController extends Controller
         $detail = $entry->studentDetail;
 
         return [
-            'id' => $entry->id,
-            'name_en' => $detail->name_en ?? $entry->student->name ?? '',
-            'name_bn' => $detail->name_bn ?? '',
+            'id'          => $entry->id,
+            'name_en'     => $detail->name_en ?? $entry->student->name ?? '',
+            'name_bn'     => $detail->name_bn ?? '',
             'roll_number' => $detail->roll_number ?? '',
-            'board' => $detail->board->name_bn ?? $detail->board->name ?? '',
-            'photo_url' => $detail->student_photo_url ?? asset('images/default-user.png'),
-            'scanned_at' => $entry->scanned_at->format('h:i A'),
+            'board'       => $detail->board->name_bn ?? $detail->board->name ?? '',
+            'photo_url'   => $detail->student_photo_url ?? asset('images/default-user.png'),
+            'scanned_at'  => $entry->scanned_at->format('h:i A'),
         ];
     }
 

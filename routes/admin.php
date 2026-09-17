@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\UpazilaManagerAssignmentController;
 use App\Http\Controllers\Admin\UpazilaManagerImportController;
 use App\Http\Controllers\Admin\WebMenuController;
 use App\Http\Controllers\Admin\WebMenuGroupController;
+use App\Http\Controllers\InvitationLetterController;
 use App\Http\Controllers\PreviousYearController;
 use App\Http\Controllers\QrCodeController;
 use Illuminate\Support\Facades\Route;
@@ -166,6 +167,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/qr-code/{mobile}', [QrCodeController::class, 'showStudentQrCode'])
             ->name('qrcode.student.show')->middleware('auth', 'admin.auth');
+
+         Route::get('/invitation-letter/{mobile}', [InvitationLetterController::class, 'showForStudent'])
+            ->name('invitation.student.show')->middleware('auth', 'admin.auth');
     });
 
 });

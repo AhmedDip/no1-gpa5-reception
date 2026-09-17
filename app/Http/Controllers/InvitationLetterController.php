@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\StudentDetail;
+use App\Models\User;
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Encoding\Encoding;
 use Endroid\QrCode\ErrorCorrectionLevel;
@@ -22,6 +23,29 @@ class InvitationLetterController extends Controller
         if ($user?->studentDetail?->application_status_id != 6) {
             return back()->with('error', 'আপনি এখনও ইনভিটেশন কার্ড ডাউনলোডের জন্য যোগ্য নন।');
         }
+
+        $scanUrl = route('admin.qrcode.student.scan', ['mobile' => $user->mobile]);
+        $qrDataUri = $this->buildStudentQrCode($scanUrl, $user->studentDetail);
+
+        return view('frontend.pages.invitation-letter.index', compact('name', 'qrDataUri'));
+    }
+
+    public function showForStudent(string $mobile)
+    {
+        $mobile = preg_replace('/[^0-9]/', '', $mobile);
+
+        $user = User::where('mobile', $mobile)
+            ->where('user_type_id', 1)
+            ->whereHas('studentDetail', function ($query) {
+                $query->whereIn('application_status_id', [4, 6]);
+            })
+            ->first();
+
+        if (!$user || !$user->studentDetail) {
+            abort(404, 'কোনো অনুমোদিত শিক্ষার্থী পাওয়া যায়নি।');
+        }
+
+        $name = $user->studentDetail->name_bn ?? $user->name;
 
         $scanUrl = route('admin.qrcode.student.scan', ['mobile' => $user->mobile]);
         $qrDataUri = $this->buildStudentQrCode($scanUrl, $user->studentDetail);

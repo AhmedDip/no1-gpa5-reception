@@ -498,6 +498,12 @@
                                                     class="btn btn-icon btn-outline-dark btn-sm" title="QR Code">
                                                     <i class="fas fa-qrcode"></i>
                                                 </a>
+
+                                                <a href="{{ route('admin.invitation.student.show', ['mobile' => $application?->user?->mobile]) }}"
+                                                    target="_blank"
+                                                    class="btn btn-icon btn-outline-primary btn-sm" title="Invitation Letter">
+                                                    <i class="fas fa-envelope-open-text"></i>
+                                                </a>
                                             @endif
                                         </div>
                                     </td>
