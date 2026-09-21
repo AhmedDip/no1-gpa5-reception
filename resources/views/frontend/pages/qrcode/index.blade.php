@@ -4,27 +4,646 @@
 
 @section('title', 'সংবর্ধনায় প্রবেশের QR কোড')
 
+@push('styles')
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --qr-primary: #8a4547;
+        --qr-primary-soft: #8a4547cc;
+        --qr-primary-dark: #5e2628;
+        --qr-accent: #d4a24a;
+        --qr-accent-light: #f0d9a8;
+        --qr-success: #1e9e6f;
+        --qr-success-dark: #0f6e4c;
+        --qr-ink: #1c1414;
+        --qr-muted: #8a7d7d;
+        --qr-line: #f0e6e6;
+        --qr-surface: #ffffff;
+        --qr-bg: #faf7f7;
+        --qr-shadow-sm: 0 2px 8px -2px rgba(40, 10, 10, 0.08);
+        --qr-shadow-md: 0 12px 32px -12px rgba(40, 10, 10, 0.18);
+        --qr-shadow-lg: 0 24px 60px -24px rgba(40, 10, 10, 0.28);
+        --qr-radius: 22px;
+        --qr-radius-sm: 14px;
+    }
+
+    body {
+        font-family: 'Hind Siliguri', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .qr-page-bg {
+        background:
+            radial-gradient(1000px 460px at 8% -8%, #fdf1f1 0%, transparent 60%),
+            radial-gradient(800px 380px at 92% -4%, #fdf6e9 0%, transparent 55%),
+            linear-gradient(180deg, #faf7f7 0%, #ffffff 40%);
+        min-height: 100vh;
+        padding: 2.5rem 0 4rem;
+        position: relative;
+    }
+
+    /* ===================== TOP PAGE BAR ===================== */
+    .qr-page-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 1.75rem;
+        padding: 0.9rem 1.25rem;
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid rgba(240, 230, 230, 0.9);
+        border-radius: 18px;
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        box-shadow: var(--qr-shadow-sm);
+        animation: qrBarIn 0.5s cubic-bezier(.2,.9,.3,1.1) both;
+    }
+
+    @keyframes qrBarIn {
+        from { opacity: 0; transform: translateY(-8px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .qr-page-bar-title {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        min-width: 0;
+    }
+
+    .qr-page-bar-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--qr-primary) 0%, var(--qr-primary-dark) 100%);
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.15rem;
+        box-shadow: 0 8px 18px -8px rgba(138, 69, 71, 0.6);
+        flex-shrink: 0;
+    }
+
+    .qr-page-bar-title h1 {
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: var(--qr-ink);
+        margin: 0;
+        letter-spacing: -0.01em;
+        line-height: 1.25;
+    }
+
+    .qr-page-bar-title p {
+        font-size: 0.78rem;
+        color: var(--qr-muted);
+        margin: 0;
+        line-height: 1.3;
+    }
+
+    .qr-live-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, #e9faf1 0%, #d6f3e5 100%);
+        border: 1px solid rgba(30, 158, 111, 0.22);
+        color: var(--qr-success-dark);
+        border-radius: 50px;
+        padding: 7px 16px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        box-shadow: 0 6px 16px -8px rgba(30, 158, 111, 0.5);
+        white-space: nowrap;
+    }
+
+    .qr-live-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #22c55e;
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+        animation: qrPulseDot 1.8s infinite;
+    }
+
+    @keyframes qrPulseDot {
+        0%   { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.65); }
+        70%  { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+
+    /* ===================== CARDS ===================== */
+    .qr-card {
+        border: 1px solid rgba(240, 230, 230, 0.9);
+        border-radius: var(--qr-radius);
+        box-shadow: var(--qr-shadow-md);
+        overflow: hidden;
+        background: var(--qr-surface);
+        transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .qr-card:hover {
+        box-shadow: var(--qr-shadow-lg);
+        transform: translateY(-4px);
+        border-color: rgba(138, 69, 71, 0.16);
+    }
+
+    .qr-card-header {
+        padding: 1.1rem 1.35rem;
+        border-bottom: 1px solid var(--qr-line);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        background: linear-gradient(180deg, #fffdfd 0%, #fbf6f6 100%);
+    }
+
+    .qr-card-header h6 {
+        margin: 0;
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--qr-ink);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        letter-spacing: -0.005em;
+    }
+
+    .qr-card-header h6 .qr-hicon {
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, rgba(138, 69, 71, 0.12) 0%, rgba(138, 69, 71, 0.05) 100%);
+        color: var(--qr-primary);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        flex-shrink: 0;
+    }
+
+    /* ---- Card header variants ---- */
+    .qr-card-header--gold {
+        background: linear-gradient(135deg, #fffaf0 0%, #fdf3dd 100%);
+        border-bottom-color: #f3e4c4;
+    }
+    .qr-card-header--gold h6 .qr-hicon {
+        background: linear-gradient(135deg, var(--qr-accent) 0%, #b8862f 100%);
+        color: #fff;
+        box-shadow: 0 6px 14px -6px rgba(212, 162, 74, 0.7);
+    }
+
+    .qr-card-header--green {
+        background: linear-gradient(135deg, #f2fbf6 0%, #dff5ea 100%);
+        border-bottom-color: #c6ecd9;
+    }
+    .qr-card-header--green h6 .qr-hicon {
+        background: linear-gradient(135deg, var(--qr-success) 0%, var(--qr-success-dark) 100%);
+        color: #fff;
+        box-shadow: 0 6px 14px -6px rgba(30, 158, 111, 0.7);
+    }
+
+    .qr-card-header--dark {
+        background:
+            radial-gradient(120% 140% at 0% 0%, rgba(212,162,74,0.16) 0%, transparent 55%),
+            linear-gradient(135deg, #1c1414 0%, #2c1f1f 100%);
+        border-bottom: none;
+    }
+    .qr-card-header--dark h6 { color: #fff; }
+    .qr-card-header--dark h6 .qr-hicon {
+        background: linear-gradient(135deg, var(--qr-accent) 0%, #b8862f 100%);
+        color: #fff;
+    }
+
+    .qr-live-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.18);
+        color: #fff;
+        border-radius: 50px;
+        padding: 4px 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+    }
+
+    .qr-live-badge::before {
+        content: '';
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #4ade80;
+        box-shadow: 0 0 8px #4ade80;
+        animation: qrPulseDot 1.8s infinite;
+    }
+
+    .qr-count-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: rgba(138, 69, 71, 0.08);
+        color: var(--qr-primary);
+        border-radius: 50px;
+        padding: 4px 12px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+    }
+
+    /* ===================== QR IMAGE FRAME ===================== */
+    .qr-image-frame {
+        background:
+            linear-gradient(#fff, #fff) padding-box,
+            linear-gradient(135deg, var(--qr-accent) 0%, var(--qr-primary) 100%) border-box;
+        border: 2px solid transparent;
+        border-radius: 20px;
+        padding: 16px;
+        display: inline-block;
+        box-shadow:
+            0 12px 28px -12px rgba(138, 69, 71, 0.35),
+            0 0 0 6px rgba(138, 69, 71, 0.04);
+        position: relative;
+        animation: qrFrameIn 0.6s cubic-bezier(.2,.9,.3,1.2) both;
+    }
+
+    @keyframes qrFrameIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to   { opacity: 1; transform: scale(1); }
+    }
+
+    .qr-image-frame::after {
+        content: '';
+        position: absolute;
+        inset: -14px;
+        border-radius: 28px;
+        border: 1px dashed rgba(138, 69, 71, 0.18);
+        pointer-events: none;
+    }
+
+    .qr-empty-state {
+        color: #b3a6a6;
+        padding: 3rem 1rem;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    .qr-empty-state i {
+        font-size: 3rem;
+        opacity: 0.32;
+        display: block;
+        margin-bottom: 0.9rem;
+        color: var(--qr-primary);
+    }
+
+    /* ===================== HOW LIST ===================== */
+    .qr-how-list {
+        counter-reset: qrStep;
+        list-style: none;
+        padding-left: 0 !important;
+        margin-bottom: 0;
+    }
+
+    .qr-how-list li {
+        position: relative;
+        padding: 0.6rem 0 0.6rem 2.5rem;
+        counter-increment: qrStep;
+        font-size: 0.87rem;
+        color: #4a3e3e;
+        line-height: 1.55;
+        border-bottom: 1px dashed #f3eaea;
+    }
+
+    .qr-how-list li:last-child { border-bottom: none; }
+
+    .qr-how-list li::before {
+        content: counter(qrStep);
+        position: absolute;
+        left: 0;
+        top: 0.55rem;
+        width: 28px;
+        height: 28px;
+        border-radius: 9px;
+        background: linear-gradient(135deg, var(--qr-primary) 0%, var(--qr-primary-dark) 100%);
+        color: #fff;
+        font-size: 0.74rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 10px -3px rgba(138, 69, 71, 0.5);
+    }
+
+    /* ===================== FEATURED ENTRY ===================== */
+    .qr-featured-avatar {
+        width: 128px;
+        height: 128px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #fff;
+        box-shadow:
+            0 0 0 4px rgba(30, 158, 111, 0.2),
+            0 16px 36px -12px rgba(30, 158, 111, 0.55);
+        animation: qrAvatarIn 0.6s cubic-bezier(.2,.9,.3,1.3) both;
+    }
+
+    @keyframes qrAvatarIn {
+        from { opacity: 0; transform: scale(0.85) translateY(8px); }
+        to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .qr-featured-name-bn {
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: var(--qr-ink);
+        margin-bottom: 0.15rem;
+        letter-spacing: -0.01em;
+        line-height: 1.25;
+    }
+
+    .qr-featured-name-en {
+        color: var(--qr-muted);
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .qr-info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.55rem 0.75rem;
+    }
+
+    .qr-info-item {
+        background: linear-gradient(180deg, #fdf9f9 0%, #faf4f4 100%);
+        border: 1px solid #f2e8e8;
+        border-radius: var(--qr-radius-sm);
+        padding: 0.62rem 0.82rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .qr-info-item:hover {
+        transform: translateY(-2px);
+        border-color: rgba(138, 69, 71, 0.22);
+        box-shadow: 0 8px 18px -10px rgba(138, 69, 71, 0.3);
+    }
+
+    .qr-info-item .qr-info-label {
+        font-size: 0.67rem;
+        color: #a19191;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-weight: 600;
+    }
+
+    .qr-info-item .qr-info-label i {
+        color: var(--qr-primary);
+        opacity: 0.72;
+    }
+
+    .qr-info-item .qr-info-value {
+        font-weight: 700;
+        font-size: 0.88rem;
+        color: var(--qr-ink);
+        margin-top: 3px;
+        word-break: break-word;
+        line-height: 1.4;
+    }
+
+    .qr-section-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        color: var(--qr-primary);
+        margin: 1.15rem 0 0.6rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .qr-section-label i {
+        font-size: 0.8rem;
+        color: var(--qr-accent);
+    }
+
+    .qr-section-label::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, #f0dada 0%, transparent 100%);
+    }
+
+    .qr-scanned-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: linear-gradient(135deg, #e9faf1 0%, #d6f3e5 100%);
+        color: var(--qr-success-dark);
+        border: 1px solid rgba(30, 158, 111, 0.2);
+        border-radius: 50px;
+        padding: 8px 20px;
+        font-weight: 700;
+        font-size: 0.84rem;
+        box-shadow: 0 6px 16px -8px rgba(30, 158, 111, 0.5);
+    }
+
+    .qr-scanned-badge i {
+        animation: qrCheckPop 0.5s cubic-bezier(.2,.9,.3,1.5) both;
+    }
+
+    @keyframes qrCheckPop {
+        from { transform: scale(0); }
+        to   { transform: scale(1); }
+    }
+
+    /* ===================== RECENT SCANS ===================== */
+    .qr-recent-item {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        padding: 0.8rem 1.2rem;
+        border-bottom: 1px solid #f7f1f1;
+        transition: background 0.2s ease;
+        position: relative;
+        animation: qrItemIn 0.4s ease both;
+    }
+
+    @keyframes qrItemIn {
+        from { opacity: 0; transform: translateX(-6px); }
+        to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .qr-recent-item::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(180deg, var(--qr-accent) 0%, var(--qr-primary) 100%);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .qr-recent-item:hover {
+        background: linear-gradient(90deg, #fdf6f6 0%, #fbf9f4 100%);
+    }
+
+    .qr-recent-item:hover::before { opacity: 1; }
+    .qr-recent-item:last-child { border-bottom: none; }
+
+    .qr-recent-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #fff;
+        box-shadow: 0 0 0 2px rgba(138, 69, 71, 0.14), 0 4px 10px -3px rgba(40,10,10,0.2);
+        flex-shrink: 0;
+        transition: transform 0.25s ease;
+    }
+
+    .qr-recent-item:hover .qr-recent-avatar {
+        transform: scale(1.08);
+    }
+
+    .qr-recent-name {
+        font-weight: 700;
+        font-size: 0.86rem;
+        color: var(--qr-ink);
+        letter-spacing: -0.005em;
+    }
+
+    .qr-recent-meta {
+        font-size: 0.72rem;
+        color: var(--qr-muted);
+        margin-top: 1px;
+    }
+
+    .qr-recent-time {
+        font-size: 0.7rem;
+        color: #a79696;
+        font-weight: 700;
+        white-space: nowrap;
+        background: #faf4f4;
+        border: 1px solid #f0e6e6;
+        padding: 3px 10px;
+        border-radius: 50px;
+        letter-spacing: 0.2px;
+    }
+
+    .qr-scroll-panel {
+        max-height: 560px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #e3d2d2 transparent;
+    }
+
+    .qr-scroll-panel::-webkit-scrollbar { width: 6px; }
+    .qr-scroll-panel::-webkit-scrollbar-track { background: transparent; }
+    .qr-scroll-panel::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #e3d2d2 0%, #d8c0c0 100%);
+        border-radius: 10px;
+    }
+    .qr-scroll-panel::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #d8c0c0 0%, #c9a8a8 100%);
+    }
+
+    /* ===================== QUICK LINKS ===================== */
+    .qr-quick-links a {
+        color: var(--qr-primary);
+        font-weight: 700;
+        text-decoration: none;
+        position: relative;
+        padding-bottom: 1px;
+        transition: color 0.2s ease;
+    }
+
+    .qr-quick-links a::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 1px;
+        background: currentColor;
+        transform: scaleX(0.35);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+        opacity: 0.5;
+    }
+
+    .qr-quick-links a:hover { color: var(--qr-primary-dark); }
+    .qr-quick-links a:hover::after { transform: scaleX(1); opacity: 1; }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 767px) {
+        .qr-info-grid { grid-template-columns: 1fr; }
+        .qr-featured-avatar { width: 108px; height: 108px; }
+        .qr-page-bar { padding: 0.75rem 1rem; }
+        .qr-page-bar-title h1 { font-size: 1.02rem; }
+    }
+
+    /* Entrance */
+    .qr-fade-in { animation: qrFadeUp 0.55s cubic-bezier(.2,.8,.3,1) both; }
+    .qr-fade-in.d1 { animation-delay: 0.06s; }
+    .qr-fade-in.d2 { animation-delay: 0.12s; }
+    .qr-fade-in.d3 { animation-delay: 0.18s; }
+
+    @keyframes qrFadeUp {
+        from { opacity: 0; transform: translateY(14px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+</style>
+@endpush
+
 @section('content')
-    <div class="container my-5">
-        <div class="row justify-content-center mb-4">
-            <div class="col-lg-8 text-center">
-                <h3 class="mb-2"><i class="fas fa-qrcode"></i> সংবর্ধনায় প্রবেশ</h3>
-                <p class="text-muted mb-0">প্রবেশ নিশ্চিত করতে QR কোড স্ক্যান করুন</p>
+<div class="qr-page-bg">
+    <div class="container">
+
+        <!-- Compact Page Bar -->
+        <div class="qr-page-bar">
+            <div class="qr-page-bar-title">
+                <span class="qr-page-bar-icon"><i class="fas fa-qrcode"></i></span>
+                <div>
+                    <h1>সংবর্ধনায় প্রবেশ</h1>
+                    <p>QR কোড স্ক্যান করে প্রবেশ নিশ্চিত করুন</p>
+                </div>
             </div>
+            <span class="qr-live-pill"><span class="qr-live-dot"></span> লাইভ আপডেট হচ্ছে</span>
         </div>
 
         <div class="row g-4">
-            {{-- Latest Scanned QR --}}
-            <div class="col-lg-4">
-                <div class="card shadow-sm border-0 mb-4">
-                    <div class="card-header bg-light border-bottom text-center">
-                        <h6 class="mb-0"><i class="fas fa-qrcode"></i> সর্বশেষ স্ক্যান করা QR কোড</h6>
+
+            <!-- QR + instructions -->
+            <div class="col-lg-4 qr-fade-in d1">
+                <div class="qr-card mb-4">
+                    <div class="qr-card-header qr-card-header--gold">
+                        <h6>
+                            <span class="qr-hicon"><i class="fas fa-qrcode"></i></span>
+                            সর্বশেষ স্ক্যান করা QR কোড
+                        </h6>
                     </div>
                     <div class="card-body p-4 text-center" id="latestQrBody">
                         @if ($latestQrDataUri && $latestEntry?->studentDetail)
-                            <img src="{{ $latestQrDataUri }}"
-                                alt="{{ $latestEntry->studentDetail->name_en ?? '' }}"
-                                class="img-fluid border rounded mb-3" style="max-width: 260px;">
+                            <div class="qr-image-frame mb-3">
+                                <img src="{{ $latestQrDataUri }}"
+                                    alt="{{ $latestEntry->studentDetail->name_en ?? '' }}"
+                                    style="max-width: 220px; width: 100%; border-radius: 8px; display: block;">
+                            </div>
                             <h6 class="fw-bold mb-1">
                                 {{ $latestEntry->studentDetail->name_bn ?? $latestEntry->studentDetail->name_en }}
                             </h6>
@@ -32,66 +651,115 @@
                                 রোল: {{ $latestEntry->studentDetail->roll_number ?? '—' }}
                             </p>
                         @else
-                            <div class="text-muted py-5">
-                                <i class="fas fa-qrcode fa-3x mb-3 d-block"></i>
+                            <div class="qr-empty-state">
+                                <i class="fas fa-qrcode"></i>
                                 এখনো কোনো QR কোড স্ক্যান হয়নি
                             </div>
                         @endif
                     </div>
                 </div>
 
-                <div class="card border-info">
-                    <div class="card-body">
-                        <h6 class="card-title text-info">
-                            <i class="fas fa-info-circle"></i> যেভাবে কাজ করে
+                {{-- <div class="qr-card">
+                    <div class="qr-card-header">
+                        <h6>
+                            <span class="qr-hicon"><i class="fas fa-info-circle"></i></span>
+                            যেভাবে কাজ করে
                         </h6>
-                        <ol class="mb-0 small">
+                    </div>
+                    <div class="card-body pt-2 pb-3">
+                        <ol class="qr-how-list">
                             <li>শিক্ষার্থী তার নিজস্ব QR কোডটি স্ক্যানারের সামনে ধরবেন</li>
                             <li>আয়োজক টিম QR কোডটি স্ক্যান করবেন</li>
                             <li>সিস্টেম শিক্ষার্থীর আবেদন অনুমোদিত কিনা যাচাই করবে</li>
                             <li>অনুমোদিত হলে প্রবেশাধিকার নিশ্চিত হবে</li>
-                            <li>এই পেজে সর্বশেষ স্ক্যান করা QR কোড স্বয়ংক্রিয়ভাবে দেখা যাবে</li>
+                            <li>এই পেজে সর্বশেষ স্ক্যান করা তথ্য স্বয়ংক্রিয়ভাবে দেখা যাবে</li>
                         </ol>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
-            {{-- Last Scanned (featured) --}}
-            <div class="col-lg-4">
-                <div class="card shadow-sm border-0 h-100">
-                    <div class="card-header bg-success text-white text-center">
-                        <h6 class="mb-0"><i class="fas fa-user-check"></i> সর্বশেষ প্রবেশ</h6>
+            <!-- Featured latest entry -->
+            <div class="col-lg-4 qr-fade-in d2">
+                <div class="qr-card">
+                    <div class="qr-card-header qr-card-header--green">
+                        <h6>
+                            <span class="qr-hicon"><i class="fas fa-user-check"></i></span>
+                            সর্বশেষ প্রবেশ
+                        </h6>
+                        <span class="qr-count-badge"><i class="fas fa-bolt"></i> লাইভ</span>
                     </div>
-                    <div class="card-body text-center d-flex flex-column justify-content-center"
-                        id="lastScannedBody" style="min-height: 380px;">
+                    <div class="card-body p-4" id="lastScannedBody" style="min-height: 520px;">
                         @if ($latestEntry && $latestEntry->studentDetail)
-                            <img src="{{ $latestEntry->studentDetail->student_photo_url }}"
-                                alt="{{ $latestEntry->studentDetail->name_en ?? '' }}"
-                                class="rounded-circle mx-auto mb-3"
-                                style="width:130px;height:130px;object-fit:cover;border:4px solid #e8f5e9;">
-                            <h5 class="fw-bold mb-1">
-                                {{ $latestEntry->studentDetail->name_bn ?? $latestEntry->studentDetail->name_en }}
-                            </h5>
-                            <p class="text-muted mb-2">{{ $latestEntry->studentDetail->name_en }}</p>
-                            <div class="d-flex justify-content-center gap-2 flex-wrap mb-2">
-                                @if ($latestEntry->studentDetail->roll_number)
-                                    <span class="badge bg-primary">
-                                        রোল: {{ $latestEntry->studentDetail->roll_number }}
+                            @php $d = $latestEntry->studentDetail; @endphp
+                            <div class="text-center mb-3">
+                                <img src="{{ $d->student_photo_url }}"
+                                    alt="{{ $d->name_en ?? '' }}"
+                                    class="qr-featured-avatar mb-3">
+                                <div class="qr-featured-name-bn">{{ $d->name_bn ?? $d->name_en }}</div>
+                                <div class="qr-featured-name-en">{{ $d->name_en }}</div>
+                                <div class="mt-3">
+                                    <span class="qr-scanned-badge">
+                                        <i class="fas fa-check-circle"></i>
+                                        {{ $latestEntry->scanned_at?->format('h:i A') }} · {{ $latestEntry->scanned_at?->format('d M, Y') }}
                                     </span>
-                                @endif
-                                @if ($latestEntry->studentDetail->board?->name_bn)
-                                    <span class="badge bg-info text-dark">
-                                        {{ $latestEntry->studentDetail->board->name_bn }}
-                                    </span>
-                                @endif
+                                </div>
                             </div>
-                            <small class="text-success fw-semibold">
-                                <i class="fas fa-check-circle"></i>
-                                {{ $latestEntry->scanned_at?->format('h:i A') }}
-                            </small>
+
+                            <div class="qr-section-label"><i class="fas fa-graduation-cap"></i> একাডেমিক তথ্য</div>
+                            <div class="qr-info-grid">
+                                <div class="qr-info-item">
+                                    <div class="qr-info-label"><i class="fas fa-hashtag"></i> রোল নম্বর</div>
+                                    <div class="qr-info-value">{{ $d->roll_number ?? '—' }}</div>
+                                </div>
+                                <div class="qr-info-item">
+                                    <div class="qr-info-label"><i class="fas fa-id-card"></i> রেজিস্ট্রেশন</div>
+                                    <div class="qr-info-value">{{ $d->registration_number ?? '—' }}</div>
+                                </div>
+                                <div class="qr-info-item">
+                                    <div class="qr-info-label"><i class="fas fa-star"></i> জিপিএ</div>
+                                    <div class="qr-info-value text-success">{{ $d->gpa_result ?? '—' }}</div>
+                                </div>
+                                <div class="qr-info-item">
+                                    <div class="qr-info-label"><i class="fas fa-university"></i> বোর্ড</div>
+                                    <div class="qr-info-value">{{ $d->board->name_bn ?? $d->board->name ?? '—' }}</div>
+                                </div>
+                            </div>
+
+                            <div class="qr-section-label"><i class="fas fa-phone"></i> যোগাযোগ</div>
+                            <div class="qr-info-grid">
+                                <div class="qr-info-item">
+                                    <div class="qr-info-label"><i class="fas fa-mobile-alt"></i> শিক্ষার্থীর মোবাইল</div>
+                                    <div class="qr-info-value">{{ $latestEntry->student->mobile ?? '—' }}</div>
+                                </div>
+                                <div class="qr-info-item">
+                                    <div class="qr-info-label"><i class="fas fa-phone-alt"></i> অভিভাবকের মোবাইল</div>
+                                    <div class="qr-info-value">{{ $d->parent_mobile ?? '—' }}</div>
+                                </div>
+                            </div>
+
+                            <div class="qr-section-label"><i class="fas fa-users"></i> অভিভাবকের তথ্য</div>
+                            <div class="qr-info-grid">
+                                <div class="qr-info-item">
+                                    <div class="qr-info-label"><i class="fas fa-male"></i> পিতার নাম</div>
+                                    <div class="qr-info-value">{{ $d->father_name ?? '—' }}</div>
+                                </div>
+                                <div class="qr-info-item">
+                                    <div class="qr-info-label"><i class="fas fa-female"></i> মাতার নাম</div>
+                                    <div class="qr-info-value">{{ $d->mother_name ?? '—' }}</div>
+                                </div>
+                                <div class="qr-info-item" style="grid-column: 1 / -1;">
+                                    <div class="qr-info-label"><i class="fas fa-mug-hot"></i> চায়ের দোকান</div>
+                                    <div class="qr-info-value">
+                                        {{ $d->tea_stall_name ?? '—' }}
+                                        @if ($d->tea_stall_location)
+                                            <span class="text-muted fw-normal small d-block">{{ $d->tea_stall_location }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
                         @else
-                            <div class="text-muted py-5">
-                                <i class="fas fa-user-clock fa-3x mb-3 d-block"></i>
+                            <div class="qr-empty-state">
+                                <i class="fas fa-user-clock"></i>
                                 এখনো কোনো প্রবেশ রেকর্ড হয়নি
                             </div>
                         @endif
@@ -99,66 +767,77 @@
                 </div>
             </div>
 
-            {{-- Recent Scans List --}}
-            <div class="col-lg-4">
-                <div class="card shadow-sm border-0 h-100">
-                    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-                        <h6 class="mb-0"><i class="fas fa-list"></i> সাম্প্রতিক প্রবেশ তালিকা</h6>
-                        <span class="badge bg-light text-dark">
-                            <i class="fas fa-circle text-success" style="font-size:8px;"></i> লাইভ
-                        </span>
+            <!-- Recent scans -->
+            <div class="col-lg-4 qr-fade-in d3">
+                <div class="qr-card">
+                    <div class="qr-card-header qr-card-header--dark">
+                        <h6>
+                            <span class="qr-hicon"><i class="fas fa-list"></i></span>
+                            সাম্প্রতিক প্রবেশ তালিকা
+                        </h6>
+                        <span class="qr-live-badge">লাইভ</span>
                     </div>
-                    <div class="card-body p-0" style="max-height: 420px; overflow-y: auto;">
-                        <ul class="list-group list-group-flush" id="recentScansList">
+                    <div class="qr-scroll-panel" id="recentScansListWrap">
+                        <ul class="list-unstyled mb-0" id="recentScansList">
                             @forelse ($entries as $entry)
                                 @if ($entry->studentDetail)
-                                    <li class="list-group-item d-flex align-items-center gap-2">
+                                    <li class="qr-recent-item">
                                         <img src="{{ $entry->studentDetail->student_photo_url }}"
-                                            class="rounded-circle" width="40" height="40"
-                                            style="object-fit:cover;">
-                                        <div class="flex-grow-1">
-                                            <div class="fw-semibold small">
+                                            class="qr-recent-avatar">
+                                        <div class="flex-grow-1 min-w-0">
+                                            <div class="qr-recent-name text-truncate">
                                                 {{ $entry->studentDetail->name_bn ?? $entry->studentDetail->name_en }}
                                             </div>
-                                            <div class="text-muted" style="font-size:0.75rem;">
+                                            <div class="qr-recent-meta">
                                                 রোল: {{ $entry->studentDetail->roll_number ?? '—' }}
+                                                @if ($entry->studentDetail->board?->name_bn)
+                                                    · {{ $entry->studentDetail->board->name_bn }}
+                                                @endif
                                             </div>
                                         </div>
-                                        <span class="text-muted" style="font-size:0.7rem;">
-                                            {{ $entry->scanned_at?->format('h:i A') }}
-                                        </span>
+                                        <span class="qr-recent-time">{{ $entry->scanned_at?->format('h:i A') }}</span>
                                     </li>
                                 @endif
                             @empty
-                                <li class="list-group-item text-center text-muted py-4">
-                                    কোনো তথ্য পাওয়া যায়নি
-                                </li>
+                                <li class="text-center text-muted py-5">কোনো তথ্য পাওয়া যায়নি</li>
                             @endforelse
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Quick Links -->
+        <div class="mt-5 text-center qr-quick-links">
+            @auth
+                <p class="text-muted small mb-2">
+                    ইতিমধ্যে লগইন করা আছে?
+                    <a href="{{ route('student.ceremony.history') }}">আপনার প্রবেশের ইতিহাস দেখুন</a>
+                </p>
+            @endauth
+            @guest
+                <p class="text-muted small mb-0">
+                    প্রবেশ যাচাই করতে <a href="{{ route('student.login') }}">এখানে লগইন করুন</a>
+                </p>
+            @endguest
+        </div>
     </div>
+</div>
 @endsection
 
 @push('scripts')
 <script>
-$(document).ready(function () {
-
-    const REFRESH_EVERY_MS = 5000; // 10 seconds
-
-    // Cache jQuery selectors
-    const $lastScannedBox = $('#lastScannedBody');
-    const $latestQrBox    = $('#latestQrBody');
-    const $recentList     = $('#recentScansList');
+document.addEventListener('DOMContentLoaded', function () {
+    const POLL_INTERVAL_MS = 10000;
+    const lastScannedBody  = document.getElementById('lastScannedBody');
+    const latestQrBody     = document.getElementById('latestQrBody');
+    const recentScansList  = document.getElementById('recentScansList');
 
     let lastEntryId = @json($latestEntry?->id);
 
-    // Simple text sanitizer (prevents HTML injection)
-    function clean(text) {
-        if (text == null) return '';
-        return String(text)
+    function escapeHtml(str) {
+        if (str == null || str === '') return '—';
+        return String(str)
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
@@ -166,117 +845,142 @@ $(document).ready(function () {
             .replace(/'/g, '&#039;');
     }
 
-    // Build HTML for "Latest Entry" card
-    function buildLastScannedHtml(entry) {
+    function renderLastScanned(entry) {
         if (!entry) {
-            return `
-                <div class="text-muted py-5">
-                    <i class="fas fa-user-clock fa-3x mb-3 d-block"></i>
+            lastScannedBody.innerHTML = `
+                <div class="qr-empty-state">
+                    <i class="fas fa-user-clock"></i>
                     এখনো কোনো প্রবেশ রেকর্ড হয়নি
                 </div>`;
+            return;
         }
 
-        const rollBadge  = entry.roll_number
-            ? `<span class="badge bg-primary">রোল: ${clean(entry.roll_number)}</span>` : '';
-        const boardBadge = entry.board
-            ? `<span class="badge bg-info text-dark">${clean(entry.board)}</span>` : '';
+        const teaStallLocationHtml = entry.tea_stall_location
+            ? `<span class="text-muted fw-normal small d-block">${escapeHtml(entry.tea_stall_location)}</span>`
+            : '';
 
-        return `
-            <img src="${clean(entry.photo_url)}" alt="${clean(entry.name_en)}"
-                 class="rounded-circle mx-auto mb-3"
-                 style="width:130px;height:130px;object-fit:cover;border:4px solid #e8f5e9;">
-            <h5 class="fw-bold mb-1">${clean(entry.name_bn || entry.name_en)}</h5>
-            <p class="text-muted mb-2">${clean(entry.name_en)}</p>
-            <div class="d-flex justify-content-center gap-2 flex-wrap mb-2">
-                ${rollBadge}${boardBadge}
+        lastScannedBody.innerHTML = `
+            <div class="text-center mb-3">
+                <img src="${escapeHtml(entry.photo_url)}" alt="${escapeHtml(entry.name_en)}"
+                     class="qr-featured-avatar mb-3">
+                <div class="qr-featured-name-bn">${escapeHtml(entry.name_bn || entry.name_en)}</div>
+                <div class="qr-featured-name-en">${escapeHtml(entry.name_en)}</div>
+                <div class="mt-3">
+                    <span class="qr-scanned-badge">
+                        <i class="fas fa-check-circle"></i> ${escapeHtml(entry.scanned_at)} · ${escapeHtml(entry.scanned_date)}
+                    </span>
+                </div>
             </div>
-            <small class="text-success fw-semibold">
-                <i class="fas fa-check-circle"></i> ${clean(entry.scanned_at)}
-            </small>`;
+
+            <div class="qr-section-label"><i class="fas fa-graduation-cap"></i> একাডেমিক তথ্য</div>
+            <div class="qr-info-grid">
+                <div class="qr-info-item">
+                    <div class="qr-info-label"><i class="fas fa-hashtag"></i> রোল নম্বর</div>
+                    <div class="qr-info-value">${escapeHtml(entry.roll_number)}</div>
+                </div>
+                <div class="qr-info-item">
+                    <div class="qr-info-label"><i class="fas fa-id-card"></i> রেজিস্ট্রেশন</div>
+                    <div class="qr-info-value">${escapeHtml(entry.registration_number)}</div>
+                </div>
+                <div class="qr-info-item">
+                    <div class="qr-info-label"><i class="fas fa-star"></i> জিপিএ</div>
+                    <div class="qr-info-value text-success">${escapeHtml(entry.gpa_result)}</div>
+                </div>
+                <div class="qr-info-item">
+                    <div class="qr-info-label"><i class="fas fa-university"></i> বোর্ড</div>
+                    <div class="qr-info-value">${escapeHtml(entry.board)}</div>
+                </div>
+            </div>
+
+            <div class="qr-section-label"><i class="fas fa-phone"></i> যোগাযোগ</div>
+            <div class="qr-info-grid">
+                <div class="qr-info-item">
+                    <div class="qr-info-label"><i class="fas fa-mobile-alt"></i> শিক্ষার্থীর মোবাইল</div>
+                    <div class="qr-info-value">${escapeHtml(entry.mobile)}</div>
+                </div>
+                <div class="qr-info-item">
+                    <div class="qr-info-label"><i class="fas fa-phone-alt"></i> অভিভাবকের মোবাইল</div>
+                    <div class="qr-info-value">${escapeHtml(entry.parent_mobile)}</div>
+                </div>
+            </div>
+
+            <div class="qr-section-label"><i class="fas fa-users"></i> অভিভাবকের তথ্য</div>
+            <div class="qr-info-grid">
+                <div class="qr-info-item">
+                    <div class="qr-info-label"><i class="fas fa-male"></i> পিতার নাম</div>
+                    <div class="qr-info-value">${escapeHtml(entry.father_name)}</div>
+                </div>
+                <div class="qr-info-item">
+                    <div class="qr-info-label"><i class="fas fa-female"></i> মাতার নাম</div>
+                    <div class="qr-info-value">${escapeHtml(entry.mother_name)}</div>
+                </div>
+                <div class="qr-info-item" style="grid-column: 1 / -1;">
+                    <div class="qr-info-label"><i class="fas fa-mug-hot"></i> চায়ের দোকান</div>
+                    <div class="qr-info-value">${escapeHtml(entry.tea_stall_name)}${teaStallLocationHtml}</div>
+                </div>
+            </div>`;
     }
 
-    // Build HTML for "Latest QR" card
-    function buildLatestQrHtml(entry) {
+    function renderLatestQr(entry) {
         if (!entry || !entry.qr_data_uri) {
-            return `
-                <div class="text-muted py-5">
-                    <i class="fas fa-qrcode fa-3x mb-3 d-block"></i>
+            latestQrBody.innerHTML = `
+                <div class="qr-empty-state">
+                    <i class="fas fa-qrcode"></i>
                     এখনো কোনো QR কোড স্ক্যান হয়নি
                 </div>`;
+            return;
         }
 
-        return `
-            <img src="${clean(entry.qr_data_uri)}" alt="${clean(entry.name_en)}"
-                 class="img-fluid border rounded mb-3" style="max-width: 260px;">
-            <h6 class="fw-bold mb-1">${clean(entry.name_bn || entry.name_en)}</h6>
-            <p class="text-muted small mb-0">রোল: ${clean(entry.roll_number || '—')}</p>`;
+        latestQrBody.innerHTML = `
+            <div class="qr-image-frame mb-3">
+                <img src="${escapeHtml(entry.qr_data_uri)}" alt="${escapeHtml(entry.name_en)}"
+                     style="max-width: 220px; width: 100%; border-radius: 8px; display: block;">
+            </div>
+            <h6 class="fw-bold mb-1">${escapeHtml(entry.name_bn || entry.name_en)}</h6>
+            <p class="text-muted small mb-0">রোল: ${escapeHtml(entry.roll_number)}</p>`;
     }
 
-    // Build HTML for one row in the recent list
-    function buildRecentItemHtml(entry) {
+    function renderRecentItem(entry) {
+        const boardPart = entry.board ? ` · ${escapeHtml(entry.board)}` : '';
         return `
-            <li class="list-group-item d-flex align-items-center gap-2">
-                <img src="${clean(entry.photo_url)}" class="rounded-circle"
-                     width="40" height="40" style="object-fit:cover;">
-                <div class="flex-grow-1">
-                    <div class="fw-semibold small">${clean(entry.name_bn || entry.name_en)}</div>
-                    <div class="text-muted" style="font-size:0.75rem;">
-                        রোল: ${clean(entry.roll_number || '—')}
-                    </div>
+            <li class="qr-recent-item">
+                <img src="${escapeHtml(entry.photo_url)}" class="qr-recent-avatar">
+                <div class="flex-grow-1 min-w-0">
+                    <div class="qr-recent-name text-truncate">${escapeHtml(entry.name_bn || entry.name_en)}</div>
+                    <div class="qr-recent-meta">রোল: ${escapeHtml(entry.roll_number)}${boardPart}</div>
                 </div>
-                <span class="text-muted" style="font-size:0.7rem;">${clean(entry.scanned_at)}</span>
+                <span class="qr-recent-time">${escapeHtml(entry.scanned_at)}</span>
             </li>`;
     }
 
-    // Apply a new "latest" entry to both the photo card and the QR card
-    function updateLatestCards(entry) {
-        $lastScannedBox.html(buildLastScannedHtml(entry));
-        $latestQrBox.html(buildLatestQrHtml(entry));
-    }
-
-    // Update only the recent scans list
-    function updateRecentList(items) {
-        if (!items.length) {
-            $recentList.html(`
-                <li class="list-group-item text-center text-muted py-4">
-                    কোনো তথ্য পাওয়া যায়নি
-                </li>`);
-            return;
-        }
-        $recentList.html(items.map(buildRecentItemHtml).join(''));
-    }
-
-    // Fetch new data with jQuery AJAX and update the page
     function refreshFeed() {
-        $.ajax({
-            url: '{{ route('admin.qrcode.latest-scans') }}',
-            type: 'GET',
-            dataType: 'json',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            success: function (data) {
+        fetch('{{ route('admin.qrcode.latest-scans') }}', {
+            headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+        })
+            .then(res => res.json())
+            .then(data => {
                 if (!data.success) return;
 
-                const entry   = data.latest;
-                const entryId = entry ? entry.id : null;
-
-                // Only rebuild the big cards if the latest entry changed
-                if (entryId !== lastEntryId) {
-                    lastEntryId = entryId;
-                    updateLatestCards(entry);
+                if (data.latest && data.latest.id !== lastEntryId) {
+                    lastEntryId = data.latest.id;
+                    renderLastScanned(data.latest);
+                    renderLatestQr(data.latest);
+                } else if (!data.latest) {
+                    lastEntryId = null;
+                    renderLastScanned(null);
+                    renderLatestQr(null);
                 }
 
-                updateRecentList(data.recent || []);
-            },
-            error: function (xhr, status, err) {
-                console.error('Failed to refresh scan feed:', status, err);
-            }
-        });
+                if (recentScansList) {
+                    recentScansList.innerHTML = data.recent.length
+                        ? data.recent.map(renderRecentItem).join('')
+                        : '<li class="text-center text-muted py-5">কোনো তথ্য পাওয়া যায়নি</li>';
+                }
+            })
+            .catch(err => console.error('Failed to refresh scan feed:', err));
     }
 
-    // Poll every 10 seconds
-    setInterval(refreshFeed, REFRESH_EVERY_MS);
+    setInterval(refreshFeed, POLL_INTERVAL_MS);
 });
 </script>
 @endpush

@@ -29,8 +29,9 @@ class QrCodeController extends Controller
 
     public function index()
     {
-        $entries         = $this->recentApprovedEntriesQuery()->get();
-        $latestEntry     = $entries->first();
+        $entries = $this->recentApprovedEntriesQuery()->get();
+        $latestEntry = $entries->first();
+
         $latestQrDataUri = $latestEntry ? $this->qrCodeForEntry($latestEntry) : null;
 
         return view('frontend.pages.qrcode.index', compact('entries', 'latestEntry', 'latestQrDataUri'));
@@ -54,8 +55,8 @@ class QrCodeController extends Controller
 
         return response()->json([
             'success' => true,
-            'latest'  => $latestData,
-            'recent'  => $entries->map(fn(CeremonyEntry $entry) => $this->formatEntry($entry))->values(),
+            'latest' => $latestData,
+            'recent' => $entries->map(fn(CeremonyEntry $entry) => $this->formatEntry($entry))->values(),
         ]);
     }
 
@@ -68,14 +69,15 @@ class QrCodeController extends Controller
                 ->with('error', 'প্রবেশ যাচাই করতে দয়া করে প্রথমে লগইন করুন।');
         }
 
-        $studentId    = auth()->id();
-        $result       = $this->ceremonyService->verifyEntry($studentId);
+        $studentId = auth()->id();
+        $result = $this->ceremonyService->verifyEntry($studentId);
+
         $studnetBname = auth()->user()->studentDetail?->name_bn ?? '';
 
         return match ($result['type'] ?? null) {
-            'approved'        => view('frontend.pages.qrcode.approved', $result)->with('studnetBname', $studnetBname),
+            'approved' => view('frontend.pages.qrcode.approved', $result)->with('studnetBname', $studnetBname),
             'already_scanned' => view('frontend.pages.qrcode.already-scanned', $result),
-            default           => view('frontend.pages.qrcode.denied', $result),
+            default => view('frontend.pages.qrcode.denied', $result),
         };
     }
 
@@ -103,12 +105,9 @@ class QrCodeController extends Controller
         $qrDataUri = null;
 
         if ($user) {
-            $scanUrl   = route('admin.qrcode.student.scan', ['mobile' => $user->mobile]);
+            $scanUrl = route('admin.qrcode.student.scan', ['mobile' => $user->mobile]);
             $qrDataUri = $this->buildStudentQrCode($scanUrl, $user->studentDetail);
         }
-
-        // dd($user, $qrDataUri, $scanUrl );
-
 
         return view('frontend.pages.qrcode.student', compact('user', 'qrDataUri'));
     }
@@ -138,17 +137,13 @@ class QrCodeController extends Controller
         return $builder->build()->getDataUri();
     }
 
-
-
-
     private function resolveStudentPhotoPath(?StudentDetail $detail): ?string
     {
         if (!$detail || empty($detail->student_photo)) {
             return null;
         }
 
-        $photoPath = $detail->student_photo;
-
+        $photoPath = ltrim(str_replace('\\', '/', $detail->student_photo), '/');
         $uploadsDisk = Storage::disk('uploads');
 
         if (!$uploadsDisk->exists($photoPath)) {
@@ -157,9 +152,6 @@ class QrCodeController extends Controller
 
         return $uploadsDisk->path($photoPath);
     }
-
-
-
 
     public function scanStudentQrCode(string $mobile)
     {
@@ -171,11 +163,11 @@ class QrCodeController extends Controller
 
         try {
             CeremonyEntry::create([
-                'student_id'        => $user->id,
+                'student_id' => $user->id,
                 'student_detail_id' => $user->studentDetail->id,
-                'status'            => 'approved',
-                'remarks'           => 'ব্যক্তিগত QR কোড স্ক্যান (মোবাইল ভিত্তিক প্রবেশ)',
-                'scanned_at'        => now(),
+                'status' => 'approved',
+                'remarks' => 'ব্যক্তিগত QR কোড স্ক্যান (মোবাইল ভিত্তিক প্রবেশ)',
+                'scanned_at' => now(),
             ]);
         } catch (\Throwable $e) {
             report($e);
@@ -187,30 +179,48 @@ class QrCodeController extends Controller
         ]);
     }
 
+    /**
+     * studentDetail.group added so the group badge in formatEntry() doesn't
+     * trigger a lazy-loaded query per row (N+1) in the recent-scans list.
+     */
     private function recentApprovedEntriesQuery()
     {
         return CeremonyEntry::query()
-            ->with(['studentDetail.board', 'student'])
+            ->with(['studentDetail.board', 'studentDetail.group', 'student'])
             ->where('status', 'approved')
             ->latest('scanned_at')
             ->limit(self::RECENT_LIMIT);
     }
 
+    /**
+     * Shared shape for the "latest entry" (server-rendered) and the polled
+     * JSON feed, so both stay in sync. Now includes mobile, registration,
+     * GPA, group and parent/guardian details for the "সর্বশেষ প্রবেশ" card.
+     */
     private function formatEntry(CeremonyEntry $entry): array
     {
         $detail = $entry->studentDetail;
 
         return [
-            'id'          => $entry->id,
-            'name_en'     => $detail->name_en ?? $entry->student->name ?? '',
-            'name_bn'     => $detail->name_bn ?? '',
+            'id' => $entry->id,
+            'name_en' => $detail->name_en ?? $entry->student->name ?? '',
+            'name_bn' => $detail->name_bn ?? '',
             'roll_number' => $detail->roll_number ?? '',
-            'board'       => $detail->board->name_bn ?? $detail->board->name ?? '',
-            'photo_url'   => $detail->student_photo_url ?? asset('images/default-user.png'),
-            'scanned_at'  => $entry->scanned_at->format('h:i A'),
+            'registration_number' => $detail->registration_number ?? '',
+            'gpa_result' => $detail->gpa_result ?? '',
+            'board' => $detail->board->name_bn ?? $detail->board->name ?? '',
+            'group' => $detail->group->name_bn ?? $detail->group->name ?? '',
+            'mobile' => $entry->student->mobile ?? '',
+            'father_name' => $detail->father_name ?? '',
+            'mother_name' => $detail->mother_name ?? '',
+            'tea_stall_name' => $detail->tea_stall_name ?? '',
+            'tea_stall_location' => $detail->tea_stall_location ?? '',
+            'parent_mobile' => $detail->parent_mobile ?? '',
+            'photo_url' => $detail->student_photo_url ?? asset('images/default-user.png'),
+            'scanned_at' => $entry->scanned_at->format('h:i A'),
+            'scanned_date' => $entry->scanned_at->format('d M, Y'),
         ];
     }
-
 
     private function findApprovedStudent(string $mobile): ?User
     {
@@ -220,7 +230,6 @@ class QrCodeController extends Controller
             return null;
         }
 
-
         return User::query()
             ->where('mobile', $mobile)
             ->where('user_type_id', 1)
@@ -229,7 +238,6 @@ class QrCodeController extends Controller
             })
             ->first();
     }
-
 
     private function qrCodeForEntry(CeremonyEntry $entry): ?string
     {
@@ -243,6 +251,4 @@ class QrCodeController extends Controller
 
         return $this->buildStudentQrCode($scanUrl, $entry->studentDetail);
     }
-
-
 }
