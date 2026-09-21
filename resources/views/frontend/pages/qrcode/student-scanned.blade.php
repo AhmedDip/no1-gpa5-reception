@@ -5,9 +5,6 @@
 @section('title', 'প্রবেশ সফল')
 
 @push('styles')
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
     :root {
@@ -47,7 +44,7 @@
         overflow: hidden;
     }
 
-    /* ===================== CONFETTI ===================== */
+
     .qr-confetti {
         position: fixed;
         inset: 0;
@@ -78,7 +75,7 @@
         }
     }
 
-    /* ===================== PAGE BAR ===================== */
+
     .qr-page-bar {
         display: flex;
         align-items: center;
@@ -171,7 +168,7 @@
         100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
     }
 
-    /* ===================== CARD ===================== */
+
     .qr-success-card {
         border: 1px solid rgba(30, 158, 111, 0.18);
         border-radius: 26px;
@@ -188,7 +185,7 @@
         to   { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    /* ===================== HEADER ===================== */
+
     .qr-success-header {
         background:
             radial-gradient(140% 140% at 0% 0%, rgba(255,255,255,0.22) 0%, transparent 55%),
@@ -314,7 +311,7 @@
         font-weight: 500;
     }
 
-    /* ===================== BODY ===================== */
+
     .qr-success-body {
         padding: 0 1.75rem 2rem;
         text-align: center;
@@ -371,7 +368,7 @@
         to   { transform: scale(1) rotate(0); }
     }
 
-    /* Student name block */
+
     .qr-student-name-bn {
         font-size: 1.5rem;
         font-weight: 800;
@@ -388,7 +385,7 @@
         margin-bottom: 1.35rem;
     }
 
-    /* Welcome ribbon */
+
     .qr-welcome-badge {
         display: inline-flex;
         align-items: center;
@@ -563,14 +560,13 @@
         background: #f6fdf9;
     }
 
-    /* ===================== PRINT ===================== */
+
     @media print {
         .qr-page-bar, .qr-success-actions, .qr-confetti { display: none !important; }
         body, .qr-success-page { background: #fff !important; padding: 0 !important; }
         .qr-success-card { box-shadow: none !important; border: 1px solid #ccc !important; animation: none !important; }
     }
 
-    /* ===================== RESPONSIVE ===================== */
     @media (max-width: 767px) {
         .qr-info-grid { grid-template-columns: 1fr; }
         .qr-success-header { padding: 2.25rem 1.25rem 4rem; }
@@ -635,7 +631,7 @@
                         </div>
 
                         <div class="qr-student-name-bn">
-                            প্রিয় {{ $detail->name_bn ?? $user->name }}, স্বাগতম!
+                            প্রিয় নাম্বার ওয়ান বাবার কৃতী সন্তান {{ $detail->name_bn ?? $user->name }},আপনাকে স্বাগতম!
                         </div>
                         <div class="qr-student-name-en">
                             {{ $detail->name_en ?? '' }}
@@ -695,10 +691,9 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // ======================= CONFETTI =======================
     const confettiWrap = document.getElementById('qrConfetti');
     const colors = ['#1e9e6f', '#34d399', '#d4a24a', '#f0d9a8', '#8a4547', '#8ab4f8'];
-    const pieces = 70;
+    const pieces = 100;
 
     if (confettiWrap) {
         for (let i = 0; i < pieces; i++) {
@@ -721,10 +716,10 @@ document.addEventListener('DOMContentLoaded', function () {
             confettiWrap.appendChild(span);
         }
 
-        // Clean up after animations finish
+
         setTimeout(() => {
             if (confettiWrap) confettiWrap.innerHTML = '';
-        }, 7000);
+        }, 10000);
     }
 });
 </script>

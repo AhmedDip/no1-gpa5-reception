@@ -5,9 +5,6 @@
 @section('title', 'সংবর্ধনায় প্রবেশের QR কোড')
 
 @push('styles')
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
     :root {
@@ -44,6 +41,7 @@
         min-height: 100vh;
         padding: 2.5rem 0 4rem;
         position: relative;
+        transition: padding 0.3s ease, background 0.3s ease;
     }
 
     /* ===================== TOP PAGE BAR ===================== */
@@ -106,6 +104,13 @@
         line-height: 1.3;
     }
 
+    .qr-page-bar-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+    }
+
     .qr-live-pill {
         display: inline-flex;
         align-items: center;
@@ -135,6 +140,131 @@
         0%   { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.65); }
         70%  { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
         100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+
+    /* ===================== FULLSCREEN BUTTON ===================== */
+    .qr-fs-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, var(--qr-primary) 0%, var(--qr-primary-dark) 100%);
+        color: #fff;
+        border: 1px solid transparent;
+        border-radius: 50px;
+        padding: 8px 18px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        cursor: pointer;
+        box-shadow: 0 8px 20px -10px rgba(138, 69, 71, 0.6);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        white-space: nowrap;
+        user-select: none;
+        font-family: inherit;
+    }
+
+    .qr-fs-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 26px -10px rgba(138, 69, 71, 0.75);
+        color: #fff;
+    }
+
+    .qr-fs-btn:active { transform: translateY(0); }
+
+    .qr-fs-btn i {
+        font-size: 0.85rem;
+        transition: transform 0.3s ease;
+    }
+
+    .qr-fs-btn.is-fullscreen {
+        background: linear-gradient(135deg, #4a1d1f 0%, #2c1214 100%);
+    }
+
+    .qr-fs-btn.is-fullscreen i {
+        transform: rotate(180deg);
+    }
+
+    /* Hide label text on very small screens */
+    @media (max-width: 575px) {
+        .qr-fs-btn .qr-fs-btn-label { display: none; }
+        .qr-fs-btn { padding: 8px 12px; }
+    }
+
+    /* ===================== FULLSCREEN MODE ===================== */
+    body.qr-fullscreen-active .qr-page-bg {
+        background: linear-gradient(180deg, #1c1414 0%, #2c1f1f 100%);
+        padding: 1.25rem 1.5rem 2rem;
+        min-height: 100vh;
+    }
+
+    body.qr-fullscreen-active .container {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    body.qr-fullscreen-active .qr-page-bar {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.12);
+        box-shadow: 0 8px 26px -14px rgba(0, 0, 0, 0.6);
+    }
+
+    body.qr-fullscreen-active .qr-page-bar-title h1 { color: #fff; }
+    body.qr-fullscreen-active .qr-page-bar-title p  { color: rgba(255,255,255,0.6); }
+
+    body.qr-fullscreen-active .qr-page-bar-icon {
+        background: linear-gradient(135deg, var(--qr-accent) 0%, #b8862f 100%);
+        box-shadow: 0 8px 20px -8px rgba(212, 162, 74, 0.7);
+    }
+
+    body.qr-fullscreen-active .qr-live-pill {
+        background: rgba(30, 158, 111, 0.18);
+        border-color: rgba(30, 158, 111, 0.4);
+        color: #6ee7b7;
+        box-shadow: none;
+    }
+
+    body.qr-fullscreen-active .qr-fs-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    body.qr-fullscreen-active .qr-fs-btn:hover {
+        background: rgba(255, 255, 255, 0.16);
+    }
+
+    /* Cards get more breathing room in fullscreen */
+    body.qr-fullscreen-active .qr-card {
+        border-radius: 24px;
+        box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.6);
+    }
+
+    body.qr-fullscreen-active .qr-card:hover {
+        transform: translateY(-2px);
+    }
+
+    /* Hide quick links & any footer decorations in fullscreen */
+    body.qr-fullscreen-active .qr-quick-links { display: none; }
+
+    /* Bigger scroll panel in fullscreen */
+    body.qr-fullscreen-active .qr-scroll-panel {
+        max-height: calc(100vh - 220px);
+    }
+
+    /* Larger featured avatar in fullscreen */
+    body.qr-fullscreen-active .qr-featured-avatar {
+        width: 148px;
+        height: 148px;
+    }
+
+    body.qr-fullscreen-active .qr-image-frame img {
+        max-width: 260px;
+    }
+
+    /* Row → full-height columns for kiosk feel */
+    body.qr-fullscreen-active .row.g-4 {
+        min-height: calc(100vh - 160px);
     }
 
     /* ===================== CARDS ===================== */
@@ -327,44 +457,6 @@
         font-size: 0.8rem;
         color: var(--qr-muted);
         font-weight: 600;
-    }
-
-    /* ===================== HOW LIST ===================== */
-    .qr-how-list {
-        counter-reset: qrStep;
-        list-style: none;
-        padding-left: 0 !important;
-        margin-bottom: 0;
-    }
-
-    .qr-how-list li {
-        position: relative;
-        padding: 0.6rem 0 0.6rem 2.5rem;
-        counter-increment: qrStep;
-        font-size: 0.87rem;
-        color: #4a3e3e;
-        line-height: 1.55;
-        border-bottom: 1px dashed #f3eaea;
-    }
-
-    .qr-how-list li:last-child { border-bottom: none; }
-
-    .qr-how-list li::before {
-        content: counter(qrStep);
-        position: absolute;
-        left: 0;
-        top: 0.55rem;
-        width: 28px;
-        height: 28px;
-        border-radius: 9px;
-        background: linear-gradient(135deg, var(--qr-primary) 0%, var(--qr-primary-dark) 100%);
-        color: #fff;
-        font-size: 0.74rem;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 10px -3px rgba(138, 69, 71, 0.5);
     }
 
     /* ===================== FEATURED ENTRY ===================== */
@@ -612,6 +704,47 @@
     .qr-quick-links a:hover { color: var(--qr-primary-dark); }
     .qr-quick-links a:hover::after { transform: scaleX(1); opacity: 1; }
 
+    /* ===================== FULLSCREEN FLOATING EXIT HINT ===================== */
+    .qr-fs-hint {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(28, 20, 20, 0.85);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 50px;
+        padding: 10px 18px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        transform: translateY(12px);
+        pointer-events: none;
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .qr-fs-hint.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .qr-fs-hint kbd {
+        background: rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 6px;
+        padding: 1px 7px;
+        font-size: 0.72rem;
+        font-family: inherit;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+    }
+
     /* ===================== RESPONSIVE ===================== */
     @media (max-width: 767px) {
         .qr-info-grid { grid-template-columns: 1fr; }
@@ -650,11 +783,20 @@
                     <p>QR কোড স্ক্যান করে প্রবেশ নিশ্চিত করুন</p>
                 </div>
             </div>
-            <span class="qr-live-pill"><span class="qr-live-dot"></span> লাইভ আপডেট হচ্ছে</span>
+            <div class="qr-page-bar-actions">
+                <span class="qr-live-pill"><span class="qr-live-dot"></span> লাইভ আপডেট হচ্ছে</span>
+                <button type="button"
+                        class="qr-fs-btn"
+                        id="qrFullscreenBtn"
+                        title="ফুল স্ক্রিন মোড"
+                        aria-label="ফুল স্ক্রিন মোড">
+                    <i class="fas fa-expand" id="qrFsIcon"></i>
+                    <span class="qr-fs-btn-label" id="qrFsLabel">ফুল স্ক্রিন</span>
+                </button>
+            </div>
         </div>
 
         <div class="row g-4">
-
 
             <div class="col-lg-4 qr-fade-in d1">
                 <div class="qr-card">
@@ -825,6 +967,12 @@
         </div>
     </div>
 </div>
+
+<!-- Fullscreen exit hint (shown when fullscreen is active) -->
+<div class="qr-fs-hint" id="qrFsHint">
+    <i class="fas fa-compress"></i>
+    <span>ফুল স্ক্রিন থেকে বের হতে <kbd>ESC</kbd> চাপুন</span>
+</div>
 @endsection
 
 @push('scripts')
@@ -835,7 +983,93 @@ document.addEventListener('DOMContentLoaded', function () {
     const latestQrBody     = document.getElementById('latestQrBody');
     const recentScansList  = document.getElementById('recentScansList');
 
+    const fsBtn   = document.getElementById('qrFullscreenBtn');
+    const fsIcon  = document.getElementById('qrFsIcon');
+    const fsLabel = document.getElementById('qrFsLabel');
+    const fsHint  = document.getElementById('qrFsHint');
+
+    function isFullscreen() {
+        return !!(document.fullscreenElement ||
+                  document.webkitFullscreenElement ||
+                  document.msFullscreenElement);
+    }
+
+    function updateFullscreenUI() {
+        const active = isFullscreen();
+        document.body.classList.toggle('qr-fullscreen-active', active);
+
+        if (fsIcon)  fsIcon.className = active ? 'fas fa-compress' : 'fas fa-expand';
+        if (fsLabel) fsLabel.textContent = active ? 'ফুল স্ক্রিন বন্ধ' : 'ফুল স্ক্রিন';
+
+        if (fsBtn) {
+            fsBtn.classList.toggle('is-fullscreen', active);
+            fsBtn.title = active ? 'ফুল স্ক্রিন বন্ধ করুন' : 'ফুল স্ক্রিন মোড';
+        }
+
+        if (fsHint) {
+            if (active) {
+                setTimeout(() => fsHint.classList.add('is-visible'), 200);
+                setTimeout(() => fsHint.classList.remove('is-visible'), 4200);
+            } else {
+                fsHint.classList.remove('is-visible');
+            }
+        }
+    }
+
+    async function enterFullscreen() {
+        const el = document.documentElement;
+        try {
+            if (el.requestFullscreen) {
+                await el.requestFullscreen({ navigationUI: 'hide' });
+            } else if (el.webkitRequestFullscreen) {
+                await el.webkitRequestFullscreen();
+            } else if (el.msRequestFullscreen) {
+                await el.msRequestFullscreen();
+            }
+        } catch (err) {
+            console.warn('Fullscreen request failed:', err);
+        }
+        updateFullscreenUI();
+    }
+
+    async function exitFullscreen() {
+        try {
+            if (document.exitFullscreen) {
+                await document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                await document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                await document.msExitFullscreen();
+            }
+        } catch (err) {
+            console.warn('Exit fullscreen failed:', err);
+        }
+        updateFullscreenUI();
+    }
+
+    function toggleFullscreen() {
+        if (isFullscreen()) exitFullscreen();
+        else enterFullscreen();
+    }
+
+    if (fsBtn) fsBtn.addEventListener('click', toggleFullscreen);
+
+    ['fullscreenchange', 'webkitfullscreenchange', 'msfullscreenchange'].forEach(evt => {
+        document.addEventListener(evt, updateFullscreenUI);
+    });
+
+    const barIcon = document.querySelector('.qr-page-bar-icon');
+    if (barIcon) {
+        barIcon.style.cursor = 'pointer';
+        barIcon.title = 'ডাবল-ক্লিক করে ফুল স্ক্রিন';
+        barIcon.addEventListener('dblclick', toggleFullscreen);
+    }
+
+    updateFullscreenUI();
+
     let lastEntryId = @json($latestEntry?->id);
+
+    let renderedRecentIds = [];
 
     function escapeHtml(str) {
         if (str == null || str === '') return '—';
@@ -847,7 +1081,6 @@ document.addEventListener('DOMContentLoaded', function () {
             .replace(/'/g, '&#039;');
     }
 
-    /* ---------- Render "সর্বশেষ প্রবেশ" card ---------- */
     function renderLastScanned(entry) {
         if (!entry) {
             lastScannedBody.innerHTML = `
@@ -904,7 +1137,6 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>`;
     }
 
-    /* ---------- Render "সর্বশেষ স্ক্যান করা QR কোড" card ---------- */
     function renderLatestQr(entry) {
         if (!entry || !entry.qr_data_uri) {
             latestQrBody.innerHTML = `
@@ -947,12 +1179,12 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>`;
     }
 
-    /* ---------- Render a single recent scan item ---------- */
-    function renderRecentItem(entry) {
+
+    function buildRecentItemHtml(entry) {
         const boardPart = entry.board ? ` · ${escapeHtml(entry.board)}` : '';
         return `
-            <li class="qr-recent-item">
-                <img src="${escapeHtml(entry.photo_url)}" class="qr-recent-avatar">
+            <li class="qr-recent-item" data-entry-id="${escapeHtml(entry.id)}">
+                <img src="${escapeHtml(entry.photo_url)}" class="qr-recent-avatar" loading="lazy">
                 <div class="flex-grow-1 min-w-0">
                     <div class="qr-recent-name text-truncate">${escapeHtml(entry.name_bn || entry.name_en)}</div>
                     <div class="qr-recent-meta">রোল: ${escapeHtml(entry.roll_number)}${boardPart}</div>
@@ -961,7 +1193,90 @@ document.addEventListener('DOMContentLoaded', function () {
             </li>`;
     }
 
-    /* ---------- Poll the feed ---------- */
+
+    function updateRecentScans(recent) {
+        if (!recentScansList) return;
+
+
+        const newIds = recent.map(e => String(e.id));
+
+
+        if (newIds.length === 0) {
+            if (renderedRecentIds.length !== 0) {
+                recentScansList.innerHTML =
+                    '<li class="text-center text-muted py-5">কোনো তথ্য পাওয়া যায়নি</li>';
+                renderedRecentIds = [];
+            }
+            return;
+        }
+
+
+        const sameLength = newIds.length === renderedRecentIds.length;
+        const sameOrder  = sameLength && newIds.every((id, i) => id === renderedRecentIds[i]);
+        if (sameOrder) return;
+
+        const previousStillPresent = renderedRecentIds.every(id => newIds.includes(id));
+
+        if (previousStillPresent && newIds.length > renderedRecentIds.length) {
+            const newOnes = recent.filter(e => !renderedRecentIds.includes(String(e.id)));
+
+            for (let i = newOnes.length - 1; i >= 0; i--) {
+                const tmp = document.createElement('ul');
+                tmp.innerHTML = buildRecentItemHtml(newOnes[i]).trim();
+                const li = tmp.firstElementChild;
+                recentScansList.insertBefore(li, recentScansList.firstChild);
+            }
+
+            // Optionally trim to keep DOM light (e.g. max 100 rows)
+            const MAX_ROWS = 100;
+            while (recentScansList.children.length > MAX_ROWS) {
+                recentScansList.removeChild(recentScansList.lastElementChild);
+            }
+
+            renderedRecentIds = newIds;
+            return;
+        }
+
+
+        const existingMap = new Map();
+        recentScansList.querySelectorAll('.qr-recent-item[data-entry-id]').forEach(li => {
+            existingMap.set(li.dataset.entryId, li);
+        });
+
+        const fragment = document.createDocumentFragment();
+        recent.forEach(entry => {
+            const id = String(entry.id);
+            const existing = existingMap.get(id);
+            if (existing) {
+                fragment.appendChild(existing);
+            } else {
+                const tmp = document.createElement('ul');
+                tmp.innerHTML = buildRecentItemHtml(entry).trim();
+                fragment.appendChild(tmp.firstElementChild);
+            }
+        });
+
+
+        while (recentScansList.firstChild) {
+            recentScansList.removeChild(recentScansList.firstChild);
+        }
+        recentScansList.appendChild(fragment);
+
+        renderedRecentIds = newIds;
+    }
+
+
+    (function initRenderedIds() {
+        if (!recentScansList) return;
+        const items = recentScansList.querySelectorAll('.qr-recent-item');
+        if (items.length === 0) {
+            renderedRecentIds = [];
+            return;
+        }
+        renderedRecentIds = Array.from(items).map(li => li.dataset.entryId || '');
+    })();
+
+
     function refreshFeed() {
         fetch('{{ route('admin.qrcode.latest-scans') }}', {
             headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
@@ -974,17 +1289,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     lastEntryId = data.latest.id;
                     renderLastScanned(data.latest);
                     renderLatestQr(data.latest);
-                } else if (!data.latest) {
+                } else if (!data.latest && lastEntryId !== null) {
                     lastEntryId = null;
                     renderLastScanned(null);
                     renderLatestQr(null);
                 }
-
-                if (recentScansList) {
-                    recentScansList.innerHTML = data.recent.length
-                        ? data.recent.map(renderRecentItem).join('')
-                        : '<li class="text-center text-muted py-5">কোনো তথ্য পাওয়া যায়নি</li>';
-                }
+                updateRecentScans(data.recent || []);
             })
             .catch(err => console.error('Failed to refresh scan feed:', err));
     }
