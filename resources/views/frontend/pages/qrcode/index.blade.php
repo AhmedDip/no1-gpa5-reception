@@ -252,8 +252,8 @@
         display: inline-flex;
         align-items: center;
         gap: 5px;
-        background: rgba(138, 69, 71, 0.08);
-        color: var(--qr-primary);
+        background: rgba(30, 158, 111, 0.1);
+        color: var(--qr-success-dark);
         border-radius: 50px;
         padding: 4px 12px;
         font-size: 0.72rem;
@@ -304,6 +304,29 @@
         display: block;
         margin-bottom: 0.9rem;
         color: var(--qr-primary);
+    }
+
+    /* ===================== QR NAME BLOCK ===================== */
+    .qr-qr-name-bn {
+        font-size: 1.05rem;
+        font-weight: 800;
+        color: var(--qr-ink);
+        margin-bottom: 0.15rem;
+        letter-spacing: -0.01em;
+        line-height: 1.3;
+    }
+
+    .qr-qr-name-en {
+        font-size: 0.85rem;
+        color: var(--qr-muted);
+        font-weight: 500;
+        margin-bottom: 0.25rem;
+    }
+
+    .qr-qr-roll {
+        font-size: 0.8rem;
+        color: var(--qr-muted);
+        font-weight: 600;
     }
 
     /* ===================== HOW LIST ===================== */
@@ -611,6 +634,10 @@
 @endpush
 
 @section('content')
+@php
+    $d = $latestEntry?->studentDetail;
+@endphp
+
 <div class="qr-page-bg">
     <div class="container">
 
@@ -628,9 +655,9 @@
 
         <div class="row g-4">
 
-            <!-- QR + instructions -->
+
             <div class="col-lg-4 qr-fade-in d1">
-                <div class="qr-card mb-4">
+                <div class="qr-card">
                     <div class="qr-card-header qr-card-header--gold">
                         <h6>
                             <span class="qr-hicon"><i class="fas fa-qrcode"></i></span>
@@ -638,75 +665,20 @@
                         </h6>
                     </div>
                     <div class="card-body p-4 text-center" id="latestQrBody">
-                        @if ($latestQrDataUri && $latestEntry?->studentDetail)
+                        @if ($latestQrDataUri && $d)
                             <div class="qr-image-frame mb-3">
                                 <img src="{{ $latestQrDataUri }}"
-                                    alt="{{ $latestEntry->studentDetail->name_en ?? '' }}"
+                                    alt="{{ $d->name_en ?? '' }}"
                                     style="max-width: 220px; width: 100%; border-radius: 8px; display: block;">
                             </div>
-                            <h6 class="fw-bold mb-1">
-                                {{ $latestEntry->studentDetail->name_bn ?? $latestEntry->studentDetail->name_en }}
-                            </h6>
-                            <p class="text-muted small mb-0">
-                                রোল: {{ $latestEntry->studentDetail->roll_number ?? '—' }}
-                            </p>
-                        @else
-                            <div class="qr-empty-state">
-                                <i class="fas fa-qrcode"></i>
-                                এখনো কোনো QR কোড স্ক্যান হয়নি
+                            <div class="qr-qr-name-bn">{{ $d->name_bn ?? $d->name_en }}</div>
+                            <div class="qr-qr-name-en">{{ $d->name_en }}</div>
+                            <div class="qr-qr-roll mb-3">রোল: {{ $d->roll_number ?? '—' }}</div>
+
+                            <div class="qr-section-label text-start">
+                                <i class="fas fa-graduation-cap"></i> একাডেমিক তথ্য
                             </div>
-                        @endif
-                    </div>
-                </div>
-
-                {{-- <div class="qr-card">
-                    <div class="qr-card-header">
-                        <h6>
-                            <span class="qr-hicon"><i class="fas fa-info-circle"></i></span>
-                            যেভাবে কাজ করে
-                        </h6>
-                    </div>
-                    <div class="card-body pt-2 pb-3">
-                        <ol class="qr-how-list">
-                            <li>শিক্ষার্থী তার নিজস্ব QR কোডটি স্ক্যানারের সামনে ধরবেন</li>
-                            <li>আয়োজক টিম QR কোডটি স্ক্যান করবেন</li>
-                            <li>সিস্টেম শিক্ষার্থীর আবেদন অনুমোদিত কিনা যাচাই করবে</li>
-                            <li>অনুমোদিত হলে প্রবেশাধিকার নিশ্চিত হবে</li>
-                            <li>এই পেজে সর্বশেষ স্ক্যান করা তথ্য স্বয়ংক্রিয়ভাবে দেখা যাবে</li>
-                        </ol>
-                    </div>
-                </div> --}}
-            </div>
-
-            <!-- Featured latest entry -->
-            <div class="col-lg-4 qr-fade-in d2">
-                <div class="qr-card">
-                    <div class="qr-card-header qr-card-header--green">
-                        <h6>
-                            <span class="qr-hicon"><i class="fas fa-user-check"></i></span>
-                            সর্বশেষ প্রবেশ
-                        </h6>
-                        <span class="qr-count-badge"><i class="fas fa-bolt"></i> লাইভ</span>
-                    </div>
-                    <div class="card-body p-4" id="lastScannedBody" style="min-height: 520px;">
-                        @if ($latestEntry && $latestEntry->studentDetail)
-                            @php $d = $latestEntry->studentDetail; @endphp
-                            <div class="text-center mb-3">
-                                <img src="{{ $d->student_photo_url }}"
-                                    alt="{{ $d->name_en ?? '' }}"
-                                    class="qr-featured-avatar mb-3">
-                                <div class="qr-featured-name-bn">{{ $d->name_bn ?? $d->name_en }}</div>
-                                <div class="qr-featured-name-en">{{ $d->name_en }}</div>
-                                <div class="mt-3">
-                                    <span class="qr-scanned-badge">
-                                        <i class="fas fa-check-circle"></i>
-                                        {{ $latestEntry->scanned_at?->format('h:i A') }} · {{ $latestEntry->scanned_at?->format('d M, Y') }}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="qr-section-label"><i class="fas fa-graduation-cap"></i> একাডেমিক তথ্য</div>
-                            <div class="qr-info-grid">
+                            <div class="qr-info-grid text-start">
                                 <div class="qr-info-item">
                                     <div class="qr-info-label"><i class="fas fa-hashtag"></i> রোল নম্বর</div>
                                     <div class="qr-info-value">{{ $d->roll_number ?? '—' }}</div>
@@ -724,8 +696,43 @@
                                     <div class="qr-info-value">{{ $d->board->name_bn ?? $d->board->name ?? '—' }}</div>
                                 </div>
                             </div>
+                        @else
+                            <div class="qr-empty-state">
+                                <i class="fas fa-qrcode"></i>
+                                এখনো কোনো QR কোড স্ক্যান হয়নি
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
 
-                            {{-- <div class="qr-section-label"><i class="fas fa-phone"></i> যোগাযোগ</div>
+            <!-- Featured latest entry (guardian info) -->
+            <div class="col-lg-4 qr-fade-in d2">
+                <div class="qr-card">
+                    <div class="qr-card-header qr-card-header--green">
+                        <h6>
+                            <span class="qr-hicon"><i class="fas fa-user-check"></i></span>
+                            সর্বশেষ প্রবেশ
+                        </h6>
+                        <span class="qr-count-badge"><i class="fas fa-bolt"></i> লাইভ</span>
+                    </div>
+                    <div class="card-body p-4" id="lastScannedBody" style="min-height: 520px;">
+                        @if ($latestEntry && $d)
+                            <div class="text-center mb-3">
+                                <img src="{{ $d->student_photo_url }}"
+                                    alt="{{ $d->name_en ?? '' }}"
+                                    class="qr-featured-avatar mb-3">
+                                <div class="qr-featured-name-bn">{{ $d->name_bn ?? $d->name_en }}</div>
+                                <div class="qr-featured-name-en">{{ $d->name_en }}</div>
+                                <div class="mt-3">
+                                    <span class="qr-scanned-badge">
+                                        <i class="fas fa-check-circle"></i>
+                                        {{ $latestEntry->scanned_at?->format('h:i A') }} · {{ $latestEntry->scanned_at?->format('d M, Y') }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="qr-section-label"><i class="fas fa-phone"></i> যোগাযোগ</div>
                             <div class="qr-info-grid">
                                 <div class="qr-info-item">
                                     <div class="qr-info-label"><i class="fas fa-mobile-alt"></i> শিক্ষার্থীর মোবাইল</div>
@@ -735,9 +742,9 @@
                                     <div class="qr-info-label"><i class="fas fa-phone-alt"></i> অভিভাবকের মোবাইল</div>
                                     <div class="qr-info-value">{{ $d->parent_mobile ?? '—' }}</div>
                                 </div>
-                            </div> --}}
+                            </div>
 
-                            {{-- <div class="qr-section-label"><i class="fas fa-users"></i> অভিভাবকের তথ্য</div>
+                            <div class="qr-section-label"><i class="fas fa-users"></i> অভিভাবকের তথ্য</div>
                             <div class="qr-info-grid">
                                 <div class="qr-info-item">
                                     <div class="qr-info-label"><i class="fas fa-male"></i> পিতার নাম</div>
@@ -756,7 +763,7 @@
                                         @endif
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
                         @else
                             <div class="qr-empty-state">
                                 <i class="fas fa-user-clock"></i>
@@ -815,11 +822,6 @@
                     <a href="{{ route('admin.dashboard') }}">ড্যাশবোর্ডে যান</a>
                 </p>
             @endauth
-            {{-- @guest
-                <p class="text-muted small mb-0">
-                    প্রবেশ যাচাই করতে <a href="{{ route('student.login') }}">এখানে লগইন করুন</a>
-                </p>
-            @endguest --}}
         </div>
     </div>
 </div>
@@ -828,7 +830,7 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const POLL_INTERVAL_MS = 10000;
+    const POLL_INTERVAL_MS = 5000;
     const lastScannedBody  = document.getElementById('lastScannedBody');
     const latestQrBody     = document.getElementById('latestQrBody');
     const recentScansList  = document.getElementById('recentScansList');
@@ -845,6 +847,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .replace(/'/g, '&#039;');
     }
 
+    /* ---------- Render "সর্বশেষ প্রবেশ" card ---------- */
     function renderLastScanned(entry) {
         if (!entry) {
             lastScannedBody.innerHTML = `
@@ -869,26 +872,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     <span class="qr-scanned-badge">
                         <i class="fas fa-check-circle"></i> ${escapeHtml(entry.scanned_at)} · ${escapeHtml(entry.scanned_date)}
                     </span>
-                </div>
-            </div>
-
-            <div class="qr-section-label"><i class="fas fa-graduation-cap"></i> একাডেমিক তথ্য</div>
-            <div class="qr-info-grid">
-                <div class="qr-info-item">
-                    <div class="qr-info-label"><i class="fas fa-hashtag"></i> রোল নম্বর</div>
-                    <div class="qr-info-value">${escapeHtml(entry.roll_number)}</div>
-                </div>
-                <div class="qr-info-item">
-                    <div class="qr-info-label"><i class="fas fa-id-card"></i> রেজিস্ট্রেশন</div>
-                    <div class="qr-info-value">${escapeHtml(entry.registration_number)}</div>
-                </div>
-                <div class="qr-info-item">
-                    <div class="qr-info-label"><i class="fas fa-star"></i> জিপিএ</div>
-                    <div class="qr-info-value text-success">${escapeHtml(entry.gpa_result)}</div>
-                </div>
-                <div class="qr-info-item">
-                    <div class="qr-info-label"><i class="fas fa-university"></i> বোর্ড</div>
-                    <div class="qr-info-value">${escapeHtml(entry.board)}</div>
                 </div>
             </div>
 
@@ -921,6 +904,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>`;
     }
 
+    /* ---------- Render "সর্বশেষ স্ক্যান করা QR কোড" card ---------- */
     function renderLatestQr(entry) {
         if (!entry || !entry.qr_data_uri) {
             latestQrBody.innerHTML = `
@@ -936,10 +920,34 @@ document.addEventListener('DOMContentLoaded', function () {
                 <img src="${escapeHtml(entry.qr_data_uri)}" alt="${escapeHtml(entry.name_en)}"
                      style="max-width: 220px; width: 100%; border-radius: 8px; display: block;">
             </div>
-            <h6 class="fw-bold mb-1">${escapeHtml(entry.name_bn || entry.name_en)}</h6>
-            <p class="text-muted small mb-0">রোল: ${escapeHtml(entry.roll_number)}</p>`;
+            <div class="qr-qr-name-bn">${escapeHtml(entry.name_bn || entry.name_en)}</div>
+            <div class="qr-qr-name-en">${escapeHtml(entry.name_en)}</div>
+            <div class="qr-qr-roll mb-3">রোল: ${escapeHtml(entry.roll_number)}</div>
+
+            <div class="qr-section-label text-start">
+                <i class="fas fa-graduation-cap"></i> একাডেমিক তথ্য
+            </div>
+            <div class="qr-info-grid text-start">
+                <div class="qr-info-item">
+                    <div class="qr-info-label"><i class="fas fa-hashtag"></i> রোল নম্বর</div>
+                    <div class="qr-info-value">${escapeHtml(entry.roll_number)}</div>
+                </div>
+                <div class="qr-info-item">
+                    <div class="qr-info-label"><i class="fas fa-id-card"></i> রেজিস্ট্রেশন</div>
+                    <div class="qr-info-value">${escapeHtml(entry.registration_number)}</div>
+                </div>
+                <div class="qr-info-item">
+                    <div class="qr-info-label"><i class="fas fa-star"></i> জিপিএ</div>
+                    <div class="qr-info-value text-success">${escapeHtml(entry.gpa_result)}</div>
+                </div>
+                <div class="qr-info-item">
+                    <div class="qr-info-label"><i class="fas fa-university"></i> বোর্ড</div>
+                    <div class="qr-info-value">${escapeHtml(entry.board)}</div>
+                </div>
+            </div>`;
     }
 
+    /* ---------- Render a single recent scan item ---------- */
     function renderRecentItem(entry) {
         const boardPart = entry.board ? ` · ${escapeHtml(entry.board)}` : '';
         return `
@@ -953,6 +961,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </li>`;
     }
 
+    /* ---------- Poll the feed ---------- */
     function refreshFeed() {
         fetch('{{ route('admin.qrcode.latest-scans') }}', {
             headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }

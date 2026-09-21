@@ -129,8 +129,8 @@ class QrCodeController extends Controller
         if ($logoPath) {
             $builder = $builder
                 ->logoPath($logoPath)
-                ->logoResizeToHeight(150)
-                ->logoResizeToWidth(150)
+                ->logoResizeToHeight(180)
+                ->logoResizeToWidth(180)
                 ->logoPunchoutBackground(true);
         }
 
