@@ -725,7 +725,7 @@
                                 </div>
                             </div>
 
-                            <div class="qr-section-label"><i class="fas fa-phone"></i> যোগাযোগ</div>
+                            {{-- <div class="qr-section-label"><i class="fas fa-phone"></i> যোগাযোগ</div>
                             <div class="qr-info-grid">
                                 <div class="qr-info-item">
                                     <div class="qr-info-label"><i class="fas fa-mobile-alt"></i> শিক্ষার্থীর মোবাইল</div>
@@ -735,9 +735,9 @@
                                     <div class="qr-info-label"><i class="fas fa-phone-alt"></i> অভিভাবকের মোবাইল</div>
                                     <div class="qr-info-value">{{ $d->parent_mobile ?? '—' }}</div>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="qr-section-label"><i class="fas fa-users"></i> অভিভাবকের তথ্য</div>
+                            {{-- <div class="qr-section-label"><i class="fas fa-users"></i> অভিভাবকের তথ্য</div>
                             <div class="qr-info-grid">
                                 <div class="qr-info-item">
                                     <div class="qr-info-label"><i class="fas fa-male"></i> পিতার নাম</div>
@@ -756,7 +756,7 @@
                                         @endif
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         @else
                             <div class="qr-empty-state">
                                 <i class="fas fa-user-clock"></i>
@@ -811,15 +811,15 @@
         <div class="mt-5 text-center qr-quick-links">
             @auth
                 <p class="text-muted small mb-2">
-                    ইতিমধ্যে লগইন করা আছে?
-                    <a href="{{ route('student.ceremony.history') }}">আপনার প্রবেশের ইতিহাস দেখুন</a>
+                    আপনি ইতিমধ্যে লগইন করেছেন
+                    <a href="{{ route('admin.dashboard') }}">ড্যাশবোর্ডে যান</a>
                 </p>
             @endauth
-            @guest
+            {{-- @guest
                 <p class="text-muted small mb-0">
                     প্রবেশ যাচাই করতে <a href="{{ route('student.login') }}">এখানে লগইন করুন</a>
                 </p>
-            @endguest
+            @endguest --}}
         </div>
     </div>
 </div>
