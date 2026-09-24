@@ -622,8 +622,8 @@
                     <div class="qr-success-body">
 
                         <div class="qr-success-avatar-wrap">
-                            <img src="{{ $detail->student_photo_url }}"
-                                 alt="{{ $detail->name_bn ?? $user->name }}"
+                            <img src="{{ $detail?->student_photo_url }}"
+                                 alt="{{ $detail?->name_bn ?? $user->name }}"
                                  class="qr-success-avatar">
                             <span class="qr-success-avatar-check">
                                 <i class="fas fa-check"></i>
@@ -631,10 +631,10 @@
                         </div>
 
                         <div class="qr-student-name-bn">
-                            প্রিয় নাম্বার ওয়ান বাবার কৃতী সন্তান {{ $detail->name_bn ?? $user->name }},আপনাকে স্বাগতম!
+                            প্রিয় নাম্বার ওয়ান বাবার কৃতী সন্তান {{ $detail?->name_bn ?? $user->name }},আপনাকে স্বাগতম!
                         </div>
                         <div class="qr-student-name-en">
-                            {{ $detail->name_en ?? '' }}
+                            {{ $detail?->name_en ?? '' }}
                         </div>
 
                         <span class="qr-welcome-badge">
@@ -649,7 +649,7 @@
                         <div class="qr-info-grid">
                             <div class="qr-info-item">
                                 <div class="qr-info-label"><i class="fas fa-user"></i> নাম (ইংরেজি)</div>
-                                <div class="qr-info-value">{{ $detail->name_en ?? '—' }}</div>
+                                <div class="qr-info-value">{{ $detail?->name_en ?? '—' }}</div>
                             </div>
                             <div class="qr-info-item">
                                 <div class="qr-info-label"><i class="fas fa-mobile-alt"></i> মোবাইল</div>
@@ -657,11 +657,11 @@
                             </div>
                             <div class="qr-info-item">
                                 <div class="qr-info-label"><i class="fas fa-hashtag"></i> রোল নম্বর</div>
-                                <div class="qr-info-value">{{ $detail->roll_number ?? '—' }}</div>
+                                <div class="qr-info-value">{{ $detail?->roll_number ?? '—' }}</div>
                             </div>
                             <div class="qr-info-item">
                                 <div class="qr-info-label"><i class="fas fa-id-badge"></i> রেজিস্ট্রেশন</div>
-                                <div class="qr-info-value">{{ $detail->registration_number ?? '—' }}</div>
+                                <div class="qr-info-value">{{ $detail?->registration_number ?? '—' }}</div>
                             </div>
                         </div>
 

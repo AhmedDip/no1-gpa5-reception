@@ -99,8 +99,27 @@ class QrCodeController extends Controller
     public function showStudentQrCode(string $mobile)
     {
 
-        $user = $this->findApprovedStudent($mobile);
+        $user = $this->findApprovedUser($mobile);
 
+
+        $qrDataUri = null;
+
+        if ($user) {
+            $scanUrl = route('admin.qrcode.student.scan', ['mobile' => $user->mobile]);
+            $qrDataUri = $this->buildStudentQrCode($scanUrl, $user->studentDetail);
+        }
+
+        return view('frontend.pages.qrcode.student', compact('user', 'qrDataUri'));
+    }
+
+    public function showOwnStudentQrCode()
+    {
+        $user = $this->findApprovedStudent(auth()->user()->mobile);
+        // $user = [];
+
+        if ($user?->studentDetail?->application_status_id != 6) {
+            return back()->with('error', 'আপনি এখনও ইনভিটেশন কার্ড ডাউনলোডের জন্য যোগ্য নন।');
+        }
 
         $qrDataUri = null;
 
@@ -155,9 +174,9 @@ class QrCodeController extends Controller
 
     public function scanStudentQrCode(string $mobile)
     {
-        $user = $this->findApprovedStudent($mobile);
+        $user = $this->findApprovedUser($mobile);
 
-        if (!$user || !$user->studentDetail) {
+        if (!$user && !$user->studentDetail) {
             return view('frontend.pages.qrcode.student-invalid');
         }
 
@@ -235,6 +254,30 @@ class QrCodeController extends Controller
             ->where('user_type_id', 1)
             ->whereHas('studentDetail', function ($query) {
                 $query->whereIn('application_status_id', [4, 6]);
+            })
+            ->first();
+    }
+
+    private function findApprovedUser(string $mobile): ?User
+    {
+        $mobile = preg_replace('/[^0-9]/', '', $mobile);
+
+        if ($mobile === '') {
+            return null;
+        }
+
+        return User::query()
+            ->where('mobile', $mobile)
+            ->where('lfcl_id', 1)
+            ->whereIn('user_type_id', [1, 5])
+            ->where(function ($query) {
+                $query->where('user_type_id', 5)
+                    ->orWhere(function ($q) {
+                        $q->where('user_type_id', 1)
+                            ->whereHas('studentDetail', function ($sub) {
+                                $sub->whereIn('application_status_id', [4, 6]);
+                            });
+                    });
             })
             ->first();
     }

@@ -74,6 +74,7 @@ Route::prefix('student')->name('student.')->group(function () {
 
             // Dashboard
             Route::get('/dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
+            Route::get('/qr-code', [QrCodeController::class, 'showOwnStudentQrCode'])->name('qr-code');
 
             // Application Management
             Route::get('/edit-application', [StudentController::class, 'editApplication'])->name('edit.application');

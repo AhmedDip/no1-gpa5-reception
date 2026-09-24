@@ -312,7 +312,7 @@
                                 3 => ['bg' => 'danger', 'text' => 'rejected'],
                                 4 => ['bg' => 'info', 'text' => 'under-review'],
                             ];
-                            $status = $statusColors[$studentDetail->application_status_id] ?? [
+                            $status = $statusColors[$studentDetail?->application_status_id] ?? [
                                 'bg' => 'secondary',
                                 'text' => 'pending',
                             ];
@@ -364,19 +364,19 @@
                         <div class="detail-row">
                             <div class="row g-0">
                                 <div class="col-6 detail-label">রোল নম্বর:</div>
-                                <div class="col-6 detail-value">{{ $studentDetail->roll_number }}</div>
+                                <div class="col-6 detail-value">{{ $studentDetail->roll_number ?? 'N/A' }}</div>
                             </div>
                         </div>
                         <div class="detail-row">
                             <div class="row g-0">
                                 <div class="col-6 detail-label">রেজিস্ট্রেশন নম্বর:</div>
-                                <div class="col-6 detail-value">{{ $studentDetail->registration_number }}</div>
+                                <div class="col-6 detail-value">{{ $studentDetail->registration_number ?? 'N/A' }}</div>
                             </div>
                         </div>
                         <div class="detail-row">
                             <div class="row g-0">
                                 <div class="col-6 detail-label">জিপিএ/ফলাফল:</div>
-                                <div class="col-6 detail-value text-success">{{ $studentDetail->gpa_result }}</div>
+                                <div class="col-6 detail-value text-success">{{ $studentDetail->gpa_result ?? 'N/A' }}</div>
                             </div>
                         </div>
                     </div>
@@ -480,12 +480,21 @@
                                     </div>
                                 </a>
                             </div>
+                            <div class="col-md-4">
+                                <a href="{{ route('student.qr-code') }}" class="text-decoration-none">
+                                    <div class="menu-btn bg-light">
+                                        <i class="fas fa-qrcode fa-2x text-danger"></i>
+                                        <h6 class="mb-0 text-dark mt-1">কিউআর কোড</h6>
+                                        <small class="text-muted">ডাউনলোড করুন</small>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Parent Information Card -->
-                @if ($studentDetail->is_parent_info_provided)
+                @if ($studentDetail?->is_parent_info_provided)
                     <div class="card info-card shadow-sm mb-4 mt-4">
                         <div class="card-header card-header-custom">
                             <h5 class="fw-bold mb-0">
