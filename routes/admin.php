@@ -166,6 +166,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/qr-code', [QrCodeController::class, 'index'])->name('qrcode.index');
         Route::get('/qr-code/latest-scans', [QrCodeController::class, 'latestScans'])->name('qrcode.latest-scans');
+        Route::get('/ceremony-entries', [QrCodeController::class, 'dailyEntries'])
+            ->name('ceremony-entries.index');
 
 
         // Route::get('/qr-code/scan/{mobile}', [QrCodeController::class, 'scanStudentQrCode'])

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\CeremonyEntry;
 use App\Models\User;
 use App\Services\CeremonyEntryService;
@@ -58,6 +59,39 @@ class QrCodeController extends Controller
             'latest' => $latestData,
             'recent' => $entries->map(fn(CeremonyEntry $entry) => $this->formatEntry($entry))->values(),
         ]);
+    }
+
+    public function dailyEntries(Request $request)
+    {
+        $request->validate([
+            'date' => ['nullable', 'date'],
+        ]);
+
+        $date = Carbon::parse($request->input('date', today()->toDateString()))->toDateString();
+
+        $latestEntryIds = CeremonyEntry::query()
+            ->selectRaw('MAX(id)')
+            ->where('status', 'approved')
+            ->whereDate('scanned_at', $date)
+            ->groupBy('student_id');
+
+        $entries = CeremonyEntry::query()
+            ->with(['student.userType', 'studentDetail'])
+            ->whereIn('id', $latestEntryIds)
+            ->latest('scanned_at')
+            ->paginate(200)
+            ->withQueryString();
+
+        $page_content = [
+            'page_title'      => 'Daily Ceremony Entries',
+            'module_name'     => 'Reports',
+            'module_route'    => route('admin.ceremony-entries.index'),
+            'sub_module_name' => 'Unique Daily Entries',
+        ];
+
+        return view('backend.modules.admin.reports.ceremony-entries.index', compact(
+            'entries', 'date', 'page_content'
+        ));
     }
 
     public function verify(Request $request)
@@ -290,6 +324,10 @@ class QrCodeController extends Controller
     {
         return CeremonyEntry::query()
             ->with(['studentDetail.board', 'studentDetail.group', 'student'])
+            ->whereHas('student', function ($query) {
+                $query->where('user_type_id', 1)
+                    ->where('lfcl_id', 1);
+            })  
             ->where('status', 'approved')
             ->latest('scanned_at')
             ->limit(self::RECENT_LIMIT);
