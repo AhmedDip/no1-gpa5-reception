@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\AuditReportController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GuestController;
 use App\Http\Controllers\Admin\MenuPermissionController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SmsLogController;
@@ -130,6 +131,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 ->middleware('menu.permission:applications.list,update')
                 ->name('bulk-notify-multiple');
         });
+
+        Route::prefix('guests')->name('guests.')->group(function () {
+    Route::get('/', [GuestController::class, 'index'])
+        ->name('index');
+});
+
 
         Route::get('/sms-logs', [SmsLogController::class, 'index'])
             ->middleware('menu.permission:settings.upazila-manager-assignments,read')
