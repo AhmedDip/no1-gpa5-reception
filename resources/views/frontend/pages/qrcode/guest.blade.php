@@ -96,7 +96,7 @@
 
         .qr-overlay {
             position: absolute;
-            top: 57%; /* Adjust to match placeholder */
+            top: 52%; /* Adjust to match placeholder */
             left: 50%;
             width: 45%; /* Adjust to match placeholder */
             transform: translate(-50%, -50%);
@@ -214,7 +214,7 @@
             @if ($user)
                 <div class="qr-card-container">
                     <div class="qr-card" id="printableCard">
-                        <img class="qr-bg" src="{{ asset('images/qr-code/qr-code.jpeg') }}" alt="QR Card" style="height: 550px;">
+                        <img class="qr-bg" src="{{ asset('images/qr-code/qr-code-2.jpeg') }}" alt="QR Card" style="height: 550px;">
 
                         <div class="qr-overlay">
                             @if (!empty($qrDataUri))
