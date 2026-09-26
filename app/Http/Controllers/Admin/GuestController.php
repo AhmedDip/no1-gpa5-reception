@@ -12,7 +12,8 @@ class GuestController extends Controller
     {
         $filters = $request->only(['search', 'per_page']);
 
-        $query = User::query()->where('user_type_id', 5);
+        // Apply filters
+        $query = User::query()->where('user_type_id', 5)->where('lfcl_id', 1); 
 
         // Search filter
         if (!empty($filters['search'])) {
@@ -23,9 +24,9 @@ class GuestController extends Controller
             });
         }
 
-        $perPage = $filters['per_page'] ?? 20;
+        $perPage = $filters['per_page'] ?? 100;
 
-        $guests = $query->orderBy('id', 'desc')
+        $guests = $query->orderBy('id', 'asc')
             ->paginate($perPage)
             ->withQueryString();
 
@@ -41,12 +42,5 @@ class GuestController extends Controller
             'filters',
             'page_content'
         ));
-    }
-
-    public function qrCode($mobile)
-    {
-        // Your existing QR generation logic here.
-        // Return a downloadable PNG or redirect to a QR generator view.
-        return redirect()->route('admin.qrcode.student.show', ['mobile' => $mobile]);
     }
 }

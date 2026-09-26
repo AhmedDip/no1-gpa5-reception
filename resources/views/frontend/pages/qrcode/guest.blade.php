@@ -282,7 +282,7 @@
                         const link = document.createElement('a');
                         // link.download =
                         // name and mobile link download file name
-                        link.download = 'QR_Code_{{ $user?->name ?? '' }}_{{ $user?->mobile }}.jpg';
+                        link.download = 'QR_Code_{{ $user->name ?? '' }}_{{ $user->mobile }}.jpg';
                         link.href = imgData;
                         document.body.appendChild(link);
                         link.click();

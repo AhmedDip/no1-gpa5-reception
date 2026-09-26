@@ -99,17 +99,34 @@ class QrCodeController extends Controller
     public function showStudentQrCode(string $mobile)
     {
 
-        $user = $this->findApprovedUser($mobile);
-
+        $user = $this->findApprovedStudent($mobile);
+        // dd($user);
 
         $qrDataUri = null;
 
         if ($user) {
             $scanUrl = route('admin.qrcode.student.scan', ['mobile' => $user->mobile]);
             $qrDataUri = $this->buildStudentQrCode($scanUrl, $user->studentDetail);
+
         }
 
         return view('frontend.pages.qrcode.student', compact('user', 'qrDataUri'));
+    }
+
+    public function showGuestQrCode(string $mobile)
+    {
+        $user = $this->findApprovedGuest($mobile);
+
+        if (!$user) {
+            return back()->with('error', 'গেস্ট তথ্য পাওয়া যায়নি।');
+        }
+
+
+        $scanUrl = route('admin.guest.qrcode.scan', ['mobile' => $user->mobile]);
+        $qrDataUri = $this->buildGuestQrCode($scanUrl, $user);
+
+
+        return view('frontend.pages.qrcode.guest', compact('user', 'qrDataUri'));
     }
 
     public function showOwnStudentQrCode()
@@ -156,6 +173,31 @@ class QrCodeController extends Controller
         return $builder->build()->getDataUri();
     }
 
+    private function buildGuestQrCode(string $data, ?User $user): string
+    {
+        $builder = Builder::create()
+            ->writer(new PngWriter())
+            ->data($data)
+            ->encoding(new Encoding('UTF-8'))
+            ->errorCorrectionLevel(ErrorCorrectionLevel::High)
+            ->size(420)
+            ->margin(12)
+            ->roundBlockSizeMode(RoundBlockSizeMode::Margin)
+            ->validateResult(false);
+
+        $logoPath = $this->resolveGuestPhotoPath($user);
+
+        if ($logoPath) {
+            $builder = $builder
+                ->logoPath($logoPath)
+                ->logoResizeToHeight(180)
+                ->logoResizeToWidth(180)
+                ->logoPunchoutBackground(true);
+        }
+
+        return $builder->build()->getDataUri();
+    }
+
     private function resolveStudentPhotoPath(?StudentDetail $detail): ?string
     {
         if (!$detail || empty($detail->student_photo)) {
@@ -172,9 +214,27 @@ class QrCodeController extends Controller
         return $uploadsDisk->path($photoPath);
     }
 
+    private function resolveGuestPhotoPath(?User $user): ?string
+    {
+        if (!$user || empty($user->photo)) {
+            return null;
+        }
+
+        $photoPath = ltrim(str_replace('\\', '/', $user->photo), '/');
+
+        $uploadsDisk = Storage::disk('uploads');
+
+        if (!$uploadsDisk->exists($photoPath)) {
+            return null;
+        }
+
+        return $uploadsDisk->path($photoPath);
+    }
+
+
     public function scanStudentQrCode(string $mobile)
     {
-        $user = $this->findApprovedUser($mobile);
+        $user = $this->findApprovedStudent($mobile);
 
         if (!$user && !$user->studentDetail) {
             return view('frontend.pages.qrcode.student-invalid');
@@ -195,6 +255,30 @@ class QrCodeController extends Controller
         return view('frontend.pages.qrcode.student-scanned', [
             'user' => $user,
             'detail' => $user->studentDetail,
+        ]);
+    }
+
+    public function scanGuestQrCode(string $mobile)
+    {
+        $user = $this->findApprovedGuest($mobile);
+
+        if (!$user) {
+            return view('frontend.pages.qrcode.guest-invalid');
+        }
+
+        try {
+            CeremonyEntry::create([
+                'student_id' => $user->id,
+                'status' => 'approved',
+                'remarks' => 'গেস্ট QR কোড স্ক্যান (মোবাইল ভিত্তিক প্রবেশ)',
+                'scanned_at' => now(),
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        return view('frontend.pages.qrcode.guest-scanned', [
+            'user' => $user,
         ]);
     }
 
@@ -258,7 +342,8 @@ class QrCodeController extends Controller
             ->first();
     }
 
-    private function findApprovedUser(string $mobile): ?User
+
+    private function findApprovedGuest(string $mobile): ?User
     {
         $mobile = preg_replace('/[^0-9]/', '', $mobile);
 
@@ -269,16 +354,7 @@ class QrCodeController extends Controller
         return User::query()
             ->where('mobile', $mobile)
             ->where('lfcl_id', 1)
-            ->whereIn('user_type_id', [1, 5])
-            ->where(function ($query) {
-                $query->where('user_type_id', 5)
-                    ->orWhere(function ($q) {
-                        $q->where('user_type_id', 1)
-                            ->whereHas('studentDetail', function ($sub) {
-                                $sub->whereIn('application_status_id', [4, 6]);
-                            });
-                    });
-            })
+            ->where('user_type_id', 5)
             ->first();
     }
 

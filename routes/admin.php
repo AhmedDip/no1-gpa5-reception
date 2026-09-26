@@ -1,5 +1,4 @@
 <?php
-// routes/admin.php
 
 use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\AuditReportController;
@@ -132,10 +131,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 ->name('bulk-notify-multiple');
         });
 
-        Route::prefix('guests')->name('guests.')->group(function () {
-    Route::get('/', [GuestController::class, 'index'])
-        ->name('index');
-});
+
+        Route::get('/guests', [GuestController::class, 'index'])
+            ->middleware('menu.permission:applications.list,update')
+            ->name('guests.index');
 
 
         Route::get('/sms-logs', [SmsLogController::class, 'index'])
@@ -175,14 +174,20 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/qr-code/{mobile}', [QrCodeController::class, 'showStudentQrCode'])
             ->name('qrcode.student.show')->middleware('auth', 'admin.auth');
 
-         Route::get('/invitation-letter/{mobile}', [InvitationLetterController::class, 'showForStudent'])
+        Route::get('/guest/qr-code/{mobile}', [QrCodeController::class, 'showGuestQrCode'])
+            ->name('qrcode.guest.show')->middleware('auth', 'admin.auth');
+
+        Route::get('/invitation-letter/{mobile}', [InvitationLetterController::class, 'showForStudent'])
             ->name('invitation.student.show')->middleware('auth', 'admin.auth');
     });
 
 });
 
-    Route::get('admin/qr-code/scan/{mobile}', [QrCodeController::class, 'scanStudentQrCode'])
-        ->name('admin.qrcode.student.scan');
+Route::get('admin/qr-code/scan/{mobile}', [QrCodeController::class, 'scanStudentQrCode'])
+    ->name('admin.qrcode.student.scan');
+
+Route::get('admin/guest/qr-code/scan/{mobile}', [QrCodeController::class, 'scanGuestQrCode'])
+    ->name('admin.guest.qrcode.scan');
 
 
 
